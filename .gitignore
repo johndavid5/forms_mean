@@ -1,0 +1,7 @@
+*~
+*.swp
+*.out
+*.log
+archive/
+assets/
+node_modules/
