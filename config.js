@@ -3,5 +3,5 @@
 // when in production and check for it
 // inside this "config.js" file.
 module.exports = {
-	db_url: 'mongodb://localhost/formd'
+	db_url: 'mongodb://localhost/forms'
 };

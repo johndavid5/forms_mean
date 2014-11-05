@@ -1,7 +1,8 @@
 var db = require('../db');
 
-var FormDIndex = db.model('form_d_index',
+var FormsIndex = db.model('forms_index',
 	{	
+		index_file: { type: String, required: true},
 		company_name: {type: String, required: true},
 		form_type: {type: String, required: true},
 		date_filed: {type: String, required: true},
@@ -9,4 +10,4 @@ var FormDIndex = db.model('form_d_index',
 	}
 );
 
-module.exports = FormDIndex;
+module.exports = FormsIndex;

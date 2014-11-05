@@ -1,9 +1,32 @@
 var LineByLineReader = require('line-by-line');
-var FormDIndexModel = require('./models/form_d_index.js');
+var FormsIndexModel = require('./models/forms_index.js');
 
 var daily_index_path = "./edgar/daily-index/master.20141031.idx";
 
-loadDailyIndex( daily_index_path );
+//loadDailyIndex( daily_index_path );
+
+downloadAForm();
+
+function downloadAForm(){
+
+	var sWho = "downloadAForm";
+
+	console.log(sWho + "()...");
+
+	FormsIndexModel.find()	
+	//.sort('-date')
+	.exec(function(err, formsIndexes){ 
+		if(err){
+			console.log("Error during FormsIndexModel.find(): err = ", err );
+		}
+
+		console.log("formsIndexes.length = " + formsIndexes.length );
+
+		for( var i = 0; i < formsIndexes.length; i++ ){
+			console.log("formsIndexes[" + i + "] = ", formsIndexes[i] );
+		}
+	});
+}
 
 function loadDailyIndex( daily_index_path ){
 
@@ -26,17 +49,18 @@ function loadDailyIndex( daily_index_path ){
 				console.log( "->" + "line " + line_count + ": json = ", json );
 				if( json.form_type == "D" || json.form_type == "D/A" ){
 					console.log("-->" + "line " + line_count + ": Hot diggity dog!  Looks like a Form D entry...let's stick it in the database...!");
-					var formDIndexModel = new FormDIndexModel({		
+					var formsIndexModel = new FormsIndexModel({		
+						index_file: daily_index_path,
 						company_name: json.company_name,	
 						form_type: json.form_type,	
 						date_filed: json.date_filed,	
 						file_name: json.file_name,	
 					});
 				
-					formDIndexModel.save(
+					formsIndexModel.save(
 						function(err, post){
 							if(err){
-								console.log("Error during formDIndexModel.save(): err = ", err );
+								console.log("Error during formsIndexModel.save(): err = ", err );
 							}
 						}
 					);
@@ -59,11 +83,14 @@ function loadDailyIndex( daily_index_path ){
 }
 
 /*
+* The index file looks like this:
+*
 * CIK|Company Name|Form Type|Date Filed|File Name
 * 1000180|SANDISK CORP|4|20141031|edgar/data/1000180/0001242648-14-000081.txt
 * 1012037|COMPAGNIE DE SAINT GOBAIN|D|20141031|edgar/data/1012037/0001012037-14-000001.txt
 * 1084226|Searchlight Minerals Corp.|D/A|20141031|edgar/data/1084226/0001144204-14-064336.txt"...
 * 1084226|Searchlight Minerals Corp.|D|20141031|edgar/data/1084226/0001144204-14-064319.txt"...
+*
 */
 function lineToJson( line, callback ){
 
