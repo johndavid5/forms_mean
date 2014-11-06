@@ -3,5 +3,6 @@
 // when in production and check for it
 // inside this "config.js" file.
 module.exports = {
-	db_url: 'mongodb://localhost/forms'
+	db_url: 'mongodb://localhost/forms',
+	edgar_local_root: 'c:/inetpub/wwwroot/forms_mean'
 };

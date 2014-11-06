@@ -1,11 +1,24 @@
+var fs = require('fs'); // File System
 var LineByLineReader = require('line-by-line');
+var nodeFs = require('node-fs'); // File System - Extended Stuff
+var FtpClient = require('ftp');
+
+var config = require('./config');
 var FormsIndexModel = require('./models/forms_index.js');
 
 var daily_index_path = "./edgar/daily-index/master.20141031.idx";
 
+//var ftp_host = "ftp.sec.gov@proxy.prnewswire.com";
+//var ftp_host = "ftp.sec.gov";
+var ftp_host = "proxy.prnewswire.com";
+var ftp_port = 8080;
+var ftp_user = "anonymous@ftp.sec.gov";
+var ftp_password = "johndavid5@yahoo.com";
+
 //loadDailyIndex( daily_index_path );
 
 downloadAForm();
+
 
 function downloadAForm(){
 
@@ -23,10 +36,66 @@ function downloadAForm(){
 		console.log("formsIndexes.length = " + formsIndexes.length );
 
 		for( var i = 0; i < formsIndexes.length; i++ ){
+
 			console.log("formsIndexes[" + i + "] = ", formsIndexes[i] );
-		}
+
+			if( fs.existsSync( formsIndexes[i].file_name ) ){
+
+				console.log("formsIndexes[" + i + "].file_name = '" + formsIndexes[i].file_name + "' seems to already exist locally...");
+
+			}
+			else {
+
+				console.log("formsIndexes[" + i + "].file_name = '" + formsIndexes[i].file_name + "' does not seem to exist locally, downloading it now...");
+
+				//for example, url = "ftp://ftp.sec.gov/edgar/data/1600037/14/000159958014000001/primary_doc.xml";
+
+				var baseDir = formsIndexes[i].file_name;
+				// e.g., formsIndexes[i].file_name: 'edgar/data/1494316/0001544824-14-000029.txt'
+				// But first make sure the directory exists... 
+				// TODO: Use a more sophisticated way to determine the baseDir...a node module,
+				// or part of your "utils"...maybe lo-dash...?
+				var iWhere = formsIndexes[i].file_name.lastIndexOf("/");
+
+				if( iWhere >= 0 ){
+					baseDir = formsIndexes[i].file_name.substring(0, iWhere);
+				}
+				console.log("Calling nodeFs.mkdirSync( '" + baseDir + "' )...");
+				// node-fs: mkdirSync(path, mode, [recursive]):
+				nodeFs.mkdirSync( baseDir, 0777, true );
+
+				var ftpClient = new FtpClient();
+
+				var connect_options = {"host": ftp_host, "port": ftp_port, "user": ftp_user, "password": ftp_password };
+
+
+				ftpClient.on('ready', function(){
+
+					console.log("*** ftpClient.get( '" + formsIndexes[i].file_name + "' )...");
+
+					ftpClient.get( formsIndexes[i].file_name, function(err, stream){
+						if(err){ console.log("Error with download of '" + formsIndexes[i].file_name + "': ", err ); }
+						stream.once('close', function(){ ftpClient.end(); });
+						console.log("*** stream.pipe(fs.createWriteStream( '" + formsIndexes[i].file_name + "' )...");
+						stream.pipe(fs.createWriteStream( formsIndexes[i].file_name ) );
+					});
+				});
+
+				ftpClient.on('error', function(err){
+					console.log("*** ftpClient.on('error'): err = ", err );
+				});
+
+				console.log("*** ftpClient.connect( ", connect_options, " )...");
+				ftpClient.connect( connect_options );
+
+				//console.log("*** Got one or failed one...so breaking out of loop...");
+				//break;
+			}
+
+		}/* for( var i = 0; i < formsIndexes.length; i++ ) */
 	});
 }
+
 
 function loadDailyIndex( daily_index_path ){
 
