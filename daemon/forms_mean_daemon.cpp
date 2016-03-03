@@ -7,53 +7,19 @@
 #include "utils.h" 
 #include "logger.h" 
 
-//#include "FtpClient.h"
+#include "FormsMeanConfig.h"
 
-//#include "FormsMeanCommon.h"
-//#include "FormsMeanUtils.h"
+#include "FormsMeanUtils.h"
 
 using namespace std;
 
 /************ GLOBAL FUNCTION PROTOTYPES - BEGIN ******************/
-void getConfig();
-
-string getLogFilePath();
-
-void setupLogger( JDA::Logger& kenny_loggins );
-
-enum DownloadWindowType { DAY, EVENING, WEEKEND }; 
-
-static const char* downloadWindowTypeEnumStrings[] = { "DAY", "EVENING", "WEEKEND"};
-
-static string downloadWindowTypeToString( DownloadWindowType downloadWindowType ){
-	const char* sWho = "::downloadWindowTypeToString";
-	// int iDownloadWindowType = (int)downloadWindowType;
-	// JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): SHEMP: Moe, iDownloadWindowType = " << iDownloadWindowType << "..." << endl;
-	// JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): SHEMP: Moe, Returning downloadWindowTypeEnumStrings[ " << iDownloadWindowType << "] = \"" << downloadWindowTypeEnumStrings[iDownloadWindowType] << "\"..." << endl;
-	return downloadWindowTypeEnumStrings[ downloadWindowType ];
-}
-
-DownloadWindowType in_which_download_window(
-	int evening_start_hour,
-	int evening_end_hour,
-	int hour = -1,
-	int day_of_week = -1
-);
 
 void in_which_download_window_test(int evening_start_hour, int evening_end_hour);
-
-/**
-* Keep setting logFilePath with current datestamp.
-*
-* Whereupon, at the crack of midnight, whence the datestamp changeth,
-* JDA::Logger will by black witchcraft and deviltry begineth a new logfileth.
-*/
-void resetLogFilePath();
 
 /************ GLOBAL FUNCTION PROTOTYPES - END ******************/
 
 /********** GLOBAL VARIABLES - BEGIN ******************/
-map<string, string> ConfigMap;
 
 // The name of the service for logging purposes...
 const char *SERVICE_NAME = "forms_mean_daemon";
@@ -74,12 +40,7 @@ BOOL runningService = FALSE;
 // Thread for the actual work
 HANDLE threadHandle = 0;
 
-string GB_MANUAL_INDEX_PROCESS_URL = ""; // Set via command-line argument in main() for manual loading of an edgar index...
-string GB_MANUAL_FORM_PROCESS_URL = ""; // Set via command-line argument in main() for manual loading of an edgar form...
-
-string GB_CMD_LINE_DAILY_INDEX_BACKFILL_DAYS = ""; // Set via command-line argument in main() to override both DEFAULT value and value from Config file.
-string GB_CMD_LINE_LOAD_DAILY_INDEXES = ""; // Set via command-line argument in main() to override both DEFAULT value and value from Config file.
-string GB_CMD_LINE_LOAD_NEXT_EDGAR_FILING_HEADER = ""; // Set via command-line argument in main() to override both DEFAULT value and value from Config file.
+JDA::Logger* P_LOGGER = NULL;
 
 /********** GLOBAL VARIABLES - END ******************/
 
@@ -93,10 +54,18 @@ void ErrorHandler(char *s, DWORD err)
 	oss_out << "Error number: " << err << endl;
 	oss_out << "Error string: " << JDA::Utils::strerror(err) << endl;
 	oss_out << "Calling ExitProcess(" << err << ")" << endl;
-	JDA::Logger::log(JDA::Logger::FATAL) << sWho << "():\n" << oss_out.str() << endl;
+
+	if( P_LOGGER != NULL ){
+		(*P_LOGGER)(JDA::Logger::FATAL) << sWho << "():\n" << oss_out.str() << endl;
+	}
+	else {
+		cerr << "FATAL: " << sWho << "():\n" << oss_out.str() << endl;
+	}
 
 	ExitProcess(err);
-}
+
+}/* ErrorHandler() */
+
 
 DWORD ServiceThread(LPDWORD param)
 {
@@ -104,371 +73,28 @@ DWORD ServiceThread(LPDWORD param)
 
 	string sWho = (string)SERVICE_NAME + "::ServiceThread";
 
-	//JDA::Logger::log.debug = 1;
+	string sConfigFilePath = JDA::FormsMeanUtils::getConfigFilePath();
 
-	getConfig();
-	setupLogger( JDA::Logger::log );
+	FormsMeanConfig config;
+	config.loadConfigFile( sConfigFilePath );
 
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "\n" 
+	JDA::Logger logger;
+	P_LOGGER = &logger; // Set to global for ErrorHandler...
+
+	FormsMeanUtils::setupLogger( &logger );
+
+	logger(JDA::Logger::INFO) << sWho << "(): " << "\n" 
 	<< "*************************************************" << "\n"
 	<< "**  Welcome to The Forms Mean Daemon, Pilgrim  **" << "\n"
 	<< "*************************************************" << endl;
 
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "S_VERSION = " << S_VERSION << "..." << endl;
+	logger(JDA::Logger::INFO) << sWho << "(): " << "S_VERSION = " << S_VERSION << "..." << endl;
 
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): ConfigMap = " << ConfigMap << "..." << endl;
-
-	int iEdgarFtpDebug = 0;
-	try {
-		iEdgarFtpDebug = JDA::Utils::stringToInt( ConfigMap["edgar_ftp_debug"] );
-	}catch( JDA::Utils::Exception& e ){ 
-		JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): " << "Trouble parsing 'edgar_ftp_debug' = \""
-			<< ConfigMap["edgar_ftp_debug"] << "\" into an integer [\"" << e.what() << "\"],\n" 
-			<< "so using default value of 0 (zero)..." << endl;
-	}
-
-	string sEdgarFtpServer = ConfigMap["edgar_ftp_server"]; 
-
-	string sEdgarDailyIndexPath = ConfigMap["edgar_daily_index_path"]; 
-
-	string sEdgarDailyIndexFileName = ConfigMap["edgar_daily_index_file_name"]; 
-
-	string sEnvFtpProxySet = ConfigMap["env_ftp_proxy_set"];
-	string sEnvHttpProxySet = ConfigMap["env_http_proxy_set"];
-	string sEnvHttpsProxySet = ConfigMap["env_https_proxy_set"];
-
-	string sEdgarFtpProxyUserPass = ConfigMap["edgar_ftp_proxy_user_pass"];
-
-	bool bEdgarFtpNoProxy = JDA::Utils::stringToBool( ConfigMap["edgar_ftp_no_proxy"] );
-
-	string sDbUrl = ConfigMap["db_url"];
-	string sDbUser = ConfigMap["db_user"];
-	string sDbPass = ConfigMap["db_pass"];
-
-	int iDayDownloadSleepTime = JDA::FormsMeanCommon::DEF_DAY_DOWNLOAD_SLEEP_TIME;
-	try {
-		iDayDownloadSleepTime = JDA::Utils::stringToInt( ConfigMap["day_download_sleep_time"] );
-	}catch( JDA::Utils::Exception& e ){ 
-		JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): " << "Trouble parsing 'day_download_sleep_time' = \""
-			<< ConfigMap["day_download_sleep_time"] << "\" into an integer [\"" << e.what() << "\"],\n" 
-			<< "so using default value..." << endl;
-	}
-
-	int iEveningDownloadSleepTime = JDA::FormsMeanCommon::DEF_EVENING_DOWNLOAD_SLEEP_TIME;
-	try {
-		iEveningDownloadSleepTime = JDA::Utils::stringToInt( ConfigMap["evening_download_sleep_time"] );
-	}catch( JDA::Utils::Exception& e ){ 
-		JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): " << "Trouble parsing 'evening_download_sleep_time' = \""
-			<< ConfigMap["evening_download_sleep_time"] << "\" into an integer [\"" << e.what() << "\"],\n" 
-			<< "so using default value..." << endl;
-	}
-
-	int iWeekendDownloadSleepTime = JDA::FormsMeanCommon::DEF_WEEKEND_DOWNLOAD_SLEEP_TIME;
-	try {
-		iWeekendDownloadSleepTime = JDA::Utils::stringToInt( ConfigMap["weekend_download_sleep_time"] );
-	}catch( JDA::Utils::Exception& e ){ 
-		JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): " << "Trouble parsing 'weekend_download_sleep_time' = \""
-			<< ConfigMap["weekend_download_sleep_time"] << "\" into an integer [\"" << e.what() << "\"],\n" 
-			<< "so using default value..." << endl;
-	}
-
-	int iEveningDownloadStartHour = JDA::FormsMeanCommon::DEF_EVENING_DOWNLOAD_START_HOUR;
-	try {
-		iEveningDownloadStartHour = JDA::Utils::stringToInt( ConfigMap["evening_download_start_hour"] );
-	}catch( JDA::Utils::Exception& e ){ 
-		JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): " << "Trouble parsing 'evening_download_start_hour' = \""
-			<< ConfigMap["evening_download_start_hour"] << "\" into an integer [\"" << e.what() << "\"],\n" 
-			<< "so using default value..." << endl;
-	}
-
-	int iEveningDownloadEndHour = JDA::FormsMeanCommon::DEF_EVENING_DOWNLOAD_END_HOUR;
-	try {
-		iEveningDownloadEndHour = JDA::Utils::stringToInt( ConfigMap["evening_download_end_hour"] );
-	}catch( JDA::Utils::Exception& e ){ 
-		JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): " << "Trouble parsing 'evening_download_end_hour' = \""
-			<< ConfigMap["evening_download_end_hour"] << "\" into an integer [\"" << e.what() << "\"],\n" 
-			<< "so using default value..." << endl;
-	}
-
-	//////////////////////////////////////////////////////////
-
-	if( GB_CMD_LINE_DAILY_INDEX_BACKFILL_DAYS.length() > 0 ){
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "Overriding ConfigMap[\"daily_index_backfill_days\"] with GB_CMD_LINE_DAILY_INDEX_BACKFILL_DAYS = \"" << GB_CMD_LINE_DAILY_INDEX_BACKFILL_DAYS << "\"..." << endl;
-		ConfigMap["daily_index_backfill_days"] = GB_CMD_LINE_DAILY_INDEX_BACKFILL_DAYS;
-	}
-
-	string sDailyIndexBackfillDays = ConfigMap["daily_index_backfill_days"];
-	int iDailyIndexBackfillDays = -1;
-	if( ! JDA::Utils::stringToInt( sDailyIndexBackfillDays, &iDailyIndexBackfillDays ) ){
-		JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): " << "Could not parse ConfigMap[\"daily_index_backfill_days\"] = \"" << sDailyIndexBackfillDays << "\" as an integer, defaulting to JDA::FormsMeanCommon::DEFAULT_DAILY_INDEX_BACKFILL_DAYS = " << JDA::FormsMeanCommon::DEFAULT_DAILY_INDEX_BACKFILL_DAYS << "..." << endl;
-		iDailyIndexBackfillDays = JDA::FormsMeanCommon::DEFAULT_DAILY_INDEX_BACKFILL_DAYS;
-	}
-
-	string sDailyIndexRecheckInterval = ConfigMap["daily_index_recheck_interval"];
-	int iDailyIndexRecheckInterval = -1;
-	if( ! JDA::Utils::stringToInt( sDailyIndexRecheckInterval, &iDailyIndexRecheckInterval ) ){
-		JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): " << "Could not parse ConfigMap[\"daily_index_recheck_interval\"] = \"" << sDailyIndexRecheckInterval << "\" as an integer, defaulting to JDA::FormsMeanCommon::DEFAULT_DAILY_INDEX_RECHECK_INTERVAL = " << JDA::FormsMeanCommon::DEFAULT_DAILY_INDEX_RECHECK_INTERVAL << "..." << endl;
-		iDailyIndexRecheckInterval = JDA::FormsMeanCommon::DEFAULT_DAILY_INDEX_RECHECK_INTERVAL;
-	}
-
-	string sDailyIndexRetryInterval = ConfigMap["daily_index_retry_interval"];
-	int iDailyIndexRetryInterval = -1;
-	if( ! JDA::Utils::stringToInt( sDailyIndexRetryInterval, &iDailyIndexRetryInterval ) ){
-		JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): " << "Could not parse ConfigMap[\"daily_index_retry_interval\"] = \"" << sDailyIndexRetryInterval << "\" as an integer, defaulting to JDA::FormsMeanCommon::DEFAULT_DAILY_INDEX_RETRY_INTERVAL = " << JDA::FormsMeanCommon::DEFAULT_DAILY_INDEX_RETRY_INTERVAL << "..." << endl;
-		iDailyIndexRetryInterval = JDA::FormsMeanCommon::DEFAULT_DAILY_INDEX_RETRY_INTERVAL;
-	}
-
-	string sDailyIndexMaxAttempts = ConfigMap["daily_index_max_attempts"];
-	int iDailyIndexMaxAttempts = -1;
-	if( ! JDA::Utils::stringToInt( sDailyIndexMaxAttempts, &iDailyIndexMaxAttempts ) ){
-		JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): " << "Could not parse ConfigMap[\"daily_index_max_attempts\"] = \"" << sDailyIndexMaxAttempts << "\" as an integer, defaulting to JDA::FormsMeanCommon::DEFAULT_DAILY_INDEX_MAX_ATTEMPTS = " << JDA::FormsMeanCommon::DEFAULT_DAILY_INDEX_MAX_ATTEMPTS << "..." << endl;
-		iDailyIndexMaxAttempts = JDA::FormsMeanCommon::DEFAULT_DAILY_INDEX_MAX_ATTEMPTS;
-	}
-
-	if( GB_CMD_LINE_LOAD_DAILY_INDEXES.length() > 0 ){
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "Overriding ConfigMap[\"load_daily_indexes\"] with GB_CMD_LINE_LOAD_DAILY_INDEXES = \"" << GB_CMD_LINE_LOAD_DAILY_INDEXES << "\"..." << endl;
-		ConfigMap["load_daily_indexes"] = GB_CMD_LINE_LOAD_DAILY_INDEXES;
-	}
-	bool bLoadDailyIndexes = JDA::Utils::stringToBool( ConfigMap["load_daily_indexes"] );
-
-	if( GB_CMD_LINE_LOAD_NEXT_EDGAR_FILING_HEADER.length() > 0 ){
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "Overriding ConfigMap[\"load_next_edgar_filing_header\"] with GB_CMD_LINE_LOAD_NEXT_EDGAR_FILING_HEADER = \"" << GB_CMD_LINE_LOAD_NEXT_EDGAR_FILING_HEADER << "\"..." << endl;
-		ConfigMap["load_next_edgar_filing_header"] = GB_CMD_LINE_LOAD_NEXT_EDGAR_FILING_HEADER;
-	}
-	bool bLoadNextEdgarFilingHeader = JDA::Utils::stringToBool( ConfigMap["load_next_edgar_filing_header"] );
-
-	/////////////////// LOG IT! ////////////
-	
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "BENNETT: Welcome back, John...so glad you could make it...!" << endl;
-	
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "GB_MANUAL_INDEX_PROCESS_URL = \"" << GB_MANUAL_INDEX_PROCESS_URL << "\"..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "GB_MANUAL_FORM_PROCESS_URL = \"" << GB_MANUAL_FORM_PROCESS_URL << "\"..." << endl;
-
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "GB_CMD_LINE_DAILY_INDEX_BACKFILL_DAYS = \"" << GB_CMD_LINE_DAILY_INDEX_BACKFILL_DAYS << "\"..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "GB_CMD_LINE_LOAD_DAILY_INDEXES = \"" << GB_CMD_LINE_LOAD_DAILY_INDEXES << "\"..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "GB_CMD_LINE_LOAD_NEXT_EDGAR_FILING_HEADER = \"" << GB_CMD_LINE_LOAD_NEXT_EDGAR_FILING_HEADER << "\"..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "iEdgarFtpDebug = " << iEdgarFtpDebug << "..." << endl;
-
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "sEdgarFtpServer = '" << sEdgarFtpServer << "'..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "sEdgarDailyIndexPath = '" << sEdgarDailyIndexPath << "'..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "sEdgarDailyIndexFileName = '" << sEdgarDailyIndexFileName << "'..." << endl;
-
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Note dhat curl uses ENV{'ftp_proxy'}, ENV{'http_proxy'}, and ENV{'https_proxy'}, Moe, so printing them now for your information..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, FYI, ENV{'ftp_proxy'} = \"" << JDA::Utils::getenv("ftp_proxy") << "\"..." << endl;  
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, FYI, ENV{'http_proxy'} = \"" << JDA::Utils::getenv("http_proxy") << "\"..." << endl;  
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, FYI, ENV{'https_proxy'} = \"" << JDA::Utils::getenv("https_proxy") << "\"..." << "\n" << endl;
-
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "sEnvFtpProxySet = '" << sEnvFtpProxySet << "'..." << endl;
-	if( sEnvFtpProxySet.length() > 0 ){
-		string s_key = "ftp_proxy";
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, sEnvFtpProxySet has length > 0, so callin' setenv(\"" << s_key << "\", \"" << sEnvFtpProxySet << "\") now, OK, Moe...?" << endl;
-		bool b_return_code = JDA::Utils::setenv( s_key, sEnvFtpProxySet ); 
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, retoyn code from setenv() = " << JDA::Utils::boolToString( b_return_code ) << "..." << endl;
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, now ENV{'" << s_key << "'} = \"" << JDA::Utils::getenv(s_key) << "\"..." << endl;  
-	}
-
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "sEnvHttpProxySet = '" << sEnvHttpProxySet << "'..." << endl;
-	if( sEnvHttpProxySet.length() > 0 ){
-		string s_key = "http_proxy";
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, sEnvHttpProxySet has length > 0, so callin' setenv(\"" << s_key << "\", \"" << sEnvHttpProxySet << "\") now, OK, Moe...?" << endl;
-		bool b_return_code = JDA::Utils::setenv( s_key, sEnvHttpProxySet ); 
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, retoyn code from setenv() = " << JDA::Utils::boolToString( b_return_code ) << "..." << endl;
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, now ENV{'" << s_key << "'} = \"" << JDA::Utils::getenv(s_key) << "\"..." << endl;  
-	}
-
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "sEnvHttpsProxySet = '" << sEnvHttpsProxySet << "'..." << endl;
-	if( sEnvHttpsProxySet.length() > 0 ){
-		string s_key = "https_proxy";
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, sEnvHttpsProxySet has length > 0, so callin' setenv(\"" << s_key << "\", \"" << sEnvHttpsProxySet << "\") now, OK, Moe...?" << endl;
-		bool b_return_code = JDA::Utils::setenv( s_key, sEnvHttpsProxySet ); 
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, retoyn code from setenv() = " << JDA::Utils::boolToString( b_return_code ) << "..." << endl;
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, now ENV{'" << s_key << "'} = \"" << JDA::Utils::getenv(s_key) << "\"..." << endl;  
-	}
-
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "bEdgarFtpNoProxy = '" << JDA::Utils::boolToString( bEdgarFtpNoProxy ) << "'..." << endl;
-
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "sEdgarFtpProxyUserPass = '" << sEdgarFtpProxyUserPass << "'..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "bEdgarFtpNoProxy = '" << JDA::Utils::boolToString( bEdgarFtpNoProxy ) << "'..." << endl;
-
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "sDbUrl = '" << sDbUrl << "'..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "sDbUser = '" << sDbUser << "'..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "sDbPass = '" << sDbPass << "'..." << endl;
-
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "iDayDownloadSleepTime = " << iDayDownloadSleepTime << "..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "iEveningDownloadSleepTime = " << iEveningDownloadSleepTime << "..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "iWeekendDownloadSleepTime = " << iWeekendDownloadSleepTime << "..." << endl;
-
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "iEveningDownloadStartHour = " << iEveningDownloadStartHour << "..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "iEveningDownloadEndHour = " << iEveningDownloadEndHour << "..." << "\n" << endl;
-
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "iDailyIndexBackfillDays = " << iDailyIndexBackfillDays << "..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "iDailyIndexRecheckInterval = " << iDailyIndexRecheckInterval << "..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "iDailyIndexRetryInterval = " << iDailyIndexRetryInterval << "..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "iDailyIndexMaxAttempts = " << iDailyIndexMaxAttempts << "..." << "\n" << endl;
-
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "bLoadDailyIndexes = " << bLoadDailyIndexes << "..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "bLoadNextEdgarFilingHeader = " << bLoadNextEdgarFilingHeader << "..." << endl;
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "bDownfillNextAgentDbDatum = " << bDownfillNextAgentDbDatum << "..." << "\n" << endl;
-
-	// One time index load and exit...
-	if( GB_MANUAL_INDEX_PROCESS_URL.length() > 0 ){ 
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "GB_MANUAL_INDEX_PROCESS_URL = \"" << GB_MANUAL_INDEX_PROCESS_URL << "\" has been supplied on the command line, will call load load_edgar_index_and_log_it(), then exit the application..." << endl;
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "Calling load_edgar_index_and_log_it()..." << endl;
-
-		int i_return_code = JDA::FormsMeanUtils::load_edgar_index_and_log_it(
-					&(JDA::Logger::log),
-					sDbUrl, sDbUser, sDbPass,
-					GB_MANUAL_INDEX_PROCESS_URL,
-					iEdgarFtpDebug, bEdgarFtpNoProxy, sEdgarFtpProxyUserPass
-		);
-
-
-		
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "Exiting process now with exit_code = i_return_code = " << i_return_code << "..." << endl;
-
-		return i_return_code;
-
-	}/* if( GB_MANUAL_INDEX_PROCESS_URL.length() > 0 ) */
-
-	if( GB_MANUAL_FORM_PROCESS_URL.length() > 0 ){ 
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "GB_MANUAL_FORM_PROCESS_URL = \"" << GB_MANUAL_FORM_PROCESS_URL << "\" has been supplied on the command line, will call load load_edgar_form_and_log_it(), then exit..." << endl;
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "Calling load_edgar_form_and_log_it()..." << endl;
-
-		int i_return_code = JDA::FormsMeanUtils::load_edgar_form_and_log_it(
-					sDbUrl, sDbUser, sDbPass,
-					GB_MANUAL_FORM_PROCESS_URL,
-					iEdgarFtpDebug, bEdgarFtpNoProxy, sEdgarFtpProxyUserPass
-		);
-		
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "Exiting process now with exit_code = i_return_code = " << i_return_code << "..." << endl;
-
-		return i_return_code;
-
-	}/* if( GB_MANUAL_FORM_PROCESS_URL.length() > 0 ) */
-
-	in_which_download_window_test( iEveningDownloadStartHour, iEveningDownloadEndHour );
-	
-
-	try {
-
-		int iDailyIndexReturn = -1;
-		int iFilingHeaderReturn = -1;
-
-		time_t time_t_last_load_yesterweekdays_daily_index_call = 0; 
-
-		time_t time_t_now = time(NULL);
-		time_t time_t_elapsed_time = 0;
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SCOTTY: Entering the main EDGAR loop, Captain..." << endl;
-
-		// The Main EDGAR Loop...
-		while( true ){
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SCOTTY: Captain, what about load_yesterweekdays_daily_edgar_index()...?" << endl;
-
-			if( bLoadDailyIndexes ){
-
-				time_t_now = time(NULL);
-
-				time_t_elapsed_time = time_t_now - time_t_last_load_yesterweekdays_daily_index_call;
-
-				if( time_t_elapsed_time >= iDailyIndexRecheckInterval ){
-					JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SCOTTY: Captain, bLoadDailyIndexes is TRUE, and time_t_elapsed time = " << JDA::Utils::commify( time_t_elapsed_time ) << ", is greater than or equal to iDailyIndexRecheckInterval = " << iDailyIndexRecheckInterval << ", so calling load_yesterweekdays_daily_edgar_index()..." << endl;
-
-					iDailyIndexReturn = JDA::FormsMeanUtils::load_yesterweekdays_daily_edgar_index(
-							&JDA::Logger::log,
-							sDbUrl, sDbUser, sDbPass,
-							sEdgarFtpServer, sEdgarDailyIndexPath, sEdgarDailyIndexFileName,
-							iEdgarFtpDebug, bEdgarFtpNoProxy, sEdgarFtpProxyUserPass, 
-							iDailyIndexBackfillDays, iDailyIndexRetryInterval, iDailyIndexMaxAttempts
-					);
-
-					time_t_last_load_yesterweekdays_daily_index_call = time(NULL);
-				}/* if( time_t_elapsed_time >= iDailyIndexRecheckInterval ) */
-				else{
-					JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SCOTTY: Captain, bLoadDailyIndexes is TRUE, but time_t_elapsed time = " << JDA::Utils::commify( time_t_elapsed_time ) << ", is less than iDailyIndexRecheckInterval = " << iDailyIndexRecheckInterval << ", so NOT calling load_yesterweekdays_daily_edgar_index(), and setting iDailyIndexReturn equal to 0 to indicate that EDGAR has not been hit.." << endl;
-					iDailyIndexReturn = 0;
-				}
-			}
-			else {
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SCOTTY: Captain, bLoadDailyIndexes is FALSE, so NOT calling load_yesterweekdays_daily_edgar_index(), and setting iDailyIndexReturn to 0 to indicate that EDGAR has NOT been hit..." << endl;
-				iDailyIndexReturn = 0;
-			}
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SCOTTY: iDailyIndexReturn = " << iDailyIndexReturn << "..." << endl;
-
-			if( iDailyIndexReturn == 0 ){
-
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SCOTTY: Looks like an EDGAR index was NOT downloaded, Captain, so we can hit up EDGAR for a Filing Header..." << endl;
-
-				if( bLoadNextEdgarFilingHeader ){
-					JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SCOTTY: Calling load_next_filing_header()..." << endl;
-					iFilingHeaderReturn = JDA::FormsMeanUtils::load_next_edgar_filing_header(
-							sDbUrl, sDbUser, sDbPass,
-							sEdgarFtpServer, 
-							iEdgarFtpDebug, bEdgarFtpNoProxy, sEdgarFtpProxyUserPass 
-					);
-				}
-				else {
-					JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SCOTTY: Actually, bLoadNextEdgarFilingHeader is FALSE, so NOT calling load_next_edgar_filing_header(), and setting iFilingHeaderReturn to 0 to indicate that EDGAR has not been hit..." << endl;
-					iFilingHeaderReturn = 0;
-				}
-
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SCOTTY: Captain, iFilingHeaderReturn = " << iFilingHeaderReturn << "..." << endl;
-
-
-			}/* if( iDailyIndexReturn == 0 ) */
-			else if( iDailyIndexReturn > 0 ){
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SCOTTY: Looks like a daily index was downloaded, Captain, so we won't hit EDGAR with a filing header..." << endl;
-			}
-			else if( iDailyIndexReturn < 0 ){
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SCOTTY: Looks like a daily index download was ATTEMPTED, but not quite successfully, Captain, so we won't hit EDGAR with a filing header..." << endl;
-			}
-
-			int iSleepTime = iDayDownloadSleepTime;
-
-			DownloadWindowType downloadWindowType = in_which_download_window( iEveningDownloadStartHour, iEveningDownloadEndHour );
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SPOCK: based on the Enterprise chronometer, downloadWindowType = " << downloadWindowType <<  " = " << downloadWindowTypeToString( downloadWindowType ) << ", Captain..." << endl;
-
-			if( downloadWindowType == DAY ){
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SPOCK: We appear to be in the \"day\" download window, Captain..." << endl;
-				iSleepTime = iDayDownloadSleepTime;
-			}
-			else if( downloadWindowType == EVENING ){
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SPOCK: We appear to be in the \"evening\" download window, Captain..." << endl;
-				iSleepTime = iEveningDownloadSleepTime;
-			}
-			else if( downloadWindowType == WEEKEND ){
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SPOCK: We appear to be in the \"weekend\" download window, Captain..." << endl;
-				iSleepTime = iWeekendDownloadSleepTime;
-			}
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SPOCK: Going into suspended animation for " << iSleepTime << " second" << (iSleepTime!=1?"s":"") << ", Captain..." << endl;
-
-			::Sleep( iSleepTime * 1000 );		
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SPOCK: Back from suspended animation, Captain..." << endl;
-
-			// If we crossed past midnight, we'll start a new log file for the new day...
-			resetLogFilePath();
-
-		}/* while( true ) -- The Main EDGAR Loop */
-
-	} catch( ... ) {
-
-		JDA::Logger::log(JDA::Logger::FATAL) << sWho << "(): " << "SCOTTY: Caught an unknown exception, Captain, exiting the loop..." << endl;
-
-	}
-
-	JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): " << "SCOTTY: Abnormal exit from loop, Captain..." << endl;
+	logger(JDA::Logger::INFO) << sWho << "(): config = " << config << "..." << endl;
 
 	return 0;
 
-}/* DWORD ServiceThread(LPDWORD param) */
+}/* ServiceThread() */
 
 
 // Initializes the service by starting its thread
@@ -476,7 +102,12 @@ BOOL InitService()
 {
 	const string sWho = "InitService";
 
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): Como esta?..." << endl;
+	if( P_LOGGER != NULL ){
+		(*P_LOGGER)(JDA::Logger::INFO) << sWho << "(): Como esta?..." << endl;
+	}
+	else{
+		cout << "INFO: " << sWho << "(): Como esta?..." << endl;
+	}
 
 	DWORD id;
 
@@ -500,7 +131,12 @@ VOID ResumeService()
 {
 	const string sWho = "ResumeService";
 
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "Welcome back, John...so glad you could make it..." << endl;
+	if( P_LOGGER != NULL ){
+		(*P_LOGGER)(JDA::Logger::INFO) << sWho << "(): " << "Welcome back, John...so glad you could make it..." << endl;
+	}
+	else{
+		cout << "INFO: " << sWho << "(): " << "Welcome back, John...so glad you could make it..." << endl;
+	}
 
 	pauseService=FALSE;
 	ResumeThread(threadHandle);
@@ -511,7 +147,12 @@ VOID PauseService()
 {
 	const string sWho = "PauseService";
 
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): \"I'll be back, Bennett...!\"" << endl;
+	if( P_LOGGER != NULL ){
+		(*P_LOGGER)(JDA::Logger::INFO) << sWho << "(): " << "\"I'll be back, Bennett...!\"" << endl;
+	}
+	else{
+		cout << "INFO: " << sWho << "(): " << "\"I'll be back, Bennett...!\"" << endl;
+	}
 
 	pauseService = TRUE;
 	SuspendThread(threadHandle);
@@ -523,7 +164,12 @@ VOID StopService()
 {
 	const string sWho = "StopService";
 
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): \"Let off some steam, Bennett!\"" << endl;
+	if( P_LOGGER != NULL ){
+		(*P_LOGGER)(JDA::Logger::INFO) << sWho << "(): " << "\"Let off some steam, Bennett!\"" << endl;
+	}
+	else{
+		cout << "INFO: " << sWho << "(): " << "\"Let off some steam, Bennett!\"" << endl;
+	}
 
 	runningService=FALSE;
 	// Set the event that is holding ServiceMain
@@ -941,45 +587,6 @@ void in_which_download_window_test(int evening_start_hour, int evening_end_hour)
 }/* in_which_download_window_test() */
 
 
-void getConfig() {
-
-	string sWho = "::getConfig";
-
-	string sExecutablePath = JDA::Utils::getExecutablePath(); 
-	string sConfigFilePath = JDA::Utils::getDefaultConfigFilePath( sExecutablePath );
-
-	/* Set to defaults first, then they can be overridden 
-	* by settings in *.ini file, then they are processed
-	* in setupLogger()...
-	*/
-	ConfigMap["debug_level"] = JDA::FormsMeanCommon::DEFAULT_DEBUG_LEVEL;
-	ConfigMap["debug_log_file_path"] = JDA::FormsMeanCommon::DEFAULT_DEBUG_LOG_FILE_PATH;
-	ConfigMap["debug_log_file_on"] = JDA::Utils::boolToString( JDA::FormsMeanCommon::DEFAULT_DEBUG_LOG_FILE_ON );
-	ConfigMap["debug_log_file_append"] = JDA::Utils::boolToString( JDA::FormsMeanCommon::DEFAULT_DEBUG_LOG_FILE_APPEND ); 
-	ConfigMap["debug_stdout_on"] = JDA::Utils::boolToString( JDA::FormsMeanCommon::DEFAULT_DEBUG_STDOUT_ON );
-
-	ConfigMap["load_daily_indexes"] = JDA::Utils::boolToString( JDA::FormsMeanCommon::DEFAULT_LOAD_DAILY_INDEXES );
-	ConfigMap["load_next_edgar_filing_header"] = JDA::Utils::boolToString( JDA::FormsMeanCommon::DEFAULT_LOAD_NEXT_EDGAR_FILING_HEADER );
-
-	cout << sWho << "(): sExecutablePath = '" << sExecutablePath << "'..." << endl;
-	cout << sWho << "(): sConfigFilePath = '" << sExecutablePath << "'..." << endl;
-	cout << sWho << "(): SHEMP: Moe, reading config file now, Moe..." << endl;
-
-	try {
-
-		JDA::Utils::read_config_file( sConfigFilePath, ConfigMap );
-
-	}
-	catch(JDA::Utils::Exception& e) {
-
-		cerr << sWho << "(): Cannot read config file '" << sConfigFilePath 
-			<< "': \"" << e.what() << "\", using defaults..." << endl;
-	
-	}
-
-	cout << sWho << "(): After reading config file, ConfigMap = " << ConfigMap << "..." << endl;
-	
-}/* void getConfig() */
 
 /**
 * If Config["debug_log_file_path"] is not supplied...
