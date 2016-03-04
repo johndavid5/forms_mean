@@ -40,7 +40,7 @@ BOOL runningService = FALSE;
 // Thread for the actual work
 HANDLE threadHandle = 0;
 
-JDA::Logger* P_LOGGER = NULL;
+JDA::Logger G_LOGGER; // Need a global Logger for the global Service methods...
 
 /********** GLOBAL VARIABLES - END ******************/
 
@@ -55,16 +55,32 @@ void ErrorHandler(char *s, DWORD err)
 	oss_out << "Error string: " << JDA::Utils::strerror(err) << endl;
 	oss_out << "Calling ExitProcess(" << err << ")" << endl;
 
-	if( P_LOGGER != NULL ){
-		(*P_LOGGER)(JDA::Logger::FATAL) << sWho << "():\n" << oss_out.str() << endl;
-	}
-	else {
-		cerr << "FATAL: " << sWho << "():\n" << oss_out.str() << endl;
-	}
+	G_LOGGER(JDA::Logger::FATAL) << sWho << "():\n" << oss_out.str() << endl;
 
 	ExitProcess(err);
 
 }/* ErrorHandler() */
+
+/* Feed a pointer to OurParams to ServiceThread if launched as a non-daemon... */
+struct OurParams {
+
+	string s_manual_index_process_url;
+	string s_manual_form_process_url;
+	string s_daily_index_backfill_days;
+	string s_load_daily_indexes;
+	string s_load_next_edgar_filing_header;
+	
+};
+
+ostream& operator<<(ostream& s, OurParams& ourParams){
+	s << "s_manual_index_process_url = \"" << s_manual_index_process_url << "\"\n" 
+	<< "s_manual_form_process_url = \"" <<  s_manual_form_process_url << "\"\n"
+	<< "s_daily_index_backfill_days = \"" <<  s_daily_index_backfill_days << "\"\n"
+	<< "s_load_daily_indexes = \"" <<  s_load_daily_indexes << "\"\n"
+	<< "s_load_next_edgar_filing_header = \"" <<  s_load_next_edgar_filing_header << "\"";
+
+	return s;
+}
 
 
 DWORD ServiceThread(LPDWORD param)
@@ -73,24 +89,30 @@ DWORD ServiceThread(LPDWORD param)
 
 	string sWho = (string)SERVICE_NAME + "::ServiceThread";
 
-	string sConfigFilePath = JDA::FormsMeanUtils::getConfigFilePath();
+	//string sConfigFilePath = JDA::FormsMeanUtils::getConfigFilePath();
 
-	FormsMeanConfig config;
-	config.loadConfigFile( sConfigFilePath );
+	//FormsMeanConfig config;
+	//config.loadConfigFile( sConfigFilePath );
 
-	JDA::Logger logger;
-	P_LOGGER = &logger; // Set to global for ErrorHandler...
+	JDA::Logger* p_logger = G_LOGGER; /* Use global JDA::Logger... */
 
-	FormsMeanUtils::setupLogger( &logger );
+	//FormsMeanUtils::setupLogger( p_logger );
 
-	logger(JDA::Logger::INFO) << sWho << "(): " << "\n" 
+	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "\n" 
 	<< "*************************************************" << "\n"
 	<< "**  Welcome to The Forms Mean Daemon, Pilgrim  **" << "\n"
 	<< "*************************************************" << endl;
 
-	logger(JDA::Logger::INFO) << sWho << "(): " << "S_VERSION = " << S_VERSION << "..." << endl;
+	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "S_VERSION = " << S_VERSION << "..." << endl;
 
-	logger(JDA::Logger::INFO) << sWho << "(): config = " << config << "..." << endl;
+	if( param != NULL ){
+		OurParams* p_our_params = (OurParams*) param;	
+		(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got OurParams: " << (*p_our_params) << endl;
+	}
+
+	//(*p_logger)(JDA::Logger::INFO) << sWho << "(): config = " << config << "..." << endl;
+	
+	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Exiting daemon now..." << endl;
 
 	return 0;
 
@@ -102,12 +124,7 @@ BOOL InitService()
 {
 	const string sWho = "InitService";
 
-	if( P_LOGGER != NULL ){
-		(*P_LOGGER)(JDA::Logger::INFO) << sWho << "(): Como esta?..." << endl;
-	}
-	else{
-		cout << "INFO: " << sWho << "(): Como esta?..." << endl;
-	}
+	G_LOGGER(JDA::Logger::INFO) << sWho << "()..." << endl;
 
 	DWORD id;
 
@@ -131,12 +148,7 @@ VOID ResumeService()
 {
 	const string sWho = "ResumeService";
 
-	if( P_LOGGER != NULL ){
-		(*P_LOGGER)(JDA::Logger::INFO) << sWho << "(): " << "Welcome back, John...so glad you could make it..." << endl;
-	}
-	else{
-		cout << "INFO: " << sWho << "(): " << "Welcome back, John...so glad you could make it..." << endl;
-	}
+	G_LOGGER(JDA::Logger::INFO) << sWho << "()..." << endl;
 
 	pauseService=FALSE;
 	ResumeThread(threadHandle);
@@ -147,12 +159,7 @@ VOID PauseService()
 {
 	const string sWho = "PauseService";
 
-	if( P_LOGGER != NULL ){
-		(*P_LOGGER)(JDA::Logger::INFO) << sWho << "(): " << "\"I'll be back, Bennett...!\"" << endl;
-	}
-	else{
-		cout << "INFO: " << sWho << "(): " << "\"I'll be back, Bennett...!\"" << endl;
-	}
+	G_LOGGER(JDA::Logger::INFO) << sWho << "()..." << endl;
 
 	pauseService = TRUE;
 	SuspendThread(threadHandle);
@@ -164,12 +171,7 @@ VOID StopService()
 {
 	const string sWho = "StopService";
 
-	if( P_LOGGER != NULL ){
-		(*P_LOGGER)(JDA::Logger::INFO) << sWho << "(): " << "\"Let off some steam, Bennett!\"" << endl;
-	}
-	else{
-		cout << "INFO: " << sWho << "(): " << "\"Let off some steam, Bennett!\"" << endl;
-	}
+	G_LOGGER(JDA::Logger::INFO) << sWho << "()..." << endl;
 
 	runningService=FALSE;
 	// Set the event that is holding ServiceMain
@@ -188,7 +190,7 @@ BOOL SendStatusToSCM (DWORD dwCurrentState,
 {
 	const string sWho = "SendStatusToSCM";
 
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): \"You're a funny guy, Sully, I like you...that's why I'm going to kill you last...\"" << endl;
+	G_LOGGER(JDA::Logger::INFO) << sWho << "()...\"" << endl;
 
 	BOOL success;
 	SERVICE_STATUS serviceStatus;
@@ -225,14 +227,13 @@ BOOL SendStatusToSCM (DWORD dwCurrentState,
 	// Pass the status record to the SCM
 	success = SetServiceStatus (serviceStatusHandle, &serviceStatus);
 
-	//JDA::Logger::debugPrintf(1, "[%s]: %s(): return code from SetServiceStatus() = %d...\n", JDA::Utils::get_timestamp().c_str(), sWho.c_str(), success );
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): return code from SetServiceStatus() = " << success << "..." << endl;
+	G_LOGGER(JDA::Logger::INFO) << sWho << "(): return code from SetServiceStatus() = " << success << "..." << endl;
 
 	if (!success) {
 
-		JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): return code from SetServiceStatus() = " << success << " is false: error = \"" << JDA::Utils::s_error() << "\", but NOT calling StopService()..." << endl;
+		G_LOGGER(JDA::Logger::WARN) << sWho << "(): return code from SetServiceStatus() = " << success << " is false: error = \"" << JDA::Utils::s_error() << "\", but NOT calling StopService()...it seems to cause a crash when I do..." << endl;
 
-		//JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): return code from SetServiceStatus() = " << success << " is false: error = \"" << JDA::Utils::s_error() << "\", so calling StopService()..." << endl;
+		//G_LOGGER(JDA::Logger::ERROR) << sWho << "(): return code from SetServiceStatus() = " << success << " is false: error = \"" << JDA::Utils::s_error() << "\", so calling StopService()..." << endl;
 		//StopService();
 	}
 
@@ -245,7 +246,7 @@ VOID ServiceCtrlHandler (DWORD controlCode)
 {
 	const string sWho = "ServiceCtrlHandler";
 
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "( controlCode = " << controlCode << "): \"Do me a favor, don't disturb my friend...he's dead tired.\"" << endl;
+	G_LOGGER(JDA::Logger::INFO) << sWho << "( controlCode = " << controlCode << ")..." << endl;
 
 	DWORD  currentState = 0;
 	BOOL success;
@@ -318,7 +319,7 @@ VOID terminate(DWORD error)
 {
 	const string sWho = "terminate";
 
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): \"Typically, the subject being copied is terminated...\"" << endl;
+	G_LOGGER(JDA::Logger::INFO) << sWho << "(): begin..." << endl;
 
 	// if terminateEvent has been created, close it.
 	if (terminateEvent)
@@ -335,7 +336,7 @@ VOID terminate(DWORD error)
 		CloseHandle(threadHandle);
 
 	// Do not need to close serviceStatusHandle
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): \"Terminated!\"" << endl;
+	G_LOGGER(JDA::Logger::INFO) << sWho << "(): end..." << endl;
 }
 
 // ServiceMain is called when the SCM wants to
@@ -443,6 +444,8 @@ int main(int argc, char** argv)
 {
 	bool bNoDaemon = false;
 
+	OurParams ourParams;
+
 	for(int i=1 ; i < argc; i++ ){
 		if( strcmp( argv[i], "--no-daemon" ) == 0 ){
 			bNoDaemon = true;
@@ -450,45 +453,40 @@ int main(int argc, char** argv)
 		else if( strcmp( argv[i], "--manual-index-process-url" ) == 0 ){
 			bNoDaemon = true;
 			if( i+1 < argc ){
-				cout << "Setting GB_MANUAL_INDEX_PROCESS_URL equal to argv[++i]..." << endl;
-				GB_MANUAL_INDEX_PROCESS_URL = argv[++i];
-				cout << "GB_MANUAL_INDEX_PROCESS_URL = \"" <<  GB_MANUAL_INDEX_PROCESS_URL << "\"..." << endl;
+				cout << "Setting ourParams.s_manual_index_process_url equal to argv[++i]..." << endl;
+				ourParams.s_manual_index_process_url = argv[++i];
 			}
 		}
 		else if( strcmp( argv[i], "--manual-form-process-url" ) == 0 ){
 			bNoDaemon = true;
 			if( i+1 < argc ){
-				cout << "Setting GB_MANUAL_FORM_PROCESS_URL equal to argv[++i]..." << endl;
-				GB_MANUAL_FORM_PROCESS_URL = argv[++i];
-				cout << "GB_MANUAL_FORM_PROCESS_URL = \"" <<  GB_MANUAL_FORM_PROCESS_URL << "\"..." << endl;
+				cout << "Setting ourParams.s_manual_form_process_url equal to argv[++i]..." << endl;
+				ourParams.s_manual_form_process_url = argv[++i];
 			}
 		}
 		else if( strcmp( argv[i], "--daily-index-backfill-days" ) == 0 ){
 			if( i+1 < argc ){
-				cout << "Setting GB_CMD_LINE_DAILY_INDEX_BACKFILL_DAYS equal to argv[++i]..." << endl;
-				GB_CMD_LINE_DAILY_INDEX_BACKFILL_DAYS = argv[++i];
-				cout << "GB_CMD_LINE_DAILY_INDEX_BACKFILL_DAYS = \"" <<  GB_CMD_LINE_DAILY_INDEX_BACKFILL_DAYS << "\"..." << endl;
+				cout << "Setting ourParams.s_daily_index_backfill_days equal to argv[++i]..." << endl;
+				ourParams.s_daily_index_backfill_days = argv[++i];
 			}
 		}
 		else if( strcmp( argv[i], "--load-daily-indexes" ) == 0 ){
 			if( i+1 < argc ){
-				cout << "Setting GB_CMD_LINE_LOAD_DAILY_INDEXES equal to argv[++i]..." << endl;
-				GB_CMD_LINE_LOAD_DAILY_INDEXES = argv[++i];
-				cout << "GB_CMD_LINE_LOAD_DAILY_INDEXES = \"" <<  GB_CMD_LINE_LOAD_DAILY_INDEXES << "\"..." << endl;
+				cout << "Setting ourParams.s_load_daily_indexes equal to argv[++i]..." << endl;
+				ourParams.s_load_daily_indexes = argv[++i];
 			}
 		}
 		else if( strcmp( argv[i], "--load-next-edgar-filing-header" ) == 0 ){
 			if( i+1 < argc ){
-				cout << "Setting GB_CMD_LINE_LOAD_NEXT_EDGAR_FILING_HEADER equal to argv[++i]..." << endl;
-				GB_CMD_LINE_LOAD_NEXT_EDGAR_FILING_HEADER = argv[++i];
-				cout << "GB_CMD_LINE_LOAD_NEXT_EDGAR_FILING_HEADER = \"" <<  GB_CMD_LINE_LOAD_NEXT_EDGAR_FILING_HEADER << "\"..." << endl;
+				cout << "Setting ourParams.s_load_next_edgar_filing_header equal to argv[++i]..." << endl;
+				ourParams.s_load_next_edgar_filing_header = argv[++i];
 			}
 		}
 	}
 
 	if( bNoDaemon ){
 		cout << "Launching " << SERVICE_NAME << " as a non-daemon process..." << endl;
-		DWORD dw_return = ServiceThread( 0 );
+		DWORD dw_return = ServiceThread( &ourParams );
 		return dw_return;
 	}
 
@@ -498,6 +496,7 @@ int main(int argc, char** argv)
 		(LPSERVICE_MAIN_FUNCTION) ServiceMain},
 		{ NULL, NULL }
 	};
+
 	BOOL success;
 
 	// Register with the SCM
@@ -510,65 +509,8 @@ int main(int argc, char** argv)
 }/* main() */
 
 
-DownloadWindowType in_which_download_window(
-	int evening_start_hour,
-	int evening_end_hour,
-	int hour,
-	int day_of_week
-){
-	if( hour == -1 || day_of_week == -1 ){ 
 
-		time_t epoch_seconds; 
-		time( &epoch_seconds );
-
-		struct tm t_struct;
-		JDA::Utils::nyctime( &t_struct, epoch_seconds );
-
-		//timestamp = time();
-
-		if( hour == -1 ){
-			//hour = date('G', $timestamp);
-			hour = t_struct.tm_hour; /* hours since midnight: 0-23 */
-		}
-
-		if( day_of_week == -1 ){
-			//day_of_week = date('w', $timestamp);
-			day_of_week = t_struct.tm_wday; /* days since Sunday: 0-6 */
-		}
-	}
-
-	// day_of_week = 0 : sunday
-	// day_of_week = 1 : monday
-	// day_of_week = 2 : tuesday
-	// day_of_week = 3 : wednesday 
-	// day_of_week = 4 : thursday
-	// day_of_week = 5 : friday
-	// day_of_week = 6 : saturday
-
-	// On weekends, we're always in the weekend download zone, Baby...
-	if(
-		6 == day_of_week /* saturday */
-			||
-		0 == day_of_week /* sunday */
-	){
-		return WEEKEND;
-	}
-
-	if(
-		hour >= evening_start_hour
-			||
-		hour < evening_end_hour
-	){
-		return EVENING;
-	}
-	else
-	{
-		return DAY;
-	}
-
-}/* bool in_which_download_window() */
-
-void in_which_download_window_test(int evening_start_hour, int evening_end_hour){
+void in_which_download_window_test(JDA::Logger* p_logger, int evening_start_hour, int evening_end_hour){
 
 	const char* sWho = "::in_which_download_window_test";
 
@@ -577,7 +519,7 @@ void in_which_download_window_test(int evening_start_hour, int evening_end_hour)
 
 			DownloadWindowType downloadWindowType = in_which_download_window( evening_start_hour, evening_end_hour, hour, day_of_week );
 
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " 
+			(*p_logger)(JDA::Logger::INFO) << sWho << "(): " 
 				<< "in_which_download_window( " << "hour = " << hour << ", day_of_week = " << day_of_week << ") = "  
 				<< downloadWindowType << " = " << downloadWindowTypeToString( downloadWindowType ) 
 				<< "..." << endl;
@@ -586,161 +528,4 @@ void in_which_download_window_test(int evening_start_hour, int evening_end_hour)
 
 }/* in_which_download_window_test() */
 
-
-
-/**
-* If Config["debug_log_file_path"] is not supplied...
-* 
-* If executable is found, at 
-*  c:/vf/bin/joe.exe
-* returns... 
-*  c:/vf/bin/joe-<YYYY-MM-DD>.log
-* e.g.,...
-*  c:/vf/bin/joe-2014-05-09.log
-*
-* Otherwise, returns Config["debug_log_file_path"]
-* with "YYYY-MM-DD" replaced by the current
-* datestamp.
-* e.g., if Config["debug_log_file_path"] = "c:/vf/logs/joe-YYYY-MM-DD.log",
-*  returns something like
-*    "c:/vf/logs/joe-2014-05-09.log",
-*/
-string getLogFilePath(){
-
-	string sNycYYYYMMDD = JDA::Utils::get_nyc_datestamp();
-	string sLogFilePath = "";
-
-	if( ConfigMap["debug_log_file_path"].length() == 0 ){
-		string sSuffix = "-" + sNycYYYYMMDD + ".log";
-		string sExecutablePath = JDA::Utils::getExecutablePath(); 
-		sLogFilePath = JDA::Utils::getDefaultLogFilePath( sExecutablePath, sSuffix ); 
-	}
-	else {
-		sLogFilePath = ConfigMap["debug_log_file_path"];
-		string sToken = "YYYY-MM-DD";
-		size_t where = sLogFilePath.find( sToken );
-		if( where != std::string::npos ){
-			sLogFilePath.replace( where, sToken.length(), sNycYYYYMMDD );
-		}
-	}
-
-	return sLogFilePath;
-}/* getLogFilePath() */
-
-string getLogFilePath( const string s_log_file_path ){
-
-	string sNycYYYYMMDD = JDA::Utils::get_nyc_datestamp();
-	string sLogFilePath = "";
-
-	if( s_log_file_path.length() == 0 ){
-		string sSuffix = "-" + sNycYYYYMMDD + ".log";
-		string sExecutablePath = JDA::Utils::getExecutablePath(); 
-		sLogFilePath = JDA::Utils::getDefaultLogFilePath( sExecutablePath, sSuffix ); 
-	}
-	else {
-		sLogFilePath = s_log_file_path;
-		string sToken = "YYYY-MM-DD";
-		size_t where = sLogFilePath.find( sToken );
-		if( where != std::string::npos ){
-			sLogFilePath.replace( where, sToken.length(), sNycYYYYMMDD );
-		}
-	}
-
-	return sLogFilePath;
-
-}/* getLogFilePath() */
-
-void setupLogger( JDA::Logger& kenny_loggins ){
-
-	const char* sWho = "::setupLogger";
-
-	//JDA::Logger::log.setDebugLevel( JDA::FormsMeanCommon::DEFAULT_DEBUG_LEVEL );
-	kenny_loggins.setDebugLevel( JDA::FormsMeanCommon::DEFAULT_DEBUG_LEVEL );
-
-	JDA::Logger::DebugLevelType debugLevel = JDA::Logger::LevelNameToDebugLevel( ConfigMap["debug_level"] );
-
-	if( debugLevel != JDA::Logger::NOTSET ){
-		cout << sWho << "(): Setting debugLevel to " << JDA::Logger::getLevelName( debugLevel ) << "..." << endl;
-		kenny_loggins.setDebugLevel( debugLevel );
-	}
-
-	string sLogFilePath = getLogFilePath();
-	cout << sWho << "(): Setting logFilePath to '" << sLogFilePath << "'..." << endl;
-	kenny_loggins.setLogFilePath( sLogFilePath );
-
-	bool bLogFileOn = JDA::Utils::stringToBool( ConfigMap["debug_log_file_on"] );
-	cout << sWho << "(): Setting logFileOn to " << JDA::Utils::boolToString( bLogFileOn ) << "..." << endl;
-	kenny_loggins.setLogFileOn( bLogFileOn );
-	
-	bool bLogFileAppend = JDA::Utils::stringToBool( ConfigMap["debug_log_file_append"] );
-	cout << sWho << "(): Setting logFileAppend to " << JDA::Utils::boolToString( bLogFileAppend ) << "..." << endl;
-	kenny_loggins.setLogFileAppend( bLogFileAppend );
-
-	bool bLogStdoutOn = JDA::Utils::stringToBool( ConfigMap["debug_stdout_on"] );
-	cout << sWho << "(): Setting logStdoutOn to " << JDA::Utils::boolToString( bLogStdoutOn ) << "..." << endl;
-	kenny_loggins.setStdoutOn( bLogStdoutOn );
-
-	cout << sWho << "(): Done with " << sWho << "()..." << endl;
-
-}/* setupLogger() */
-
-void setupLogger(
-	JDA::Logger& kenny_loggins,
-	const string& s_debug_level, const string& s_debug_log_file_path,
-	const string& s_debug_log_file_on, const string& s_debug_log_file_append, const string& s_debug_stdout_on
-){
-
-	const char* sWho = "::setupLogger";
-
-	//JDA::Logger::log.setDebugLevel( JDA::FormsMeanCommon::DEFAULT_DEBUG_LEVEL );
-	kenny_loggins.setDebugLevel( JDA::FormsMeanCommon::DEFAULT_DEBUG_LEVEL );
-
-	JDA::Logger::DebugLevelType debugLevel = JDA::Logger::LevelNameToDebugLevel( ConfigMap["debug_level"] );
-
-	if( debugLevel != JDA::Logger::NOTSET ){
-		cout << sWho << "(): Setting debugLevel to " << JDA::Logger::getLevelName( debugLevel ) << "..." << endl;
-		kenny_loggins.setDebugLevel( debugLevel );
-	}
-
-	string sLogFilePath = getLogFilePath( s_debug_log_file_path );
-	cout << sWho << "(): Setting logFilePath to '" << sLogFilePath << "'..." << endl;
-	kenny_loggins.setLogFilePath( sLogFilePath );
-
-	bool bLogFileOn = JDA::Utils::stringToBool( s_debug_log_file_on );
-	cout << sWho << "(): Setting logFileOn to " << JDA::Utils::boolToString( bLogFileOn ) << "..." << endl;
-	kenny_loggins.setLogFileOn( bLogFileOn );
-	
-	bool bLogFileAppend = JDA::Utils::stringToBool( s_debug_log_file_append );
-	cout << sWho << "(): Setting logFileAppend to " << JDA::Utils::boolToString( bLogFileAppend ) << "..." << endl;
-	kenny_loggins.setLogFileAppend( bLogFileAppend );
-
-	bool bLogStdoutOn = JDA::Utils::stringToBool( s_debug_stdout_on );
-	cout << sWho << "(): Setting logStdoutOn to " << JDA::Utils::boolToString( bLogStdoutOn ) << "..." << endl;
-	kenny_loggins.setStdoutOn( bLogStdoutOn );
-
-	cout << sWho << "(): Done with " << sWho << "()..." << endl;
-
-}/* setupLogger() */
-
-
-void resetLogFilePath(){
-
-	string sWho = (string)SERVICE_NAME + "::resetLogFilePath";
-
-	string sLogFilePath = getLogFilePath();
-	JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): Setting logFilePath to '" << sLogFilePath << "'..." << endl;
-	JDA::Logger::log.setLogFilePath( sLogFilePath );
-}/* resetLogFilePath() */
-
-void resetLogFilePath(
-	JDA::Logger& kenny_loggins, const string& s_debug_log_file_path
-){
-
-	string sWho = (string)SERVICE_NAME + "::resetLogFilePath";
-
-	string sLogFilePath = getLogFilePath( s_debug_log_file_path );
-	kenny_loggins(JDA::Logger::INFO) << sWho << "(): Setting logFilePath to '" << sLogFilePath << "'..." << endl;
-	kenny_loggins.setLogFilePath( sLogFilePath );
-
-}/* resetLogFilePath() */
 
