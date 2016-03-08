@@ -7,8 +7,7 @@
 #include "utils.h" 
 #include "logger.h" 
 
-#include "FormsMeanConfig.h"
-
+//#include "FormsMeanConfig.h"
 #include "FormsMeanUtils.h"
 
 using namespace std;
@@ -73,11 +72,12 @@ struct OurParams {
 };
 
 ostream& operator<<(ostream& s, OurParams& ourParams){
-	s << "s_manual_index_process_url = \"" << s_manual_index_process_url << "\"\n" 
-	<< "s_manual_form_process_url = \"" <<  s_manual_form_process_url << "\"\n"
-	<< "s_daily_index_backfill_days = \"" <<  s_daily_index_backfill_days << "\"\n"
-	<< "s_load_daily_indexes = \"" <<  s_load_daily_indexes << "\"\n"
-	<< "s_load_next_edgar_filing_header = \"" <<  s_load_next_edgar_filing_header << "\"";
+
+	s << "s_manual_index_process_url = \"" << ourParams.s_manual_index_process_url << "\"\n" 
+	<< "s_manual_form_process_url = \"" <<  ourParams.s_manual_form_process_url << "\"\n"
+	<< "s_daily_index_backfill_days = \"" <<  ourParams.s_daily_index_backfill_days << "\"\n"
+	<< "s_load_daily_indexes = \"" <<  ourParams.s_load_daily_indexes << "\"\n"
+	<< "s_load_next_edgar_filing_header = \"" <<  ourParams.s_load_next_edgar_filing_header << "\"";
 
 	return s;
 }
@@ -94,7 +94,7 @@ DWORD ServiceThread(LPDWORD param)
 	//FormsMeanConfig config;
 	//config.loadConfigFile( sConfigFilePath );
 
-	JDA::Logger* p_logger = G_LOGGER; /* Use global JDA::Logger... */
+	JDA::Logger* p_logger = &G_LOGGER; /* Use global JDA::Logger... */
 
 	//FormsMeanUtils::setupLogger( p_logger );
 
@@ -486,7 +486,7 @@ int main(int argc, char** argv)
 
 	if( bNoDaemon ){
 		cout << "Launching " << SERVICE_NAME << " as a non-daemon process..." << endl;
-		DWORD dw_return = ServiceThread( &ourParams );
+		DWORD dw_return = ServiceThread( (LPDWORD)&ourParams );
 		return dw_return;
 	}
 
@@ -510,22 +510,22 @@ int main(int argc, char** argv)
 
 
 
-void in_which_download_window_test(JDA::Logger* p_logger, int evening_start_hour, int evening_end_hour){
-
-	const char* sWho = "::in_which_download_window_test";
-
-	for( int day_of_week = 0; day_of_week <= 6; day_of_week++ ){
-		for( int hour = 0; hour <= 23; hour++ ){
-
-			DownloadWindowType downloadWindowType = in_which_download_window( evening_start_hour, evening_end_hour, hour, day_of_week );
-
-			(*p_logger)(JDA::Logger::INFO) << sWho << "(): " 
-				<< "in_which_download_window( " << "hour = " << hour << ", day_of_week = " << day_of_week << ") = "  
-				<< downloadWindowType << " = " << downloadWindowTypeToString( downloadWindowType ) 
-				<< "..." << endl;
-		}
-	}
-
-}/* in_which_download_window_test() */
+//void in_which_download_window_test(JDA::Logger* p_logger, int evening_start_hour, int evening_end_hour){
+//
+//	const char* sWho = "::in_which_download_window_test";
+//
+//	for( int day_of_week = 0; day_of_week <= 6; day_of_week++ ){
+//		for( int hour = 0; hour <= 23; hour++ ){
+//
+//			JDA::FormsMeanUtils::DownloadWindowType downloadWindowType = in_which_download_window( evening_start_hour, evening_end_hour, hour, day_of_week );
+//
+//			(*p_logger)(JDA::Logger::INFO) << sWho << "(): " 
+//				<< "in_which_download_window( " << "hour = " << hour << ", day_of_week = " << day_of_week << ") = "  
+//				<< downloadWindowType << " = " << downloadWindowTypeToString( downloadWindowType ) 
+//				<< "..." << endl;
+//		}
+//	}
+//
+//}/* in_which_download_window_test() */
 
 
