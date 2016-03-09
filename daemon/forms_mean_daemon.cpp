@@ -89,6 +89,9 @@ DWORD ServiceThread(LPDWORD param)
 
 	string sWho = (string)SERVICE_NAME + "::ServiceThread";
 
+	map<string, string> configMap;
+	getConfigDeux(ConfigMap);
+
 	//string sConfigFilePath = JDA::FormsMeanUtils::getConfigFilePath();
 
 	//FormsMeanConfig config;
@@ -508,7 +511,39 @@ int main(int argc, char** argv)
 
 }/* main() */
 
+void getConfig( map<string, string>& configMap ) {
 
+	string sWho = "::getConfig";
+
+	string sExecutablePath = JDA::Utils::getExecutablePath(); 
+	string sConfigFilePath = JDA::Utils::getDefaultConfigFilePath( sExecutablePath );
+
+	/* Set to defaults first, then they can be overridden 
+	* by settings in *.ini file, then they are processed
+	* in setupLogger()...
+	*/
+	configMap["debug_level"] = JDA::FormsMeanCommon::DEFAULT_DEBUG_LEVEL;
+	configMap["debug_log_file_path"] = JDA::FormsMeanCommon::DEFAULT_DEBUG_LOG_FILE_PATH;
+	configMap["debug_log_file_on"] = JDA::Utils::boolToString( JDA::FormsMeanCommon::DEFAULT_DEBUG_LOG_FILE_ON );
+	configMap["debug_log_file_append"] = JDA::Utils::boolToString( JDA::FormsMeanCommon::DEFAULT_DEBUG_LOG_FILE_APPEND ); 
+	configMap["debug_stdout_on"] = JDA::Utils::boolToString( JDA::FormsMeanCommon::DEFAULT_DEBUG_STDOUT_ON );
+
+	configMap["load_daily_indexes"] = JDA::Utils::boolToString( JDA::FormsMeanCommon::DEFAULT_LOAD_DAILY_INDEXES );
+	configMap["load_next_edgar_filing_header"] = JDA::Utils::boolToString( JDA::FormsMeanCommon::DEFAULT_LOAD_NEXT_EDGAR_FILING_HEADER );
+
+	try {
+
+		JDA::Utils::read_config_file( sConfigFilePath, configMap );
+
+	}
+	catch(JDA::Utils::Exception& e) {
+
+		cerr << sWho << "(): Cannot read config file '" << sConfigFilePath 
+			<< "': \"" << e.what() << "\", using defaults..." << endl;
+	
+	}
+
+}/* void getConfig() */
 
 //void in_which_download_window_test(JDA::Logger* p_logger, int evening_start_hour, int evening_end_hour){
 //
