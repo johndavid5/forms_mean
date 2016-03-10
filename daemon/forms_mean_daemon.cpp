@@ -7,12 +7,34 @@
 #include "utils.h" 
 #include "logger.h" 
 
-//#include "FormsMeanConfig.h"
+#include "FormsMeanCommon.h"
 #include "FormsMeanUtils.h"
 
 using namespace std;
 
 /************ GLOBAL FUNCTION PROTOTYPES - BEGIN ******************/
+
+void getConfig( map<string, string>& configMap );
+
+string getLogFilePath( const string s_log_file_path );
+
+void setupLogger(
+	JDA::Logger& kenny_loggins,
+	const string& s_debug_level, const string& s_debug_log_file_path,
+	const string& s_debug_log_file_on, const string& s_debug_log_file_append,
+	const string& s_debug_stdout_on
+);
+
+/**
+* Keep setting logFilePath with current datestamp.
+*
+* Whereupon, at the crack of midnight, whence the datestamp changeth,
+* JDA::Logger will by black witchcraft and deviltry beginneth a new logfileth.
+*/
+void resetLogFilePath(
+	JDA::Logger& kenny_loggins, const string& s_debug_log_file_path
+);
+
 
 void in_which_download_window_test(int evening_start_hour, int evening_end_hour);
 
@@ -89,33 +111,38 @@ DWORD ServiceThread(LPDWORD param)
 
 	string sWho = (string)SERVICE_NAME + "::ServiceThread";
 
-	map<string, string> configMap;
-	getConfigDeux(ConfigMap);
-
-	//string sConfigFilePath = JDA::FormsMeanUtils::getConfigFilePath();
-
-	//FormsMeanConfig config;
-	//config.loadConfigFile( sConfigFilePath );
-
 	JDA::Logger* p_logger = &G_LOGGER; /* Use global JDA::Logger... */
 
-	//FormsMeanUtils::setupLogger( p_logger );
+
+	map<string, string> configMap;
+
+	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling getConfig()..." << endl;
+	getConfig( configMap );
+
+	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling setupLogger()..." << endl;
+	setupLogger( *p_logger,
+		configMap["debug_level"], configMap["debug_log_file_path"],
+		configMap["debug_log_file_on"], configMap["debug_log_file_append"],
+		configMap["debug_stdout_on"]
+	);
 
 	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "\n" 
-	<< "*************************************************" << "\n"
-	<< "**  Welcome to The Forms Mean Daemon, Pilgrim  **" << "\n"
-	<< "*************************************************" << endl;
+	<< "****************************************************" << "\n"
+	<< "***  Welcome to The Forms Mean Daemon, Mr. Bond! ***" << "\n"
+	<< "****************************************************" << endl;
 
 	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "S_VERSION = " << S_VERSION << "..." << endl;
 
 	if( param != NULL ){
 		OurParams* p_our_params = (OurParams*) param;	
-		(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got OurParams: " << (*p_our_params) << endl;
+		(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got *p_our_params =\n" << (*p_our_params) << endl;
 	}
 
-	//(*p_logger)(JDA::Logger::INFO) << sWho << "(): config = " << config << "..." << endl;
+	// NOTE: ostream& operator<<(ostream& s, const vector<string>& v); defined in utils.h
+	(*p_logger)(JDA::Logger::INFO) << sWho << "(): configMap = " << configMap << "..." << endl;
 	
 	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Exiting daemon now..." << endl;
+	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Let off some steam, Bennett!" << endl;
 
 	return 0;
 
@@ -544,6 +571,87 @@ void getConfig( map<string, string>& configMap ) {
 	}
 
 }/* void getConfig() */
+
+string getLogFilePath( const string s_log_file_path ){
+
+	string sNycYYYYMMDD = JDA::Utils::get_nyc_datestamp();
+	string sLogFilePath = "";
+
+	if( s_log_file_path.length() == 0 ){
+		string sSuffix = "-" + sNycYYYYMMDD + ".log";
+		string sExecutablePath = JDA::Utils::getExecutablePath(); 
+		sLogFilePath = JDA::Utils::getDefaultLogFilePath( sExecutablePath, sSuffix ); 
+	}
+	else {
+		sLogFilePath = s_log_file_path;
+		string sToken = "YYYY-MM-DD";
+		size_t where = sLogFilePath.find( sToken );
+		if( where != std::string::npos ){
+			sLogFilePath.replace( where, sToken.length(), sNycYYYYMMDD );
+		}
+	}
+
+	return sLogFilePath;
+
+}/* getLogFilePath() */
+
+void setupLogger(
+	JDA::Logger& kenny_loggins,
+	const string& s_debug_level, const string& s_debug_log_file_path,
+	const string& s_debug_log_file_on, const string& s_debug_log_file_append,
+	const string& s_debug_stdout_on
+){
+
+	const char* sWho = "::setupLogger";
+
+	kenny_loggins.setDebugLevel( JDA::FormsMeanCommon::DEFAULT_DEBUG_LEVEL );
+
+	JDA::Logger::DebugLevelType debugLevel = JDA::Logger::LevelNameToDebugLevel( s_debug_level );
+
+	if( debugLevel != JDA::Logger::NOTSET ){
+		kenny_loggins(JDA::Logger::INFO) << sWho << "(): Setting debugLevel to " << JDA::Logger::getLevelName( debugLevel ) << "..." << endl;
+		kenny_loggins.setDebugLevel( debugLevel );
+	}
+
+
+	bool bLogFileOn = JDA::Utils::stringToBool( s_debug_log_file_on );
+
+	kenny_loggins(JDA::Logger::INFO) << sWho << "(): Setting logFileOn to " << JDA::Utils::boolToString( bLogFileOn ) << "..." << endl;
+	kenny_loggins.setLogFileOn( bLogFileOn );
+	
+	bool bLogFileAppend = JDA::Utils::stringToBool( s_debug_log_file_append );
+
+	kenny_loggins(JDA::Logger::INFO) << sWho << "(): Setting logFileAppend to " << JDA::Utils::boolToString( bLogFileAppend ) << "..." << endl;
+	kenny_loggins.setLogFileAppend( bLogFileAppend );
+
+	bool bLogStdoutOn = JDA::Utils::stringToBool( s_debug_stdout_on );
+
+	kenny_loggins(JDA::Logger::INFO) << sWho << "(): Setting logStdoutOn to " << JDA::Utils::boolToString( bLogStdoutOn ) << "..." << endl;
+	kenny_loggins.setStdoutOn( bLogStdoutOn );
+
+	string sLogFilePath = getLogFilePath( s_debug_log_file_path );
+
+	kenny_loggins(JDA::Logger::INFO) << sWho << "(): Setting logFilePath to '" << sLogFilePath << "'..." << endl;
+	kenny_loggins.setLogFilePath( sLogFilePath );
+
+	//kenny_loggins(JDA::Logger::INFO) << sWho << "(): Done with " << sWho << "()..." << endl;
+
+}/* setupLogger() */
+
+
+void resetLogFilePath(
+	JDA::Logger& kenny_loggins, const string& s_debug_log_file_path
+){
+
+	string sWho = (string)SERVICE_NAME + "::resetLogFilePath";
+
+	string sLogFilePath = getLogFilePath( s_debug_log_file_path );
+
+	kenny_loggins(JDA::Logger::INFO) << sWho << "(): Setting logFilePath to '" << sLogFilePath << "'..." << endl;
+	kenny_loggins.setLogFilePath( sLogFilePath );
+
+}/* resetLogFilePath() */
+
 
 //void in_which_download_window_test(JDA::Logger* p_logger, int evening_start_hour, int evening_end_hour){
 //

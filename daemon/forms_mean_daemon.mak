@@ -52,7 +52,7 @@ GUIFLAGS = $(GUIFLAGS) /NODEFAULTLIB:"libboost_filesystem-vc100-mt-gd-1_55.lib"
 GUIFLAGS = $(GUIFLAGS) /NODEFAULTLIB:"libboost_filesystem-vc100-mt-s-1_55.lib"
 GUIFLAGS = $(GUIFLAGS) /NODEFAULTLIB:"libboost_system-vc100-mt-s-1_55.lib"
 
-OBJS = $(build)/forms_mean_daemon.obj $(build)/FormsMeanUtils.obj $(build)/utils.obj 
+OBJS = $(build)/forms_mean_daemon.obj $(build)/FormsMeanUtils.obj $(build)/FormsMeanCommon.obj $(build)/utils.obj 
 
 $(bin)/forms_mean_daemon.exe : $(OBJS)
 	$(LINKER) $(GUIFLAGS) -OUT:$(bin)/forms_mean_daemon.exe $(OBJS) "$(curl_lib_dir)/libcurl_a.lib" $(GUILIBS) $(boost_lib_dir)/filesystem.lib $(boost_lib_dir)/system.lib
@@ -62,6 +62,9 @@ $(build)/forms_mean_daemon.obj : ./forms_mean_daemon.cpp
 
 $(build)/FormsMeanUtils.obj : $(forms_mean_inc_dir)/FormsMeanUtils.cpp $(forms_mean_inc_dir)/FormsMeanUtils.h
      $(CC) /Fo$(build)/FormsMeanUtils.obj $(CFLAGSMT) $(forms_mean_inc_dir)/FormsMeanUtils.cpp
+
+$(build)/FormsMeanCommon.obj : $(forms_mean_inc_dir)/FormsMeanCommon.cpp $(forms_mean_inc_dir)/FormsMeanCommon.h
+     $(CC) /Fo$(build)/FormsMeanCommon.obj $(CFLAGSMT) $(forms_mean_inc_dir)/FormsMeanCommon.cpp
 
 $(build)/utils.obj : $(cpp_lib_inc_dir)/utils.cpp $(cpp_lib_inc_dir)/utils.h
      $(CC) /Fo$(build)/utils.obj $(CFLAGSMT) $(cpp_lib_inc_dir)/utils.cpp
