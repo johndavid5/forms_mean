@@ -140,6 +140,11 @@ DWORD ServiceThread(LPDWORD param)
 
 	// NOTE: ostream& operator<<(ostream& s, const vector<string>& v); defined in utils.h
 	(*p_logger)(JDA::Logger::INFO) << sWho << "(): configMap = " << configMap << "..." << endl;
+
+	if( p_our_params->s_manual_index_process_url.length() > 0 ){
+		(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "p_our_params->s_manual_index_process_url = \"" << p_our_params->s_manual_index_process_url << "\": Running index download and exiting the daemon..." << endl;
+		Filings::loadFromEdgarIndexUrl( p_our_params->s_manual_index_process_url );
+	}
 	
 	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Exiting daemon now..." << endl;
 	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Let off some steam, Bennett!" << endl;
