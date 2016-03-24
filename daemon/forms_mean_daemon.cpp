@@ -9,6 +9,7 @@
 
 #include "FormsMeanCommon.h"
 #include "FormsMeanUtils.h"
+#include "Forms.h"
 
 using namespace std;
 
@@ -143,7 +144,7 @@ DWORD ServiceThread(LPDWORD param)
 
 	if( p_our_params->s_manual_index_process_url.length() > 0 ){
 		(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "p_our_params->s_manual_index_process_url = \"" << p_our_params->s_manual_index_process_url << "\": Running index download and exiting the daemon..." << endl;
-		Filings::loadFromEdgarIndexUrl( p_our_params->s_manual_index_process_url );
+		Forms::loadFromEdgarIndexUrl( p_our_params->s_manual_index_process_url );
 	}
 	
 	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Exiting daemon now..." << endl;
