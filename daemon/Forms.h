@@ -9,16 +9,21 @@ namespace JDA {
 class Forms {
 
 	protected:
-		VF::Logger* m_p_logger;
+		JDA::Logger* m_p_logger;
 
 		int m_i_iteration_count;
 		int m_i_byte_count;
 		int m_i_query_attempt_count;
 		int m_i_query_succeed_count;
 
+		int m_i_ftp_debug;
+		bool m_b_ftp_no_proxy;
+		string m_s_ftp_proxy_user_pass;
 
 	public:
-		void setPLogger( VF::Logger* p_logger ){ m_p_logger = p_logger; }
+		Forms(): m_i_ftp_debug(0), m_b_ftp_no_proxy(false), m_s_ftp_proxy_user_pass(""){}
+
+		void setPLogger( JDA::Logger* p_logger ){ m_p_logger = p_logger; }
 		void setDbConnection(){}
 
 		/** NOTE: curl will read HTTP_PROXY, HTTPS_PROXY, FTP_PROXY environmental variables
@@ -32,7 +37,7 @@ class Forms {
 		void setFtpNoProxy( bool b_ftp_no_proxy ){ m_b_ftp_no_proxy = b_ftp_no_proxy; }
 
 		/** Set to "username:password", or try using just ":" for magical "NTLM" determination of username/password on Windows... */
-		void setFtpProxyUserPass( bool b_ftp_no_proxy ){ m_b_ftp_no_proxy = b_ftp_no_proxy; }
+		void setFtpProxyUserPass( string s_ftp_proxy_user_pass ){ m_s_ftp_proxy_user_pass = s_ftp_proxy_user_pass; }
 
 		/**
 		* Load bare-bones filings into database from entries in EDGAR index file...
