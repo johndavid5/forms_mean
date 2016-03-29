@@ -1,4 +1,6 @@
 #include "Forms.h"
+#include "FormsMeanUtils.h"
+#include "FtpClient.h"
 
 namespace JDA { 
 
@@ -107,12 +109,11 @@ class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback
    	    	<< " form_type = '" << form_type << "'" << "\n"
   	     	<< " date_filed = '" << date_filed << "'" << "\n"
    	    	<< " file_name = '" << file_name << "'" << "\n"
-   	    	<< " accession_number = '" << accession_number << "'" << "\n"
-   	    	<< " cik_of_filing_agent = '" << cik_of_filing_agent << "'" << endl;
+   	    	<< " accession_number = '" << accession_number << "'" << "..." << endl;
 
-			(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: Moe, callin' Forms::upsertIndexEntry()..." << endl;
+			(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: Moe, callin' Forms::insertIndexEntry()..." << endl;
 
-			Forms::insertIndexEntry( cik, form_type, date_filed, file_name, accession_number, cik_of_filing_agent, this->source_modified );
+			m_p_forms->insertIndexEntry( cik, form_type, date_filed, file_name, accession_number, this->m_s_url );
 
 			//cout << "------------- <ossout-data" << m_i_iteration_count << "> --------------\n"; 
 			//cout << oss_out.str();
@@ -142,16 +143,15 @@ class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback
 
 int Forms::insertIndexEntry(
 	const string& cik, const string& form_type, const string& date_filed, const string& file_name,
-	const string& accession_number, const string& cik_of_filing_agent, const string& index_url
+	const string& accession_number, const string& index_url
 ){  
 
 	const char* sWho = "Forms::insertIndexEntry";
 
-	(*m_p_logger)(JDA::Logger::INFO) << sWho << "():\n" 
+	(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, we gots...\n" 
 	<< "\t" << "cik = " << "\"" << cik << "\"," << "\t" << "form_type = " << "\"" << form_type << "\"," << "\n"
 	<< "\t" << "date_filed = " << "\"" << date_filed << "\"," << "\t" << "file_name = " << "\"" << file_name << "\"," << "\n"
-	<< "\t" << "accession_number = " << "\"" << accession_number << "\"," << "\t" << "cik_of_filing_agent = " << "\"" << cik_of_filing_agent << "\"," << "\n"
-	<< "\t" << "index_url = " << "\"" << index_url << "\"..." << endl;
+	<< "\t" << "accession_number = " << "\"" << accession_number << "\"," << "\t" << "index_url = " << "\"" << index_url << "\"..." << endl;
 
 }/* insertIndexEntry() */
 
@@ -174,11 +174,11 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 	size_t i_where;
 	string s_file_url_prefix = "file:///";
 
-	if( ( i_where = JDA::Utils::ifind( ftp_url, s_file_url_prefix ) ) == 0 ){
+	if( ( i_where = JDA::Utils::ifind( sEdgarIndexUrl, s_file_url_prefix ) ) == 0 ){
 
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Looks like a file job, Moe..." << endl;
 
-		string file_path = ftp_url.substr( s_file_url_prefix.length() );	
+		string file_path = sEdgarIndexUrl.substr( s_file_url_prefix.length() );	
 
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: file_path = '" << file_path << "', Moe..." << endl;
 
@@ -217,7 +217,7 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 				oss_error << "Trouble with getline(), file_path = '" << file_path << "': \"" << e.what() << "\"";
 
 				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << oss_error.str() << "\n"
-				<< "SHEMP: Moe...Moe...I think this is just the end o' the file, so I'm gonna eat this exception, OK, Moe...?" << "\n";
+				<< "SHEMP: Moe...Moe...I think this is just the end o' the file, so I'm gonna eat this exception, OK, Moe...?" << "\n"
 				<< "MOE: Ya gotta eat it...it's part of the plot..." << endl;
 			}
 

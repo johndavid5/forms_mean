@@ -34,6 +34,16 @@ class FormsMeanUtils {
 			int day_of_week = -1
 		);
 
+		/**
+		* e.g.,
+		* accessionNumberFromFilePath("edgar/data/1000275/0001214659-14-000507.txt") = "0001214659-14-000507"
+		* accessionNumberFromFilePath("edgar/data--1000275--0001214659-14-000507.txt") = "0001214659-14-000507"
+		* accessionNumberFromFilePath("0001214659-14-000507.txt") = "0001214659-14-000507"
+		* accessionNumberFromFilePath("0001214659-14-000507.xml") = "0001214659-14-000507"
+		* accessionNumberFromFilePath("0001214659-14-000507") = "0001214659-14-000507"
+		*/	
+		static string accessionNumberFromFilePath( const string& sFilePath );
+
 }; /* class FormsMeanUtils */
 
 

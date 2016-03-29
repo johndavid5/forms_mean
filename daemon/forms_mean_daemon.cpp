@@ -37,7 +37,7 @@ void resetLogFilePath(
 );
 
 
-void in_which_download_window_test(int evening_start_hour, int evening_end_hour);
+//void in_which_download_window_test(int evening_start_hour, int evening_end_hour);
 
 /************ GLOBAL FUNCTION PROTOTYPES - END ******************/
 
@@ -134,8 +134,11 @@ DWORD ServiceThread(LPDWORD param)
 
 	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "S_VERSION = " << S_VERSION << "..." << endl;
 
+	OurParams ourParams;
+	OurParams* p_our_params = &ourParams;
+	
 	if( param != NULL ){
-		OurParams* p_our_params = (OurParams*) param;	
+		p_our_params = (OurParams*) param;	
 		(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got *p_our_params =\n" << (*p_our_params) << endl;
 	}
 
@@ -144,7 +147,8 @@ DWORD ServiceThread(LPDWORD param)
 
 	if( p_our_params->s_manual_index_process_url.length() > 0 ){
 		(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "p_our_params->s_manual_index_process_url = \"" << p_our_params->s_manual_index_process_url << "\": Running index download and exiting the daemon..." << endl;
-		Forms::loadFromEdgarIndexUrl( p_our_params->s_manual_index_process_url );
+		JDA::Forms forms;
+		forms.loadFromEdgarIndexUrl( p_our_params->s_manual_index_process_url );
 	}
 	
 	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Exiting daemon now..." << endl;

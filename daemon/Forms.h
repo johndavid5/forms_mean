@@ -49,6 +49,11 @@ class Forms {
 		*/
 		int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl );
 
+		int Forms::insertIndexEntry(
+			const string& cik, const string& form_type, const string& date_filed, const string& file_name,
+			const string& accession_number, const string& index_url
+		);  
+
 		int getIterationCount(){ return m_i_iteration_count; }
 		int getByteCount(){ return m_i_byte_count; }
 		int getQueryAttemptCount(){ return m_i_query_attempt_count; }
