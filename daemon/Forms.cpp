@@ -39,12 +39,15 @@ class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback
 		void setPForms( JDA::Forms* p_forms ){ m_p_forms = p_forms; }
 		void setSUrl( const string& s_url ){ m_s_url = s_url; }
 
+		int getIterationCount(){ return m_i_iteration_count; };
+		int getByteCount(){ return m_i_byte_count; };
+		int getQueryAttemptCount(){ return m_i_query_attempt_count; };
+		int getQuerySucceedCount(){ return m_i_query_succeed_count; };
+
 		virtual ~MyFtpIndexClientCallback(){
 			const char* sWho = "MyFtpIndexClientCallback::~MyFtpIndexClientCallback";
 			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "()..." << endl;
 		}
-
-	private:
 
 		size_t dataReceived( void* buffer, size_t size, size_t nmemb, void *userdata ){
 
@@ -111,9 +114,13 @@ class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback
    	    	<< " file_name = '" << file_name << "'" << "\n"
    	    	<< " accession_number = '" << accession_number << "'" << "..." << endl;
 
+			m_i_query_attempt_count++;
+
 			(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: Moe, callin' Forms::insertIndexEntry()..." << endl;
 
 			m_p_forms->insertIndexEntry( cik, form_type, date_filed, file_name, accession_number, this->m_s_url );
+
+			m_i_query_succeed_count++;
 
 			//cout << "------------- <ossout-data" << m_i_iteration_count << "> --------------\n"; 
 			//cout << oss_out.str();
@@ -153,6 +160,8 @@ int Forms::insertIndexEntry(
 	<< "\t" << "date_filed = " << "\"" << date_filed << "\"," << "\t" << "file_name = " << "\"" << file_name << "\"," << "\n"
 	<< "\t" << "accession_number = " << "\"" << accession_number << "\"," << "\t" << "index_url = " << "\"" << index_url << "\"..." << endl;
 
+	return 1;
+
 }/* insertIndexEntry() */
 
 // inspired by: WaldoUtils::load_index_into_db()... 
@@ -163,6 +172,7 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 	(*m_p_logger)(JDA::Logger::INFO) << sWho << "( sEdgarIndexUrl = \"" << sEdgarIndexUrl << "\" ): SHEMP: Here goes, Moe..." << endl;
 
 	MyFtpIndexClientCallback myFtpIndexClientCallback = MyFtpIndexClientCallback();
+
 	myFtpIndexClientCallback.setPLogger( m_p_logger );
 	myFtpIndexClientCallback.setPForms( this );
 	myFtpIndexClientCallback.setSUrl( sEdgarIndexUrl ); // For informational purposes...to log to DB...otherwise callback doesn't need to know...
@@ -225,9 +235,9 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": \"" << le_line << "\"..." << endl;
 			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": SHEMP: Callin' myFtpClientCallback.dataReceived(), Moe..." << endl;
 
-			size_t i_return = myFtpClientCallback.dataReceived( (void*)le_line.c_str(), le_line.size(), sizeof(char), NULL ); 
+			size_t i_return = myFtpIndexClientCallback.dataReceived( (void*)le_line.c_str(), le_line.size(), sizeof(char), NULL ); 
 
-			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": SHEMP: myFtpClientCallback.dataReceived() retoyned " << i_return << ", Moe..." << endl;
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": SHEMP: myFtpIndexClientCallback.dataReceived() retoyned " << i_return << ", Moe..." << endl;
 
 		}/* while(!le_ifs.eof() && ! le_ifs.fail() ) */
 
@@ -307,9 +317,15 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 	
 	}/* else -- an FTP job */
 
-	(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Returning myFtpClientCallback.m_i_query_succeed_count = " << myFtpClientCallback.m_i_query_succeed_count << ", Moe..." << endl;
+	(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SEHMP: Moe, I got news for ya, Moe...\n"
+	<< "\t" << "myFtpIndexClientCallback.getByteCount = " << myFtpIndexClientCallback.getByteCount() << "..." << "\n"
+	<< "\t" << "myFtpIndexClientCallback.getIterationCount = " << myFtpIndexClientCallback.getIterationCount() << "..." << "\n"
+	<< "\t" << "myFtpIndexClientCallback.getQueryAttemptCount = " << myFtpIndexClientCallback.getQueryAttemptCount() << "..." << "\n"
+	<< "\t" << "myFtpIndexClientCallback.getQuerySucceedCount = " << myFtpIndexClientCallback.getQuerySucceedCount() << "..." << endl;
 
-	return myFtpClientCallback.m_i_query_succeed_count;
+	(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Returning myFtpIndexClientCallback.getQuerySucceedCount = " << myFtpIndexClientCallback.getQuerySucceedCount() << ", Moe..." << endl;
+
+	return myFtpIndexClientCallback.getQuerySucceedCount();
 
 }/* void Forms::loadFromEdgarIndexUrl() */
 
