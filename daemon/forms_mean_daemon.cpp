@@ -6,6 +6,7 @@
 
 #include "utils.h" 
 #include "logger.h" 
+#include "FtpClient.h" 
 
 #include "FormsMeanCommon.h"
 #include "FormsMeanUtils.h"
@@ -146,10 +147,29 @@ DWORD ServiceThread(LPDWORD param)
 	(*p_logger)(JDA::Logger::INFO) << sWho << "(): configMap = " << configMap << "..." << endl;
 
 	if( p_our_params->s_manual_index_process_url.length() > 0 ){
-		(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "p_our_params->s_manual_index_process_url = \"" << p_our_params->s_manual_index_process_url << "\": Running index download and exiting the daemon..." << endl;
-		JDA::Forms forms;
-		forms.loadFromEdgarIndexUrl( p_our_params->s_manual_index_process_url );
-	}
+
+		(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "p_our_params->s_manual_index_process_url = \""
+			<< p_our_params->s_manual_index_process_url << "\":\n" 
+			<< "\t" << "Running forms.loadFromEdgarIndexUrl( \"" << p_our_params->s_manual_index_process_url << "\" ), "
+			<< "and exiting the daemon..." << endl;
+
+		try {
+			JDA::Forms forms;
+			forms.setPLogger( p_logger );
+			forms.loadFromEdgarIndexUrl( p_our_params->s_manual_index_process_url );
+		}
+		catch(JDA::FtpClient::FtpException& e) {
+			(*p_logger)(JDA::Logger::ERROR) << sWho << "(): Caught JDA::FtpClient::FtpException: \"" 
+				<< e.what() << "\"" << endl;
+		}
+		catch(std::exception& e ){
+			(*p_logger)(JDA::Logger::ERROR) << sWho << "(): Caught std::exception: \"" 
+				<< e.what() << "\"" << endl;
+		}
+		catch(...){
+			(*p_logger)(JDA::Logger::ERROR) << sWho << "(): Caught unknown exception." << endl;
+		}
+	}/* if( p_our_params->s_manual_index_process_url.length() > 0 ) */
 	
 	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Exiting daemon now..." << endl;
 	(*p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Let off some steam, Bennett!" << endl;
