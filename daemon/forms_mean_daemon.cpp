@@ -156,6 +156,8 @@ DWORD ServiceThread(LPDWORD param)
 		try {
 			JDA::Forms forms;
 			forms.setPLogger( p_logger );
+			forms.setDbUrl( configMap["db_url"] );
+			forms.setDbName( configMap["db_name"] );
 			forms.loadFromEdgarIndexUrl( p_our_params->s_manual_index_process_url );
 		}
 		catch(JDA::FtpClient::FtpException& e) {

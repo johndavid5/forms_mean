@@ -12,9 +12,15 @@ git add daemon/forms_mean_daemon.cpp
 git add daemon/forms_mean_daemon.mak
 git add daemon/Filing.cpp
 git add daemon/Filing.h
+git add daemon/Forms.cpp
+git add daemon/Forms.h
 git add daemon/FormsMeanCommon.cpp
 git add daemon/FormsMeanCommon.h
 git add daemon/FormsMeanCommon.cpp
 git add daemon/FormsMeanUtils.h
 git add daemon/FormsMeanUtils.cpp
 
+git add db/forms_insert.js
+git add db/forms_setup.js
+git add db/forms_view.js
+git add db/mongoit.bat

@@ -1,0 +1,10 @@
+Description:           Daily Index of EDGAR Dissemination Feed
+Last Data Received:    Oct 31, 2014
+Comments:              webmaster@sec.gov
+Anonymous FTP:         ftp://ftp.sec.gov/edgar/
+ 
+CIK|Company Name|Form Type|Date Filed|File Name
+--------------------------------------------------------------------------------
+1000180|SANDISK CORP|4|20141031|edgar/data/1000180/0001242648-14-000081.txt
+1000232|KENTUCKY BANCSHARES INC /KY/|8-K|20141031|edgar/data/1000232/0001000232-14-000009.txt
+1000275|ROYAL BANK OF CANADA|424B2|20141031|edgar/data/1000275/0001214659-14-007292.txt
