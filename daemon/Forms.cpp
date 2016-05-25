@@ -143,9 +143,17 @@ class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback
 				(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: Moe, callin' Forms::insertIndexEntry()..." << endl;
 			}
 
-			m_p_forms->insertIndexEntry( cik, form_type, date_filed, file_name, accession_number, this->m_s_url );
+			try {
+				m_p_forms->insertIndexEntry( cik, form_type, date_filed, file_name, accession_number, this->m_s_url );
 
-			m_i_query_succeed_count++;
+				m_i_query_succeed_count++;
+			}
+			catch( JDA::Utils::Exception& e ){
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): SHEMP: Sorry, Moe, trouble with Forms::insertIndexEntry(): \"" << e.what() << "\"..." << endl;
+				}
+			}
+
 
 			//cout << "------------- <ossout-data" << m_i_iteration_count << "> --------------\n"; 
 			//cout << oss_out.str();
@@ -177,6 +185,12 @@ class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback
 
 }; /* class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback  */
 
+// example:
+// Forms::insertIndexEntry(
+//	cik = "1000275", form_type = "424B2",
+//	date_filed = "20141031", file_name = "edgar/data/1000275/0001214659-14-007292.txt",
+//	accession_number = "0001214659-14-007292",	index_url = "file:///../edgar/daily-index/master.20141031.sample.idx"
+//  )
 int Forms::insertIndexEntry(
 	const string& cik, const string& form_type, const string& date_filed, const string& file_name,
 	const string& accession_number, const string& index_url
@@ -191,9 +205,75 @@ int Forms::insertIndexEntry(
 			<< "\t" << "accession_number = " << "\"" << accession_number << "\"," << "\t" << "index_url = " << "\"" << index_url << "\"..." << endl;
 	}
 
+	//if( m_p_logger ){
+	//	(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Sorry, Moe, dhis met'od ain't implemented yet, Moe..." << endl;
+	//}
+
+   	mongoc_client_t *p_client;
+
+   	//bson_t bsonee;
+	//bson_init (&bsonee);
+
+	bson_t* p_bson;
+
+	bson_error_t our_bson_error;
+
 	if( m_p_logger ){
-		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Sorry, Moe, dhis met'od ain't implemented yet, Moe..." << endl;
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Calling mongoc_init()..." << endl;
 	}
+   	mongoc_init();
+
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: " << "Calling mongoc_client_new( m_s_db_url = \"" << m_s_db_url << "\" )..." << endl;
+	}
+	p_client = mongoc_client_new( m_s_db_url );
+
+	if (!p_client) {
+		ostringstream oss_out;
+		oss_out << "Failed to parse URI \"" << m_s_db_url << "\"";
+		throw JDA::Utils::Exception( oss_out.str() );
+	}
+  
+ 
+	//e.g.,
+	// db.forms.insert( { "cik": 1000180, "form_type": "4", "date_filed": "2014-10-31", 
+	//	"file_name": "edgar/data/1000180/0001242648-14-000081.txt",
+	//	"accession_number": "0001242648-14-000081",
+	//	"index_url": "file:///../edgar/daily-index/master.20141031.sample.idx"
+	// });
+
+	ostringstream oss_json;
+	oss_json << "{\n" 
+	<< "\"cik\": " << cik << ", \"form_type\": \"" << form_type << "\", \"date_filed\": \"" << date_filed << "\",\n" 
+	<< "\"file_name\": \"" << file_name << "\",\n"
+	<< "\"accession_number\": \"" << accession_number << "\",\n"
+	<< "\"index_url\": \"" << index_url << "\"\n"
+	<< "}"
+	;
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: " << "oss_json = \"" << oss_json.str() << "\"..." << endl; 
+	}
+
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: " << "Calling bson_new_from_json( \"" << oss_json.str() << "\" )..." << endl;
+	}
+
+
+	p_bson = bson_new_from_json( (const uint8_t *) oss_json.str().c_str(), -1, &our_bson_error );
+
+	if( ! p_bson ){
+		ostringstream oss_out;
+		oss_out << "Trouble converting json to bson: \"" << our_bson_error.message << "\"";
+		throw JDA::Utils::Exception( oss_out.str() );
+	}
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: " << "Calling bson_destroy( p_bson )..." << endl;
+	}
+	bson_destroy(p_bson); 
 
 	return 1;
 

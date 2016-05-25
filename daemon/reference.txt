@@ -1,0 +1,11 @@
+MongoDB C Driver:
+http://api.mongodb.com/c/current/?_ga=1.140389683.1400198715.1448928729
+
+Libbson: A Cross Platform BSON Library for C 
+https://api.mongodb.com/libbson/current/
+
+MongoDB 3.2 Manual:
+https://docs.mongodb.com/manual/?_ga=1.94954332.1349040594.1444752794
+
+Mongo DB University:
+https://university.mongodb.com/?next=/courses/MongoDB/M101JS/2015_October/syllabus
