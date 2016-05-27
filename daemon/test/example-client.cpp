@@ -111,7 +111,6 @@ main (int   argc,
                                     0,
                                     0,
                                     0,
-                                    //&query,
 									p_bson_query,
                                     NULL,  /* Fields, NULL for all. */
                                     NULL); /* Read Prefs, NULL for default */

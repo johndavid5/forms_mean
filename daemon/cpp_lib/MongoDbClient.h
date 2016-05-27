@@ -10,11 +10,6 @@ using namespace std;
 
 #include "logger.h"
 
-/* http://www.developerfusion.com/article/4033/using-ado-in-c/4/ Randy Charles Morin */
-
-/* Pull in the type library... */
-#import "C:\Program files\Common Files\System\Ado\msado15.dll" rename("EOF", "ADOEOF")
-
 namespace JDA
 {
 
