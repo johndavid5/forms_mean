@@ -19,6 +19,8 @@ git add forms_mean_daemon.mak
 
 git add cpp_lib/FtpClient.cpp
 git add cpp_lib/FtpClient.h
+git add cpp_lib/MongoDbClient.cpp
+git add cpp_lib/MongoDbClient.h
 git add cpp_lib/logger.h
 git add cpp_lib/tlogger.h
 git add cpp_lib/wlogger.h
