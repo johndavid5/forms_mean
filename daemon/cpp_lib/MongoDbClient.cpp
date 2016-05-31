@@ -23,6 +23,8 @@
 
 	int JDA::MongoDbClient::find( const string& uri_str, const string& db_name, const string& collection_name, const string& json_query ){
 
+		const char* sWho = "MongoDbClient::find";
+
 		mongoc_client_t *p_client;
 		mongoc_collection_t *p_collection;
 		mongoc_cursor_t *p_cursor;
@@ -37,14 +39,14 @@
 		if( m_p_logger != NULL ){
 			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_client_new( uri_str = \"" << uri_str << "\" )..." << endl;
 		}
-		p_client = mongoc_client_new (uri_str);
+		p_client = mongoc_client_new (uri_str.c_str());
 
 		if (!p_client) {
 			ostringstream oss_out;
 			oss_out << "Failed to parse URI \"" << uri_str << "\"";
-			throw new JDA::MongoDbException( oss_out.str() ); 
+			throw new JDA::MongoDbClient::MongoDbException( oss_out.str() ); 
 		}
 
 
-	}
+	}/* JDA::MongoDbClient::find() */
 

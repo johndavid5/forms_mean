@@ -1,4 +1,6 @@
 git add add_em.bat
+git add c.bat
+git add d.bat
 git add v.bat
 git add reference.txt
 
@@ -8,6 +10,7 @@ git add ../db/setup.js
 git add ../db/mongoit.bat*
 
 git add forms_mean_daemon.cpp
+git add forms_mean_daemon.mak
 
 git add Forms.cpp
 git add Forms.h
@@ -15,7 +18,8 @@ git add Forms.h
 git add FormsMeanUtils.cpp
 git add FormsMeanUtils.h
 
-git add forms_mean_daemon.mak
+git add mongoc.cpp
+git add mongoc.mak
 
 git add cpp_lib/FtpClient.cpp
 git add cpp_lib/FtpClient.h

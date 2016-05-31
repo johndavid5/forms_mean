@@ -10,9 +10,12 @@
 #include <string>
 using namespace std;
 
+#include "logger.h"
 #include "MongoDbClient.h"
 
 string G_S_ARGV_ZERO = "";
+
+void print_format( ostream& oss_out );
 
 int
 main (int   argc,
@@ -23,11 +26,14 @@ main (int   argc,
 
 	G_S_ARGV_ZERO = argv[0];
 
-	string s_verb = "" // e.g., "find"
-	string s_uri = "" // e.g., "mongodb://127.0.0.1/"
-	string s_db_name = "" // e.g., "test"
+	string s_verb = ""; // e.g., "find"
+	string s_uri = ""; // e.g., "mongodb://127.0.0.1/"
+	string s_db_name = ""; // e.g., "test"
 	string s_collection_name = ""; // e.g., "grades"
 	string s_json_query = ""; // e.g., "{ \"student_id\": 2 }"
+
+	JDA::Logger le_logger = JDA::Logger();
+	le_logger.setDebugLevel( JDA::Logger::TRACE );
 
 	cout << "argc = " << argc << "..." << endl;
 	for(int i = 0 ; i < argc; i++ ){
@@ -59,9 +65,21 @@ main (int   argc,
 	cout << "s_collection_name = \"" << s_collection_name << "\"..." << endl;
 	cout << "s_json_query = \"" << s_json_query.c_str() << "\"..." << endl;
 
-	if( s_verb.compare("find") != 0 ){ 
-		print_format( cerr );
-		return 255;
+	JDA::MongoDbClient mongoDbClient;
+	mongoDbClient.setPLogger( & le_logger );
+
+	try {
+		if( s_verb.compare("find") == 0 ){
+			cout << "Calling mongoDbClient.find( \"" << s_uri << "\", \"" << s_db_name << "\", \"" << s_collection_name << "\", \"" << s_json_query << "\")..." << endl;
+			mongoDbClient.find( s_uri, s_db_name, s_collection_name, s_json_query );					
+		}
+		else {
+			print_format( cerr );
+			return 255;
+		}
+	}
+	catch( JDA::MongoDbClient::MongoDbException e ){
+		cout << "Trouble with mongo: \"" << e.what() << "\"..." << endl;
 	}
 
 	cout << "Let off some steam, Bennett!" << endl;

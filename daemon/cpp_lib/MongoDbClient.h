@@ -36,11 +36,11 @@ class MongoDbClient {
 	}; /* class MongoDbException : std::exception */
 
 
-	void setLogger( JDA::Logger* p_logger ){
+	void setPLogger( JDA::Logger* p_logger ){
 		m_p_logger = p_logger;
 	}
 
-	JDA::Logger* getLogger(){
+	JDA::Logger* getPLogger(){
 		return m_p_logger;
 	}
 
