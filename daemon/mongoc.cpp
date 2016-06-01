@@ -30,6 +30,7 @@ main (int   argc,
 	string s_uri = ""; // e.g., "mongodb://127.0.0.1/"
 	string s_db_name = ""; // e.g., "test"
 	string s_collection_name = ""; // e.g., "grades"
+	//string s_json_query = "{}"; // e.g., "{ \"student_id\": 2 }"
 	string s_json_query = ""; // e.g., "{ \"student_id\": 2 }"
 
 	JDA::Logger le_logger = JDA::Logger();
@@ -71,15 +72,27 @@ main (int   argc,
 	try {
 		if( s_verb.compare("find") == 0 ){
 			cout << "Calling mongoDbClient.find( \"" << s_uri << "\", \"" << s_db_name << "\", \"" << s_collection_name << "\", \"" << s_json_query << "\")..." << endl;
-			mongoDbClient.find( s_uri, s_db_name, s_collection_name, s_json_query );					
+			try {
+				int i_ret_code = mongoDbClient.find( s_uri, s_db_name, s_collection_name, s_json_query );					
+				cout << i_ret_code << " row(s) returned." << endl;
+			}
+			catch( JDA::MongoDbClient::MongoDbException& e ){
+				cout << "Caught JDA::MongoDbClient::MongoDbException during MongoDbClient::find(): \"" << e.what() << "\"..." << endl;
+			}
+			catch( ... ){
+				cout << "Caught unknown exception during MongoDbClient::find()." << endl;
+			}
 		}
 		else {
 			print_format( cerr );
 			return 255;
 		}
 	}
-	catch( JDA::MongoDbClient::MongoDbException e ){
+	catch( JDA::MongoDbClient::MongoDbException& e ){
 		cout << "Trouble with mongo: \"" << e.what() << "\"..." << endl;
+	}
+	catch( ... ){
+		cout << "Caught unknown exception." << endl;
 	}
 
 	cout << "Let off some steam, Bennett!" << endl;
