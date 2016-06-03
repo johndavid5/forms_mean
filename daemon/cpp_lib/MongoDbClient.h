@@ -53,6 +53,11 @@ class MongoDbClient {
 	/** @throws MongoDbClient::DbException if something goes wrong with the command. */
 	int find( const string& uri, const string& db_name, const string& collection_name, const string& json_query );
 
+	/** <<irete kudasai>>
+	* @throws MongoDbClient::DbException if something goes wrong with the command.
+	*/
+	int insert( const string& uri, const string& db_name, const string& collection_name, const string& json_query );
+
 }; /* class MongoDbClient */
 
 } /* namespace JDA */

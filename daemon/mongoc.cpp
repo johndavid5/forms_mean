@@ -83,6 +83,19 @@ main (int   argc,
 				cout << "Caught unknown exception during MongoDbClient::find()." << endl;
 			}
 		}
+		else if( s_verb.compare("insert") == 0 ){
+			cout << "Calling mongoDbClient.insert( \"" << s_uri << "\", \"" << s_db_name << "\", \"" << s_collection_name << "\", \"" << s_json_query << "\")..." << endl;
+			try {
+				int i_ret_code = mongoDbClient.insert( s_uri, s_db_name, s_collection_name, s_json_query );					
+				cout << "insert() returned " << i_ret_code << "..." << endl;
+			}
+			catch( JDA::MongoDbClient::MongoDbException& e ){
+				cout << "Caught JDA::MongoDbClient::MongoDbException during MongoDbClient::insert(): \"" << e.what() << "\"..." << endl;
+			}
+			catch( ... ){
+				cout << "Caught unknown exception during MongoDbClient::insert()." << endl;
+			}
+		}
 		else {
 			print_format( cerr );
 			return 255;
