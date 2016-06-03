@@ -21,6 +21,36 @@
 
 	}/* JDA::MongoDbClient::~MongoDbClient() */
 
+	string JDA::MongoDbClient::bson_as_json_string( bson_t* p_bson ){
+
+		const char* sWho = "MongoDbClient::bson_as_json_string";
+
+		char *cp_bson_as_json;
+		string s_bson_as_json;
+
+		if( p_bson == NULL ){
+			return "<NULL-INPUT>";
+		}
+
+		cp_bson_as_json = bson_as_json (p_bson, NULL);
+
+		if( cp_bson_as_json != NULL ){
+			//if( m_p_logger != NULL ){
+			//	(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "cp_bson_as_json = \"" << cp_bson_as_json << "\"..." << endl;
+			//} 
+			s_bson_as_json = cp_bson_as_json;
+			bson_free(cp_bson_as_json);
+		}
+		else {
+			//if( m_p_logger != NULL ){
+			//	(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "cp_bson_as_json is NULL..." << endl;
+			//} 
+			s_bson_as_json = "<NULL-OUTPUT>";
+		}
+
+		return s_bson_as_json;
+	}
+
 	int JDA::MongoDbClient::find( const string& s_uri_str, const string& s_db_name, const string& s_collection_name, const string& s_json_query ){
 
 		const char* sWho = "MongoDbClient::find";
@@ -170,6 +200,7 @@
 	}/* JDA::MongoDbClient::find() */
 
 
+
 	int JDA::MongoDbClient::insert( const string& s_uri_str, const string& s_db_name, const string& s_collection_name, const string& s_json_doc){
 		// http://api.mongodb.com/c/current/tutorial.html#insert
 
@@ -180,10 +211,6 @@
 	    bson_error_t bson_error;
 
 		bson_t *p_bson_doc;
-
-		char *cp_bson_as_json;
-		string s_bson_as_json;
-
 
 		if( m_p_logger != NULL ){
 			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_init()..." << endl;
@@ -215,28 +242,6 @@
 			throw JDA::MongoDbClient::MongoDbException( oss_out.str() ); 
 		}
 
-		// For debug purposes, convert the BSON back to JSON to see if looks the same
-		// as the original...
-		// REFERENCE: https://api.mongodb.com/libbson/current/bson_as_json.html
-		cp_bson_as_json = bson_as_json (p_bson_doc, NULL);
-		if( cp_bson_as_json != NULL ){
-			if( m_p_logger != NULL ){
-				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "cp_bson_as_json = \"" << cp_bson_as_json << "\"..." << endl;
-			} 
-			s_bson_as_json = cp_bson_as_json;
-			bson_free(cp_bson_as_json);
-		}
-		else {
-			if( m_p_logger != NULL ){
-				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "cp_bson_as_json is NULL..." << endl;
-			} 
-			s_bson_as_json = "<NULL>";
-		}
-
-		if( m_p_logger != NULL ){
-			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "s_bson_as_json = \"" << s_bson_as_json.c_str() << "\"..." << endl;
-		} 
-
 		if( m_p_logger ){
 			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoc_client_get_collection( p_client, \"" << s_db_name << "\", \"" << s_collection_name << "\" )..." << endl;
 		}
@@ -245,13 +250,9 @@
 		p_collection = mongoc_client_get_collection (p_client, s_db_name.c_str(), s_collection_name.c_str() );
 
 		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Running db." << s_collection_name << ".insert( " << s_bson_as_json << " )..." << endl;
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Running db." << s_collection_name << ".insert( " << this->bson_as_json_string( p_bson_doc ) << " )..." << endl;
 		}
 
-		//doc = bson_new ();
-		//bson_oid_init (&oid, NULL);
-		//BSON_APPEND_OID (doc, "_id", &oid);
-		//BSON_APPEND_UTF8 (doc, "hello", "world");
 
 		if (!mongoc_collection_insert (p_collection, MONGOC_INSERT_NONE, p_bson_doc, NULL, &bson_error)) {
 			ostringstream oss_out;
@@ -262,10 +263,25 @@
 			throw JDA::MongoDbClient::MongoDbException( oss_out.str() ); 
 		}
 
-		// Extra Credit: Use mongoc_collection_get_last_error() to ascertain _id of newly inserted document...
-		// const bson_t *
-		//mongoc_collection_get_last_error (const mongoc_collection_t *collection);
+		// Extra Credit: Use mongoc_collection_get_last_error() to ascertain _id of newly inserted document...or try to...
+		// const bson_t * mongoc_collection_get_last_error (const mongoc_collection_t *collection);
+		
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Running bson_last_insert = mongoc_collection_get_last_error( " << s_collection_name << " ) to view newly inserted record..." << endl;
+		}
 
+		//const bson_t* p_bson_last_insert = mongoc_collection_get_last_error( p_collection ); 
+		bson_t* p_bson_last_insert = (bson_t * ) mongoc_collection_get_last_error( p_collection ); 
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "bson_as_json_string( bson_last_insert ) = \"" << this->bson_as_json_string( p_bson_last_insert ) << "\"..." << endl;
+		}
+
+		// Not a good idea...
+		//if( m_p_logger ){
+		//	(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling bson_destroy( p_bson_last_insert )..." << endl;
+		//}
+   		//bson_destroy(p_bson_last_insert ); 
 
 		if( m_p_logger ){
 			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling bson_destroy( p_bson_doc )..." << endl;

@@ -27,9 +27,14 @@ class Forms {
 		Forms(): m_i_ftp_debug(0), m_b_ftp_no_proxy(false), m_s_ftp_proxy_user_pass(""), m_s_db_url(""), m_s_db_name("") {}
 
 		void setPLogger( JDA::Logger* p_logger ){ m_p_logger = p_logger; }
+
 		void setDbConnection(){}
+
 		void setDbUrl( string sDbUrl ){ m_s_db_url = sDbUrl; }
+		string getDbUrl(){ return m_s_db_url; }
+
 		void setDbName( string sDbName ){ m_s_db_name = sDbName; }
+		string getDbName(){ return m_s_db_name; }
 
 		/** NOTE: curl will read HTTP_PROXY, HTTPS_PROXY, FTP_PROXY environmental variables
 		 * for proxy URL...the remainder you can set here...

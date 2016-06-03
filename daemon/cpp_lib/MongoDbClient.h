@@ -6,6 +6,7 @@
 #include <string>
 using namespace std;
 
+
 #include <mongoc.h>
 
 #include "logger.h"
@@ -50,13 +51,15 @@ class MongoDbClient {
 	/** destructor */
 	virtual ~MongoDbClient();
 
-	/** @throws MongoDbClient::DbException if something goes wrong with the command. */
-	int find( const string& uri, const string& db_name, const string& collection_name, const string& json_query );
+	string bson_as_json_string( bson_t* p_bson );
 
-	/** <<irete kudasai>>
+	/** @throws MongoDbClient::DbException if something goes wrong with the command. */
+	int find( const string& s_uri, const string& s_db_name, const string& s_collection_name, const string& s_json_query );
+
+	/** "irete kudasai"
 	* @throws MongoDbClient::DbException if something goes wrong with the command.
 	*/
-	int insert( const string& uri, const string& db_name, const string& collection_name, const string& json_query );
+	int insert( const string& s_uri, const string& s_db_name, const string& s_collection_name, const string& s_json_query );
 
 }; /* class MongoDbClient */
 

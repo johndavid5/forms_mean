@@ -1,9 +1,12 @@
-//#include "mongoc.h" // MongoDB client
+// Gotta include <winsock2.h> before 
+// <windows.h>...avoids winsock already
+// defined error when including mongoc.h 
+#include <winsock2.h>
 
 #include "Forms.h"
 #include "FormsMeanUtils.h"
 #include "FtpClient.h"
-
+#include "MongoDbClient.h"
 
 namespace JDA { 
 
@@ -205,37 +208,6 @@ int Forms::insertIndexEntry(
 			<< "\t" << "accession_number = " << "\"" << accession_number << "\"," << "\t" << "index_url = " << "\"" << index_url << "\"..." << endl;
 	}
 
-	//if( m_p_logger ){
-	//	(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Sorry, Moe, dhis met'od ain't implemented yet, Moe..." << endl;
-	//}
-
-   	mongoc_client_t *p_client;
-
-   	//bson_t bsonee;
-	//bson_init (&bsonee);
-
-	bson_t* p_bson;
-
-	bson_error_t our_bson_error;
-
-	if( m_p_logger ){
-		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Calling mongoc_init()..." << endl;
-	}
-   	mongoc_init();
-
-
-	if( m_p_logger ){
-		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: " << "Calling mongoc_client_new( m_s_db_url = \"" << m_s_db_url << "\" )..." << endl;
-	}
-	p_client = mongoc_client_new( m_s_db_url );
-
-	if (!p_client) {
-		ostringstream oss_out;
-		oss_out << "Failed to parse URI \"" << m_s_db_url << "\"";
-		throw JDA::Utils::Exception( oss_out.str() );
-	}
-  
- 
 	//e.g.,
 	// db.forms.insert( { "cik": 1000180, "form_type": "4", "date_filed": "2014-10-31", 
 	//	"file_name": "edgar/data/1000180/0001242648-14-000081.txt",
@@ -256,28 +228,41 @@ int Forms::insertIndexEntry(
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: " << "oss_json = \"" << oss_json.str() << "\"..." << endl; 
 	}
 
+	JDA::MongoDbClient mongoDbClient;
+	mongoDbClient.setPLogger( m_p_logger );
+
+	string s_collection_name = "forms";
 
 	if( m_p_logger ){
-		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: " << "Calling bson_new_from_json( \"" << oss_json.str() << "\" )..." << endl;
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoDbClient.insert( \"" << this->getDbUrl() << "\", \"" << this->getDbName() << "\", \"" << s_collection_name << "\", \"" << oss_json.str() << "\")..." << endl;
 	}
 
+	int i_ret_code = 0;
+			
+	try {
+		i_ret_code = mongoDbClient.insert( this->getDbUrl(), this->getDbName(), s_collection_name, oss_json.str() );					
 
-	p_bson = bson_new_from_json( (const uint8_t *) oss_json.str().c_str(), -1, &our_bson_error );
-
-	if( ! p_bson ){
-		ostringstream oss_out;
-		oss_out << "Trouble converting json to bson: \"" << our_bson_error.message << "\"";
-		throw JDA::Utils::Exception( oss_out.str() );
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "insert() returned " << i_ret_code << "..." << endl;
+		}
+	}
+	catch( JDA::MongoDbClient::MongoDbException& e ){
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Caught JDA::MongoDbClient::MongoDbException during MongoDbClient::insert(): \"" << e.what() << "\"..." << endl;
+		}
+		i_ret_code = 0;
+	}
+	catch( ... ){
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Caught unknown exception during MongoDbClient::insert()." << endl;
+		}
+		i_ret_code = 0;
 	}
 
-	if( m_p_logger ){
-		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: " << "Calling bson_destroy( p_bson )..." << endl;
-	}
-	bson_destroy(p_bson); 
-
-	return 1;
+	return i_ret_code;
 
 }/* insertIndexEntry() */
+
 
 // inspired by: WaldoUtils::load_index_into_db()... 
 int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
