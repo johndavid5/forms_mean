@@ -44,6 +44,16 @@ class FormsMeanUtils {
 		*/	
 		static string accessionNumberFromFilePath( const string& sFilePath );
 
+		/** Right now blindly adds dashes to an 8 character input string, or if input is not 8 characters,
+		* returns the input unchanged.  We may decide to add some error checking later.
+		*
+		* e.g.,
+		* 	FormsMeanUtils::isoDateFromYyyyMmDd("20160606") return "2016-06-06"
+		* 	FormsMeanUtils::isoDateFromYyyyMmDd("HELLOABC") return "HELL-OA-BC" -- since it doesn't check for numerical input.
+		*   FormsMeanUtils::isoDateFromYyyyMmDd("201606") return "201606" -- or the original input, because the input string is not 8 characters...
+		*/
+		static string FormsMeanUtils::isoDateFromYyyyMmDd( const string& sYyyyMmDd );
+
 }; /* class FormsMeanUtils */
 
 

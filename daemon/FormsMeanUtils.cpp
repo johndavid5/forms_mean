@@ -43,5 +43,18 @@ namespace JDA {
 
 }/* accessionNumberFromFilePath( const string& sFilePath ) */
 
+
+/* static */ string FormsMeanUtils::isoDateFromYyyyMmDd( const string& sYyyyMmDd ){
+
+	if( sYyyyMmDd.length() == 8 ){ 
+		ostringstream oss_out;
+		oss_out << sYyyyMmDd.substr(0, 4) << "-" << sYyyyMmDd.substr(4, 2) << "-" << sYyyyMmDd.substr(6, 2); 
+		return oss_out.str();
+	}
+	else{
+		return sYyyyMmDd;
+	}
+}
+
 } /* namespace JDA */
 

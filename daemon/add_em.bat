@@ -2,9 +2,13 @@ git add add_em.bat
 git add c.bat
 git add d.bat
 git add v.bat
+git add status.bat
 git add reference.txt
 
+git add build/forms_mean_daemon.ini
+
 git add ../db/forms_insert.js
+git add ../db/forms_setup.js
 git add ../db/forms_view.js
 git add ../db/setup.js
 git add ../db/mongoit.bat*

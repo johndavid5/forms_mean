@@ -2,13 +2,14 @@
 
 /* ./example-client [CONNECTION_STRING [COLLECTION_NAME]] */
 
-#include <mongoc.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include <iostream>
 #include <string>
 using namespace std;
+
+#include <mongoc.h>
 
 int
 main (int   argc,
@@ -30,7 +31,7 @@ main (int   argc,
 
    //bson_t query;
    bson_t* p_bson_query;
-   //char *str;
+   char *str;
    char *cp_bson_as_json;
    string s_bson_as_json;
 
