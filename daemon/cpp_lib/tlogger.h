@@ -542,6 +542,9 @@ public:
 	}
 	#endif
 
+	// http://stackoverflow.com/questions/33956545/comparing-function-pointers-in-stream-class
+	typedef ostream& (*io_manip_ptr_t)(ostream&);
+
     Logger& operator<<( std::OSTREAM&(*f)(std::OSTREAM&) )
     {
 		STRING sWho = _TT("operator<<");
@@ -549,7 +552,7 @@ public:
 		oss << f;
 
 		/* If we have a std::endl, dump oss to the log and re-set oss... */
-        if( f == ::std::endl ) {
+        if( f == (io_manip_ptr_t)::std::endl ) {
 
 			this->flush();
 

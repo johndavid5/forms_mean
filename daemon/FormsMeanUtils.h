@@ -24,6 +24,7 @@ class FormsMeanUtils {
 
 		static string downloadWindowTypeToString( DownloadWindowType downloadWindowType ){
 			const char* sWho = "::downloadWindowTypeToString";
+			(void)sWho; /* unused...? who says...? */
 			return downloadWindowTypeEnumStrings[ downloadWindowType ];
 		}
 
@@ -52,7 +53,7 @@ class FormsMeanUtils {
 		* 	FormsMeanUtils::isoDateFromYyyyMmDd("HELLOABC") return "HELL-OA-BC" -- since it doesn't check for numerical input.
 		*   FormsMeanUtils::isoDateFromYyyyMmDd("201606") return "201606" -- or the original input, because the input string is not 8 characters...
 		*/
-		static string FormsMeanUtils::isoDateFromYyyyMmDd( const string& sYyyyMmDd );
+		static string isoDateFromYyyyMmDd( const string& sYyyyMmDd );
 
 }; /* class FormsMeanUtils */
 

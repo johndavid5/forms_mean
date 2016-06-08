@@ -6,12 +6,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <iostream>
 #include <string>
-using namespace std;
+#include <iostream>
 
 #include "logger.h"
 #include "MongoDbClient.h"
+
+using namespace std;
 
 string G_S_ARGV_ZERO = "";
 
@@ -33,7 +34,8 @@ main (int   argc,
 	//string s_json_query = "{}"; // e.g., "{ \"student_id\": 2 }"
 	string s_json_query = ""; // e.g., "{ \"student_id\": 2 }"
 
-	JDA::Logger le_logger = JDA::Logger();
+	//JDA::Logger le_logger = JDA::Logger();
+	JDA::Logger le_logger;
 	le_logger.setDebugLevel( JDA::Logger::TRACE );
 
 	cout << "argc = " << argc << "..." << endl;

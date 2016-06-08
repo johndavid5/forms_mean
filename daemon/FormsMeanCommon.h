@@ -21,6 +21,8 @@ namespace JDA {
 			this->errString = errString;
 		}
 
+		virtual ~ParseException() throw() {}
+
 		virtual const char* what() const throw()
 		{
 			return this->errString.c_str();

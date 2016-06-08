@@ -30,6 +30,8 @@ class MongoDbClient {
 				this->errString = errString;
 			}
 
+			virtual ~MongoDbException() throw(){}
+
 			virtual const char* what() const throw()
 			{
 				return this->errString.c_str();
