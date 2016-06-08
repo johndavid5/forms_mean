@@ -24,6 +24,8 @@ namespace JDA {
 					this->errString = errString;
 				}
 
+				virtual ~FtpException() throw() {}
+
 				virtual const char* what() const throw()
 				{
 					return this->errString.c_str();
@@ -56,17 +58,21 @@ namespace JDA {
 					size_t m_i_iteration_count; 
 					size_t m_i_byte_count; 
 					ostringstream m_oss_line_buff;
+
+					JDA::Logger* m_p_logger;
 			
 			
-					LineratorFtpClientCallback(JDA::FtpClient::IFtpClientCallback* pClientCallback): m_pClientCallback(pClientCallback), m_i_iteration_count(0), m_i_byte_count(0) {
+					LineratorFtpClientCallback(JDA::FtpClient::IFtpClientCallback* pClientCallback): m_pClientCallback(pClientCallback), m_i_iteration_count(0), m_i_byte_count(0), m_p_logger(NULL) {
 						const char* sWho = "JDA::FtpClient::LineratorFtpClientCallback::LineratorFtpClientCallback";
-						JDA::Logger::log(JDA::Logger::TRACE) << sWho << "()..." << endl;
+						(void)sWho; /* who says sWho is unused...? */
+						//JDA::Logger::log(JDA::Logger::TRACE) << sWho << "()..." << endl;
 						m_oss_line_buff.str(""); // Clear the ostringstream buffer...
 					}
 
 					virtual ~LineratorFtpClientCallback(){
 						const char* sWho = "JDA::FtpClient::LineratorFtpClientCallback::~LineratorFtpClientCallback";
-						JDA::Logger::log(JDA::Logger::TRACE) << sWho << "()..." << endl;
+						(void)sWho; /* who says sWho is unused...? */
+						//JDA::Logger::log(JDA::Logger::TRACE) << sWho << "()..." << endl;
 					}
 					
 					size_t dataReceived( void* buffer, size_t size, size_t nmemb, void *userdata );

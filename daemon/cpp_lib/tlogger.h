@@ -1,8 +1,11 @@
 #ifndef _T_LOGGER_H_
 #define _T_LOGGER_H_
 
+#ifdef WIN32
+	#include <io.h>
+#endif
+
 #include <stdio.h>
-#include <io.h>
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -60,9 +63,13 @@ using namespace std;
   #define _VSCPRINTF _vscprintf
   #define VSPRINTF_S vsprintf_s
   #define OSTREAM ostream
-  //#define FOPEN fopen 
+  #define FOPEN fopen 
   //#define FOPEN_S fopen_s // Files opened with fopen_s are not shareable...
-  #define FSOPEN _fsopen // Use _fsopen to specify shareability of file...
+
+  #ifdef WIN32
+	  #define FSOPEN _fsopen // Use _fsopen to specify shareability of file...
+  #endif
+
   #define COUT cout
   #define FPRINTF fprintf
 #elif defined _T_LOGGER_WIDE_
@@ -154,7 +161,8 @@ class Logger {
 
 	public:
 
-		static JDA::Logger& log; /* Static member initialized to a log object...so you can do C++ streams stuff 
+		/* static JDA::Logger& log; */
+								/* Static member initialized to a log object...so you can do C++ streams stuff 
 								* as
 								*   JDA::Logger::log(JDA::Logger::INFO) << "Here is my info" << endl;
 								* without having to initialize your own logger object...
@@ -187,7 +195,7 @@ class Logger {
 			return getLevelName( this->debugLevel );
 		}
 
-	static STRING& Logger::getTimestamp( STRING& s_out, time_t epoch_time = -1 ){
+	static STRING& getTimestamp( STRING& s_out, time_t epoch_time = -1 ){
 
 		string sStamp = JDA::Utils::get_nyc_timestamp( epoch_time );
 
@@ -337,12 +345,16 @@ class Logger {
 				this->logFileHandle = FOPEN( this->logFilePath.c_str(), mode_flags.c_str() );
 		
 				if( this->logFileHandle == NULL ) { 
-					const int err_buf_sz = 256;
-					char err_buf[err_buf_sz];
-					strerror_s(err_buf, err_buf_sz, errno);
+
+					//const int err_buf_sz = 256;
+					//char err_buf[err_buf_sz];
+					//strerror_s(err_buf, err_buf_sz, errno);
 	
+					//FPRINTF(stderr, _TT("Trouble opening log file '%s' for %s: %d: '%s'\n"),
+					//	this->logFilePath.c_str(), mode_gerund.c_str(), errno,  err_buf );
+
 					FPRINTF(stderr, _TT("Trouble opening log file '%s' for %s: %d: '%s'\n"),
-						this->logFilePath.c_str(), mode_gerund.c_str(), errno,  err_buf );
+						this->logFilePath.c_str(), mode_gerund.c_str(), errno,  JDA::Utils::strerror(errno).c_str());
 	
 					this->logFileOn = false;
 				}
@@ -466,6 +478,7 @@ public:
 	}/* static void print( int messageDebugLevel, const string& message  ) */
 	
 
+	#ifdef WIN32
 	void printf( DebugLevelType messageDebugLevel, const CHAR* format, ... ){
 	
 		// REFERENCE: http://msdn.microsoft.com/en-us/library/28d5ce15.aspx
@@ -497,6 +510,7 @@ public:
 			free ( buffer );
 		}
 	}/* printf() */
+	#endif
 
 	template <typename T> Logger& operator<<(T a) {
 	    oss << a;
@@ -607,7 +621,7 @@ public:
 		return *this;
 	}
 
-	static STRING Logger::getLevelNamesAsCommaList(){
+	static STRING getLevelNamesAsCommaList(){
 		OSTRINGSTREAM oss_out;
 		oss_out << Logger::getLevelName(EMERG)
 			<< "," << Logger::getLevelName(FATAL)
@@ -624,7 +638,7 @@ public:
 	}
 	
 	//static std::string Logger::getLevelName(DebugLevelType Level) {
-	static STRING Logger::getLevelName(DebugLevelType Level) {
+	static STRING getLevelName(DebugLevelType Level) {
 	
 		switch (Level)
 		{
@@ -675,7 +689,7 @@ public:
 		}
 	}/* Logger::getLevelName() */
 
-	static DebugLevelType Logger::LevelNameToDebugLevel(STRING sLevel) {
+	static DebugLevelType LevelNameToDebugLevel(STRING sLevel) {
 	
 		if( sLevel.compare(_TT("EMERG")) == 0 ){
 			return Logger::EMERG;

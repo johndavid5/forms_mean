@@ -37,6 +37,7 @@ using namespace std;
 size_t my_fwrite(void *buffer, size_t size, size_t nmemb, void *userdata) {
 
   const char* sWho = "my_fwrite";
+  (void)sWho; /* Unused variable...? */
 
   //struct FtpFile* pFtpFile =(struct FtpFile *)userdata;
   JDA::FtpClient* pFtpClient = (JDA::FtpClient*)userdata;
@@ -55,13 +56,13 @@ size_t my_fwrite(void *buffer, size_t size, size_t nmemb, void *userdata) {
 
     /* "lazy-initialization of pFtpClient->stream": open file for writing */
 
-    //pFtpClient->stream = fopen(pFtpClient->filename.c_str(), "wb");
+	#ifdef WIN32
 	errno_t lastError = fopen_s( &(pFtpClient->stream), pFtpClient->filePath.c_str(), "wb" );
+	#else
+	pFtpClient->stream = fopen(pFtpClient->filePath.c_str(), "wb");
+	#endif
 
-    //if(!pFtpClient->stream){
-    //  return -1; /* failure, can't open file to write */
-	//}
-
+	#ifdef WIN32
 	if( lastError != 0 ){
 		pFtpClient->stream = NULL;
 
@@ -70,6 +71,16 @@ size_t my_fwrite(void *buffer, size_t size, size_t nmemb, void *userdata) {
 				<< lastError << ": \"" << JDA::Utils::strerror( lastError ) << "\"";
 		throw JDA::FtpClient::FtpException( oss_msg.str().c_str() );
 	}
+	#else
+    if(!pFtpClient->stream){
+		int lastError = errno;
+
+		ostringstream oss_msg;
+		oss_msg  << "Trouble opening '" << pFtpClient->filePath << "' for writing: " 
+				<< lastError << ": \"" << JDA::Utils::strerror( lastError ) << "\"";
+		throw JDA::FtpClient::FtpException( oss_msg.str().c_str() );
+	}
+	#endif
 
   }/* if(pFtpClient && !pFtpClient->stream)  */
 
@@ -97,6 +108,7 @@ size_t my_fheader( void *buffer, size_t size, size_t nmemb, void *userdata){
 
 	//struct FtpFile* pFtpFile =(struct FtpFile *)userdata;
 	JDA::FtpClient* pFtpClient =(JDA::FtpClient*)userdata;
+	(void)pFtpClient; /* unused...? */
 
 	size_t numBytes = size * nmemb;
 
@@ -132,6 +144,7 @@ size_t my_fheader( void *buffer, size_t size, size_t nmemb, void *userdata){
 int my_debug_callback(CURL *curly, curl_infotype infoType, char* buf, size_t numChars, void *userdata){ 
 
 	const char* sWho = "my_debug_callback";
+	(void)sWho;
 
   	//struct FtpFile* pFtpFile =(struct FtpFile *)userdata;
 	JDA::FtpClient* pFtpClient =(JDA::FtpClient*)userdata;
@@ -411,12 +424,15 @@ size_t JDA::FtpClient::LineratorFtpClientCallback::dataReceived( void* buffer, s
 				
 	m_i_byte_count += numBytes;
 				
-	JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): m_i_iteration_count = " << m_i_iteration_count << "\n" 
+	
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): m_i_iteration_count = " << m_i_iteration_count << "\n" 
 			<< "\t" << "size = " << size << "\n" 
 			<< "\t" << "nmemb = " << nmemb << "\n" 
 			<< "\t" << "numBytes = " << numBytes << "\n" 
 			<< "\t" << "m_i_byte_count = " << m_i_byte_count << "\n" 
 			<< "\t" << "m_oss_line_buff = \"" << m_oss_line_buff.str() << "\"" << endl;
+	}
 			
 	char* cbuf = (char*)buffer;
 			
@@ -424,26 +440,42 @@ size_t JDA::FtpClient::LineratorFtpClientCallback::dataReceived( void* buffer, s
 			
 		m_oss_line_buff << cbuf[i]; // Append char-by-char to line buffer...
 			
-		JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): i = " << i << ": cbuf[i] = '" << cbuf[i] << "', m_oss_line_buff = \"" << m_oss_line_buff.str() << "\"..." << endl;
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i = " << i << ": cbuf[i] = '" << cbuf[i] << "', m_oss_line_buff = \"" << m_oss_line_buff.str() << "\"..." << endl;
+		}
 			
 		if( cbuf[i] == '\n' ){
 			
-			JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): i = " << i << ": Looks like end-of-line..." << endl;
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i = " << i << ": Looks like end-of-line..." << endl;
+			}
+			
 			
 			if( m_pClientCallback ){	
 			
-				JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): i = " << i << ": Calling m_pClientCallback->dataReceived( buffer = '" << m_oss_line_buff.str() << "', size = " << size << ", nmemb = " << m_oss_line_buff.str().length() << ", userdata = " << userdata  << " )..." << endl;
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i = " << i << ": Calling m_pClientCallback->dataReceived( buffer = '" << m_oss_line_buff.str() << "', size = " << size << ", nmemb = " << m_oss_line_buff.str().length() << ", userdata = " << userdata  << " )..." << endl;
+				}
 			
 				size_t i_return = m_pClientCallback->dataReceived( (void*) m_oss_line_buff.str().c_str(), size, m_oss_line_buff.str().length(), userdata );  
 			
-				JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): i = " << i << ": Got back i_return = " << i_return << "..." << endl;
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i = " << i << ": Got back i_return = " << i_return << "..." << endl;
+				}
+				
 			
-				JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): i = " << i << ": Is i_return same as size * nmemb  = " << size << " * " << m_oss_line_buff.str().length() << "...?" << endl;
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i = " << i << ": Is i_return same as size * nmemb  = " << size << " * " << m_oss_line_buff.str().length() << "...?" << endl;
+				}
+				
 			
 				if( i_return != size * m_oss_line_buff.str().length() ){
 					// Client returned a value not equal to size * nmemb, so we will return zero now
 					// and thus abort the download...
-					JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): i = " << i << ": Sizes are not the same, returning 0 to caller to abort..." << endl;
+					if( m_p_logger ){
+						(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i = " << i << ": Sizes are not the same, returning 0 to caller to abort..." << endl;
+					}
+					
 					return 0;	
 				}
 				else{
@@ -455,8 +487,11 @@ size_t JDA::FtpClient::LineratorFtpClientCallback::dataReceived( void* buffer, s
 			
 	}/* for( size_t i = 0; i < numBytes; i++ ) */
 			
-	JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): end of data, returning numBytes = " << numBytes << " to caller..." << endl;
 
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): end of data, returning numBytes = " << numBytes << " to caller..." << endl;
+	}
+	
 	// Return numBytes so that download is not aborted...
 	return numBytes;
 			

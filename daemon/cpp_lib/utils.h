@@ -27,12 +27,17 @@
 #include <errno.h>
 #include <exception>
 
-#include <windows.h>
-#include <process.h>
+#ifdef WIN32
+	#include <windows.h>
+	#include <process.h>
+	#include <io.h>
+	#include <tchar.h>
+#endif
+
+#include <limits.h> /* CHAR_BIT */
+
 #include <memory.h>
 #include <fcntl.h>
-#include <io.h>
-#include <tchar.h>
 #include <math.h>
 
 #include <iomanip> /* For numberFormatWithCommas() */
@@ -67,7 +72,8 @@ class Utils {
 	static string s_nyc_posix_timezone; /* "EST-5EDT,M4.1.0,M10.5.0" */
 	static string s_utc_posix_timezone; /* "UTC-0" */
 
-	/** Our own little Exception class...niftily stores an error string for us... */
+	/** Our own little Exception class...
+	 * ...niftily stores an error string for us... */
 	class Exception : std::exception {
 
 		public:
@@ -77,6 +83,8 @@ class Utils {
 			Exception(const string& errString){
 				this->errString = errString;
 			}
+
+			virtual ~Exception() throw(){}
 
 			virtual const char* what() const throw()
 			{
@@ -115,10 +123,12 @@ class Utils {
 	}; /* JDA::Utils::Stopwatch */
 
 
+	#ifdef WIN32
 	/** Maximum number of lines the output console should have,
 	* used by redirectIOToConsole()...
 	*/
 	static const WORD MAX_CONSOLE_LINES = 500;
+	#endif
 
 	/**
 	* @return C<true> if s contains whitespace according to isspace(), C<false> otherwise.
@@ -209,6 +219,7 @@ class Utils {
 	* which is the local (GMT-5) time conversion of midnight
 	* January 1st, 1970 UTC.
 	*/
+	#ifdef WIN32
 	static inline string& get_local_timestamp( string& s_in_out, time_t epoch_seconds = -1){
 
 		if( epoch_seconds == -1 ) {
@@ -238,6 +249,37 @@ class Utils {
 		return s_in_out;
 
 	}/* get_local_timestamp() */
+	#else
+	static inline string& get_local_timestamp( string& s_in_out, time_t epoch_seconds = -1){
+
+		if( epoch_seconds == -1 ) {
+			time( &epoch_seconds );
+		}
+
+		struct tm *p_newtime;
+		//struct tm newtime;
+		p_newtime = localtime( &epoch_seconds );
+		//localtime_s(&newtime, &epoch_seconds);
+	
+		const int buf_sz = 256;
+		char buffy[buf_sz];
+	
+		//sprintf_s(buffy, buf_sz, "%04d-%02d-%02d %02d:%02d:%02d", 
+	   	//    1900 + newtime.tm_year,
+		//	newtime.tm_mon + 1,
+		//	newtime.tm_mday,
+		//	newtime.tm_hour,
+		//	newtime.tm_min,
+		//	newtime.tm_sec
+		//);
+		
+		strftime(buffy, buf_sz, "%Y-%m-%d %H:%M:%S %z", p_newtime); 
+	
+	    s_in_out = buffy;
+		return s_in_out;
+
+	}/* get_local_timestamp() */
+	#endif	
 
 	/** 
 	* Outputs current _local_ timestamp of form "2013-07-25 14:21:25",
@@ -259,6 +301,7 @@ class Utils {
 
 	}/* get_local_timestamp() */
 
+	#ifdef WIN32
 	static inline string& get_local_pretty_timestamp( string& s_in_out, time_t epoch_seconds = -1){
 
 		if( epoch_seconds == -1 ) {
@@ -289,6 +332,39 @@ class Utils {
 	    s_in_out = buffy;
 		return s_in_out;
 	}
+	#else
+	static inline string& get_local_pretty_timestamp( string& s_in_out, time_t epoch_seconds = -1){
+
+		if( epoch_seconds == -1 ) {
+			time( &epoch_seconds );
+		}
+
+		struct tm *p_newtime;
+		//struct tm newtime;
+
+		p_newtime = localtime( &epoch_seconds );
+		//localtime_s(&newtime, &epoch_seconds);
+	
+		const int buf_sz = 256;
+		char buffy[buf_sz];
+	
+		//sprintf_s(buffy, buf_sz, "%04d-%02d-%02d %02d:%02d:%02d", 
+	   	//    1900 + newtime.tm_year,
+		//	newtime.tm_mon + 1,
+		//	newtime.tm_mday,
+		//	newtime.tm_hour,
+		//	newtime.tm_min,
+		//	newtime.tm_sec
+		//);
+		
+		//strftime(buffy, buf_sz, "%Y-%m-%d %H:%M:%S %z", &newtime); 
+		//strftime(buffy, buf_sz, "%A, %B %d, %Y %I:%M:%S %p %z", &newtime); 
+		strftime(buffy, buf_sz, "%A, %B %d, %Y %I:%M:%S %p %z", p_newtime); 
+	
+	    s_in_out = buffy;
+		return s_in_out;
+	}
+	#endif
 
 	static inline string get_local_pretty_timestamp( time_t epoch_seconds = -1){
 	    string s_out;
@@ -316,7 +392,11 @@ class Utils {
 
 		int iHitCount = 0;
 
+		#ifdef WIN32
 		char buff[80];
+		#else
+		char* cp_out;
+		#endif
 		
 		for(int i=1; i<31; i++){
 
@@ -353,10 +433,18 @@ class Utils {
 
 			if( (result = mktime( &tm_struct)) != (time_t)-1 ) {
 
+				#ifdef WIN32
 				asctime_s( buff, sizeof(buff), &tm_struct );
+				#else
+				cp_out = asctime( &tm_struct );
+				#endif
 
 				if( JDA::Utils::debug ){
+					#ifdef WIN32
 					cout << "AFTER: mktime time is " << buff << endl;
+					#else
+					cout << "AFTER: mktime time is " << cp_out << endl;
+					#endif
 				}
 			} else {
 				//perror( "mktime failed" );
@@ -548,13 +636,19 @@ static bool is_dst( const struct tm & t_struct ){
 */
 static void nyctime( struct tm * p_t_struct, time_t epoch_seconds){
 
-		//bool isDst = false;
 
 		time_t epoch_seconds_adjusted = epoch_seconds - (3600 * 5); /* Begin by subtracting 5 hours. */
 
-		//struct tm t_struct;
-
+		#ifdef WIN32
 		gmtime_s(p_t_struct, &epoch_seconds_adjusted );
+		#else
+		/* struct tm * gmtime (const time_t * timer); */
+		struct tm* p_t_struct_out;
+		p_t_struct_out = gmtime( &epoch_seconds_adjusted );
+
+		// member by member copy from *p_t_struct_out into *p_t_struct...
+		*(p_t_struct) = *(p_t_struct_out);
+		#endif
 
 		if( JDA::Utils::is_dst( *(p_t_struct) ) ){
 
@@ -562,7 +656,15 @@ static void nyctime( struct tm * p_t_struct, time_t epoch_seconds){
 
 			/* If DST, add one hour, and re-load t_struct. */	
 			epoch_seconds_adjusted += 3600;
+
+			#ifdef WIN32
 			gmtime_s(p_t_struct, &epoch_seconds_adjusted );
+			#else
+			p_t_struct_out = gmtime( &epoch_seconds_adjusted );
+
+			// member by member copy from *p_t_struct_out into *p_t_struct...
+			*(p_t_struct) = *(p_t_struct_out);
+			#endif
 
 			p_t_struct->tm_isdst = 1;
 		}
@@ -757,7 +859,14 @@ static time_t yyyymmddhhmmss_to_time_t( const string& yyyymmddhhmmss ){
 
 	int year, month, day, hours, minutes, seconds;
 
-	if( sscanf_s(yyyymmddhhmmss.c_str(), "%d-%d-%d %d:%d:%d", &year, &month, &day, &hours, &minutes, &seconds) == 6 ){
+	if(
+		#ifdef WIN32
+		sscanf_s(yyyymmddhhmmss.c_str(), "%d-%d-%d %d:%d:%d", &year, &month, &day, &hours, &minutes, &seconds) == 6
+		#else
+		sscanf(yyyymmddhhmmss.c_str(), "%d-%d-%d %d:%d:%d", &year, &month, &day, &hours, &minutes, &seconds) == 6
+		#endif
+	){
+
 		struct tm tm_struct;
 		tm_struct.tm_year = year - 1900; 	
 		tm_struct.tm_mon = month - 1; 	
@@ -788,7 +897,13 @@ static time_t yyyymmdd_to_time_t( const string& yyyymmdd ){
 	minutes = 0;
 	seconds = 0;
 
-	if( sscanf_s(yyyymmdd.c_str(), "%d-%d-%d", &year, &month, &day) == 3 ){
+	if(
+		#ifdef WIN32
+		sscanf_s(yyyymmdd.c_str(), "%d-%d-%d", &year, &month, &day) == 3
+		#else
+		sscanf(yyyymmdd.c_str(), "%d-%d-%d", &year, &month, &day) == 3
+		#endif
+	){
 		struct tm tm_struct;
 		tm_struct.tm_year = year - 1900; 	
 		tm_struct.tm_mon = month - 1; 	
@@ -827,12 +942,14 @@ static time_t yyyymmdd_to_time_t( const string& yyyymmdd ){
 			time( &epoch_seconds );
 		}
 
-		//struct tm *p_newtime;
+		#ifdef WIN32
 		struct tm newtime;
-
-		//newtime = gmtime( &epoch_seconds );
 		gmtime_s(&newtime, &epoch_seconds);
-	
+		#else
+		struct tm *p_newtime;
+		p_newtime = gmtime( &epoch_seconds );
+		#endif
+
 		const int buf_sz = 256;
 		char buffy[buf_sz];
 	
@@ -845,7 +962,11 @@ static time_t yyyymmdd_to_time_t( const string& yyyymmdd ){
 		//	newtime.tm_sec
 		//);
 		
+		#ifdef WIN32
 		strftime(buffy, buf_sz, s_format.c_str(), &newtime); 
+		#else
+		strftime(buffy, buf_sz, s_format.c_str(), p_newtime); 
+		#endif
 	
 	    s_in_out = buffy;
 		return s_in_out;
@@ -1043,8 +1164,9 @@ static time_t yyyymmdd_to_time_t( const string& yyyymmdd ){
 	}
 
 
+#ifdef WIN32
 /** Apply "sprintf()" type functionality to a std::string created on stack and returned. */
-static string JDA::Utils::s_string_printf( char* szFormat, ... ){
+static string s_string_printf( char* szFormat, ... ){
 
 	string s;
 
@@ -1076,11 +1198,13 @@ static string JDA::Utils::s_string_printf( char* szFormat, ... ){
 
 	return s;
 }/* static string JDA::Utils::s_string_printf( char* format, ... ) */
+#endif
 
 /** Apply "sprintf()" type functionality to a std::string supplied as argument,
 * with a reference to the same string object returned.
 */
-static string& JDA::Utils::string_printf( string& s, char* format, ... ){
+#ifdef WIN32
+static string& string_printf( string& s, char* format, ... ){
 
 	// REFERENCE: http://msdn.microsoft.com/en-us/library/28d5ce15.aspx
 
@@ -1104,6 +1228,7 @@ static string& JDA::Utils::string_printf( string& s, char* format, ... ){
 	return s;
 
 }/* static string& JDA::Utils::string_printf( string& s, char* format, ... ) */
+#endif
 
 #ifdef _GET_ENV_STRINGS_
 /** 
@@ -1217,7 +1342,8 @@ static string unix_path_to_dos_path ( const string& s_in ) {
 *  [in] count:  The maximum number of wide characters to be stored in the mbstr buffer,
 *   not including the terminating null character, or _TRUNCATE.
 */ 
-static char* JDA::Utils::wideToNarrowP(const wchar_t* input)
+#ifdef WIN32
+static char* wideToNarrowP(const wchar_t* input)
 {
     size_t   iReturnValue;
 	errno_t  iReturnCode;
@@ -1275,8 +1401,10 @@ static char* JDA::Utils::wideToNarrowP(const wchar_t* input)
 	return pMBBuffer;
 
 }/* char* wideToNarrowP(const wchar_t* input) */
+#endif
 
-static string JDA::Utils::wideToNarrowS(const wstring& input){
+#ifdef WIN32
+static string wideToNarrowS(const wstring& input){
 
 	char* pMBBuffer = JDA::Utils::wideToNarrowP((const wchar_t *)input.c_str());
 
@@ -1292,7 +1420,7 @@ static string JDA::Utils::wideToNarrowS(const wstring& input){
 		return string("");
 	}
 }/* string JDA::Utils::wideToNarrowS(const wstring& input) */
-
+#endif
 
 /** REFERENCE: http://msdn.microsoft.com/en-us/library/eyktyxsx.aspx
 * errno_t mbstowcs_s(
@@ -1310,7 +1438,8 @@ static string JDA::Utils::wideToNarrowS(const wstring& input){
 * [in] count: The maximum number of wide characters to store in the wcstr buffer,
 * not including the terminating null, or _TRUNCATE.
 */
-static wchar_t* JDA::Utils::narrowToWideP(const char* input) {
+#ifdef WIN32
+static wchar_t* narrowToWideP(const char* input) {
     size_t   iReturnValue;
 	errno_t  iReturnCode;
 
@@ -1367,10 +1496,10 @@ static wchar_t* JDA::Utils::narrowToWideP(const char* input) {
 	return pWCBuffer;
 
 }/* wchar_t* narrowToWideP(const wchar_t* input) */
+#endif
 
-
-
-static wstring JDA::Utils::narrowToWideS(const string& input){
+#ifdef WIN32
+static wstring narrowToWideS(const string& input){
 
 	wchar_t* pWCBuffer = JDA::Utils::narrowToWideP((const char*)input.c_str());
 
@@ -1386,7 +1515,7 @@ static wstring JDA::Utils::narrowToWideS(const string& input){
 	}
 
 }/* wstring narrowToWideS(const string& input) */ 
-
+#endif
 
 /**
 * Ascertain the path to where this executable is based
@@ -1397,6 +1526,7 @@ static wstring JDA::Utils::narrowToWideS(const string& input){
 * @see http://stackoverflow.com/questions/1528298/get-path-of-executable 
 */
 //static std::basic_string<TCHAR> getExecutablePath(){
+#ifdef WIN32
 static std::string getExecutablePath(){
 
 	std::string sWho = "getExecutablePath";
@@ -1431,6 +1561,7 @@ static std::string getExecutablePath(){
 	return sOut;
 
 }/* getExecutablePath() */
+#endif
 
 /** Replaces whatever the path of this executable is with <executable_name>.ini, e.g.
 * getExecPath( "c:\joe\bin\cap.exe" ) returns "c:\joe\bin\cap.ini".
@@ -1535,7 +1666,13 @@ static bool num_equals(const string& a, const string& b)
 {
 	int a_int;
 	bool a_int_numerical;
-	if( sscanf_s( a.c_str(), "%d", &a_int ) ){ 
+	if(
+		#ifdef WIN32
+		sscanf_s( a.c_str(), "%d", &a_int )
+		#else
+		sscanf( a.c_str(), "%d", &a_int )
+		#endif
+	){ 
 		a_int_numerical = true;
 	}
 	else {
@@ -1544,7 +1681,13 @@ static bool num_equals(const string& a, const string& b)
 
 	int b_int;
 	bool b_int_numerical;
-	if( sscanf_s( b.c_str(), "%d", &b_int ) ){ 
+	if(
+		#ifdef WIN32
+		sscanf_s( b.c_str(), "%d", &b_int )
+		#else
+		sscanf( b.c_str(), "%d", &b_int )
+		#endif
+	){ 
 		b_int_numerical = true;
 	}
 	else {
@@ -1651,7 +1794,7 @@ template<class InputIterator, class T>
 
 template<class T> static int findIndex(const vector<T>& vec, const T& val)
 {
-	std::vector<T>::const_iterator iter;
+	typename std::vector<T>::const_iterator iter;
 
 	iter = std::find(
 				vec.begin(),
@@ -1675,7 +1818,13 @@ static int stringToInt( const string& sInput ){
 
 	int iOutput;
 
-	if( sscanf_s( sInput.c_str(), "%d", &iOutput) == 1 ){
+	if(
+		#ifdef WIN32
+		sscanf_s( sInput.c_str(), "%d", &iOutput) == 1
+		#else
+		sscanf( sInput.c_str(), "%d", &iOutput) == 1
+		#endif
+	){
 		return iOutput;
 	}
 	else {
@@ -1701,7 +1850,13 @@ static bool stringToInt( const string& sInput, int* piOutput ){
 
 	int iTemp;
 
-	if( sscanf_s( sInput.c_str(), "%d", &iTemp ) == 1 ){
+	if(
+		#ifdef WIN32
+		sscanf_s( sInput.c_str(), "%d", &iTemp ) == 1
+		#else
+		sscanf( sInput.c_str(), "%d", &iTemp ) == 1
+		#endif
+	){
 		*piOutput = iTemp;
 		return true;
 	}
@@ -1719,7 +1874,13 @@ static int stringToInt( const string& sInput, int iDefault ){
 
 	int iTemp;
 
-	if( sscanf_s( sInput.c_str(), "%d", &iTemp ) == 1 ){
+	if(
+		#ifdef WIN32
+		sscanf_s( sInput.c_str(), "%d", &iTemp ) == 1
+		#else
+		sscanf( sInput.c_str(), "%d", &iTemp ) == 1
+		#endif
+	){
 		return iTemp;
 	}
 	else {
@@ -1829,6 +1990,7 @@ static string baseDir( const string& sInput ){
 * @note uses Windows API
 */
 //static bool fileExists(const TCHAR *fileName)
+#ifdef WIN32
 static bool fileExists(const char* fileName)
 {
 	// windows-specific functionality...
@@ -1845,12 +2007,14 @@ static bool fileExists(const char* fileName)
 	}
 
 }/* fileExists() */
+#endif
 
 /**
 * @source http://stackoverflow.com/questions/8233842/how-to-check-if-directory-exist-using-c-and-winapi
 *
 * @note uses Windows API
 */
+#ifdef WIN32
 static bool dirExists(const std::string& dirName_in)
 //static bool dirExists(const TCHAR* dirName_in)
 {
@@ -1868,6 +2032,7 @@ static bool dirExists(const std::string& dirName_in)
   return false;    // this is not a directory!
 
 }/* dirExists() */
+#endif
 
 /**
 * @source (based on) http://stackoverflow.com/questions/8991192/check-filesize-without-opening-file-in-c
@@ -1910,6 +2075,7 @@ static __int64 getFileSize(const std::wstring& name_wide )
 *
 * @throws JDA::Utils::Exception() if has difficulty determining file attributes. 
 */
+#ifdef WIN32
 static __int64 getFileSize(const std::string& name_narrow)
 {
 	//std::wstring name_wide = JDA::Utils::narrowToWideS( name_narrow );	
@@ -1934,6 +2100,7 @@ static __int64 getFileSize(const std::string& name_narrow)
 
     return size.QuadPart;
 }
+#endif
 
 
 ///* For numberFormatWithCommas()... */
@@ -2035,9 +2202,13 @@ static void writeStringToFile( const string& sInput, const string& sFilePath, bo
 		sMode = "wb";
 	}
 
-	//filePtr = fopen_s ( sCapturesFilePath.c_str(), "w" );
+	#ifdef WIN32
 	errno_t lastError = fopen_s ( &filePtr, sFilePath.c_str(), sMode.c_str() );
+	#else
+	filePtr = fopen( sFilePath.c_str(), "w" );
+	#endif
 
+	#ifdef WIN32	
 	if( lastError != 0 ){
 
 		const int err_buf_sz = 256;
@@ -2052,6 +2223,20 @@ static void writeStringToFile( const string& sInput, const string& sFilePath, bo
 
 		throw JDA::Utils::Exception( oss_msg.str().c_str() );
 	}
+	#else
+	if( filePtr == NULL ){
+
+		int lastError = errno;
+
+		ostringstream oss_msg;
+		oss_msg  << "Trouble opening '" << sFilePath << "' for writing: " 
+				<< lastError << ": \"" << JDA::Utils::strerror( lastError ) << "\"";
+
+		//JDA::Logger::log(JDA::Logger::ERR) << sWho << "(): " << oss_msg.str() << ", tossing exception..." << endl;
+
+		throw JDA::Utils::Exception( oss_msg.str().c_str() );
+	}
+	#endif
 
 	fputs( sInput.c_str(), filePtr ); 
 
@@ -2069,9 +2254,13 @@ static string slurpStringFromFile( const string& sFilePath, bool binary = false 
 		sMode = "rb";
 	}
 
-	//filePtr = fopen_s ( sCapturesFilePath.c_str(), "r" );
+	#ifdef WIN32
 	errno_t lastError = fopen_s ( &filePtr, sFilePath.c_str(), sMode.c_str() );
+	#else
+	filePtr = fopen ( sFilePath.c_str(), "r" );
+	#endif
 
+	#ifdef WIN32
 	if( lastError != 0 ){
 
 		string sLastError = JDA::Utils::strerror(lastError);
@@ -2082,6 +2271,20 @@ static string slurpStringFromFile( const string& sFilePath, bool binary = false 
 
 		throw JDA::Utils::Exception( oss_msg.str().c_str() );
 	}
+	#else
+	if( filePtr == NULL ){
+
+		int lastError = errno;
+
+		ostringstream oss_msg;
+		oss_msg  << "Trouble opening '" << sFilePath << "' for reading: " 
+				<< lastError << ": \"" << JDA::Utils::strerror( lastError ) << "\"";
+
+		//JDA::Logger::log(JDA::Logger::ERR) << sWho << "(): " << oss_msg.str() << ", tossing exception..." << endl;
+
+		throw JDA::Utils::Exception( oss_msg.str().c_str() );
+	}
+	#endif
 
 	const int BUF_SZ = 257;
 
@@ -2104,15 +2307,20 @@ static string slurpStringFromFile( const string& sFilePath, bool binary = false 
 
 }/* void slurpStringFromFile() */
 
-/** Uses Windows-specific secure functions fopen_s (and strerror_s in case of error),
+/** On Windows, uses Windows-specific secure functions fopen_s (and strerror_s in case of error),
 * and tosses JDA::Utils::Exception if unsuccessful...
 */
 static FILE* fopen( const char *filename, const char *mode ){
 
 		FILE* filePtr = NULL;
 
+		#ifdef WIN32
 		errno_t lastError = fopen_s( &filePtr, filename, mode );
+		#else
+		filePtr = fopen( filename, mode );
+		#endif
 	
+		#ifdef WIN32
 		if( lastError != 0 ){
 
 			const int err_buf_sz = 256;
@@ -2120,20 +2328,35 @@ static FILE* fopen( const char *filename, const char *mode ){
 			strerror_s(sz_err_buf, err_buf_sz, lastError );
 
 			ostringstream oss_msg;
-			oss_msg  << "Trouble opening '" << filename << "' for writing: " 
+			oss_msg  << "Trouble opening '" << filename << "' for mode = \"" << mode << "\": " 
 					<< lastError << ": \"" << sz_err_buf << "\"";
 	
 			//JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): " << oss_msg.str() << ", tossing exception..." << endl;
 	
 			throw JDA::Utils::Exception( oss_msg.str().c_str() );
 		}
+		#else
+		if( filePtr == NULL ){
+
+			int lastError = errno;
+
+			ostringstream oss_msg;
+			oss_msg  << "Trouble opening '" << filename << "' for mode = \"" << mode << "\": " 
+					<< lastError << ": \"" << JDA::Utils::strerror( lastError ) << "\"";
+
+			//JDA::Logger::log(JDA::Logger::ERR) << sWho << "(): " << oss_msg.str() << ", tossing exception..." << endl;
+
+			throw JDA::Utils::Exception( oss_msg.str().c_str() );
+		}
+		#endif
 
 		return filePtr;
 }
 
 
 //static basic_string<TCHAR> getenv( const basic_string<TCHAR>& varname, const basic_string<TCHAR>& default="")
-static string getenv( const string& varname, const string& default="")
+#ifdef WIN32
+static string getenv( const string& varname, const string& s_default="")
 {
 
 //errno_t _dupenv_s(
@@ -2151,7 +2374,7 @@ static string getenv( const string& varname, const string& default="")
 	errno_t err = _dupenv_s( &pBuf, &len, varname.c_str() );
 
 	if( err ){
-		return default;
+		return s_default;
 	}
 	else {
 		//basic_string<TCHAR> sOut = pBuf;
@@ -2164,7 +2387,9 @@ static string getenv( const string& varname, const string& default="")
 	}
 
 }/* getenv() */
+#endif
 
+#ifdef WIN32
 static bool setenv( const string& varname, const string& varvalue )
 {
 	ostringstream oss_setenv;
@@ -2186,32 +2411,42 @@ static bool setenv( const string& varname, const string& varvalue )
 	return false;
 
 }/* setenv() */
+#endif
 
+#ifdef WIN32
 static string getUserName(){
 	return JDA::Utils::getenv("USERNAME", "unknown.user");
 }
+#endif
 
-/* Returns an error string based on GetLastError(). */
+/* Returns an error string based on GetLastError()-Windows or errno. */
 static string s_error(){
 
+	#ifdef WIN32
 	DWORD lastError = GetLastError();
+	#else
+	int lastError = errno;
+	#endif
 
-	const int err_buf_sz = 256;
-	char err_buf[err_buf_sz];
+	//const int err_buf_sz = 256;
+	//char err_buf[err_buf_sz];
 
-	strerror_s(err_buf, err_buf_sz, lastError);
+	//strerror_s(err_buf, err_buf_sz, lastError);
 
 	ostringstream oss;
-	oss << lastError << ": \"" << err_buf << "\"";
+	//oss << lastError << ": \"" << err_buf << "\"";
+	oss << lastError << ": \"" << JDA::Utils::strerror(lastError) << "\"";
 
 	return oss.str();
 }
+
 
 /**
 * Returns the strerror_s() output for lastError,
 * which you probably obtained from GetLastError()
 * or maybe from global variable errno.
 */ 
+#ifdef WIN32
 static string strerror( DWORD lastError ){
 
 	const int err_buf_sz = 256;
@@ -2229,6 +2464,22 @@ static string strerror( DWORD lastError ){
 	return sOut;
 
 }/* strerror() */
+#else
+static string strerror( int lastError ){
+
+	char* cp_err = ::strerror(lastError);
+
+	//ostringstream oss;
+	//oss << lastError << ": \"" << err_buf << "\"";
+
+	//return oss.str();
+
+	string sOut = cp_err;
+
+	return sOut;
+
+}/* strerror() */
+#endif
 
 /**
 * Ported from ./Modules/JDA/Utils.pm Perl module...
@@ -2699,7 +2950,7 @@ template<class K, class V> ostream& operator<<(ostream& s, map<K,V>& m) {
     s << "size=" << m.size() << "\n";
 
     int iCount = 0;
-    for(map<K,V>::iterator theIterator = m.begin();
+    for(typename map<K,V>::iterator theIterator = m.begin();
         theIterator != m.end();
         theIterator++)
     {

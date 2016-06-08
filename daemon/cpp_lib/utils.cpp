@@ -23,7 +23,12 @@
 	//FILE *_fsopen( const char *filename, const char *mode, int shflag );	
 
 	/* Open file with shared access... */
+
+	#ifdef WIN32
 	myFile = _fsopen( filePath.c_str(), "r", _SH_DENYNO );
+	#else
+	myFile = fopen( filePath.c_str(), "r" );
+	#endif
 		
 
 	//if(! myFile.is_open() ) {
@@ -33,11 +38,12 @@
 
 		//oss << "Trouble opening file '" << filePath << "' for reading: " << errno << ": " << "'" << strerror(errno) << "'";
 
-		const int err_buf_sz = 256;
-		char err_buf[err_buf_sz];
-		strerror_s(err_buf, err_buf_sz, GetLastError());
+		//const int err_buf_sz = 256;
+		//char err_buf[err_buf_sz];
+		//strerror_s(err_buf, err_buf_sz, GetLastError());
 
-		oss << "Trouble opening file '" << filePath << "' for reading: " << errno << ": " << "'" << err_buf << "'";
+		//oss << "Trouble opening file '" << filePath << "' for reading: " << errno << ": " << "'" << err_buf << "'";
+		oss << "Trouble opening file '" << filePath << "' for reading: " << errno << ": " << "'" << JDA::Utils::strerror( errno ) << "'";
 
 		//JDA::Logger::debugPrintf(0, "%s(): %s\n", sWho.c_str(), oss.str().c_str() );
 
@@ -255,6 +261,7 @@
 *
 * ORIGINAL SOURCE courtesy Andrew Tucker: http://dslweb.nwnexus.com/~ast/dload/guicon.htm
 */
+#ifdef WIN32
 /* static */ void JDA::Utils::redirectIOToConsole()
 {
 	int hConHandle;
@@ -312,6 +319,7 @@
 	ios::sync_with_stdio();
 
 }/* JDA::Utils::redirectIOToConsole() */
+#endif /* #ifdef WIN32 */
 
 
 			string JDA::Utils::Stopwatch::get_s_elapsed_seconds( int precision ){
@@ -356,7 +364,7 @@ template<class T> ostream& operator<<(ostream& s, vector<T>& v) {
     int i;
     #ifdef _USE_ITERATORS_
     i=0;
-    for(vector<T>::iterator theIterator = v.begin();
+    for(typename vector<T>::iterator theIterator = v.begin();
         theIterator != v.end();
         theIterator++)
     {
