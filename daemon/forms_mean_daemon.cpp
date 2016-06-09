@@ -17,9 +17,35 @@
 
 using namespace std;
 
+/* Feed a pointer to OurParams to ServiceThread if launched as a non-daemon... */
+struct OurParams {
+
+	string s_argv_zero; /* copy argv[0] to this field */
+	string s_manual_index_process_url;
+	string s_manual_form_process_url;
+	string s_daily_index_backfill_days;
+	string s_load_daily_indexes;
+	string s_load_next_edgar_filing_header;
+	
+};
+
+ostream& operator<<(ostream& s, OurParams& ourParams){
+
+	s << "s_argv_zero = \"" << ourParams.s_argv_zero << "\"\n" 
+	<< "s_manual_index_process_url = \"" << ourParams.s_manual_index_process_url << "\"\n" 
+	<< "s_manual_form_process_url = \"" <<  ourParams.s_manual_form_process_url << "\"\n"
+	<< "s_daily_index_backfill_days = \"" <<  ourParams.s_daily_index_backfill_days << "\"\n"
+	<< "s_load_daily_indexes = \"" <<  ourParams.s_load_daily_indexes << "\"\n"
+	<< "s_load_next_edgar_filing_header = \"" <<  ourParams.s_load_next_edgar_filing_header << "\"";
+
+	return s;
+}
+
+
 /************ GLOBAL FUNCTION PROTOTYPES - BEGIN ******************/
 
-void getConfig( map<string, string>& configMap );
+//void getConfig( map<string, string>& configMap );
+void getConfig( map<string, string>& configMap, OurParams& our_params );
 
 string getLogFilePath( const string s_log_file_path );
 
@@ -55,30 +81,8 @@ const char* S_VERSION = "0.01";
 
 /********** GLOBAL VARIABLES - END ******************/
 
-/* Feed a pointer to OurParams to ServiceThread if launched as a non-daemon... */
-struct OurParams {
 
-	string s_manual_index_process_url;
-	string s_manual_form_process_url;
-	string s_daily_index_backfill_days;
-	string s_load_daily_indexes;
-	string s_load_next_edgar_filing_header;
-	
-};
-
-ostream& operator<<(ostream& s, OurParams& ourParams){
-
-	s << "s_manual_index_process_url = \"" << ourParams.s_manual_index_process_url << "\"\n" 
-	<< "s_manual_form_process_url = \"" <<  ourParams.s_manual_form_process_url << "\"\n"
-	<< "s_daily_index_backfill_days = \"" <<  ourParams.s_daily_index_backfill_days << "\"\n"
-	<< "s_load_daily_indexes = \"" <<  ourParams.s_load_daily_indexes << "\"\n"
-	<< "s_load_next_edgar_filing_header = \"" <<  ourParams.s_load_next_edgar_filing_header << "\"";
-
-	return s;
-}
-
-
-int ServiceThread(OurParams our_params)
+int ServiceThread(OurParams& our_params)
 {
 	cout.sync_with_stdio(true); // Get C and C++ I/O to play together nicely...
 
@@ -88,10 +92,16 @@ int ServiceThread(OurParams our_params)
 
 	map<string, string> configMap;
 
+	(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "our_params = " << our_params << "..." << endl;
+
 	(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling getConfig()..." << endl;
-	getConfig( configMap );
+	getConfig( configMap, our_params );
+
+	// NOTE: ostream& operator<<(ostream& s, const vector<string>& v); defined in utils.h
+	(le_logger)(JDA::Logger::INFO) << sWho << "(): After calling getConfig(), configMap = " << configMap << "..." << endl;
 
 	(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling setupLogger()..." << endl;
+
 	setupLogger( le_logger,
 		configMap["debug_level"], configMap["debug_log_file_path"],
 		configMap["debug_log_file_on"], configMap["debug_log_file_append"],
@@ -154,6 +164,11 @@ int main(int argc, char** argv)
 {
 	OurParams ourParams;
 
+
+	cout << "Setting ourParams.s_argv_zero equal to argv[0]..." << endl;
+	ourParams.s_argv_zero = argv[0];
+	cout << "ourParams.s_argv_zero = \"" << ourParams.s_argv_zero << "\"..." << endl;
+
 	for(int i=1 ; i < argc; i++ ){
 		if( strcmp( argv[i], "--manual-index-process-url" ) == 0 ){
 			if( i+1 < argc ){
@@ -195,11 +210,16 @@ int main(int argc, char** argv)
 
 }/* main() */
 
-void getConfig( map<string, string>& configMap ) {
+void getConfig( map<string, string>& configMap, OurParams& our_params ) {
 
 	string sWho = "::getConfig";
 
-	string sExecutablePath = JDA::Utils::getExecutablePath(); 
+	cout << sWho << "()..." << endl;
+
+	//string sExecutablePath = JDA::Utils::getExecutablePath(); 
+	string sExecutablePath = our_params.s_argv_zero;
+
+	cout << sWho << "(): Calling JDA::Utils::getDefaultConfigFilePath( sExecutablePath = \"" << sExecutablePath << "\" )..." << endl;
 	string sConfigFilePath = JDA::Utils::getDefaultConfigFilePath( sExecutablePath );
 
 	/* Set to defaults first, then they can be overridden 
@@ -215,38 +235,52 @@ void getConfig( map<string, string>& configMap ) {
 	configMap["load_daily_indexes"] = JDA::Utils::boolToString( JDA::FormsMeanCommon::DEFAULT_LOAD_DAILY_INDEXES );
 	configMap["load_next_edgar_filing_header"] = JDA::Utils::boolToString( JDA::FormsMeanCommon::DEFAULT_LOAD_NEXT_EDGAR_FILING_HEADER );
 
+	//JDA::Utils::debug = 1;
 	try {
-
+		cout << sWho << "(): Calling JDA::Utils::read_config_file( sConfigFilePath = \"" << sConfigFilePath << "\", configMap )..." << endl;
 		JDA::Utils::read_config_file( sConfigFilePath, configMap );
 
 	}
 	catch(JDA::Utils::Exception& e) {
 
-		cerr << sWho << "(): Cannot read config file '" << sConfigFilePath 
-			<< "': \"" << e.what() << "\", using defaults..." << endl;
+		cerr << sWho << "(): Caught exception during JDA::Utils::read_config_file( \"" << sConfigFilePath 
+			<< "\" ): \"" << e.what() << "\", using defaults..." << endl;
 	
 	}
+	catch( ... ) {
+
+		cerr << sWho << "(): Caught unknown exception during JDA::Utils::read_config_file( \"" << sConfigFilePath 
+			<< "\" ) using defaults..." << endl;
+	}
+
+	cout << sWho << "(): Got it..." << endl;
 
 }/* void getConfig() */
 
 string getLogFilePath( const string s_log_file_path ){
 
+	const char* sWho = "getLogFilePath";
+
+	// For ubuntu, the NYC conversion gets stuck in an endless loop during is_dst()...nth_wday_in_month()...
+	cout << sWho << "(): Calling sNycYYYYMMDD = JDA::Utils::get_nyc_datestamp()..." << endl;
 	string sNycYYYYMMDD = JDA::Utils::get_nyc_datestamp();
+	//string sNycYYYYMMDD = JDA::Utils::get_local_datestamp();
+
 	string sLogFilePath = "";
 
-	if( s_log_file_path.length() == 0 ){
-		string sSuffix = "-" + sNycYYYYMMDD + ".log";
-		string sExecutablePath = JDA::Utils::getExecutablePath(); 
-		sLogFilePath = JDA::Utils::getDefaultLogFilePath( sExecutablePath, sSuffix ); 
-	}
-	else {
+	//if( s_log_file_path.length() == 0 ){
+	//	string sSuffix = "-" + sNycYYYYMMDD + ".log";
+	//	string sExecutablePath = JDA::Utils::getExecutablePath(); 
+	//	sLogFilePath = JDA::Utils::getDefaultLogFilePath( sExecutablePath, sSuffix ); 
+	//}
+	//else {
 		sLogFilePath = s_log_file_path;
 		string sToken = "YYYY-MM-DD";
 		size_t where = sLogFilePath.find( sToken );
 		if( where != std::string::npos ){
 			sLogFilePath.replace( where, sToken.length(), sNycYYYYMMDD );
 		}
-	}
+	//}
 
 	return sLogFilePath;
 

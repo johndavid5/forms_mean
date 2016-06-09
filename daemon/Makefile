@@ -65,4 +65,4 @@ build/utils.o: ./cpp_lib/utils.cpp
 	g++ -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/utils.o ./cpp_lib/utils.cpp
 
 clean:
-	rm build/FtpClient.o build/ftpget.o build/ftpget
+	rm build/*.o build/ftpget build/mongoc build/forms_mean_daemon

@@ -11,7 +11,7 @@ git add ftpget.cpp
 git add mongoc.cpp
 
 git add add_em.bat
-git add add_em.sh
+git add add_em
 git add c.bat
 git add clean.bat
 git add d.bat
@@ -40,6 +40,8 @@ git add cpp_lib/tests/stooge.h
 git add cpp_lib/MongoDbClient.h
 git add cpp_lib/MongoDbClient.cpp
 git add cpp_lib/tlogger.h
+git add cpp_lib/utils.h
+git add cpp_lib/utils.cpp
 
 git add v.bat
 git add ../db.js

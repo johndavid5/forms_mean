@@ -203,6 +203,7 @@ class Utils {
 	static int read_config_file(const string& filePath,
 					map<string, string>& map /* in-out */);
 
+
 	/** Used by read_config_file() to process each config line. */	
 	static int process_config_line( string sLine,
 					string& sKey /* out */,
@@ -383,7 +384,7 @@ class Utils {
 	){
 		const char* sWho = "JDA::Utils::nth_wday_in_month";
 
-		if( JDA::Utils::debug ){
+		if( JDA::Utils::debug >= 4 ){
 			cout << sWho << "(): n=" << n <<", wday=" << wday << ", month=" << month << ", year=" << year << "..." << endl;
 		}
 
@@ -419,7 +420,7 @@ class Utils {
 			tm_struct.tm_wday = 0;
 			tm_struct.tm_yday = 0;
 
-			if( JDA::Utils::debug ){
+			if( JDA::Utils::debug >= 4 ){
 				cout << sWho << "(): i=" << i << ": BEFORE: tm_struct = \n" << JDA::Utils::t_struct_to_string( tm_struct ) << "..." << endl;
 			}
 
@@ -439,7 +440,7 @@ class Utils {
 				cp_out = asctime( &tm_struct );
 				#endif
 
-				if( JDA::Utils::debug ){
+				if( JDA::Utils::debug >= 4 ){
 					#ifdef WIN32
 					cout << "AFTER: mktime time is " << buff << endl;
 					#else
@@ -452,7 +453,7 @@ class Utils {
 			}
 
 
-			if( JDA::Utils::debug ){
+			if( JDA::Utils::debug >= 4 ){
 				cout << sWho << "(): i=" << i << ": AFTER: tm_struct = \n" << JDA::Utils::t_struct_to_string( tm_struct ) << "..." << endl;
 			}
 
@@ -472,13 +473,13 @@ class Utils {
 
 				iHitCount++;
 
-				if( JDA::Utils::debug ){
+				if( JDA::Utils::debug >= 4 ){
 					cout << sWho << "(): i=" << i << ": AFTER: A hit!!! iHitCount now equals " << iHitCount << "..." << endl;
 				}
 
 				if( iHitCount == n ){
 
-					if( JDA::Utils::debug ){
+					if( JDA::Utils::debug >= 4 ){
 						cout << sWho << "(): i=" << i << ": We're at target hitcount, so setting *mday_out to i = " << i << ", setting *yday_out to tm_struct.tm_yday = " << tm_struct.tm_yday << "..." << endl; 
 					}
 

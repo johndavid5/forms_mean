@@ -7,15 +7,18 @@
 
 /* static */ 
 	int JDA::Utils::read_config_file(const string& filePath,
-					map<string, string>& confMap /* in-out */) {
+					map<string, string>& confMap /* in-out */
+	)
+	{
 
 	const string sWho = "JDA::Utils::read_config_file";
 
 	//ifstream myFile;
-	FILE* myFile;
+	//FILE* myFile;
 
-	//JDA::Logger::debugPrintf(1, "%s(): Opening file '%s' for reading...\n", sWho.c_str(), filePath.c_str() );
-	//cout << sWho << "(): Opening file '" << filePath << "' for reading..." << endl;
+	if( JDA::Utils::debug ){
+		cout << sWho << "(): Opening file '" << filePath << "' for reading..." << endl;
+	}
 
 	// Can't figure out how to get the shareflag set for C++ ifstream, as filebuf::sh_read doesn't seem
 	// to be defined...so to Gehenna with C++ streams...
@@ -24,35 +27,44 @@
 
 	/* Open file with shared access... */
 
-	#ifdef WIN32
-	myFile = _fsopen( filePath.c_str(), "r", _SH_DENYNO );
-	#else
-	myFile = fopen( filePath.c_str(), "r" );
-	#endif
-		
+	//#ifdef WIN32
+	//	myFile = _fsopen( filePath.c_str(), "r", _SH_DENYNO );
+	//#else
+	//
+	//	if( JDA::Utils::debug ){
+	//		cout << sWho << "(): Calling myFile = fopen( \"" << filePath.c_str() << "\", \"r\")..." << endl;
+	//	}
+	//	myFile = fopen( filePath.c_str(), "r" );
+	//#endif
 
-	//if(! myFile.is_open() ) {
-	if(! myFile ){
+	std::ifstream le_ifs;
 
-		std::ostringstream oss;
+	// T-Dogg: Turn on exceptions...live life dangerously for once...
+	le_ifs.exceptions ( std::ifstream::failbit | std::ifstream::badbit );
 
-		//oss << "Trouble opening file '" << filePath << "' for reading: " << errno << ": " << "'" << strerror(errno) << "'";
+	try {
+		if( JDA::Utils::debug ){
+			cout << sWho << "(): " << "Opening filePath = '" << filePath << "' for reading..." << endl;
+		}
 
-		//const int err_buf_sz = 256;
-		//char err_buf[err_buf_sz];
-		//strerror_s(err_buf, err_buf_sz, GetLastError());
+		le_ifs.open( filePath.c_str(), std::ifstream::in );
 
-		//oss << "Trouble opening file '" << filePath << "' for reading: " << errno << ": " << "'" << err_buf << "'";
-		oss << "Trouble opening file '" << filePath << "' for reading: " << errno << ": " << "'" << JDA::Utils::strerror( errno ) << "'";
+	}catch( std::ifstream::failure e){
 
-		//JDA::Logger::debugPrintf(0, "%s(): %s\n", sWho.c_str(), oss.str().c_str() );
+			ostringstream oss_error;
 
-		throw Utils::Exception( oss.str() );
+			oss_error << "Trouble opening filePath = '" << filePath << "' for reading: \"" << e.what() << "\", ";
+			oss_error << "s_error = \"" << JDA::Utils::s_error() << "\"...";
+
+			if( JDA::Utils::debug ){
+				cout << sWho << "(): " << oss_error.str() << "\n" 
+				<< "...tossin' a Utils::Exception..." << endl;
+			}
+
+			throw Utils::Exception( oss_error.str() );
 	}
 
-	//string sLine;
-	const int BUF_SZ = 1024;	
-	char sLine[1024];
+	string sLine;
 
 	string sKey, sValue;
 	int iReturn;
@@ -60,14 +72,28 @@
 	int iLineCount = 0;
 	int iKeyValCount = 0;
 
-	//while ( myFile.good() ) {
+	while( !le_ifs.eof() && ! le_ifs.fail() ) {
 
-		//getline( myFile, sLine );
+		try {
+			std::getline( le_ifs, sLine );
+		} catch( std::ifstream::failure e){
+			ostringstream oss_error;
 
-	while( fgets( sLine, BUF_SZ, myFile ) ){  
+			oss_error << "Trouble with getline(), filePath = '" << filePath << "': \"" << e.what() << "\"";
 
-		//cout << "sLine[" << iLineCount << "]: \"" << sLine << "\"" << endl;
-		//JDA::Logger::debugPrintf(2, "%s(): sLine[%d] = '%s'\n", sWho.c_str(), iLineCount, sLine.c_str() );
+			if( JDA::Utils::debug ) {
+				cout << sWho << "(): " << oss_error.str() << "\n"
+				<< "SHEMP: Moe...Moe...I think this is just the end o' the file, so I'm gonna eat this exception, OK, Moe...?" << "\n"
+				<< "MOE: Ya gotta eat it...it's part of the plot..." << endl;
+			}
+
+		}
+
+		iLineCount++;
+
+		if( JDA::Utils::debug ){
+			cout << "sLine[" << iLineCount << "]: \"" << sLine << "\"" << endl;
+		}
 
 		iReturn = process_config_line( sLine, sKey, sValue);
 
@@ -83,10 +109,16 @@
 
 		iLineCount++;
 
-	}/* while( fgets( sLine, BUF_SZ, myFile ) ) */
+	}/* while( !le_ifs.eof() && ! le_ifs.fail() ) */
 
-	//myFile.close();
-	fclose( myFile );
+	//if( JDA::Utils::debug ){
+	//	cout << sWho << "(): Calling fclose( myFile )..." << endl;
+	//}
+	//fclose( myFile );
+
+	if( JDA::Utils::debug ){
+		cout << sWho << "(): Returning iKeyValCount = " << iKeyValCount << "..." << endl;
+	}
 	
 	return iKeyValCount; 
 

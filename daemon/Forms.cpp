@@ -1,7 +1,9 @@
-// Gotta include <winsock2.h> before 
-// <windows.h>...avoids winsock already
-// defined error when including mongoc.h 
-#include <winsock2.h>
+#ifdef WIN32
+	// Gotta include <winsock2.h> before 
+	// <windows.h>...avoids winsock already
+	// defined error when including mongoc.h 
+	#include <winsock2.h>
+#endif
 
 #include "Forms.h"
 #include "FormsMeanUtils.h"
