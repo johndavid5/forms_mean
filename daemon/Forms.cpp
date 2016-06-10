@@ -150,14 +150,19 @@ class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback
 
 			try {
 				m_p_forms->insertIndexEntry( cik, form_type, date_filed, file_name, accession_number, this->m_s_url );
-
 				m_i_query_succeed_count++;
 			}
-			catch( JDA::Utils::Exception& e ){
+			catch( JDA::MongoDbClient::MongoDbException& e ){
 				if( m_p_logger ){
-					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): SHEMP: Sorry, Moe, trouble with Forms::insertIndexEntry(): \"" << e.what() << "\"..." << endl;
+					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): SHEMP: Sorry, Moe, caught JDA::Utils::Exception during Forms::insertIndexEntry(): \"" << e.what() << "\"..." << endl;
 				}
 			}
+			catch( ... ){
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): SHEMP: Sorry, Moe, caught unknown exception during Forms::insertIndexEntry()..." << endl;
+				}
+			}
+
 
 
 			//cout << "------------- <ossout-data" << m_i_iteration_count << "> --------------\n"; 
@@ -240,27 +245,10 @@ int Forms::insertIndexEntry(
 	}
 
 	int i_ret_code = 0;
+
+	// NOTE: This call may toss a JDA::MongoDbClient::MongoDbException
+	i_ret_code = mongoDbClient.insert( this->getDbUrl(), this->getDbName(), s_collection_name, oss_json.str() );					
 			
-	try {
-		i_ret_code = mongoDbClient.insert( this->getDbUrl(), this->getDbName(), s_collection_name, oss_json.str() );					
-
-		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "insert() returned " << i_ret_code << "..." << endl;
-		}
-	}
-	catch( JDA::MongoDbClient::MongoDbException& e ){
-		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Caught JDA::MongoDbClient::MongoDbException during MongoDbClient::insert(): \"" << e.what() << "\"..." << endl;
-		}
-		i_ret_code = 0;
-	}
-	catch( ... ){
-		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Caught unknown exception during MongoDbClient::insert()." << endl;
-		}
-		i_ret_code = 0;
-	}
-
 	return i_ret_code;
 
 }/* insertIndexEntry() */

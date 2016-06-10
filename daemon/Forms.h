@@ -59,7 +59,7 @@ class Forms {
 		*/
 		int loadFromEdgarIndexUrl( const string& sEdgarIndexUrl );
 
-		/* @throws: JDA::Utils::Exception if DB error encountered. */
+		/* @throws: JDA::MongoDbClient::MongoDbException if DB error encountered. */
 		int insertIndexEntry(
 			const string& cik, const string& form_type, const string& date_filed, const string& file_name,
 			const string& accession_number, const string& index_url
