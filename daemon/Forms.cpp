@@ -8,7 +8,6 @@
 #include "Forms.h"
 #include "FormsMeanUtils.h"
 #include "FtpClient.h"
-#include "MongoDbClient.h"
 
 namespace JDA { 
 
@@ -152,7 +151,7 @@ class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback
 				m_p_forms->insertIndexEntry( cik, form_type, date_filed, file_name, accession_number, this->m_s_url );
 				m_i_query_succeed_count++;
 			}
-			catch( JDA::MongoDbClient::MongoDbException& e ){
+			catch( JDA::MongoDbClient::Exception& e ){
 				if( m_p_logger ){
 					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): SHEMP: Sorry, Moe, caught JDA::Utils::Exception during Forms::insertIndexEntry(): \"" << e.what() << "\"..." << endl;
 				}
@@ -235,8 +234,9 @@ int Forms::insertIndexEntry(
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: " << "oss_json = \"" << oss_json.str() << "\"..." << endl; 
 	}
 
-	JDA::MongoDbClient mongoDbClient;
-	mongoDbClient.setPLogger( m_p_logger );
+	//JDA::MongoDbClient mongoDbClient;
+	//mongoDbClient.setPLogger( m_p_logger );
+	//mongoDbClient.setSUriStr( this->getDbUrl() );
 
 	string s_collection_name = "forms";
 
@@ -246,7 +246,7 @@ int Forms::insertIndexEntry(
 
 	int i_ret_code = 0;
 
-	// NOTE: This call may toss a JDA::MongoDbClient::MongoDbException
+	// NOTE: This call may toss a JDA::MongoDbClient::Exception
 	i_ret_code = mongoDbClient.insert( this->getDbUrl(), this->getDbName(), s_collection_name, oss_json.str() );					
 			
 	return i_ret_code;

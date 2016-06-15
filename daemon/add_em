@@ -10,6 +10,7 @@ git add forms_mean_daemon.cpp
 git add ftpget.cpp
 git add mongoc.cpp
 
+git add .gitignore
 git add add_em.bat
 git add add_em
 git add c.bat
@@ -30,6 +31,9 @@ git add status.bat
 git add status.sh
 
 git add build/forms_mean_daemon.ini
+
+git add ../edgar/daily-index/master.20141031.idx
+git add ../edgar/daily-index/master.20141031.sample.idx
 
 git add test/example-client.cpp
 git add test/Makefile

@@ -78,8 +78,8 @@ main (int   argc,
 				int i_ret_code = mongoDbClient.find( s_uri, s_db_name, s_collection_name, s_json_query );					
 				cout << i_ret_code << " row(s) returned." << endl;
 			}
-			catch( JDA::MongoDbClient::MongoDbException& e ){
-				cout << "Caught JDA::MongoDbClient::MongoDbException during MongoDbClient::find(): \"" << e.what() << "\"..." << endl;
+			catch( JDA::MongoDbClient::Exception& e ){
+				cout << "Caught JDA::MongoDbClient::Exception during MongoDbClient::find(): \"" << e.what() << "\"..." << endl;
 			}
 			catch( ... ){
 				cout << "Caught unknown exception during MongoDbClient::find()." << endl;
@@ -91,8 +91,8 @@ main (int   argc,
 				int i_ret_code = mongoDbClient.insert( s_uri, s_db_name, s_collection_name, s_json_query );					
 				cout << "insert() returned " << i_ret_code << "..." << endl;
 			}
-			catch( JDA::MongoDbClient::MongoDbException& e ){
-				cout << "Caught JDA::MongoDbClient::MongoDbException during MongoDbClient::insert(): \"" << e.what() << "\"..." << endl;
+			catch( JDA::MongoDbClient::Exception& e ){
+				cout << "Caught JDA::MongoDbClient::Exception during MongoDbClient::insert(): \"" << e.what() << "\"..." << endl;
 			}
 			catch( ... ){
 				cout << "Caught unknown exception during MongoDbClient::insert()." << endl;
@@ -103,7 +103,7 @@ main (int   argc,
 			return 255;
 		}
 	}
-	catch( JDA::MongoDbClient::MongoDbException& e ){
+	catch( JDA::MongoDbClient::Exception& e ){
 		cout << "Trouble with mongo: \"" << e.what() << "\"..." << endl;
 	}
 	catch( ... ){
