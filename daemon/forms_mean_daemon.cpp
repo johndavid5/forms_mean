@@ -151,6 +151,37 @@ int ServiceThread(OurParams& our_params)
 		return 0;
 
 	}/* if( our_params.s_manual_index_process_url.length() > 0 ) */
+	else if( our_params.s_manual_form_process_url.length() > 0 ){
+
+		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "our_params.s_manual_form_process_url = \""
+			<< our_params.s_manual_form_process_url << "\":\n" 
+			<< "\t" << "Running forms.loadFromEdgarFormUrl( \"" << our_params.s_manual_form_process_url << "\" ), "
+			<< "and exiting the daemon..." << endl;
+
+		try {
+			JDA::Forms forms;
+			forms.setPLogger( &le_logger );
+			forms.setDbUrl( configMap["db_url"] );
+			forms.setDbName( configMap["db_name"] );
+			forms.loadFromEdgarFormUrl( our_params.s_manual_form_process_url );
+		}
+		catch(JDA::FtpClient::FtpException& e) {
+			(le_logger)(JDA::Logger::ERROR) << sWho << "(): Caught JDA::FtpClient::FtpException: \"" 
+				<< e.what() << "\"" << endl;
+		}
+		catch(std::exception& e ){
+			(le_logger)(JDA::Logger::ERROR) << sWho << "(): Caught std::exception: \"" 
+				<< e.what() << "\"" << endl;
+		}
+		catch(...){
+			(le_logger)(JDA::Logger::ERROR) << sWho << "(): Caught unknown exception." << endl;
+		}
+
+		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "Exiting daemon now..." << endl;
+
+		return 0;
+
+	}/* if( our_params.s_manual_index_process_url.length() > 0 ) */
 
 	/* ...placeholder for daemon loop... */
 	

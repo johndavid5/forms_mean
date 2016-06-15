@@ -1,0 +1,8 @@
+1. Begin re-using connections in MongoDbClient...I suspect this "no suitable
+servers" error is a result of too many dudes trying to connect at once...
+  [2016-06-14 19:31:53 EDT] ERROR: MongoDbClient::insert(): Trouble inserting document: "No suitable servers
+  found (`serverselectiontryonce` set): [connection timeout calling ismaster on 'jayne:27017']"
+
+2. Begin using FtpClient -- right now we only read from file:///... url...
+
+2. Put in the --manual-form-process-url functionality...(based on WaldoUtils::load_edgar_form_and_log_it()...)

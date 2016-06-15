@@ -15,11 +15,16 @@ git add add_em
 git add c.bat
 git add clean.bat
 git add d.bat
+git add d
+git add m
+git add v
+git add v.bat
 git add forms_mean_daemon.mak
 git add mongoc.mak
 git add Makefile
 
 git add reference.txt
+git add nextel.txt 
 
 git add status.bat
 git add status.sh
@@ -43,7 +48,6 @@ git add cpp_lib/tlogger.h
 git add cpp_lib/utils.h
 git add cpp_lib/utils.cpp
 
-git add v.bat
 git add ../db.js
 git add ../db/forms_insert.js
 git add ../db/forms_setup.js

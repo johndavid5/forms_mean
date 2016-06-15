@@ -65,10 +65,12 @@ class Forms {
 			const string& accession_number, const string& index_url
 		);  
 
-		int getIterationCount(){ return m_i_iteration_count; }
-		int getByteCount(){ return m_i_byte_count; }
-		int getQueryAttemptCount(){ return m_i_query_attempt_count; }
-		int getQuerySucceedCount(){ return m_i_query_succeed_count; }
+		int loadFromEdgarFormUrl( const string& sEdgarFormUrl );
+
+		//int getIterationCount(){ return m_i_iteration_count; }
+		//int getByteCount(){ return m_i_byte_count; }
+		//int getQueryAttemptCount(){ return m_i_query_attempt_count; }
+		//int getQuerySucceedCount(){ return m_i_query_succeed_count; }
 
 }; /* class Forms */
 

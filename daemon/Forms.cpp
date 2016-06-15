@@ -465,5 +465,15 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 
 }/* void Forms::loadFromEdgarIndexUrl() */
 
+int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
+
+	const char* sWho = "Forms::loadFromEdgarFormUrl";
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "( sEdgarFormUrl = \"" << sEdgarFormUrl << "\" ): SHEMP: Sorry, Moe, not implemented yet, Moe..." << endl;
+	}
+
+	return 0;
+}
 
 } /* namespace JDA */

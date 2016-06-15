@@ -46,19 +46,19 @@ build/mongoc.o: mongoc.cpp
 build/forms_mean_daemon.o: forms_mean_daemon.cpp
 	g++ -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/forms_mean_daemon.o forms_mean_daemon.cpp
 
-build/Forms.o: Forms.cpp
+build/Forms.o: Forms.cpp Forms.h
 	g++ -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/Forms.o Forms.cpp
 
-build/FormsMeanUtils.o: FormsMeanUtils.cpp
+build/FormsMeanUtils.o: FormsMeanUtils.cpp FormsMeanUtils.h
 	g++ -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/FormsMeanUtils.o FormsMeanUtils.cpp
 
-build/FormsMeanCommon.o: FormsMeanCommon.cpp
+build/FormsMeanCommon.o: FormsMeanCommon.cpp FormsMeanCommon.h
 	g++ -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/FormsMeanCommon.o FormsMeanCommon.cpp
 
-build/FtpClient.o: ./cpp_lib/FtpClient.cpp
+build/FtpClient.o: ./cpp_lib/FtpClient.cpp ./cpp_lib/FtpClient.h
 	g++ -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/FtpClient.o ./cpp_lib/FtpClient.cpp
 
-build/MongoDbClient.o: ./cpp_lib/MongoDbClient.cpp
+build/MongoDbClient.o: ./cpp_lib/MongoDbClient.cpp ./cpp_lib/MongoDbClient.h
 	g++ -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/MongoDbClient.o ./cpp_lib/MongoDbClient.cpp
 
 build/utils.o: ./cpp_lib/utils.cpp
