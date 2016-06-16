@@ -66,7 +66,7 @@
 	}/* string JDA::MongoDbClient::bson_as_json_string( bson_t* p_bson ) */
 
 
-	int JDA::MongoDbClient::find( const string& s_uri_str, const string& s_db_name, const string& s_collection_name, const string& s_json_query ){
+	int JDA::MongoDbClient::find( const string& s_db_name, const string& s_collection_name, const string& s_json_query ){
 
 		const char* sWho = "MongoDbClient::find";
 
@@ -178,7 +178,7 @@
 		}
 
 		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << row_number << " row(s) returned..." << endl;
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << row_number << " doc(s) returned..." << endl;
 		}
 
 		if (mongoc_cursor_error (p_cursor, &bson_error)) {
@@ -218,7 +218,7 @@
 
 
 
-	int JDA::MongoDbClient::insert( const string& s_uri_str, const string& s_db_name, const string& s_collection_name, const string& s_json_doc){
+	int JDA::MongoDbClient::insert( const string& s_db_name, const string& s_collection_name, const string& s_json_doc){
 		// http://api.mongodb.com/c/current/tutorial.html#insert
 
 		const char* sWho = "MongoDbClient::insert";

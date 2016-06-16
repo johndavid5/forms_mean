@@ -18,9 +18,7 @@ string G_S_ARGV_ZERO = "";
 
 void print_format( ostream& oss_out );
 
-int
-main (int   argc,
-      char *argv[])
+int main (int   argc, char *argv[])
 {
 	/* Get C and C++ I/O to play nice together... */
 	cout.sync_with_stdio(true);
@@ -71,12 +69,15 @@ main (int   argc,
 	JDA::MongoDbClient mongoDbClient;
 	mongoDbClient.setPLogger( & le_logger );
 
+	cout << "Calling mongoDbClient.setSUriStr( \"" << s_uri << "\" )..." << endl;
+	mongoDbClient.setSUriStr( s_uri );
+
 	try {
 		if( s_verb.compare("find") == 0 ){
-			cout << "Calling mongoDbClient.find( \"" << s_uri << "\", \"" << s_db_name << "\", \"" << s_collection_name << "\", \"" << s_json_query << "\")..." << endl;
+			cout << "Calling mongoDbClient.find( \"" << s_db_name << "\", \"" << s_collection_name << "\", \"" << s_json_query << "\")..." << endl;
 			try {
-				int i_ret_code = mongoDbClient.find( s_uri, s_db_name, s_collection_name, s_json_query );					
-				cout << i_ret_code << " row(s) returned." << endl;
+				int i_ret_code = mongoDbClient.find( s_db_name, s_collection_name, s_json_query );					
+				cout << i_ret_code << " doc(s) returned." << endl;
 			}
 			catch( JDA::MongoDbClient::Exception& e ){
 				cout << "Caught JDA::MongoDbClient::Exception during MongoDbClient::find(): \"" << e.what() << "\"..." << endl;
@@ -86,9 +87,9 @@ main (int   argc,
 			}
 		}
 		else if( s_verb.compare("insert") == 0 ){
-			cout << "Calling mongoDbClient.insert( \"" << s_uri << "\", \"" << s_db_name << "\", \"" << s_collection_name << "\", \"" << s_json_query << "\")..." << endl;
+			cout << "Calling mongoDbClient.insert( \"" << s_db_name << "\", \"" << s_collection_name << "\", \"" << s_json_query << "\")..." << endl;
 			try {
-				int i_ret_code = mongoDbClient.insert( s_uri, s_db_name, s_collection_name, s_json_query );					
+				int i_ret_code = mongoDbClient.insert( s_db_name, s_collection_name, s_json_query );					
 				cout << "insert() returned " << i_ret_code << "..." << endl;
 			}
 			catch( JDA::MongoDbClient::Exception& e ){

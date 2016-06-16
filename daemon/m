@@ -1,4 +1,4 @@
 #!/bin/bash
 set -x
-make 2>&1 | tee m.out
+make $1 2>&1 | tee m.out
 set +x

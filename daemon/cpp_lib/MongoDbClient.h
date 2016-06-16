@@ -83,12 +83,12 @@ class MongoDbClient {
 	string bson_as_json_string( bson_t* p_bson );
 
 	/** @throws MongoDbClient::Exception if something goes wrong with the command. */
-	int find( const string& s_uri, const string& s_db_name, const string& s_collection_name, const string& s_json_query );
+	int find( const string& s_db_name, const string& s_collection_name, const string& s_json_query );
 
 	/** "irete kudasai"
 	* @throws MongoDbClient::Exception if something goes wrong with the command.
 	*/
-	int insert( const string& s_uri, const string& s_db_name, const string& s_collection_name, const string& s_json_query );
+	int insert( const string& s_db_name, const string& s_collection_name, const string& s_json_query );
 
 }; /* class MongoDbClient */
 

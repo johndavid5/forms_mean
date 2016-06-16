@@ -241,13 +241,13 @@ int Forms::insertIndexEntry(
 	string s_collection_name = "forms";
 
 	if( m_p_logger ){
-		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoDbClient.insert( \"" << this->getDbUrl() << "\", \"" << this->getDbName() << "\", \"" << s_collection_name << "\", \"" << oss_json.str() << "\")..." << endl;
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoDbClient.insert( \"" << this->getDbName() << "\", \"" << s_collection_name << "\", \"" << oss_json.str() << "\")..." << endl;
 	}
 
 	int i_ret_code = 0;
 
 	// NOTE: This call may toss a JDA::MongoDbClient::Exception
-	i_ret_code = mongoDbClient.insert( this->getDbUrl(), this->getDbName(), s_collection_name, oss_json.str() );					
+	i_ret_code = mongoDbClient.insert( this->getDbName(), s_collection_name, oss_json.str() );					
 			
 	return i_ret_code;
 
