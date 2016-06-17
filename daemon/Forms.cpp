@@ -136,7 +136,7 @@ class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback
    		    	<< " cik = '" << cik << "'" << "\n"
 	   	    	<< " company_name = '" << company_name << "'" << "\n" 
 	   	    	<< " form_type = '" << form_type << "'" << "\n"
-	  	     	<< " date_filed = '" << date_filed << "'" << "\n"
+	  	    	<< " date_filed = '" << date_filed << "'" << "\n"
 	   	    	<< " file_name = '" << file_name << "'" << "\n"
 	   	    	<< " accession_number = '" << accession_number << "'" << "..." << endl;
 			}
@@ -263,6 +263,7 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "( sEdgarIndexUrl = \"" << sEdgarIndexUrl << "\" ): SHEMP: Here goes, Moe..." << endl;
 	}
 
+	// Utilized in both read-from-file case and FtpClient case...
 	MyFtpIndexClientCallback myFtpIndexClientCallback = MyFtpIndexClientCallback();
 
 	myFtpIndexClientCallback.setPLogger( m_p_logger );
@@ -342,7 +343,7 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 
 			if( m_p_logger ){
 				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": \"" << le_line << "\"..." << endl;
-				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": SHEMP: Callin' myFtpClientCallback.dataReceived(), Moe..." << endl;
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": SHEMP: Callin' myFtpIndexClientCallback.dataReceived(), Moe..." << endl;
 			}
 
 			size_t i_return = myFtpIndexClientCallback.dataReceived( (void*)le_line.c_str(), le_line.size(), sizeof(char), NULL ); 
@@ -371,82 +372,97 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 		 	(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Looks like an FTP job, Moe..." << endl;
 		}
 
+		// Use Linerator as a "decorator" to grab info line-by-line and feed to pMyFtpIndexClientCallback...
+		// Requires copy constructor, causes error...
+		//JDA::FtpClient::LineratorFtpClientCallback myIFtpClientCallback = JDA::FtpClient::LineratorFtpClientCallback( &myFtpIndexClientCallback );
+		JDA::FtpClient::LineratorFtpClientCallback myIFtpClientCallback( &myFtpIndexClientCallback );
+	
+		string sFilePath = ""; // Use blankey so we don't download to a file...
+		ostream* pDownloadStream = NULL; // Use NULL so we don't squirt it to a stream...
+	
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << ": Calling ftpClient.grabIt(" << "\n" 
+				<< "\t" << "sEdgarIndexUrl = \"" << sEdgarIndexUrl << "\", sFilePath = \"" << sFilePath << "\", pDownloadStream=" << pDownloadStream << "," << "\n"
+				<< "\t" << "iFtpDebug = " << this->getFtpDebug() << ", bFtpNoProxy = " << std::boolalpha << this->getFtpNoProxy() << ", sFtpProxyUserPass = \"" << this->getFtpProxyUserPass() << "\"," << "\n" 
+				<< "\t" << "m_p_logger = " << m_p_logger << ", &myIFtpClientCallback = " << &myIFtpClientCallback << "\n"
+				<< ")..." << endl;
+		}
+	
+		JDA::FtpClient ftpClient;
+	
+		size_t iByteCount = 0;
+	
+		ostringstream oss_info_query;
+		oss_info_query << "SELECT * FROM filings";
+  
+  		/* NOTE: FtpClient::grabIt() may throw JDA::FtpClient::FtpException */
+		try {
+			iByteCount = ftpClient.grabIt( sEdgarIndexUrl, sFilePath, pDownloadStream,
+							this->getFtpDebug(), this->getFtpNoProxy(), this->getFtpProxyUserPass(),
+							m_p_logger, &myIFtpClientCallback );
+	
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "():" <<
+						"\n" << "***> Received " << JDA::Utils::commify( iByteCount ) << " byte" << (iByteCount == 1 ? "" : "s" ) << ", Sancho..." << endl;
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getByteCount() = " << myFtpIndexClientCallback.getByteCount() << "..." << endl;
+			}
 
-//		// Use Linerator as a "decorator" to grab info line-by-line and feed to pMyFtpIndexClientCallback...
-//		JDA::FtpClient::LineratorFtpClientCallback myIFtpClientCallback = JDA::FtpClient::LineratorFtpClientCallback( &myFtpClientCallback );
-//	
-//		JDA::Logger* pLogger = NULL;
-//		string sFilePath = ""; // Use blankey so we don't download to a file...
-//		ostream* pDownloadStream = NULL;
-//	
-//		if( m_p_logger ){
-//			(*m_p_logger)(JDA::Logger::INFO) << sWho << ": Calling ftpClient.grabIt(" << "\n" 
-//				<< "\t" << "ftp_url = \"" << ftp_url << "\", sFilePath = \"" << sFilePath << "\", pDownloadStream=" << pDownloadStream << "," << "\n"
-//				<< "\t" << "iFtpDebug = " << iFtpDebug << ", bFtpNoProxy = " << JDA::Utils::boolToString( bFtpNoProxy) << ", sFtpProxyUserPass = \"" << sFtpProxyUserPass << "\"," << "\n" 
-//				<< "\t" << "pLogger = " << pLogger << ", &myIFtpClientCallback = " << &myIFtpClientCallback << "\n"
-//				<< ")..." << endl;
-//		}
-//	
-//		JDA::FtpClient ftpClient;
-//	
-//		size_t iByteCount = 0;
-//	
-//		ostringstream oss_info_query;
-//		oss_info_query << "SELECT * FROM filings";
-//	
-//		/* NOTE: FtpClient::grabIt() may throw JDA::FtpClient::FtpException */
-//		try {
-//			iByteCount = ftpClient.grabIt( ftp_url, sFilePath, pDownloadStream, iFtpDebug, bFtpNoProxy, sFtpProxyUserPass, pLogger, &myIFtpClientCallback );
-//	
-//	
-//			if( m_p_logger ){
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "():" <<
-//						"\n" << "***> Received " << JDA::Utils::commify( iByteCount ) << " byte" << (iByteCount == 1 ? "" : "s" ) << ", Sancho..." << endl;
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_byte_count = " << myFtpClientCallback.m_i_byte_count << "..." << endl;
-//			}
-//
-//			byte_count_out = myFtpClientCallback.m_i_byte_count;
-//	
-//			if( m_p_logger ){
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_iteration_count = " << myFtpClientCallback.m_i_iteration_count << "..." << endl;
-//			}
-//
-//			iteration_count_out = myFtpClientCallback.m_i_iteration_count;
-//
-//			if( m_p_logger ){
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_query_attempt_count = " << myFtpClientCallback.m_i_query_attempt_count << "..." << endl;
-//			}
-//
-//			query_attempt_count_out = myFtpClientCallback.m_i_query_attempt_count;
-//	
-//			if( m_p_logger ){
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_query_succeed_count = " << myFtpClientCallback.m_i_query_succeed_count << "..." << endl;
-//			}
-//
-//			query_succeed_count_out = myFtpClientCallback.m_i_query_succeed_count;
-//	
-//		}
-//		catch( JDA::FtpClient::FtpException& e ){
-//			if( m_p_logger ){
-//				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Sorry, Moe, caught JDA::FtpClient::FtpException during FTP download attempt "
-//					<< "of \"" << ftp_url << "\": \"" << e.what() << "\".";
-//	
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_byte_count = " << myFtpClientCallback.m_i_byte_count << "..." << endl;
-//	
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_iteration_count = " << myFtpClientCallback.m_i_iteration_count << "..." << endl;
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_query_attempt_count = " << myFtpClientCallback.m_i_query_attempt_count << "..." << endl;
-//	
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_query_succeed_count = " << myFtpClientCallback.m_i_query_succeed_count << "..." << endl;
-//	
-//				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Re-throwin' dhe exception, Moe..." << endl;
-//			}
-//	
-//			throw e;
-//		}
-//	
-//		/* Flush out any debug output from FtpClient... */
-//		fflush(stdout); 
-//		fflush(stderr);
+			//byte_count_out = myIFtpClientCallback.m_i_byte_count;
+	
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getIterationCount() = " << myFtpIndexClientCallback.getIterationCount() << "..." << endl;
+			}
+
+			//iteration_count_out = myFtpClientCallback.m_i_iteration_count;
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getQueryAttemptCount() = " << myFtpIndexClientCallback.getQueryAttemptCount() << "..." << endl;
+			}
+
+			//query_attempt_count_out = myFtpClientCallback.m_i_query_attempt_count;
+	
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getQuerySucceedCount() = " << myFtpIndexClientCallback.getQuerySucceedCount() << "..." << endl;
+			}
+
+			//query_succeed_count_out = myFtpClientCallback.m_i_query_succeed_count;
+	
+		}
+		catch( JDA::FtpClient::FtpException& e ){
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Sorry, Moe, caught JDA::FtpClient::FtpException during FTP download attempt "
+					<< "of \"" << sEdgarIndexUrl << "\": \"" << e.what() << "\".";
+			}
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "():" <<
+						"\n" << "***> Received " << JDA::Utils::commify( iByteCount ) << " byte" << (iByteCount == 1 ? "" : "s" ) << ", Sancho..." << endl;
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getByteCount() = " << myFtpIndexClientCallback.getByteCount() << "..." << endl;
+			}
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getIterationCount() = " << myFtpIndexClientCallback.getIterationCount() << "..." << endl;
+			}
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getQueryAttemptCount() = " << myFtpIndexClientCallback.getQueryAttemptCount() << "..." << endl;
+			}
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getQuerySucceedCount() = " << myFtpIndexClientCallback.getQuerySucceedCount() << "..." << endl;
+			}
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Re-throwin' dhe exception, Moe..." << endl;
+			}
+			
+	
+			throw e;
+		}/* catch */
+	
+		/* Flush out any debug output from FtpClient... */
+		fflush(stdout); 
+		fflush(stderr);
 
 	
 	}/* else -- an FTP job */

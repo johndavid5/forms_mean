@@ -24,7 +24,7 @@ OPTS=
 #WARNINGS=-Wall -Wno-reorder -fpermissive -Wunused-variable 
 #WARNINGS=-Wall -Wno-reorder -fpermissive 
 WARNINGS=-Wall -Wno-reorder
-CC=g++
+CC=g++ -v
 
 all: build/ftpget build/mongoc build/forms_mean_daemon
 

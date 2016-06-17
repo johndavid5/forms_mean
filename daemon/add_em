@@ -25,6 +25,7 @@ git add mongoc.mak
 git add Makefile
 
 git add reference.txt
+git add gotchas.txt 
 git add nextel.txt 
 
 git add status.bat

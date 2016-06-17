@@ -31,7 +31,8 @@ class Forms {
 
 		void setPLogger( JDA::Logger* p_logger ){ m_p_logger = p_logger; mongoDbClient.setPLogger(m_p_logger); }
 
-		void setDbConnection(){}
+		// Later, perhaps...
+		//void setDbConnection(){}
 
 		void setDbUrl( string sDbUrl ){ m_s_db_url = sDbUrl; mongoDbClient.setSUriStr( sDbUrl); }
 		string getDbUrl(){ return m_s_db_url; }
@@ -45,12 +46,15 @@ class Forms {
 
 		/* Set to 1 if you want extra logging output... */
 		void setFtpDebug( int i_ftp_debug ){ m_i_ftp_debug = i_ftp_debug; } 
+		int getFtpDebug(){ return m_i_ftp_debug; }
 
 		/** Set to FALSE if you wish to not use a proxy even if HTTP_PROXY, HTTPS_PROXY, or FTP_PROXY environment variables are set... */
 		void setFtpNoProxy( bool b_ftp_no_proxy ){ m_b_ftp_no_proxy = b_ftp_no_proxy; }
+		bool getFtpNoProxy( ){ return m_b_ftp_no_proxy; }
 
 		/** Set to "username:password", or try using just ":" for magical "NTLM" determination of username/password on Windows... */
 		void setFtpProxyUserPass( string s_ftp_proxy_user_pass ){ m_s_ftp_proxy_user_pass = s_ftp_proxy_user_pass; }
+		string getFtpProxyUserPass( ){ return m_s_ftp_proxy_user_pass; }
 
 		/**
 		* Load bare-bones filings into database from entries in EDGAR index file...
