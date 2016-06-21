@@ -28,8 +28,8 @@ CC=g++ -v
 
 all: build/ftpget build/mongoc build/forms_mean_daemon
 
-build/forms_mean_daemon: build/forms_mean_daemon.o build/Forms.o build/FormsMeanUtils.o build/FormsMeanCommon.o build/utils.o build/FtpClient.o build/MongoDbClient.o
-	g++ $(DEBUG) $(WARNINGS) $(OPTS) -o build/forms_mean_daemon build/forms_mean_daemon.o build/Forms.o build/FormsMeanUtils.o build/FormsMeanCommon.o build/utils.o build/FtpClient.o build/MongoDbClient.o $(LIBS) 
+build/forms_mean_daemon: build/forms_mean_daemon.o build/Forms.o build/EdgarForm.o build/FormsMeanUtils.o build/FormsMeanCommon.o build/utils.o build/FtpClient.o build/MongoDbClient.o
+	g++ $(DEBUG) $(WARNINGS) $(OPTS) -o build/forms_mean_daemon build/forms_mean_daemon.o build/Forms.o build/EdgarForm.o build/FormsMeanUtils.o build/FormsMeanCommon.o build/utils.o build/FtpClient.o build/MongoDbClient.o $(LIBS) 
 
 build/ftpget: build/ftpget.o build/utils.o build/FtpClient.o
 	g++ $(DEBUG) $(WARNINGS) $(OPTS) -o build/ftpget build/ftpget.o build/utils.o build/FtpClient.o $(LIBS) 
@@ -48,6 +48,9 @@ build/forms_mean_daemon.o: forms_mean_daemon.cpp
 
 build/Forms.o: Forms.cpp Forms.h
 	g++ -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/Forms.o Forms.cpp
+
+build/EdgarForm.o: EdgarForm.cpp EdgarForm.h
+	g++ -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/EdgarForm.o EdgarForm.cpp
 
 build/FormsMeanUtils.o: FormsMeanUtils.cpp FormsMeanUtils.h
 	g++ -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/FormsMeanUtils.o FormsMeanUtils.cpp

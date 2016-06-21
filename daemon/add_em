@@ -1,11 +1,13 @@
 #!/bin/bash
 set -x
-git add Forms.cpp
+git add EdgarForm.h
+git add EdgarForm.cpp
 git add Forms.h
-git add FormsMeanCommon.cpp
+git add Forms.cpp
 git add FormsMeanCommon.h
-git add FormsMeanUtils.cpp
+git add FormsMeanCommon.cpp
 git add FormsMeanUtils.h
+git add FormsMeanUtils.cpp
 git add forms_mean_daemon.cpp
 git add ftpget.cpp
 git add mongoc.cpp
