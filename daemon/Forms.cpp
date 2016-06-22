@@ -149,7 +149,12 @@ class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback
 
 			try {
 				m_p_forms->insertIndexEntry( cik, form_type, date_filed, file_name, accession_number, this->m_s_url );
+
 				m_i_query_succeed_count++;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): SHEMP: Good news, Moe...Forms::insertIndexEntry() appears to be successful...m_i_query_succeed_count = " << m_i_query_succeed_count << "..." << endl;
+				}
 			}
 			catch( JDA::MongoDbClient::Exception& e ){
 				if( m_p_logger ){

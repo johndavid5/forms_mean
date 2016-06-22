@@ -176,11 +176,11 @@ namespace JDA{
 	class EdgarForm {
 
 	protected: 
-		VF::Logger* m_p_logger;
+		JDA::Logger* m_p_logger;
 
 	public:		
-		void setPLogger( VF::Logger* p_logger ){ m_p_logger = p_logger; }
-		VF::Logger* getPLogger(){ return m_p_logger; }
+		void setPLogger( JDA::Logger* p_logger ){ m_p_logger = p_logger; }
+		JDA::Logger* getPLogger(){ return m_p_logger; }
 
 	public:
 
@@ -449,7 +449,7 @@ namespace JDA{
 		*    extract_sic_code( "WHOLESALE-PAPER AND PAPER PRODUCTS [WXYZ]" ) = "XYZ"
 		*    extract_sic_code( "WHOLESALE-PAPER AND PAPER PRODUCTS" ) = ""
 		*/
-		static string extract_sic_code( const string& standard_industrial_classification ); 
+		static string extract_sic_code( const string& standard_industrial_classification, JDA::Logger* p_logger = NULL ); 
 
 		static string filers_to_string( vector<shared_ptr<FILER>>& filers );
 

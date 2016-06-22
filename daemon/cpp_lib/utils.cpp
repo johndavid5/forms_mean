@@ -358,6 +358,8 @@
 
 				const char* sWho = "JDA::Utils::Stopwatch::get_s_elapsed_seconds";
 
+				(void)sWho; // Unused?  Who says sWho is unused?
+
 				//float elapsed_seconds = this->get_elapsed_seconds();
 
 				//if( JDA::Utils::debug ){

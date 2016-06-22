@@ -206,43 +206,57 @@ using namespace std;
 		}/* JDA::EdgarForm::map_filer( ) */
 
 
-		/* static */ string JDA::EdgarForm::extract_sic_code( const string& standard_industrial_classification ){ 
+		/* static */ string JDA::EdgarForm::extract_sic_code( const string& standard_industrial_classification, JDA::Logger* p_logger ) 
+		{
 
-			//const char* sWho = "JDA::EdgarForm::extract_sic_code";
+			const char* sWho = "JDA::EdgarForm::extract_sic_code";
 
-
-			if( m_p_logger ){
-				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): standard_industrial_classification = '" << standard_industrial_classification << "'..." << endl;
+			if( p_logger ){
+				(*p_logger)(JDA::Logger::TRACE) << sWho << "(): standard_industrial_classification = '" << standard_industrial_classification << "'..." << endl;
 			}
 			
 
 			size_t i_where_right_bracket = standard_industrial_classification.rfind( "]" );
 
 
-			if( m_p_logger ){
-				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_where_right_bracket = " << i_where_right_bracket << "..." << endl;
+			if( p_logger ){
+				(*p_logger)(JDA::Logger::TRACE) << sWho << "(): i_where_right_bracket = " << i_where_right_bracket << "..." << endl;
 			}
 			
 
 			if( i_where_right_bracket != std::string::npos ){
 
 				size_t i_where_left_bracket = standard_industrial_classification.rfind( "[", i_where_right_bracket );
-				//JDA::Logger::log(JDA::Logger::DEBUG) << sWho << "(): i_where_left_bracket = " << i_where_left_bracket << "..." << endl;
+
+
+				if( p_logger ){
+					(*p_logger)(JDA::Logger::TRACE) << sWho << "(): i_where_left_bracket = " << i_where_left_bracket << "..." << endl;
+				}
+				
 
 				if( i_where_left_bracket != std::string::npos ){
-					//JDA::Logger::log(JDA::Logger::DEBUG) << sWho << "():\n" 
-					//<< "Returning substr( i_where_right_bracket+1, i_where_right_bracket-i_where_left_bracket-1 )\n"  
-					//<< "	    = substr( " << (i_where_right_bracket+1) << ", " << (i_where_right_bracket-i_where_left_bracket-1) << " )..." << endl;
+
+					if( p_logger ){
+						(*p_logger)(JDA::Logger::TRACE) << sWho << "():\n" 
+						<< "Returning substr( i_where_right_bracket+1, i_where_right_bracket-i_where_left_bracket-1 )\n"  
+						<< "	    = substr( " << (i_where_right_bracket+1) << ", " << (i_where_right_bracket-i_where_left_bracket-1) << " )..." << endl;
+					}
 
 					return standard_industrial_classification.substr( i_where_left_bracket+1, i_where_right_bracket-i_where_left_bracket-1 );
 				}
 				else{
-					//JDA::Logger::log(JDA::Logger::DEBUG) << sWho << "(): Looks like a bust on i_where_left_bracket, so returning \"\"..." << endl;
+
+					if( p_logger ){
+						(*p_logger)(JDA::Logger::TRACE) << sWho << "(): Looks like a bust on i_where_left_bracket, so returning \"\"..." << endl;
+					}
 					return "";
 				}
 			}
 			else{
-				//JDA::Logger::log(JDA::Logger::DEBUG) << sWho << "(): Looks like a bust on i_where_right_bracket, so returning \"\"..." << endl;
+				if( p_logger ){
+					(*p_logger)(JDA::Logger::DEBUG) << sWho << "(): Looks like a bust on i_where_right_bracket, so returning \"\"..." << endl;
+				}
+			
 				return "";
 			}
 			
@@ -290,9 +304,11 @@ using namespace std;
 
 			m_line_number++;
 
-			JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): line " << m_line_number << ": \"" << le_line << "\"..." << endl; 
-			JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): line " << m_line_number << ": BEFORE: state " << stateTypeToString( m_state ) << "..." << endl;
-
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): line " << m_line_number << ": \"" << le_line << "\"..." << endl; 
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): line " << m_line_number << ": BEFORE: state " << stateTypeToString( m_state ) << "..." << endl;
+			}
+			
 			if( le_line.find("<SEC-HEADER>") != string::npos ){
 				m_state = STATE_IN_SEC_HEADER;
 			}
@@ -308,7 +324,10 @@ using namespace std;
 
 			splitIt( le_line, &s_left, &s_right );
 
-			JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): line " << m_line_number << ": s_left = \"" << s_left << "\", s_right = \"" << s_right << "\"..." << endl;
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): line " << m_line_number << ": s_left = \"" << s_left << "\", s_right = \"" << s_right << "\"..." << endl;
+			}
+			
 
 			switch( m_state ){
 
@@ -334,7 +353,10 @@ using namespace std;
 
 				case STATE_FILER:
 					if( s_left.compare("FILER") == 0 ){
-						JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): SHEMP: Moe, goin' from STATE_FILER to STATE_FILER, Moe..." << endl;
+
+						if( m_p_logger ){
+							(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): SHEMP: Moe, goin' from STATE_FILER to STATE_FILER, Moe..." << endl;
+						}
 
 						this->save_new_filer();
 
@@ -1009,7 +1031,10 @@ using namespace std;
 
 			}/* switch( m_state ) */
 
-			JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): line " << m_line_number << ": AFTER: state " << stateTypeToString( m_state ) << "..." << endl;
+			
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): line " << m_line_number << ": AFTER: state " << stateTypeToString( m_state ) << "..." << endl;
+			}
 
 			return m_state;
 		}/* parseLine() */
