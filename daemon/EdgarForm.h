@@ -3,7 +3,10 @@
 
 #include "logger.h"
 #include <string>
+
+#include <iostream>
 #include <memory> // shared_ptr<>, etc.
+
 //using namespace std;
 //using namespace std::tr1; // shared_ptr -- gcc
 
@@ -171,6 +174,13 @@
 namespace JDA{ 
 
 	class EdgarForm {
+
+	protected: 
+		VF::Logger* m_p_logger;
+
+	public:		
+		void setPLogger( VF::Logger* p_logger ){ m_p_logger = p_logger; }
+		VF::Logger* getPLogger(){ return m_p_logger; }
 
 	public:
 

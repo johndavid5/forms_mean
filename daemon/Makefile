@@ -13,6 +13,8 @@
 CFLAGS = -I/usr/local/include -I./cpp_lib -I/usr/local/include/libbson-1.0 -I/usr/local/include/libmongoc-1.0 
 # If you want C++11...
 #CFLAGS += -std=c++11
+# For shared_ptr, -std=c++0x
+CFLAGS += -std=c++0x
 LIBS = -L/usr/local/lib -lcurl -L/usr/local/lib -lmongoc-1.0 -lssl -lcrypto -lrt -lbson-1.0
 
 DEBUG=-ggdb

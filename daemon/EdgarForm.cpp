@@ -35,7 +35,8 @@ using namespace std;
 		};
 
 
-		JDA::EdgarForm::EdgarForm() : m_state(STATE_START), m_line_number(0) {
+		/** @constructor */
+		JDA::EdgarForm::EdgarForm() : m_state(STATE_START), m_line_number(0), m_p_logger(NULL) {
 
 			m_new_filer = shared_ptr<FILER>(NULL);
 
@@ -144,7 +145,9 @@ using namespace std;
 
 			const char* sWho = "JDA::EdgarForm::begin_new_filer";
 
-			JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): SHEMP: Moe, startin' a new m_new_filer, Moe..." << endl;
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "SHEMP: Moe, startin' a new m_new_filer, Moe..." << endl;
+			}
 
 			m_new_filer = shared_ptr<FILER>(new FILER());
 			this->map_filer( m_new_filer.get() ); 	
@@ -156,12 +159,19 @@ using namespace std;
 			const char* sWho = "JDA::EdgarForm::save_new_filer";
 
 			if( m_new_filer.get() != NULL ){
-				JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): SHEMP: Moe, pushin' m_new_filer = " << m_new_filer->toString() << " onto m_filers, Moe..." << endl;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): SHEMP: Moe, pushin' m_new_filer = " << m_new_filer->toString() << " onto m_filers, Moe..." << endl;
+				}
+				
 				m_filers.push_back( m_new_filer );	
 				m_new_filer = shared_ptr<FILER>(NULL);
 			}
 			else {
-				JDA::Logger::log(JDA::Logger::TRACE) << sWho << "(): SHEMP: Moe, m_filers.get() is NULL, Moe, so I ain't pushin' it onto m_filers, Moe, Sorry, Moe..." << endl;
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): SHEMP: Moe, m_filers.get() is NULL, Moe, so I ain't pushin' it onto m_filers, Moe, Sorry, Moe..." << endl;
+				}
+				
 			}
 
 		}/* void JDA::EdgarForm::save_new_filer() */
@@ -200,11 +210,19 @@ using namespace std;
 
 			//const char* sWho = "JDA::EdgarForm::extract_sic_code";
 
-			//JDA::Logger::log(JDA::Logger::DEBUG) << sWho << "(): standard_industrial_classification = '" << standard_industrial_classification << "'..." << endl;
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): standard_industrial_classification = '" << standard_industrial_classification << "'..." << endl;
+			}
+			
 
 			size_t i_where_right_bracket = standard_industrial_classification.rfind( "]" );
 
-			//JDA::Logger::log(JDA::Logger::DEBUG) << sWho << "(): i_where_right_bracket = " << i_where_right_bracket << "..." << endl;
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_where_right_bracket = " << i_where_right_bracket << "..." << endl;
+			}
+			
 
 			if( i_where_right_bracket != std::string::npos ){
 
