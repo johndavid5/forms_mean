@@ -12,10 +12,10 @@ class Forms {
 	protected:
 		JDA::Logger* m_p_logger;
 
-		int m_i_iteration_count;
-		int m_i_byte_count;
-		int m_i_query_attempt_count;
-		int m_i_query_succeed_count;
+		//int m_i_iteration_count;
+		//int m_i_byte_count;
+		//int m_i_query_attempt_count;
+		//int m_i_query_succeed_count;
 
 		int m_i_ftp_debug;
 		bool m_b_ftp_no_proxy;
@@ -57,7 +57,7 @@ class Forms {
 		string getFtpProxyUserPass( ){ return m_s_ftp_proxy_user_pass; }
 
 		/**
-		* Load bare-bones filings into database from entries in EDGAR index file...
+		* Load bare-bones filings into MongoDb database.forms collection from entries in EDGAR index file...
 		*
 		* NOTE: Immediately after runnning this, you may call getIterationCount(), getByteCount(), getQueryAttemptCount(), and getQuerySucceedCount()
 		* for further information.
@@ -72,6 +72,12 @@ class Forms {
 			const string& accession_number, const string& index_url
 		);  
 
+		/** Reads header of EDGAR form -- the skeleton of which has already been created in MongoDb by
+		* loadFromEdgarIndexUrl()...and updates the record with information from the header.
+		*
+		* For example, "ftp://ftp.sec.gov/edgar/data/1403385/0000950157-15-000937.txt" or 
+		*	"file:///../edgar/1016281--0001016281-15-000151--carriage-services-inc--4--2015-12-10.txt"
+		*/							
 		int loadFromEdgarFormUrl( const string& sEdgarFormUrl );
 
 		//int getIterationCount(){ return m_i_iteration_count; }

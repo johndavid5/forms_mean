@@ -1,12 +1,13 @@
 #!/bin/bash
 set -x
 #./build/ftpget http://cnn.com 2>&1 | tee d.out
-#./build/mongoc find -uri "mongodb://jayne/" -db "test" -collection "grades" -query "{ \"student_id\" : 2 }" 2>&1 | tee d.out
-# ./build/mongoc find -uri "mongodb://jayne/" -db "test" -collection "grades" -query "{ \"student_id\" : 0 }" 2>&1 | tee d.out
-./build/mongoc insert -uri "mongodb://jayne/" -db "test" -collection "grades" -doc "{ \"student_id\" : 0, \"name\": \"Joe Kovacs\" }" 2>&1 | tee d.out
+#./build/mongoc insert -uri "mongodb://jayne/" -db "test" -collection "grades" -doc "{ \"student_id\" : 0, \"name\": \"Joe Kovacs\" }" 2>&1 | tee d.out
 #./build/mongoc update -uri "mongodb://jayne/" -db "test" -collection "grades" -query "{ \"student_id\" : 0 }" -update "{ \"\$set\": { \"name\": \"Joseph S. Kovacs\" } }"  2>&1 | tee d.out
+#./build/mongoc find -uri "mongodb://jayne/" -db "test" -collection "grades" -query "{ \"student_id\" : 2 }" 2>&1 | tee d.out
+#./build/mongoc find -uri "mongodb://jayne/" -db "test" -collection "grades" -query "{ \"student_id\" : 0 }" 2>&1 | tee d.out
 #./build/forms_mean_daemon --manual-index-process-url "file:///../edgar/daily-index/master.20141031.idx" 2>&1 | tee d.out
-#./build/forms_mean_daemon --manual-form-process-url "file:///../edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
 #./build/forms_mean_daemon --manual-index-process-url "ftp://ftp.sec.gov/edgar/daily-index/master.20160616.idx" 2>&1 | tee d.out
 #./build/forms_mean_daemon --manual-index-process-url "file:///../edgar/daily-index/master.20141031.sample.idx" 2>&1 | tee d.out
+#./build/forms_mean_daemon --manual-form-process-url "file:///../edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
+./build/forms_mean_daemon --manual-form-process-url "ftp://ftp.sec.gov/edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
 set +x

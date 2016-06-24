@@ -1,0 +1,7 @@
+#			if( m_p_logger ){
+#				(*m_p_logger)
+#			}
+#!/bin/bash
+set -x
+perl p.pl 2>&1 | tee p.out
+set +x
