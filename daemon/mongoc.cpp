@@ -29,8 +29,10 @@ int main (int   argc, char *argv[])
 	string s_uri = ""; // e.g., "mongodb://127.0.0.1/"
 	string s_db_name = ""; // e.g., "test"
 	string s_collection_name = ""; // e.g., "grades"
-	//string s_json_query = "{}"; // e.g., "{ \"student_id\": 2 }"
+	string s_json_doc = ""; // e.g., "{ \"student_id\": 2, \"name\": \"Joe Kovacs\" }"
+	//string s_json_query = "{}";
 	string s_json_query = ""; // e.g., "{ \"student_id\": 2 }"
+	string s_json_update = ""; // e.g., "{ $set: { \"name\": \"Joseph S. Kovacs\" } }"
 
 	//JDA::Logger le_logger = JDA::Logger();
 	JDA::Logger le_logger;
@@ -58,6 +60,12 @@ int main (int   argc, char *argv[])
 		else if( strcmp( argv[i], "-query" ) == 0 && i+1 < argc ){ 
 			s_json_query = argv[++i];
 		}
+		else if( strcmp( argv[i], "-doc" ) == 0 && i+1 < argc ){ 
+			s_json_doc = argv[++i];
+		}
+		else if( strcmp( argv[i], "-update" ) == 0 && i+1 < argc ){ 
+			s_json_update = argv[++i];
+		}
 	}
 
 	cout << "s_verb = \"" << s_verb << "\"..." << endl;
@@ -65,6 +73,8 @@ int main (int   argc, char *argv[])
 	cout << "s_db_name = \"" << s_db_name << "\"..." << endl;
 	cout << "s_collection_name = \"" << s_collection_name << "\"..." << endl;
 	cout << "s_json_query = \"" << s_json_query.c_str() << "\"..." << endl;
+	cout << "s_json_doc = \"" << s_json_doc.c_str() << "\"..." << endl;
+	cout << "s_json_update = \"" << s_json_update.c_str() << "\"..." << endl;
 
 	JDA::MongoDbClient mongoDbClient;
 	mongoDbClient.setPLogger( & le_logger );
@@ -87,9 +97,9 @@ int main (int   argc, char *argv[])
 			}
 		}
 		else if( s_verb.compare("insert") == 0 ){
-			cout << "Calling mongoDbClient.insert( \"" << s_db_name << "\", \"" << s_collection_name << "\", \"" << s_json_query << "\")..." << endl;
+			cout << "Calling mongoDbClient.insert( \"" << s_db_name << "\", \"" << s_collection_name << "\", \"" << s_json_doc << "\")..." << endl;
 			try {
-				int i_ret_code = mongoDbClient.insert( s_db_name, s_collection_name, s_json_query );					
+				int i_ret_code = mongoDbClient.insert( s_db_name, s_collection_name, s_json_doc );					
 				cout << "insert() returned " << i_ret_code << "..." << endl;
 			}
 			catch( JDA::MongoDbClient::Exception& e ){
@@ -97,6 +107,19 @@ int main (int   argc, char *argv[])
 			}
 			catch( ... ){
 				cout << "Caught unknown exception during MongoDbClient::insert()." << endl;
+			}
+		}
+		else if( s_verb.compare("update") == 0 ){
+			cout << "Calling mongoDbClient.update( \"" << s_db_name << "\", \"" << s_collection_name << "\", \"" << s_json_query << "\", \"" << s_json_update << "\" )..." << endl;
+			try {
+				int i_ret_code = mongoDbClient.update( s_db_name, s_collection_name, s_json_query, s_json_update );					
+				cout << "update() returned " << i_ret_code << "..." << endl;
+			}
+			catch( JDA::MongoDbClient::Exception& e ){
+				cout << "Caught JDA::MongoDbClient::Exception during MongoDbClient::update(): \"" << e.what() << "\"..." << endl;
+			}
+			catch( ... ){
+				cout << "Caught unknown exception during MongoDbClient::update()." << endl;
 			}
 		}
 		else {

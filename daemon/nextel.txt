@@ -1,4 +1,4 @@
-1. Begin using FtpClient (curl) (in Forms::loadFromEdgarIndexUrl()...right now we only read from file:///... url...)
+1. Add "update" to bag of tricks for MongoDbClient.
 
 2. Put in the --manual-form-process-url functionality...(based on WaldoUtils::load_edgar_form_and_log_it()...)
 
@@ -6,6 +6,8 @@
 ----------
 completed:
 ----------
+[x] Begin using FtpClient (curl) (in Forms::loadFromEdgarIndexUrl()...right now we only read from file:///... url...)
+
 [x--2016-06-16--commit 6315] * Begin re-using connections in MongoDbClient...I suspect this "no suitable
    servers" error is a result of too many dudes trying to connect at once:
 
