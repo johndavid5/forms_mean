@@ -351,7 +351,7 @@ int Forms::insertIndexEntry(
 	}; /* class MyFtpClientFormeratorCallback : public JDA::FtpClient::IFtpClientCallback  */
 
 
-// inspired by: WaldoUtils::load_index_into_db()... 
+// inspired by: FormsMeanUtils::load_index_into_db()... 
 int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 {
 	const char* sWho = "Forms::loadFromEdgarIndexUrl";
@@ -578,7 +578,7 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 
 }/* void Forms::loadFromEdgarIndexUrl() */
 
-/* Inspired by WaldoUtils::load_edgar_form_and_log_it() */
+/* Inspired by FormsMeanUtils::load_edgar_form_and_log_it() */
 int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 
 	const char* sWho = "Forms::loadFromEdgarFormUrl";
@@ -587,659 +587,184 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "( sEdgarFormUrl = \"" << sEdgarFormUrl << "\" ):..." << endl;
 	}
 
-		string s_accession_number_from_file_path = WaldoUtils::accessionNumberFromFilePath( sEdgarFormUrl );  	
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: s_accession_number_from_file_path = '" << s_accession_number_from_file_path << "'..." << endl;
+	string s_accession_number_from_file_path = FormsMeanUtils::accessionNumberFromFilePath( sEdgarFormUrl );  	
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: s_accession_number_from_file_path = '" << s_accession_number_from_file_path << "'..." << endl;
+	}
 
-		string s_cik_from_url = WaldoUtils::cikFromUrl( sEdgarFormUrl );  	
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: s_cik_from_url = '" << s_cik_from_url << "'..." << endl;
+	string s_cik_from_url = FormsMeanUtils::cikFromUrl( sEdgarFormUrl );  	
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: s_cik_from_url = '" << s_cik_from_url << "'..." << endl;
+	}
 
-		JDA::Formerator le_formerator;
-		
-		size_t i_where;
-		string s_file_url_prefix = "file:///";
+	JDA::EdgarForm le_formerator;
+	
+	size_t i_where;
+	string s_file_url_prefix = "file:///";
 
-		// Check to see if it looks like a file:/// URL...
-		if( ( i_where = JDA::Utils::ifind( sEdgarFormUrl, s_file_url_prefix ) ) == 0 ){
+	// Check to see if it looks like a file:/// URL...
+	if( ( i_where = JDA::Utils::ifind( sEdgarFormUrl, s_file_url_prefix ) ) == 0 ){
 
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Looks like a file, Moe..." << endl;
-
-			string file_path = sEdgarFormUrl.substr( s_file_url_prefix.length() );	
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: file_path = '" << file_path << "', Moe..." << endl;
-
-			std::ifstream le_ifs;
-
-			// Turn on exceptions...
-			le_ifs.exceptions ( std::ifstream::failbit | std::ifstream::badbit );
-
-			try {
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "Opening file_path = '" << file_path << "' for reading..." << endl;
-				le_ifs.open( file_path.c_str(), std::ifstream::in );
-			}catch( std::ifstream::failure e){
-				JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): " << "Trouble opening file_path = '" << file_path << "' for reading: \"" << e.what() << "\"" << endl;
-				JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): " << "s_error = \"" << JDA::Utils::s_error() << "\"..." << endl;
-				JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: I'm gettin' outta here, Moe...!" << endl;
-				return -1;
-			}
-
-			string le_line;
-			int i_count = 0;
-			while(!le_ifs.eof() && ! le_ifs.fail() ){
-
-				try {
-					std::getline( le_ifs, le_line );
-				} catch( std::ifstream::failure e){
-					JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): " << "Trouble with getline(): \"" << e.what() << "\"" << endl;
-					JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: I'm gettin' outta here, Moe...!" << endl;
-					return -2;
-				}
-
-				i_count++;
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": \"" << le_line << "\"..." << endl;
-
-				JDA::Formerator::StateType stateTypeReturn = le_formerator.parseLine( le_line );
-
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": \"" << "stateTypeReturn = " << stateTypeReturn << " = " << JDA::Formerator::stateTypeToString(stateTypeReturn) << "..." << endl; 
-
-				if( stateTypeReturn == JDA::Formerator::STATE_DONE_WITH_SEC_HEADER ){
-					JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): "<< "line #" << i_count << ": \"" << "SHEMP: Okey-Dokey, Moe...looks like we're all done with the SEC header, may as well bail out o' the loop now, Moe..." << endl;
-					break;
-				}
-
-			}/* while(!le_ifs.eof() && ! le_ifs.fail() ) */
-
-			try {
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Closin' dhe file_path = '" << file_path << "' for reading, Moe..." << endl;
-				le_ifs.close();
-			}catch( std::ifstream::failure e){
-				JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Trouble closin' dhe file_path = '" << file_path << "' for reading: \"" << e.what() << "\", sorry, Moe..." << endl;
-			}
-
-		}/* if( ( i_where = JDA::Utils::ifind( sEdgarFormUrl, s_file_url_prefix ) == 0 ) */
-		else {
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Looks like it's gonna be an FTP job, Moe..." << endl;
-
-			JDA::FtpClient ftpClient;
-
-			MyFtpClientFormeratorCallback myFtpClientFormeratorCallback = MyFtpClientFormeratorCallback( &le_formerator );
-			JDA::FtpClient::LineratorFtpClientCallback myLineratorFtpClientCallback = JDA::FtpClient::LineratorFtpClientCallback( &myFtpClientFormeratorCallback ); 
-
-			JDA::Logger* pLogger = NULL;
-			string sFilePath = ""; // Use blankey so we don't download to a file...
-			ostream* pDownloadStream = NULL;
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << ": Calling ftpClient.grabIt(" << "\n" 
-			<< "\t" << "sEdgarFormUrl = \"" << sEdgarFormUrl << "\", sFilePath = \"" << sFilePath << "\", pDownloadStream=" << pDownloadStream << "," << "\n"
-			<< "\t" << "iFtpDebug = " << iFtpDebug << ", bFtpNoProxy = " << JDA::Utils::boolToString( bFtpNoProxy) << ", sFtpProxyUserPass = \"" << sFtpProxyUserPass << "\"," << "\n" 
-			<< "\t" << "pLogger = " << pLogger << ", &myLineratorFtpClientCallback = " << &(myLineratorFtpClientCallback) << "\n"
-			<< ")..." << endl;
-
-			size_t iByteCount = 0;
-			bool b_ftp_exception_caught = false;
-			string s_ftp_exception = "";
-
-			/* NOTE: FtpClient::grabIt() may throw JDA::FtpClient::FtpException */
-			try {
-				iByteCount = ftpClient.grabIt( sEdgarFormUrl, sFilePath, pDownloadStream,
-								iFtpDebug, bFtpNoProxy, sFtpProxyUserPass,
-								pLogger, &(myLineratorFtpClientCallback)
-				);
-
-				JDA::Logger::log(JDA::Logger::INFO) << "\n" << "***> DON QUIJOTE: Received " << JDA::Utils::commify( iByteCount ) << " byte" << (iByteCount == 1 ? "" : "s" ) << ", Sancho..." << endl;
-
-			}
-			catch( JDA::FtpClient::FtpException& e ){
-				ostringstream oss_out;
-				oss_out << "Caught JDA::FtpClient::FtpException during FTP download attempt "
-					<< "of \"" << sEdgarFormUrl << "\": \"" << e.what() << "\"." << endl;
-
-				JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str();
-
-				b_ftp_exception_caught = true;
-				s_ftp_exception = oss_out.str();
-			}
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientFormeratorCallback.m_i_byte_count = " << myFtpClientFormeratorCallback.m_i_byte_count << "..." << endl;
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientFormeratorCallback.m_i_iteration_count = " << myFtpClientFormeratorCallback.m_i_iteration_count << "..." << endl;
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientFormeratorCallback.m_b_intentional_abort = " << myFtpClientFormeratorCallback.m_b_intentional_abort << "..." << endl;
-
-			if( b_ftp_exception_caught && myFtpClientFormeratorCallback.m_b_intentional_abort == false ){
-
-				JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): SHEMP: Sorry, Moe, caught an FTP Exception ['" << s_ftp_exception << "'] and myFtpClientFormeratorCallback.m_b_intentional_abort == false, so loggin' error to dhe database and bailin' out, Moe..." << endl;
-
-				s_ftp_exception = WaldoUtils::single_quote_escape( s_ftp_exception );
-
-				WaldoUtils::db_filings_edgar_header_load_log(
-					db_url, db_user, db_pass, 
-					s_accession_number_from_file_path, false, &s_ftp_exception, "WaldoDaemon"
-				);
-
-				return -1;
-			}
-
+		if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Looks like a file, Moe..." << endl;
 		}
+		string file_path = sEdgarFormUrl.substr( s_file_url_prefix.length() );	
 
+		if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: file_path = '" << file_path << "', Moe..." << endl;
+		}
+		std::ifstream le_ifs;
 
-		JDA::AdoDbClient adoDbClient;
+		// Turn on exceptions...
+		le_ifs.exceptions ( std::ifstream::failbit | std::ifstream::badbit );
 
 		try {
-			JDA::Logger::log(JDA::Logger::DEBUG) << sWho << "(): Connecting to '" << db_url << "'..." << endl;
-			adoDbClient.connect( db_url, db_user, db_pass );
-		} catch(JDA::DbClient::DbException& e){ 
+			if( m_p_logger ){
+						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Opening file_path = '" << file_path << "' for reading..." << endl;
+			}			le_ifs.open( file_path.c_str(), std::ifstream::in );
+		}catch( std::ifstream::failure e){
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "Trouble opening file_path = '" << file_path << "' for reading: \"" << e.what() << "\"" << endl;
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "s_error = \"" << JDA::Utils::s_error() << "\"..." << endl;
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: I'm gettin' outta here, Moe...!" << endl;
+			}
+			return -1;
+		}
+
+		string le_line;
+		int i_count = 0;
+		while(!le_ifs.eof() && ! le_ifs.fail() ){
+
+			try {
+				std::getline( le_ifs, le_line );
+			} catch( std::ifstream::failure e){
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "Trouble with getline(): \"" << e.what() << "\"" << endl;
+					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: I'm gettin' outta here, Moe...!" << endl;
+				}
+				return -2;
+			}
+
+			i_count++;
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": \"" << le_line << "\"..." << endl;
+			}
+			JDA::EdgarForm::StateType stateTypeReturn = le_formerator.parseLine( le_line );
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": \"" << "stateTypeReturn = " << stateTypeReturn << " = " << JDA::EdgarForm::stateTypeToString(stateTypeReturn) << "..." << endl;
+			}
+			if( stateTypeReturn == JDA::EdgarForm::STATE_DONE_WITH_SEC_HEADER ){
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): "<< "line #" << i_count << ": \"" << "SHEMP: Okey-Dokey, Moe...looks like we're all done with the SEC header, may as well bail out o' the loop now, Moe..." << endl;
+				}
+				break;
+			}
+
+		}/* while(!le_ifs.eof() && ! le_ifs.fail() ) */
+
+		try {
+			if( m_p_logger ){
+						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Closin' dhe file_path = '" << file_path << "' for reading, Moe..." << endl;
+			}
+			le_ifs.close();
+		}catch( std::ifstream::failure e){
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Trouble closin' dhe file_path = '" << file_path << "' for reading: \"" << e.what() << "\", sorry, Moe..." << endl;
+			}
+		}
+
+	}/* if( ( i_where = JDA::Utils::ifind( sEdgarFormUrl, s_file_url_prefix ) == 0 ) */
+	else {
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Looks like it's gonna be an FTP job, Moe..." << endl;
+		}
+		JDA::FtpClient ftpClient;
+
+		//MyFtpClientFormeratorCallback myFtpClientFormeratorCallback = MyFtpClientFormeratorCallback( &le_formerator );
+		MyFtpClientFormeratorCallback myFtpClientFormeratorCallback( &le_formerator );
+		myFtpClientFormeratorCallback.setPLogger( m_p_logger );
+
+		//JDA::FtpClient::LineratorFtpClientCallback myLineratorFtpClientCallback = JDA::FtpClient::LineratorFtpClientCallback( &myFtpClientFormeratorCallback ); 
+		JDA::FtpClient::LineratorFtpClientCallback myLineratorFtpClientCallback( &myFtpClientFormeratorCallback ); 
+
+		JDA::Logger* pLogger = NULL;
+		string sFilePath = ""; // Use blankey so we don't download to a file...
+		ostream* pDownloadStream = NULL; // Use null so it doesn't get squirted to a file stream...
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << ": Calling ftpClient.grabIt(" << "\n" 
+			<< "\t" << "sEdgarFormUrl = \"" << sEdgarFormUrl << "\", sFilePath = \"" << sFilePath << "\", pDownloadStream=" << pDownloadStream << "," << "\n"
+			<< "\t" << "this->getFtpDebug() = " << this->getFtpDebug() << ", this->getFtpNoProxy() = " << std::boolalpha << this->getFtpNoProxy() << ", this->getFtpProxyUserPass() = \"" << this->getFtpProxyUserPass() << "\"," << "\n" 
+			<< "\t" << "pLogger = " << pLogger << ", &myLineratorFtpClientCallback = " << &(myLineratorFtpClientCallback) << "\n"
+			<< ")..." << endl;
+		}
+		size_t iByteCount = 0;
+		bool b_ftp_exception_caught = false;
+		string s_ftp_exception = "";
+
+		/* NOTE: FtpClient::grabIt() may throw JDA::FtpClient::FtpException */
+		try {
+			iByteCount = ftpClient.grabIt( sEdgarFormUrl, sFilePath, pDownloadStream,
+							this->getFtpDebug(), this->getFtpNoProxy(), this->getFtpProxyUserPass(),
+							pLogger, &(myLineratorFtpClientCallback)
+			);
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << "\n" << "***> DON QUIJOTE: Received " << JDA::Utils::commify( iByteCount ) << " byte" << (iByteCount == 1 ? "" : "s" ) << ", Sancho..." << endl;
+			}
+		}
+		catch( JDA::FtpClient::FtpException& e ){
 			ostringstream oss_out;
-			oss_out << "Caught JDA::DbClient::DBException while trying to connect to db_url ='" << db_url << "' : \"" << e.what() << "\"";
-			JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str() << endl;
+			oss_out << "Caught JDA::FtpClient::FtpException during FTP download attempt "
+				<< "of \"" << sEdgarFormUrl << "\": \"" << e.what() << "\"." << endl;
 
-			return -2;
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str() << endl;
+			}
+
+			b_ftp_exception_caught = true;
+			s_ftp_exception = oss_out.str();
 		}
 
-		ostringstream oss_query;	
-		std::vector< map<string, string> > vecInOut;
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientFormeratorCallback.m_i_byte_count = " << myFtpClientFormeratorCallback.m_i_byte_count << "..." << endl;
 
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, le_formerator.m_s_accession_number = '" << le_formerator.m_s_accession_number << "'..." << endl;
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientFormeratorCallback.m_i_iteration_count = " << myFtpClientFormeratorCallback.m_i_iteration_count << "..." << endl;
 
-		/* -- m_filers - BEGIN -- */
-
-		//JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, le_formerator.m_filer.toString() =" << "\n"
-		//<< le_formerator.m_filer.toString() << "\n"
-		//<< endl;
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): "
-				<< "SHEMP: Moe, JDA::Formerator::filers_to_string( le_formerator.m_filers ) = "
-				<< JDA::Formerator::filers_to_string( le_formerator.m_filers ) << endl;
-
-		for( size_t i = 0; i < le_formerator.m_filers.size(); i++ ){
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, before gussying it up,\n" 
-			<<	"\t" << "le_formerator.m_filers[" << i << "]->business_address.business_phone = '" << 
-			le_formerator.m_filers[i]->business_address.business_phone << "'..." << endl;
-	
-			JDA::WaldoUtils::ten_digit_phone_number_gussy_up( le_formerator.m_filers[i]->business_address.business_phone );
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, after gussying it up,\n" 
-			<<	"\t" << "le_formerator.m_filers[" << i << "]->business_address.business_phone = '" << 
-			le_formerator.m_filers[i]->business_address.business_phone << "'..." << endl;
-	
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Hey, Moe...before gussying it up, le_formerator.m_filers[i]->company_data.standard_industrial_classification = " << le_formerator.m_filers[i]->company_data.standard_industrial_classification << "..." << endl; 
-	
-			le_formerator.m_filers[i]->company_data.standard_industrial_classification = JDA::Formerator::extract_sic_code( le_formerator.m_filers[i]->company_data.standard_industrial_classification ); 
-	
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Hey, Moe...after, le_formerator.m_filer.company_data.standard_industrial_classification = " << le_formerator.m_filers[i]->company_data.standard_industrial_classification << "..." << endl; 
-	
-	
-			if( le_formerator.m_filers[i]->company_data.central_index_key.length() > 0 ){
-	
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, le_formerator.m_filers[i]->company_data.central_index_key.length() is greater than zero (= \"" << le_formerator.m_filers[i]->company_data.central_index_key << "\"), Moe...let's call the proc, Moe..." << endl;
-
-				string s_entity_type_varchar = "";
-
-				if( le_formerator.m_filers.size() > 1 ){
-					// Forms such as the "POSASR" form have multiple FILER's.
-					// If there is more than one FILER, assume
-					// that the one that the one whose CIK the SEC chose to use in the
-					// FTP URL is of entity type "Subject Company", and assume all others are 
-					// entity type "Secondary Filer"...
-					// Example:
-					//  url = "ftp://ftp.sec.gov/edgar/data/1066107/0001047469-15-001027.txt" => Use CIK = 1066107 as "Subject Company"
-					// 	file:///../edgar/ftp.sec.gov--edgar--data--1066107--POSASR--has-a-gazillion-filers--0001047469-15-001027.txt
-
-					if( JDA::Utils::num_equals( le_formerator.m_filers[i]->company_data.central_index_key, s_cik_from_url ) ){
-						JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, multiple FILER's, but s_cik_from_url is dha same as dha CIK for dhis FILER, so we'll make dhis one dha \"Subject Company\", Moe..." << endl; 
-						s_entity_type_varchar = "Subject Company";
-					}
-					else {
-						JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, multiple FILER's, and s_cik_from_url is not dha same as dha CIK for dhis FILER, so we'll make dhis one dha \"Secondary Filer\", Moe..." << endl; 
-						s_entity_type_varchar = "Secondary Filer";
-					}
-				}
-				else {
-					JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, it don't look like multiple FILER's, it just looks like one FILER, so we'll make dhis one dha \"Subject Company\", Moe..." << endl; 
-					s_entity_type_varchar = "Subject Company";
-				}
-	
-				oss_query.str(""); // Clear it...
-				oss_query << "EXEC daemon_edgar_form_header_entity_do" << "\n"
-					<< " " << "@accession_number = '" << le_formerator.m_s_accession_number << "',\n" 
-					<< " " << "@entity_type_varchar = '" << s_entity_type_varchar << "',\n" 
-					<< " " << "@entity_company_data_company_conformed_name = '" << WaldoUtils::single_quote_escape(le_formerator.m_filers[i]->company_data.company_conformed_name) << "',\n" 
-					<< " " << "@entity_company_data_central_index_key = '" << le_formerator.m_filers[i]->company_data.central_index_key << "',\n" 
-					<< " " << "@entity_company_data_standard_industrial_classification = '" << le_formerator.m_filers[i]->company_data.standard_industrial_classification << "',\n" 
-					<< " " << "@entity_company_data_irs_number = '" << le_formerator.m_filers[i]->company_data.irs_number << "',\n" 
-					<< " " << "@entity_company_data_state_of_incorporation = '" << le_formerator.m_filers[i]->company_data.state_of_incorporation << "',\n" 
-					<< " " << "@entity_company_data_fiscal_year_end = '" << le_formerator.m_filers[i]->company_data.fiscal_year_end << "',\n" 
-					<< " " << "@entity_filing_values_form_type = '" << le_formerator.m_filers[i]->filing_values.form_type << "',\n" 
-					<< " " << "@entity_filing_values_sec_act = '" << le_formerator.m_filers[i]->filing_values.sec_act << "',\n" 
-					<< " " << "@entity_filing_values_sec_file_number = '" << le_formerator.m_filers[i]->filing_values.sec_file_number << "',\n" 
-					<< " " << "@entity_filing_values_film_number = '" << le_formerator.m_filers[i]->filing_values.film_number << "',\n" 
-					<< " " << "@entity_business_address_street_1 = '" << WaldoUtils::single_quote_escape(le_formerator.m_filers[i]->business_address.street_1) << "',\n" 
-					<< " " << "@entity_business_address_street_2 = '" << WaldoUtils::single_quote_escape(le_formerator.m_filers[i]->business_address.street_2 ) << "',\n" 
-					<< " " << "@entity_business_address_city = '" << WaldoUtils::single_quote_escape(le_formerator.m_filers[i]->business_address.city ) << "',\n" 
-					<< " " << "@entity_business_address_state = '" << WaldoUtils::single_quote_escape(le_formerator.m_filers[i]->business_address.state) << "',\n" 
-					<< " " << "@entity_business_address_zip = '" << le_formerator.m_filers[i]->business_address.zip << "',\n" 
-					<< " " << "@entity_business_address_business_phone = '" << le_formerator.m_filers[i]->business_address.business_phone << "',\n" 
-					<< " " << "@entity_mail_address_street_1 = '" << WaldoUtils::single_quote_escape(le_formerator.m_filers[i]->mail_address.street_1 ) << "',\n" 
-					<< " " << "@entity_mail_address_street_2 = '" << WaldoUtils::single_quote_escape(le_formerator.m_filers[i]->mail_address.street_2 ) << "',\n" 
-					<< " " << "@entity_mail_address_city = '" << WaldoUtils::single_quote_escape(le_formerator.m_filers[i]->mail_address.city ) << "',\n" 
-					<< " " << "@entity_mail_address_state = '" << le_formerator.m_filers[i]->mail_address.state << "',\n" 
-					<< " " << "@entity_mail_address_zip = '" << le_formerator.m_filers[i]->mail_address.zip << "',\n" 
-					<< " " << "@source_modified_varchar = '" << "WaldoDaemon" << "'" 
-				;
-	
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Executing query...\n" <<
-					oss_query.str() << "..." << endl;
-	
-	
-				vecInOut.clear(); // Important!  Otherwise it will append...
-				
-				try {
-					// May toss JDA::DbClient::DbException...
-					adoDbClient.query_as_vector( oss_query.str(), vecInOut ); 	
-	
-					//m_i_query_succeed_count++;
-				}catch( JDA::DbClient::DbException& e ){
-					
-					JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): Caught JDA::DbClient::DbException: " << e.what() << "..." << endl;
-	
-					return -2;
-				}
-	
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): Looks like " << vecInOut.size() << " element(s) in the result set vector, Captain..." << endl;
-	
-	
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << JDA::Utils::stringMapVectorToString( vecInOut, "vecInOut" );
-	
-				// Stored Proc Should Return a single-row result set like so:
-				// vecInOut[0]:
-				//	message='daemon_edgar_index_entry_do.sp: @filings_id = 10966'
-				//	return_code='1'
-				//	return_string='SUCCESS'
-	
-				if( vecInOut.size() > 0 ){
-	
-					string s_return_string;
-	
-					if( vecInOut.at(0).find("return_string") != vecInOut.at(0).end() ){
-						s_return_string = vecInOut.at(0).at("return_string");
-					}
-					else{	
-						JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): SHEMP: Moe, dhere's no 'return_string' key in dhis vector, Moe..." << endl; 
-					}
-	
-					JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): s_return_string = '" << s_return_string << "'" << endl;
-	
-					if( s_return_string.compare("SUCCESS") == 0 ){
-							JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): SHEMP: Moe, looks successful..." << endl;
-					}
-					else{
-						JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): SHEMP: Sorry, Moe, didn't find vecInOut.at(0).at('return_string'} equal to \"SUCCESS\", Moe...so it don't look successful, Moe..." << endl;
-						}
-					}
-
-			}/* if( le_formerator.m_filers[i]->company_data.central_index_key.length() > 0 ) */
-			else {
-				JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): " << "SHEMP: Sorry, Moe, le_formerator.m_filers[i]->company_data.central_index_key.length() is zero, Moe...so I ain't gonna call the proc, Moe..." << endl;
-			}
-
-		}/* for( size_t i = 0; i < le_formerator.m_filers.size(); i++ ) */
-
-		/* -- m_filers - END -- */
-
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, le_formerator.m_issuer.toString() =" << "\n"
-		<< le_formerator.m_issuer.toString() << "\n"
-		<< endl;
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, before gussying,\n" 
-		<<	"\t" << "le_formerator.m_issuer.business_address.business_phone = '" << 
-		le_formerator.m_issuer.business_address.business_phone << "'..." << endl;
-
-		JDA::WaldoUtils::ten_digit_phone_number_gussy_up( le_formerator.m_issuer.business_address.business_phone );
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, after gussying,\n" 
-		<< "\t" << "le_formerator.m_issuer.business_address.business_phone = '" << 
-		le_formerator.m_issuer.business_address.business_phone << "'..." << endl;
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Hey, Moe...before gussyin', le_formerator.m_issuer.company_data.standard_industrial_classification = " << le_formerator.m_issuer.company_data.standard_industrial_classification << "..." << endl; 
-
-		le_formerator.m_issuer.company_data.standard_industrial_classification = JDA::Formerator::extract_sic_code( le_formerator.m_issuer.company_data.standard_industrial_classification ); 
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Hey, Moe...after gussyin', le_formerator.m_issuer.company_data.standard_industrial_classification = " << le_formerator.m_issuer.company_data.standard_industrial_classification << "..." << endl; 
-
-		if( le_formerator.m_issuer.company_data.central_index_key.length() > 0 ){
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, le_formerator.m_issuer.company_data.central_index_key.length() is greater than zero, Moe...let's call the proc, Moe..." << endl;
-
-			oss_query.str(""); // Clear it...
-			oss_query << "EXEC daemon_edgar_form_header_entity_do" << "\n"
-				<< " " << "@accession_number = '" << le_formerator.m_s_accession_number << "',\n" 
-				<< " " << "@entity_type_varchar = '" << "Issuer" << "',\n" 
-				<< " " << "@entity_company_data_company_conformed_name = '" << WaldoUtils::single_quote_escape(le_formerator.m_issuer.company_data.company_conformed_name) << "',\n" 
-				<< " " << "@entity_company_data_central_index_key = '" << le_formerator.m_issuer.company_data.central_index_key << "',\n" 
-				<< " " << "@entity_company_data_standard_industrial_classification = '" << le_formerator.m_issuer.company_data.standard_industrial_classification << "',\n" 
-				<< " " << "@entity_company_data_irs_number = '" << le_formerator.m_issuer.company_data.irs_number << "',\n" 
-				<< " " << "@entity_company_data_state_of_incorporation = '" << le_formerator.m_issuer.company_data.state_of_incorporation << "',\n" 
-				<< " " << "@entity_company_data_fiscal_year_end = '" << le_formerator.m_issuer.company_data.fiscal_year_end << "',\n" 
-				//<< " " << "@entity_filing_values_form_type = '" << le_formerator.m_issuer.filing_values.form_type << "',\n" 
-				//<< " " << "@entity_filing_values_sec_act = '" << le_formerator.m_issuer.filing_values.sec_act << "',\n" 
-				//<< " " << "@entity_filing_values_sec_file_number = '" << le_formerator.m_issuer.filing_values.sec_file_number << "',\n" 
-				//<< " " << "@entity_filing_values_film_number = '" << le_formerator.m_issuer.filing_values.film_number << "',\n" 
-				<< " " << "@entity_filing_values_form_type = '" << "',\n" 
-				<< " " << "@entity_filing_values_sec_act = '" << "',\n" 
-				<< " " << "@entity_filing_values_sec_file_number = '" << "',\n" 
-				<< " " << "@entity_filing_values_film_number = '" << "',\n" 
-				<< " " << "@entity_business_address_street_1 = '" << WaldoUtils::single_quote_escape( le_formerator.m_issuer.business_address.street_1 ) << "',\n" 
-				<< " " << "@entity_business_address_street_2 = '" << WaldoUtils::single_quote_escape( le_formerator.m_issuer.business_address.street_2 ) << "',\n" 
-				<< " " << "@entity_business_address_city = '" << WaldoUtils::single_quote_escape( le_formerator.m_issuer.business_address.city ) << "',\n" 
-
-				<< " " << "@entity_business_address_state = '" << le_formerator.m_issuer.business_address.state << "',\n" 
-				<< " " << "@entity_business_address_zip = '" << le_formerator.m_issuer.business_address.zip << "',\n" 
-				<< " " << "@entity_business_address_business_phone = '" << le_formerator.m_issuer.business_address.business_phone << "',\n" 
-				<< " " << "@entity_mail_address_street_1 = '" << WaldoUtils::single_quote_escape( le_formerator.m_issuer.mail_address.street_1 ) << "',\n" 
-				<< " " << "@entity_mail_address_street_2 = '" << WaldoUtils::single_quote_escape( le_formerator.m_issuer.mail_address.street_2) << "',\n" 
-				<< " " << "@entity_mail_address_city = '" << WaldoUtils::single_quote_escape( le_formerator.m_issuer.mail_address.city ) << "',\n" 
-				<< " " << "@entity_mail_address_state = '" << le_formerator.m_issuer.mail_address.state << "',\n" 
-				<< " " << "@entity_mail_address_zip = '" << le_formerator.m_issuer.mail_address.zip << "',\n" 
-				<< " " << "@source_modified_varchar = '" << "WaldoDaemon" << "'" 
-			;
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Executing query...\n" <<
-				oss_query.str() << "..." << endl;
-
-			vecInOut.clear(); // Important!
-			
-			try {
-				// May toss JDA::DbClient::DbException...
-				adoDbClient.query_as_vector( oss_query.str(), vecInOut ); 	
-
-				//m_i_query_succeed_count++;
-			}catch( JDA::DbClient::DbException& e ){
-				
-				JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): Caught JDA::DbClient::DbException: " << e.what() << "..." << endl;
-
-				return -2;
-			}
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): Looks like " << vecInOut.size() << " element(s) in the result set vector, Captain..." << endl;
-
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << JDA::Utils::stringMapVectorToString( vecInOut, "vecInOut" );
-
-			// Stored Proc Should Return a single-row result set like so:
-			// vecInOut[0]:
-			//	message='daemon_edgar_index_entry_do.sp: @filings_id = 10966'
-			//	return_code='1'
-			//	return_string='SUCCESS'
-
-			if( vecInOut.size() > 0 ){
-
-				string s_return_string;
-
-				if( vecInOut.at(0).find("return_string") != vecInOut.at(0).end() ){
-					s_return_string = vecInOut.at(0).at("return_string");
-				}
-				else{	
-					JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): SHEMP: Moe, dhere's no 'return_string' key in dhis vector, Moe..." << endl; 
-				}
-
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): s_return_string = '" << s_return_string << "'" << endl;
-
-				if( s_return_string.compare("SUCCESS") == 0 ){
-						JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): SHEMP: Moe, looks successful..." << endl;
-				}
-				else{
-					JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): SHEMP: Sorry, Moe, didn't find vecInOut.at(0).at('return_string'} equal to \"SUCCESS\", Moe...so it don't look successful, Moe..." << endl;
-					}
-				}
-		}/* if( le_formerator.m_issuer.company_data.central_index_key.length() > 0 ) */
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, le_formerator.m_reporting_owner.toString() =" << "\n"
-		<< le_formerator.m_reporting_owner.toString() << "\n"
-		<< endl;
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, before gussying,\n" 
-		<<	"\t" << "le_formerator.m_reporting_owner.business_address.business_phone = '" << 
-		le_formerator.m_reporting_owner.business_address.business_phone << "'..." << endl;
-
-		JDA::WaldoUtils::ten_digit_phone_number_gussy_up( le_formerator.m_reporting_owner.business_address.business_phone );
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, after gussying,\n" 
-		<< "\t" << "le_formerator.m_reporting_owner.business_address.business_phone = '" << 
-		le_formerator.m_reporting_owner.business_address.business_phone << "'..." << endl;
-
-		//JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Hey, Moe...before gussyin', le_formerator.m_reporting_owner.owner_data.standard_industrial_classification = " << le_formerator.m_reporting_owner.owner_data.standard_industrial_classification << "..." << endl; 
-
-		//le_formerator.m_reporting_owner.owner_data.standard_industrial_classification = JDA::Formerator::extract_sic_code( le_formerator.m_reporting_owner.owner_data.standard_industrial_classification ); 
-
-		//JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Hey, Moe...after gussyin', le_formerator.m_reporting_owner.owner_data.standard_industrial_classification = " << le_formerator.m_reporting_owner.owner_data.standard_industrial_classification << "..." << endl; 
-
-
-		if( le_formerator.m_reporting_owner.owner_data.central_index_key.length() > 0 ){
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, le_formerator.m_reporting_owner.owner_data.central_index_key.length() is greater than zero, Moe...let's call the proc, Moe..." << endl;
-
-			oss_query.str(""); // Clear it...
-			oss_query << "EXEC daemon_edgar_form_header_entity_do" << "\n"
-				<< " " << "@accession_number = '" << le_formerator.m_s_accession_number << "',\n" 
-				<< " " << "@entity_type_varchar = '" << "Reporting Person" << "',\n" 
-				<< " " << "@entity_company_data_company_conformed_name = '" << WaldoUtils::single_quote_escape(le_formerator.m_reporting_owner.owner_data.company_conformed_name) << "',\n" 
-				<< " " << "@entity_company_data_central_index_key = '" << le_formerator.m_reporting_owner.owner_data.central_index_key << "',\n" 
-				//<< " " << "@entity_company_data_standard_industrial_classification = '" << le_formerator.m_reporting_owner.owner_data.standard_industrial_classification << "',\n" 
-				<< " " << "@entity_company_data_standard_industrial_classification = '" << "',\n" 
-				//<< " " << "@entity_company_data_irs_number = '" << le_formerator.m_reporting_owner.owner_data.irs_number << "',\n" 
-				<< " " << "@entity_company_data_irs_number = '" << "',\n" 
-				//<< " " << "@entity_company_data_state_of_incorporation = '" << le_formerator.m_reporting_owner.owner_data.state_of_incorporation << "',\n" 
-				<< " " << "@entity_company_data_state_of_incorporation = '" << "',\n" 
-				//<< " " << "@entity_company_data_fiscal_year_end = '" << le_formerator.m_reporting_owner.owner_data.fiscal_year_end << "',\n" 
-				<< " " << "@entity_company_data_fiscal_year_end = '" << "',\n" 
-
-				<< " " << "@entity_filing_values_form_type = '" << le_formerator.m_reporting_owner.filing_values.form_type << "',\n" 
-				<< " " << "@entity_filing_values_sec_act = '" << le_formerator.m_reporting_owner.filing_values.sec_act << "',\n" 
-				<< " " << "@entity_filing_values_sec_file_number = '" << le_formerator.m_reporting_owner.filing_values.sec_file_number << "',\n" 
-				<< " " << "@entity_filing_values_film_number = '" << le_formerator.m_reporting_owner.filing_values.film_number << "',\n" 
-
-				<< " " << "@entity_business_address_street_1 = '" << WaldoUtils::single_quote_escape( le_formerator.m_reporting_owner.business_address.street_1 ) << "',\n" 
-				<< " " << "@entity_business_address_street_2 = '" << WaldoUtils::single_quote_escape( le_formerator.m_reporting_owner.business_address.street_2 ) << "',\n" 
-				<< " " << "@entity_business_address_city = '" << WaldoUtils::single_quote_escape( le_formerator.m_reporting_owner.business_address.city ) << "',\n" 
-				<< " " << "@entity_business_address_state = '" << le_formerator.m_reporting_owner.business_address.state << "',\n" 
-				<< " " << "@entity_business_address_zip = '" << le_formerator.m_reporting_owner.business_address.zip << "',\n" 
-				<< " " << "@entity_business_address_business_phone = '" << le_formerator.m_reporting_owner.business_address.business_phone << "',\n" 
-				<< " " << "@entity_mail_address_street_1 = '" << WaldoUtils::single_quote_escape( le_formerator.m_reporting_owner.mail_address.street_1 ) << "',\n" 
-				<< " " << "@entity_mail_address_street_2 = '" << WaldoUtils::single_quote_escape( le_formerator.m_reporting_owner.mail_address.street_2 ) << "',\n" 
-				<< " " << "@entity_mail_address_city = '" << WaldoUtils::single_quote_escape( le_formerator.m_reporting_owner.mail_address.city ) << "',\n" 
-				<< " " << "@entity_mail_address_state = '" << le_formerator.m_reporting_owner.mail_address.state << "',\n" 
-				<< " " << "@entity_mail_address_zip = '" << le_formerator.m_reporting_owner.mail_address.zip << "',\n" 
-				<< " " << "@source_modified_varchar = '" << "WaldoDaemon" << "'" 
-			;
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Executing query...\n" <<
-				oss_query.str() << "..." << endl;
-
-			vecInOut.clear(); // Important.
- 
-			try {
-				// May toss JDA::DbClient::DbException...
-				adoDbClient.query_as_vector( oss_query.str(), vecInOut ); 	
-
-				//m_i_query_succeed_count++;
-			}catch( JDA::DbClient::DbException& e ){
-				
-				JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): Caught JDA::DbClient::DbException: " << e.what() << "..." << endl;
-
-				return -2;
-			}
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): Looks like " << vecInOut.size() << " element(s) in the result set vector, Captain..." << endl;
-
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << JDA::Utils::stringMapVectorToString( vecInOut, "vecInOut" );
-
-			// Stored Proc Should Return a single-row result set like so:
-			// vecInOut[0]:
-			//	message='daemon_edgar_index_entry_do.sp: @filings_id = 10966'
-			//	return_code='1'
-			//	return_string='SUCCESS'
-
-			if( vecInOut.size() > 0 ){
-
-				string s_return_string;
-
-				if( vecInOut.at(0).find("return_string") != vecInOut.at(0).end() ){
-					s_return_string = vecInOut.at(0).at("return_string");
-				}
-				else{	
-					JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): SHEMP: Moe, dhere's no 'return_string' key in dhis vector, Moe..." << endl; 
-				}
-
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): s_return_string = '" << s_return_string << "'" << endl;
-
-				if( s_return_string.compare("SUCCESS") == 0 ){
-						JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): SHEMP: Moe, looks successful..." << endl;
-				}
-				else{
-					JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): SHEMP: Sorry, Moe, didn't find vecInOut.at(0).at('return_string'} equal to \"SUCCESS\", Moe...so it don't look successful, Moe..." << endl;
-					}
-				}
-		}/* if( le_formerator.m_issuer.owner_data.central_index_key.length() > 0 ) */
-
-
-		/* -- m_filed_by - BEGIN -- */
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, le_formerator.m_filed_by.toString() =" << "\n"
-		<< le_formerator.m_filed_by.toString() << "\n"
-		<< endl;
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, before gussying,\n" 
-		<<	"\t" << "le_formerator.m_filed_by.business_address.business_phone = '" << 
-		le_formerator.m_filed_by.business_address.business_phone << "'..." << endl;
-
-		JDA::WaldoUtils::ten_digit_phone_number_gussy_up( le_formerator.m_filed_by.business_address.business_phone );
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, after gussying,\n" 
-		<< "\t" << "le_formerator.m_filed_by.business_address.business_phone = '" << 
-		le_formerator.m_filed_by.business_address.business_phone << "'..." << endl;
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Hey, Moe...before gussying, le_formerator.m_filed_by.company_data.standard_industrial_classification = " << le_formerator.m_filed_by.company_data.standard_industrial_classification << "..." << endl; 
-
-		le_formerator.m_filed_by.company_data.standard_industrial_classification = JDA::Formerator::extract_sic_code( le_formerator.m_filed_by.company_data.standard_industrial_classification ); 
-
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Hey, Moe...after, le_formerator.m_filed_by.company_data.standard_industrial_classification = " << le_formerator.m_filed_by.company_data.standard_industrial_classification << "..." << endl; 
-
-
-		if( le_formerator.m_filed_by.company_data.central_index_key.length() > 0 ){
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, le_formerator.m_filed_by.company_data.central_index_key.length() is greater than zero, Moe...let's call the proc, Moe..." << endl;
-
-			oss_query.str(""); // Clear it...
-			oss_query << "EXEC daemon_edgar_form_header_entity_do" << "\n"
-				<< " " << "@accession_number = '" << le_formerator.m_s_accession_number << "',\n" 
-				<< " " << "@entity_type_varchar = '" << "Filed By" << "',\n" 
-				<< " " << "@entity_company_data_company_conformed_name = '" << WaldoUtils::single_quote_escape(le_formerator.m_filed_by.company_data.company_conformed_name) << "',\n" 
-				<< " " << "@entity_company_data_central_index_key = '" << le_formerator.m_filed_by.company_data.central_index_key << "',\n" 
-				<< " " << "@entity_company_data_standard_industrial_classification = '" << le_formerator.m_filed_by.company_data.standard_industrial_classification << "',\n" 
-				<< " " << "@entity_company_data_irs_number = '" << le_formerator.m_filed_by.company_data.irs_number << "',\n" 
-				<< " " << "@entity_company_data_state_of_incorporation = '" << le_formerator.m_filed_by.company_data.state_of_incorporation << "',\n" 
-				<< " " << "@entity_company_data_fiscal_year_end = '" << le_formerator.m_filed_by.company_data.fiscal_year_end << "',\n" 
-				<< " " << "@entity_filing_values_form_type = '" << le_formerator.m_filed_by.filing_values.form_type << "',\n" 
-				<< " " << "@entity_filing_values_sec_act = '" << le_formerator.m_filed_by.filing_values.sec_act << "',\n" 
-				<< " " << "@entity_filing_values_sec_file_number = '" << le_formerator.m_filed_by.filing_values.sec_file_number << "',\n" 
-				<< " " << "@entity_filing_values_film_number = '" << le_formerator.m_filed_by.filing_values.film_number << "',\n" 
-				<< " " << "@entity_business_address_street_1 = '" << WaldoUtils::single_quote_escape(le_formerator.m_filed_by.business_address.street_1) << "',\n" 
-				<< " " << "@entity_business_address_street_2 = '" << WaldoUtils::single_quote_escape(le_formerator.m_filed_by.business_address.street_2 ) << "',\n" 
-				<< " " << "@entity_business_address_city = '" << WaldoUtils::single_quote_escape(le_formerator.m_filed_by.business_address.city ) << "',\n" 
-				<< " " << "@entity_business_address_state = '" << WaldoUtils::single_quote_escape(le_formerator.m_filed_by.business_address.state) << "',\n" 
-				<< " " << "@entity_business_address_zip = '" << le_formerator.m_filed_by.business_address.zip << "',\n" 
-				<< " " << "@entity_business_address_business_phone = '" << le_formerator.m_filed_by.business_address.business_phone << "',\n" 
-				<< " " << "@entity_mail_address_street_1 = '" << WaldoUtils::single_quote_escape(le_formerator.m_filed_by.mail_address.street_1 ) << "',\n" 
-				<< " " << "@entity_mail_address_street_2 = '" << WaldoUtils::single_quote_escape(le_formerator.m_filed_by.mail_address.street_2 ) << "',\n" 
-				<< " " << "@entity_mail_address_city = '" << WaldoUtils::single_quote_escape(le_formerator.m_filed_by.mail_address.city ) << "',\n" 
-				<< " " << "@entity_mail_address_state = '" << le_formerator.m_filed_by.mail_address.state << "',\n" 
-				<< " " << "@entity_mail_address_zip = '" << le_formerator.m_filed_by.mail_address.zip << "',\n" 
-				<< " " << "@source_modified_varchar = '" << "WaldoDaemon" << "'" 
-			;
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Executing query...\n" <<
-				oss_query.str() << "..." << endl;
-
-			vecInOut.clear(); // Important.
-			
-			try {
-				// May toss JDA::DbClient::DbException...
-				adoDbClient.query_as_vector( oss_query.str(), vecInOut ); 	
-
-				//m_i_query_succeed_count++;
-			}catch( JDA::DbClient::DbException& e ){
-				
-				JDA::Logger::log(JDA::Logger::ERROR) << sWho << "(): Caught JDA::DbClient::DbException: " << e.what() << "..." << endl;
-
-				return -2;
-			}
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): Looks like " << vecInOut.size() << " element(s) in the result set vector, Captain..." << endl;
-
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): " << JDA::Utils::stringMapVectorToString( vecInOut, "vecInOut" );
-
-			// Stored Proc Should Return a single-row result set like so:
-			// vecInOut[0]:
-			//	message='daemon_edgar_index_entry_do.sp: @filings_id = 10966'
-			//	return_code='1'
-			//	return_string='SUCCESS'
-
-			if( vecInOut.size() > 0 ){
-
-				string s_return_string;
-
-				if( vecInOut.at(0).find("return_string") != vecInOut.at(0).end() ){
-					s_return_string = vecInOut.at(0).at("return_string");
-				}
-				else{	
-					JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): SHEMP: Moe, dhere's no 'return_string' key in dhis vector, Moe..." << endl; 
-				}
-
-				JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): s_return_string = '" << s_return_string << "'" << endl;
-
-				if( s_return_string.compare("SUCCESS") == 0 ){
-						JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): SHEMP: Moe, looks successful..." << endl;
-				}
-				else{
-					JDA::Logger::log(JDA::Logger::WARN) << sWho << "(): SHEMP: Sorry, Moe, didn't find vecInOut.at(0).at('return_string'} equal to \"SUCCESS\", Moe...so it don't look successful, Moe..." << endl;
-					}
-				}
-		}/* if( le_formerator.m_filed_by.company_data.central_index_key.length() > 0 ) */
-
-		/* -- m_filed_by - END -- */
-
-		if( JDA::WaldoUtils::m_b_perform_tactical_denormalizations ){
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, callin' db_denormalize_subject_company() wit'"
-			<< " *p_s_accession number_varchar = s_accession_number_from_file_path = \"" << s_accession_number_from_file_path << "\"..., OK, Moe...?" << endl;
-
-			bool b_return = JDA::WaldoUtils::db_denormalize_subject_company( &JDA::Logger::log, "", "", "", &adoDbClient, &s_accession_number_from_file_path ); 
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, b_return from db_denormalize_subject_company() = " << JDA::Utils::boolToString( b_return ) << ", Moe.." << endl;
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: And last but not least, Moe, don't forget to call db_denormalize_filing_agent() wit' " 
-			<< " *p_s_accession number_varchar = s_accession_number_from_file_path = \"" << s_accession_number_from_file_path << "\"..., OK, Moe...?" << endl;
-
-			b_return = JDA::WaldoUtils::db_denormalize_filing_agent( &JDA::Logger::log, "", "", "", &adoDbClient, &s_accession_number_from_file_path, NULL ); 
-
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, b_return from db_denormalize_filing_agent() = " << JDA::Utils::boolToString( b_return ) << ", Moe.." << endl;
-		}
-		else {
-			JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Hey, Moe...JDA::WaldoUtils::b_perform_tactical_denormalizations is FALSE, so NOT callin' db_denormalize_subject_company() and db_denormalize_filing_agent(), Moe..." << endl;
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientFormeratorCallback.m_b_intentional_abort = " << myFtpClientFormeratorCallback.m_b_intentional_abort << "..." << endl;
 		}
 
+		if( b_ftp_exception_caught && myFtpClientFormeratorCallback.m_b_intentional_abort == false ){
 
-		JDA::Logger::log(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, loggin' success to dhe database and returnin', Moe..." << endl;
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): SHEMP: Sorry, Moe, caught an FTP Exception ['" << s_ftp_exception << "'] and myFtpClientFormeratorCallback.m_b_intentional_abort == false, so loggin' error to dhe database and bailin' out, Moe..." << endl;
+			}
 
-		WaldoUtils::db_filings_edgar_header_load_log(
-				db_url, db_user, db_pass, 
-				s_accession_number_from_file_path, true, NULL, "WaldoDaemon"
-		);
+			//s_ftp_exception = FormsMeanUtils::single_quote_escape( s_ftp_exception );
 
-		return 1;
+			//FormsMeanUtils::db_filings_edgar_header_load_log(
+			//	db_url, db_user, db_pass, 
+			//	s_accession_number_from_file_path, false, &s_ftp_exception, "FormsMeanDaemon"
+			//);
+
+			return -1;
+		}
+	}
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, le_formerator.m_s_accession_number = '" << le_formerator.m_s_accession_number << "'..." << endl;
+	}
+
+	//if( m_p_logger ){
+	//	(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, loggin' success to dhe database and returnin', Moe..." << endl;
+	//}
+	//FormsMeanUtils::db_filings_edgar_header_load_log(
+	//		db_url, db_user, db_pass, 
+	//		s_accession_number_from_file_path, true, NULL, "FormsMeanDaemon"
+	//);
+
+	return 1;
 
 }/* Forms::loadFromEdgarFormUrl() */
 

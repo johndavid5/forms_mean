@@ -5,6 +5,7 @@
 #include <iostream>
 #include <memory> // shared_ptr<>, etc.
 #include <vector>
+#include <regex>
 using namespace std;
 
 
@@ -54,6 +55,14 @@ class FormsMeanUtils {
 		*   FormsMeanUtils::isoDateFromYyyyMmDd("201606") return "201606" -- or the original input, because the input string is not 8 characters...
 		*/
 		static string isoDateFromYyyyMmDd( const string& sYyyyMmDd );
+
+		/**
+		* e.g.,
+		* cikFromUrl("ftp://ftp.sec.gov/edgar/data/1066107/0001047469-15-001027.txt") => 1066107 
+		* cikFromUrl("file:///../edgar/ftp.sec.gov--edgar--data--1066107--POSASR--has-a-gazillion-filers--0001047469-15-001027.txt") => 1066107
+		*
+		*/
+		static string cikFromUrl( const string& sUrl );
 
 }; /* class FormsMeanUtils */
 

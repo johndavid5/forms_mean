@@ -56,5 +56,36 @@ namespace JDA {
 	}
 }
 
+
+/* static */ string FormsMeanUtils::cikFromUrl( const string& sUrl ){
+
+	std::vector<std::string> elems;
+
+	std::regex re_cik("(\\d+)");
+	std::smatch sm;    // same as std::match_results<string::const_iterator> sm;
+
+	elems.clear();
+	JDA::Utils::split( sUrl, '/', elems ); 
+
+	for( size_t i = 0; i < elems.size(); i++ ){
+		if( std::regex_match (elems[i], sm, re_cik ) ){
+			return elems[i];
+		}
+	}
+
+	elems.clear();
+	JDA::Utils::split( sUrl, "--", elems ); 
+
+	for( size_t i = 0; i < elems.size(); i++ ){
+		if( std::regex_match (elems[i], sm, re_cik ) ){
+			return elems[i];
+		}
+	}
+
+	// Didn't find it...
+	return "";
+
+}/* cikFromUrl() */
+
 } /* namespace JDA */
 
