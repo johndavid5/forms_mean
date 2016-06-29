@@ -9,5 +9,7 @@ set -x
 #./build/forms_mean_daemon --manual-index-process-url "ftp://ftp.sec.gov/edgar/daily-index/master.20160616.idx" 2>&1 | tee d.out
 #./build/forms_mean_daemon --manual-index-process-url "file:///../edgar/daily-index/master.20141031.sample.idx" 2>&1 | tee d.out
 #./build/forms_mean_daemon --manual-form-process-url "file:///../edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
-./build/forms_mean_daemon --manual-form-process-url "ftp://ftp.sec.gov/edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
+# ./build/forms_mean_daemon --manual-form-process-url "ftp://ftp.sec.gov/edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
+# curl "ftp://ftp.sec.gov/edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
+./build/forms_mean_daemon --manual-form-process-url "file:///../edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
 set +x

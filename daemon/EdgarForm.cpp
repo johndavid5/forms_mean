@@ -275,7 +275,29 @@ using namespace std;
 
 			return oss_out.str();
 
-		}/* JDA::EdgarForm::filers_to_string() */
+		}/* \* static *\ filers_to_string() */
+
+		string JDA::EdgarForm::toString(){
+			ostringstream oss_out;
+			oss_out << "EdgarForm:\n"; 
+			oss_out << "\n";
+			oss_out << "\t" << "ACCESSION NUMBER: " << this->m_s_accession_number << "\n";
+			oss_out << "\n";
+			oss_out << "\t" << "FILERS:\n";
+			oss_out << EdgarForm::filers_to_string( this->m_filers ) << "\n";
+			oss_out << "\t" << "-------\n";
+			oss_out << "\t" << "ISSUER:\n";
+			oss_out << this->m_issuer.toString() << "\n";
+			oss_out << "\t" << "-------\n";
+			oss_out << "\t" << "REPORTING OWNER:\n";
+			oss_out << this->m_reporting_owner.toString() << "\n";
+			oss_out << "\t" << "-------\n";
+			oss_out << "\t" << "FILED BY:\n";
+			oss_out << this->m_filed_by.toString() << "\n";
+			oss_out << "\t" << "-------\n";
+
+			return oss_out.str();
+		}/* toString() */
 
 
 		/* static */ bool JDA::EdgarForm::splitIt( const string& le_input, string* le_left, string* le_right, const string& le_splitteo ){

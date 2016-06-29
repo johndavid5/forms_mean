@@ -453,6 +453,8 @@ namespace JDA{
 
 		static string filers_to_string( vector<shared_ptr<FILER>>& filers );
 
+		string toString();
+
 		protected: 
 
 			static bool splitIt( const string& le_input, string* le_left, string* le_right, const string& le_splitteo = ":" );

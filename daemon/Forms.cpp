@@ -753,7 +753,8 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 	}
 
 	if( m_p_logger ){
-		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, le_formerator.m_s_accession_number = '" << le_formerator.m_s_accession_number << "'..." << endl;
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, le_formerator.m_s_accession_number = '" << le_formerator.m_s_accession_number << "'...\n" << endl;
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, le_formerator.toString = '" << le_formerator.toString() << "'..." << endl;
 	}
 
 	//if( m_p_logger ){
