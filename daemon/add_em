@@ -25,6 +25,8 @@ git add v.bat
 git add forms_mean_daemon.mak
 git add mongoc.mak
 git add Makefile
+git add p_logger.pl
+git add p
 
 git add reference.txt
 git add gotchas.txt 
@@ -61,9 +63,11 @@ git add ../db/forms_insert.js
 git add ../db/forms_setup.js
 git add ../db/forms_view.js
 git add ../db/mongoit.bat
+git add ../db/mongoit.sh
 git add ../db/setup.js
 git add ../db/show.bat
 git add ../db/show.js
+
 git add ../get.bat
 git add ../get.js
 git add ../install.bat

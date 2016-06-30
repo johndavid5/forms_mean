@@ -3,5 +3,5 @@
 #			}
 #!/bin/bash
 set -x
-perl p.pl 2>&1 | tee p.out
+perl p_logger.pl <p.inp 2>p.err | tee p.out
 set +x

@@ -757,6 +757,45 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, le_formerator.toString = '" << le_formerator.toString() << "'..." << endl;
 	}
 
+	ostringstream oss_json_query;
+	ostringstream oss_json_update;
+
+	oss_json_query << "{ \"accession_number\": \"" << le_formerator.m_s_accession_number << "\" }";
+
+	oss_json_update << "{\n";
+  	oss_json_update << " \"$set\": {\n"; 
+	oss_json_update << "	\"issuer\": {\n";
+	oss_json_update << "		\"company_conformed_name\": \"" << le_formerator.m_issuer.company_data.company_conformed_name << "\",\n";
+	oss_json_update << "		\"central_index_key\": \"" << le_formerator.m_issuer.company_data.central_index_key << "\",\n";
+	oss_json_update << "		\"standard_industrial_classification\": \"" << le_formerator.m_issuer.company_data.standard_industrial_classification << "\",\n";
+	oss_json_update << "		\"irs_number\": \"" << le_formerator.m_issuer.company_data.irs_number << "\",\n";
+	oss_json_update << "		\"state_of_incorporation\": \"" << le_formerator.m_issuer.company_data.state_of_incorporation << "\",\n";
+	oss_json_update << "		\"fiscal_year_end\": \"" << le_formerator.m_issuer.company_data.fiscal_year_end << "\"\n";
+	oss_json_update << "	}\n";
+	oss_json_update << " }\n";
+	oss_json_update << "}";
+
+	string s_collection_name = "forms";
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoDbClient.update( \"" << this->getDbName() << "\", \"" << s_collection_name << "\", \"" << oss_json_query.str() << "\", \"" << oss_json_update.str() << "\" )..." << endl;
+	}
+
+	int i_ret_code = 0;
+
+	// NOTE: This call may toss a JDA::MongoDbClient::Exception
+	try {
+		i_ret_code = mongoDbClient.update( this->getDbName(), s_collection_name, oss_json_query.str(), oss_json_update.str() );					
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: i_ret_code = " << i_ret_code << endl;
+		}
+	}catch( JDA::MongoDbClient::Exception e ){
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Trouble with mongoDbClient.insert: \"" << e.what() << "\", sorry, Moe..." << endl;
+		}
+	}
+
 	//if( m_p_logger ){
 	//	(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, loggin' success to dhe database and returnin', Moe..." << endl;
 	//}
