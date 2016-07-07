@@ -64,6 +64,13 @@ class FormsMeanUtils {
 		*/
 		static string cikFromUrl( const string& sUrl );
 
+		/* e.g., single_quote_escape("The word is \"Groucho\"")
+		*    returns "The word is \\\"Groucho\\\"", which can be
+		*    embedded in JSON...
+		*    info = { "quote" : "The word is \\\"Groucho\\\"" }
+		*/
+		static string double_quote_escape(const string& input);
+
 }; /* class FormsMeanUtils */
 
 

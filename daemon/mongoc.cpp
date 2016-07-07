@@ -18,6 +18,8 @@ string G_S_ARGV_ZERO = "";
 
 void print_format( ostream& oss_out );
 
+void do_demo();
+
 int main (int   argc, char *argv[])
 {
 	/* Get C and C++ I/O to play nice together... */
@@ -122,6 +124,9 @@ int main (int   argc, char *argv[])
 				cout << "Caught unknown exception during MongoDbClient::update()." << endl;
 			}
 		}
+		else if( s_verb.compare("demo") == 0 ){
+			do_demo();
+		}
 		else {
 			print_format( cerr );
 			return 255;
@@ -140,5 +145,23 @@ int main (int   argc, char *argv[])
 }/* main() */
 
 void print_format( ostream& oss_out ){
-	oss_out << "FORMAT: " << G_S_ARGV_ZERO << " (find|insert) -uri <uri> -db <db_name> -collection <collection_name> -query <json_query>" << endl;
+	oss_out << "FORMAT: " << G_S_ARGV_ZERO << " (find|insert|update) -uri <uri> -db <db_name> -collection <collection_name> -query <json_query> -doc <json_doc> -update <json_update>" << endl;
+}
+
+void do_demo(){
+	const char* sWho = "do_demo";
+
+	bson_t *b = bson_new ();
+
+	BSON_APPEND_INT32 (b, "foo", 123);
+	BSON_APPEND_UTF8 (b, "bar", "foo");
+	BSON_APPEND_DOUBLE (b, "baz", 1.23f);
+	BSON_APPEND_DATE_TIME (b, "epoch_beginning", 0L);
+
+	JDA::MongoDbClient mongoDbClient;
+	cout << sWho << "(): mongoDbClient->bson_as_json_string( b ) = \"" << mongoDbClient.bson_as_json_string( b ) << "\"" << endl;
+
+	cout << sWho << "(): Let off some steam, Bennett!" << endl;
+
+	bson_destroy (b);
 }

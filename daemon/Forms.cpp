@@ -762,18 +762,38 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 
 	oss_json_query << "{ \"accession_number\": \"" << le_formerator.m_s_accession_number << "\" }";
 
-	oss_json_update << "{\n";
-  	oss_json_update << " \"$set\": {\n"; 
-	oss_json_update << "	\"issuer\": {\n";
-	oss_json_update << "		\"company_conformed_name\": \"" << le_formerator.m_issuer.company_data.company_conformed_name << "\",\n";
-	oss_json_update << "		\"central_index_key\": \"" << le_formerator.m_issuer.company_data.central_index_key << "\",\n";
-	oss_json_update << "		\"standard_industrial_classification\": \"" << le_formerator.m_issuer.company_data.standard_industrial_classification << "\",\n";
-	oss_json_update << "		\"irs_number\": \"" << le_formerator.m_issuer.company_data.irs_number << "\",\n";
-	oss_json_update << "		\"state_of_incorporation\": \"" << le_formerator.m_issuer.company_data.state_of_incorporation << "\",\n";
-	oss_json_update << "		\"fiscal_year_end\": \"" << le_formerator.m_issuer.company_data.fiscal_year_end << "\"\n";
-	oss_json_update << "	}\n";
-	oss_json_update << " }\n";
-	oss_json_update << "}";
+	oss_json_update 
+	<< "{\n"
+  	<< " \"$set\": {\n" 
+	<< "    \"updated\": { \"$date\": 1000 },\n"
+	<< "	\"issuer\": {\n" 
+	<< "		\"company_data\":{\n"
+	<< "			\"company_conformed_name\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_issuer.company_data.company_conformed_name ) << "\",\n"
+	<< "			\"central_index_key\": \"" << le_formerator.m_issuer.company_data.central_index_key << "\",\n"
+	<< "			\"standard_industrial_classification\": \"" << le_formerator.m_issuer.company_data.standard_industrial_classification << "\",\n"
+	<< "			\"irs_number\": \"" << le_formerator.m_issuer.company_data.irs_number << "\",\n"
+	<< "			\"state_of_incorporation\": \"" << le_formerator.m_issuer.company_data.state_of_incorporation << "\",\n"
+	<< "			\"fiscal_year_end\": \"" << le_formerator.m_issuer.company_data.fiscal_year_end << "\"\n"
+	<< "		},\n"
+	<< "		\"business_address\":{\n"
+	<< "			\"street_1\": \"" << le_formerator.m_issuer.business_address.street_1 << "\",\n"
+	<< "			\"street_2\": \"" << le_formerator.m_issuer.business_address.street_2 << "\",\n"
+	<< "			\"city\": \"" << le_formerator.m_issuer.business_address.city << "\",\n"
+	<< "			\"state\": \"" << le_formerator.m_issuer.business_address.state << "\",\n"
+	<< "			\"zip\": \"" << le_formerator.m_issuer.business_address.zip << "\",\n"
+	<< "			\"business_phone\": \"" << le_formerator.m_issuer.business_address.business_phone << "\"\n"
+	<< "		},\n"
+	<< "		\"mail_address\":{\n"
+	<< "			\"street_1\": \"" << le_formerator.m_issuer.mail_address.street_1 << "\",\n"
+	<< "			\"street_2\": \"" << le_formerator.m_issuer.mail_address.street_2 << "\",\n"
+	<< "			\"city\": \"" << le_formerator.m_issuer.mail_address.city << "\",\n"
+	<< "			\"state\": \"" << le_formerator.m_issuer.mail_address.state << "\",\n"
+	<< "			\"zip\": \"" << le_formerator.m_issuer.mail_address.zip << "\"\n"
+	<< "		}\n"
+	<< "	}\n"
+	<< " }\n"
+	<< "}"
+	;
 
 	string s_collection_name = "forms";
 

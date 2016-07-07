@@ -457,7 +457,7 @@
 
 		return 1;
 
-	}/* int JDA::MongoDbClient::update() */
+	}/* int JDA::MongoDbClient::update( const string& s_db_name, const string& s_collection_name, const string& s_json_query, const string& s_json_update ) */
 
 
 

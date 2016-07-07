@@ -87,5 +87,25 @@ namespace JDA {
 
 }/* cikFromUrl() */
 
+/* static */ string FormsMeanUtils::double_quote_escape(const string& input){
+
+	ostringstream oss_out("");
+
+	for( size_t i = 0; i < input.length(); i++ ){
+		if( input[i] == '"' ){
+			oss_out << "\\\"";
+		}
+		//else if( input[i] == '\\' ){
+		//	oss_out << "\\\\";
+		//}
+		else {
+			oss_out << input[i];
+		}
+	}
+
+	return oss_out.str();
+
+}/* double_quote_escape() */
+
 } /* namespace JDA */
 
