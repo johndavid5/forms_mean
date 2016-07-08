@@ -1,7 +1,7 @@
 #ifndef _T_LOGGER_H_
 #define _T_LOGGER_H_
 
-#ifdef WIN32
+#ifdef _WIN32
 	#include <io.h>
 #endif
 
@@ -66,7 +66,7 @@ using namespace std;
   #define FOPEN fopen 
   //#define FOPEN_S fopen_s // Files opened with fopen_s are not shareable...
 
-  #ifdef WIN32
+  #ifdef _WIN32
 	  #define FSOPEN _fsopen // Use _fsopen to specify shareability of file...
   #endif
 
@@ -478,7 +478,7 @@ public:
 	}/* static void print( int messageDebugLevel, const string& message  ) */
 	
 
-	#ifdef WIN32
+	#ifdef _WIN32
 	void printf( DebugLevelType messageDebugLevel, const CHAR* format, ... ){
 	
 		// REFERENCE: http://msdn.microsoft.com/en-us/library/28d5ce15.aspx

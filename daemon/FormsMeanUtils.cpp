@@ -56,5 +56,56 @@ namespace JDA {
 	}
 }
 
+
+/* static */ string FormsMeanUtils::cikFromUrl( const string& sUrl ){
+
+	std::vector<std::string> elems;
+
+	std::regex re_cik("(\\d+)");
+	std::smatch sm;    // same as std::match_results<string::const_iterator> sm;
+
+	elems.clear();
+	JDA::Utils::split( sUrl, '/', elems ); 
+
+	for( size_t i = 0; i < elems.size(); i++ ){
+		if( std::regex_match (elems[i], sm, re_cik ) ){
+			return elems[i];
+		}
+	}
+
+	elems.clear();
+	JDA::Utils::split( sUrl, "--", elems ); 
+
+	for( size_t i = 0; i < elems.size(); i++ ){
+		if( std::regex_match (elems[i], sm, re_cik ) ){
+			return elems[i];
+		}
+	}
+
+	// Didn't find it...
+	return "";
+
+}/* cikFromUrl() */
+
+/* static */ string FormsMeanUtils::double_quote_escape(const string& input){
+
+	ostringstream oss_out("");
+
+	for( size_t i = 0; i < input.length(); i++ ){
+		if( input[i] == '"' ){
+			oss_out << "\\\"";
+		}
+		//else if( input[i] == '\\' ){
+		//	oss_out << "\\\\";
+		//}
+		else {
+			oss_out << input[i];
+		}
+	}
+
+	return oss_out.str();
+
+}/* double_quote_escape() */
+
 } /* namespace JDA */
 

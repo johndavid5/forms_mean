@@ -64,6 +64,7 @@ GUILIBS = wsock32.lib advapi32.lib user32.lib ws2_32.lib Secur32.lib
 
 # To Prevent "MSVCRT.lib(MSVCR100.dll) : error LNK2005: _calloc already defined in LIBCMT.lib(calloc.obj)" [caused by including curl libs...]
 GUIFLAGS = /NODEFAULTLIB:libcmt.lib
+GUIFLAGS = $(GUIFLAGS) /NODEFAULTLIB:"msvcrtd.lib"
 
 # Prevent boost lib from doing auto-link's...
 GUIFLAGS = $(GUIFLAGS) /NODEFAULTLIB:"libboost_system-vc100-mt-1_55.lib"
@@ -73,16 +74,35 @@ GUIFLAGS = $(GUIFLAGS) /NODEFAULTLIB:"libboost_filesystem-vc100-mt-gd-1_55.lib"
 GUIFLAGS = $(GUIFLAGS) /NODEFAULTLIB:"libboost_filesystem-vc100-mt-s-1_55.lib"
 GUIFLAGS = $(GUIFLAGS) /NODEFAULTLIB:"libboost_system-vc100-mt-s-1_55.lib"
 
-OBJS = $(build)/forms_mean_daemon.obj $(build)/Forms.obj $(build)/FormsMeanUtils.obj $(build)/FormsMeanCommon.obj $(build)/utils.obj $(build)/MongoDbClient.obj 
+OBJS = $(build)/forms_mean_daemon.obj $(build)/Forms.obj $(build)/EdgarForm.obj $(build)/FormsMeanUtils.obj $(build)/FormsMeanCommon.obj $(build)/utils.obj $(build)/MongoDbClient.obj $(build)/FtpClient.obj
+
+MONGOC_OBJS = $(build)/mongoc.obj $(build)/MongoDbClient.obj $(build)/utils.obj
+
+FTPGET_OBJS = $(build)/ftpget.obj $(build)/FtpClient.obj $(build)/utils.obj
 
 $(bin)/forms_mean_daemon.exe : $(OBJS)
 	$(LINKER) $(GUIFLAGS) -OUT:$(bin)/forms_mean_daemon.exe $(OBJS) "$(curl_lib_dir)/libcurl_a.lib" $(GUILIBS) $(boost_lib_dir)/filesystem.lib $(boost_lib_dir)/system.lib "$(mongodb_lib_dir)/mongoc-static-1.0.lib" "$(bson_lib_dir)/bson-static-1.0.lib"
 
+$(bin)/mongoc.exe : $(MONGOC_OBJS)
+	$(LINKER) $(GUIFLAGS) -OUT:$(bin)/mongoc.exe $(MONGOC_OBJS) "$(curl_lib_dir)/libcurl_a.lib" $(GUILIBS) $(boost_lib_dir)/filesystem.lib $(boost_lib_dir)/system.lib "$(mongodb_lib_dir)/mongoc-static-1.0.lib" "$(bson_lib_dir)/bson-static-1.0.lib"
+
+$(bin)/ftpget.exe : $(FTPGET_OBJS)
+	$(LINKER) $(GUIFLAGS) -OUT:$(bin)/ftpget.exe $(FTPGET_OBJS) "$(curl_lib_dir)/libcurl_a.lib" $(GUILIBS) $(boost_lib_dir)/filesystem.lib $(boost_lib_dir)/system.lib "$(mongodb_lib_dir)/mongoc-static-1.0.lib" "$(bson_lib_dir)/bson-static-1.0.lib"
+
 $(build)/forms_mean_daemon.obj : ./forms_mean_daemon.cpp 
      $(CC) /Fo$(build)/forms_mean_daemon.obj $(CFLAGSMT) ./forms_mean_daemon.cpp
 
+$(build)/mongoc.obj : ./mongoc.cpp 
+     $(CC) /Fo$(build)/mongoc.obj $(CFLAGSMT) ./mongoc.cpp
+
+$(build)/ftpget.obj : ./ftpget.cpp 
+     $(CC) /Fo$(build)/ftpget.obj $(CFLAGSMT) ./ftpget.cpp
+
 $(build)/Forms.obj : $(forms_mean_inc_dir)/Forms.cpp $(forms_mean_inc_dir)/Forms.h
      $(CC) /Fo$(build)/Forms.obj $(CFLAGSMT) $(forms_mean_inc_dir)/Forms.cpp
+
+$(build)/EdgarForm.obj : $(forms_mean_inc_dir)/EdgarForm.cpp $(forms_mean_inc_dir)/EdgarForm.h
+     $(CC) /Fo$(build)/EdgarForm.obj $(CFLAGSMT) $(forms_mean_inc_dir)/EdgarForm.cpp
 
 $(build)/FormsMeanUtils.obj : $(forms_mean_inc_dir)/FormsMeanUtils.cpp $(forms_mean_inc_dir)/FormsMeanUtils.h
      $(CC) /Fo$(build)/FormsMeanUtils.obj $(CFLAGSMT) $(forms_mean_inc_dir)/FormsMeanUtils.cpp
@@ -96,5 +116,11 @@ $(build)/utils.obj : $(cpp_lib_inc_dir)/utils.cpp $(cpp_lib_inc_dir)/utils.h
 $(build)/MongoDbClient.obj : $(cpp_lib_inc_dir)/MongoDbClient.cpp $(cpp_lib_inc_dir)/MongoDbClient.h
      $(CC) /Fo$(build)/MongoDbClient.obj $(CFLAGSMT) $(cpp_lib_inc_dir)/MongoDbClient.cpp
 
+$(build)/FtpClient.obj : $(cpp_lib_inc_dir)/FtpClient.cpp $(cpp_lib_inc_dir)/FtpClient.h
+     $(CC) /Fo$(build)/FtpClient.obj $(CFLAGSMT) $(cpp_lib_inc_dir)/FtpClient.cpp
+
 clean:
 	del "$(build)\*.obj" "$(build)\*.exe" 
+
+all:
+	$(bin)/forms_mean_daemon.exe $(bin)/mongoc.exe $(bin)/ftpget.exe

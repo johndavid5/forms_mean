@@ -1,11 +1,13 @@
 #!/bin/bash
 set -x
-git add Forms.cpp
+git add EdgarForm.h
+git add EdgarForm.cpp
 git add Forms.h
-git add FormsMeanCommon.cpp
+git add Forms.cpp
 git add FormsMeanCommon.h
-git add FormsMeanUtils.cpp
+git add FormsMeanCommon.cpp
 git add FormsMeanUtils.h
+git add FormsMeanUtils.cpp
 git add forms_mean_daemon.cpp
 git add ftpget.cpp
 git add mongoc.cpp
@@ -23,8 +25,11 @@ git add v.bat
 git add forms_mean_daemon.mak
 git add mongoc.mak
 git add Makefile
+git add p_logger.pl
+git add p
 
 git add reference.txt
+git add gotchas.txt 
 git add nextel.txt 
 
 git add status.bat
@@ -34,6 +39,7 @@ git add build/forms_mean_daemon.ini
 
 git add ../edgar/daily-index/master.20141031.idx
 git add ../edgar/daily-index/master.20141031.sample.idx
+git add ../edgar/data/1000180/0001242648-14-000081.txt
 
 git add test/example-client.cpp
 git add test/Makefile
@@ -57,9 +63,11 @@ git add ../db/forms_insert.js
 git add ../db/forms_setup.js
 git add ../db/forms_view.js
 git add ../db/mongoit.bat
+git add ../db/mongoit.sh
 git add ../db/setup.js
 git add ../db/show.bat
 git add ../db/show.js
+
 git add ../get.bat
 git add ../get.js
 git add ../install.bat

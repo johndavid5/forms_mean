@@ -12,10 +12,10 @@ class Forms {
 	protected:
 		JDA::Logger* m_p_logger;
 
-		int m_i_iteration_count;
-		int m_i_byte_count;
-		int m_i_query_attempt_count;
-		int m_i_query_succeed_count;
+		//int m_i_iteration_count;
+		//int m_i_byte_count;
+		//int m_i_query_attempt_count;
+		//int m_i_query_succeed_count;
 
 		int m_i_ftp_debug;
 		bool m_b_ftp_no_proxy;
@@ -31,7 +31,8 @@ class Forms {
 
 		void setPLogger( JDA::Logger* p_logger ){ m_p_logger = p_logger; mongoDbClient.setPLogger(m_p_logger); }
 
-		void setDbConnection(){}
+		// Later, perhaps...
+		//void setDbConnection(){}
 
 		void setDbUrl( string sDbUrl ){ m_s_db_url = sDbUrl; mongoDbClient.setSUriStr( sDbUrl); }
 		string getDbUrl(){ return m_s_db_url; }
@@ -45,15 +46,18 @@ class Forms {
 
 		/* Set to 1 if you want extra logging output... */
 		void setFtpDebug( int i_ftp_debug ){ m_i_ftp_debug = i_ftp_debug; } 
+		int getFtpDebug(){ return m_i_ftp_debug; }
 
 		/** Set to FALSE if you wish to not use a proxy even if HTTP_PROXY, HTTPS_PROXY, or FTP_PROXY environment variables are set... */
 		void setFtpNoProxy( bool b_ftp_no_proxy ){ m_b_ftp_no_proxy = b_ftp_no_proxy; }
+		bool getFtpNoProxy( ){ return m_b_ftp_no_proxy; }
 
 		/** Set to "username:password", or try using just ":" for magical "NTLM" determination of username/password on Windows... */
 		void setFtpProxyUserPass( string s_ftp_proxy_user_pass ){ m_s_ftp_proxy_user_pass = s_ftp_proxy_user_pass; }
+		string getFtpProxyUserPass( ){ return m_s_ftp_proxy_user_pass; }
 
 		/**
-		* Load bare-bones filings into database from entries in EDGAR index file...
+		* Load bare-bones filings into MongoDb database.forms collection from entries in EDGAR index file...
 		*
 		* NOTE: Immediately after runnning this, you may call getIterationCount(), getByteCount(), getQueryAttemptCount(), and getQuerySucceedCount()
 		* for further information.
@@ -68,6 +72,12 @@ class Forms {
 			const string& accession_number, const string& index_url
 		);  
 
+		/** Reads header of EDGAR form -- the skeleton of which has already been created in MongoDb by
+		* loadFromEdgarIndexUrl()...and updates the record with information from the header.
+		*
+		* For example, "ftp://ftp.sec.gov/edgar/data/1403385/0000950157-15-000937.txt" or 
+		*	"file:///../edgar/1016281--0001016281-15-000151--carriage-services-inc--4--2015-12-10.txt"
+		*/							
 		int loadFromEdgarFormUrl( const string& sEdgarFormUrl );
 
 		//int getIterationCount(){ return m_i_iteration_count; }

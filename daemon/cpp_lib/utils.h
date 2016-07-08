@@ -27,7 +27,7 @@
 #include <errno.h>
 #include <exception>
 
-#ifdef WIN32
+#ifdef _WIN32
 	#include <windows.h>
 	#include <process.h>
 	#include <io.h>
@@ -123,7 +123,7 @@ class Utils {
 	}; /* JDA::Utils::Stopwatch */
 
 
-	#ifdef WIN32
+	#ifdef _WIN32
 	/** Maximum number of lines the output console should have,
 	* used by redirectIOToConsole()...
 	*/
@@ -220,7 +220,7 @@ class Utils {
 	* which is the local (GMT-5) time conversion of midnight
 	* January 1st, 1970 UTC.
 	*/
-	#ifdef WIN32
+	#ifdef _WIN32
 	static inline string& get_local_timestamp( string& s_in_out, time_t epoch_seconds = -1){
 
 		if( epoch_seconds == -1 ) {
@@ -302,7 +302,7 @@ class Utils {
 
 	}/* get_local_timestamp() */
 
-	#ifdef WIN32
+	#ifdef _WIN32
 	static inline string& get_local_pretty_timestamp( string& s_in_out, time_t epoch_seconds = -1){
 
 		if( epoch_seconds == -1 ) {
@@ -393,7 +393,7 @@ class Utils {
 
 		int iHitCount = 0;
 
-		#ifdef WIN32
+		#ifdef _WIN32
 		char buff[80];
 		#else
 		char* cp_out;
@@ -434,14 +434,14 @@ class Utils {
 
 			if( (result = mktime( &tm_struct)) != (time_t)-1 ) {
 
-				#ifdef WIN32
+				#ifdef _WIN32
 				asctime_s( buff, sizeof(buff), &tm_struct );
 				#else
 				cp_out = asctime( &tm_struct );
 				#endif
 
 				if( JDA::Utils::debug >= 4 ){
-					#ifdef WIN32
+					#ifdef _WIN32
 					cout << "AFTER: mktime time is " << buff << endl;
 					#else
 					cout << "AFTER: mktime time is " << cp_out << endl;
@@ -640,7 +640,7 @@ static void nyctime( struct tm * p_t_struct, time_t epoch_seconds){
 
 		time_t epoch_seconds_adjusted = epoch_seconds - (3600 * 5); /* Begin by subtracting 5 hours. */
 
-		#ifdef WIN32
+		#ifdef _WIN32
 		gmtime_s(p_t_struct, &epoch_seconds_adjusted );
 		#else
 		/* struct tm * gmtime (const time_t * timer); */
@@ -658,7 +658,7 @@ static void nyctime( struct tm * p_t_struct, time_t epoch_seconds){
 			/* If DST, add one hour, and re-load t_struct. */	
 			epoch_seconds_adjusted += 3600;
 
-			#ifdef WIN32
+			#ifdef _WIN32
 			gmtime_s(p_t_struct, &epoch_seconds_adjusted );
 			#else
 			p_t_struct_out = gmtime( &epoch_seconds_adjusted );
@@ -861,7 +861,7 @@ static time_t yyyymmddhhmmss_to_time_t( const string& yyyymmddhhmmss ){
 	int year, month, day, hours, minutes, seconds;
 
 	if(
-		#ifdef WIN32
+		#ifdef _WIN32
 		sscanf_s(yyyymmddhhmmss.c_str(), "%d-%d-%d %d:%d:%d", &year, &month, &day, &hours, &minutes, &seconds) == 6
 		#else
 		sscanf(yyyymmddhhmmss.c_str(), "%d-%d-%d %d:%d:%d", &year, &month, &day, &hours, &minutes, &seconds) == 6
@@ -899,7 +899,7 @@ static time_t yyyymmdd_to_time_t( const string& yyyymmdd ){
 	seconds = 0;
 
 	if(
-		#ifdef WIN32
+		#ifdef _WIN32
 		sscanf_s(yyyymmdd.c_str(), "%d-%d-%d", &year, &month, &day) == 3
 		#else
 		sscanf(yyyymmdd.c_str(), "%d-%d-%d", &year, &month, &day) == 3
@@ -943,7 +943,7 @@ static time_t yyyymmdd_to_time_t( const string& yyyymmdd ){
 			time( &epoch_seconds );
 		}
 
-		#ifdef WIN32
+		#ifdef _WIN32
 		struct tm newtime;
 		gmtime_s(&newtime, &epoch_seconds);
 		#else
@@ -963,7 +963,7 @@ static time_t yyyymmdd_to_time_t( const string& yyyymmdd ){
 		//	newtime.tm_sec
 		//);
 		
-		#ifdef WIN32
+		#ifdef _WIN32
 		strftime(buffy, buf_sz, s_format.c_str(), &newtime); 
 		#else
 		strftime(buffy, buf_sz, s_format.c_str(), p_newtime); 
@@ -1165,7 +1165,7 @@ static time_t yyyymmdd_to_time_t( const string& yyyymmdd ){
 	}
 
 
-#ifdef WIN32
+#ifdef _WIN32
 /** Apply "sprintf()" type functionality to a std::string created on stack and returned. */
 static string s_string_printf( char* szFormat, ... ){
 
@@ -1204,7 +1204,7 @@ static string s_string_printf( char* szFormat, ... ){
 /** Apply "sprintf()" type functionality to a std::string supplied as argument,
 * with a reference to the same string object returned.
 */
-#ifdef WIN32
+#ifdef _WIN32
 static string& string_printf( string& s, char* format, ... ){
 
 	// REFERENCE: http://msdn.microsoft.com/en-us/library/28d5ce15.aspx
@@ -1343,7 +1343,7 @@ static string unix_path_to_dos_path ( const string& s_in ) {
 *  [in] count:  The maximum number of wide characters to be stored in the mbstr buffer,
 *   not including the terminating null character, or _TRUNCATE.
 */ 
-#ifdef WIN32
+#ifdef _WIN32
 static char* wideToNarrowP(const wchar_t* input)
 {
     size_t   iReturnValue;
@@ -1404,7 +1404,7 @@ static char* wideToNarrowP(const wchar_t* input)
 }/* char* wideToNarrowP(const wchar_t* input) */
 #endif
 
-#ifdef WIN32
+#ifdef _WIN32
 static string wideToNarrowS(const wstring& input){
 
 	char* pMBBuffer = JDA::Utils::wideToNarrowP((const wchar_t *)input.c_str());
@@ -1439,7 +1439,7 @@ static string wideToNarrowS(const wstring& input){
 * [in] count: The maximum number of wide characters to store in the wcstr buffer,
 * not including the terminating null, or _TRUNCATE.
 */
-#ifdef WIN32
+#ifdef _WIN32
 static wchar_t* narrowToWideP(const char* input) {
     size_t   iReturnValue;
 	errno_t  iReturnCode;
@@ -1499,7 +1499,7 @@ static wchar_t* narrowToWideP(const char* input) {
 }/* wchar_t* narrowToWideP(const wchar_t* input) */
 #endif
 
-#ifdef WIN32
+#ifdef _WIN32
 static wstring narrowToWideS(const string& input){
 
 	wchar_t* pWCBuffer = JDA::Utils::narrowToWideP((const char*)input.c_str());
@@ -1527,7 +1527,7 @@ static wstring narrowToWideS(const string& input){
 * @see http://stackoverflow.com/questions/1528298/get-path-of-executable 
 */
 //static std::basic_string<TCHAR> getExecutablePath(){
-#ifdef WIN32
+#ifdef _WIN32
 static std::string getExecutablePath(){
 
 	std::string sWho = "getExecutablePath";
@@ -1668,7 +1668,7 @@ static bool num_equals(const string& a, const string& b)
 	int a_int;
 	bool a_int_numerical;
 	if(
-		#ifdef WIN32
+		#ifdef _WIN32
 		sscanf_s( a.c_str(), "%d", &a_int )
 		#else
 		sscanf( a.c_str(), "%d", &a_int )
@@ -1683,7 +1683,7 @@ static bool num_equals(const string& a, const string& b)
 	int b_int;
 	bool b_int_numerical;
 	if(
-		#ifdef WIN32
+		#ifdef _WIN32
 		sscanf_s( b.c_str(), "%d", &b_int )
 		#else
 		sscanf( b.c_str(), "%d", &b_int )
@@ -1820,7 +1820,7 @@ static int stringToInt( const string& sInput ){
 	int iOutput;
 
 	if(
-		#ifdef WIN32
+		#ifdef _WIN32
 		sscanf_s( sInput.c_str(), "%d", &iOutput) == 1
 		#else
 		sscanf( sInput.c_str(), "%d", &iOutput) == 1
@@ -1852,7 +1852,7 @@ static bool stringToInt( const string& sInput, int* piOutput ){
 	int iTemp;
 
 	if(
-		#ifdef WIN32
+		#ifdef _WIN32
 		sscanf_s( sInput.c_str(), "%d", &iTemp ) == 1
 		#else
 		sscanf( sInput.c_str(), "%d", &iTemp ) == 1
@@ -1876,7 +1876,7 @@ static int stringToInt( const string& sInput, int iDefault ){
 	int iTemp;
 
 	if(
-		#ifdef WIN32
+		#ifdef _WIN32
 		sscanf_s( sInput.c_str(), "%d", &iTemp ) == 1
 		#else
 		sscanf( sInput.c_str(), "%d", &iTemp ) == 1
@@ -1991,7 +1991,7 @@ static string baseDir( const string& sInput ){
 * @note uses Windows API
 */
 //static bool fileExists(const TCHAR *fileName)
-#ifdef WIN32
+#ifdef _WIN32
 static bool fileExists(const char* fileName)
 {
 	// windows-specific functionality...
@@ -2015,7 +2015,7 @@ static bool fileExists(const char* fileName)
 *
 * @note uses Windows API
 */
-#ifdef WIN32
+#ifdef _WIN32
 static bool dirExists(const std::string& dirName_in)
 //static bool dirExists(const TCHAR* dirName_in)
 {
@@ -2045,7 +2045,7 @@ static bool dirExists(const std::string& dirName_in)
 #if 0
 static __int64 getFileSize(const std::wstring& name_wide )
 {
-    WIN32_FILE_ATTRIBUTE_DATA fad;
+    _WIN32_FILE_ATTRIBUTE_DATA fad;
 
     if (!GetFileAttributesEx(name_wide.c_str(), GetFileExInfoStandard, &fad))
 	{
@@ -2076,12 +2076,12 @@ static __int64 getFileSize(const std::wstring& name_wide )
 *
 * @throws JDA::Utils::Exception() if has difficulty determining file attributes. 
 */
-#ifdef WIN32
+#ifdef _WIN32
 static __int64 getFileSize(const std::string& name_narrow)
 {
 	//std::wstring name_wide = JDA::Utils::narrowToWideS( name_narrow );	
 
-    WIN32_FILE_ATTRIBUTE_DATA fad;
+    _WIN32_FILE_ATTRIBUTE_DATA fad;
 
     if (!GetFileAttributesExA(name_narrow.c_str(), GetFileExInfoStandard, &fad))
 	{
@@ -2203,13 +2203,13 @@ static void writeStringToFile( const string& sInput, const string& sFilePath, bo
 		sMode = "wb";
 	}
 
-	#ifdef WIN32
+	#ifdef _WIN32
 	errno_t lastError = fopen_s ( &filePtr, sFilePath.c_str(), sMode.c_str() );
 	#else
 	filePtr = fopen( sFilePath.c_str(), "w" );
 	#endif
 
-	#ifdef WIN32	
+	#ifdef _WIN32	
 	if( lastError != 0 ){
 
 		const int err_buf_sz = 256;
@@ -2255,13 +2255,13 @@ static string slurpStringFromFile( const string& sFilePath, bool binary = false 
 		sMode = "rb";
 	}
 
-	#ifdef WIN32
+	#ifdef _WIN32
 	errno_t lastError = fopen_s ( &filePtr, sFilePath.c_str(), sMode.c_str() );
 	#else
 	filePtr = fopen ( sFilePath.c_str(), "r" );
 	#endif
 
-	#ifdef WIN32
+	#ifdef _WIN32
 	if( lastError != 0 ){
 
 		string sLastError = JDA::Utils::strerror(lastError);
@@ -2315,13 +2315,13 @@ static FILE* fopen( const char *filename, const char *mode ){
 
 		FILE* filePtr = NULL;
 
-		#ifdef WIN32
+		#ifdef _WIN32
 		errno_t lastError = fopen_s( &filePtr, filename, mode );
 		#else
 		filePtr = fopen( filename, mode );
 		#endif
 	
-		#ifdef WIN32
+		#ifdef _WIN32
 		if( lastError != 0 ){
 
 			const int err_buf_sz = 256;
@@ -2356,7 +2356,7 @@ static FILE* fopen( const char *filename, const char *mode ){
 
 
 //static basic_string<TCHAR> getenv( const basic_string<TCHAR>& varname, const basic_string<TCHAR>& default="")
-#ifdef WIN32
+#ifdef _WIN32
 static string getenv( const string& varname, const string& s_default="")
 {
 
@@ -2390,7 +2390,7 @@ static string getenv( const string& varname, const string& s_default="")
 }/* getenv() */
 #endif
 
-#ifdef WIN32
+#ifdef _WIN32
 static bool setenv( const string& varname, const string& varvalue )
 {
 	ostringstream oss_setenv;
@@ -2414,7 +2414,7 @@ static bool setenv( const string& varname, const string& varvalue )
 }/* setenv() */
 #endif
 
-#ifdef WIN32
+#ifdef _WIN32
 static string getUserName(){
 	return JDA::Utils::getenv("USERNAME", "unknown.user");
 }
@@ -2423,7 +2423,7 @@ static string getUserName(){
 /* Returns an error string based on GetLastError()-Windows or errno. */
 static string s_error(){
 
-	#ifdef WIN32
+	#ifdef _WIN32
 	DWORD lastError = GetLastError();
 	#else
 	int lastError = errno;
@@ -2447,7 +2447,7 @@ static string s_error(){
 * which you probably obtained from GetLastError()
 * or maybe from global variable errno.
 */ 
-#ifdef WIN32
+#ifdef _WIN32
 static string strerror( DWORD lastError ){
 
 	const int err_buf_sz = 256;

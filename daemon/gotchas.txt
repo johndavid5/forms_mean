@@ -1,0 +1,38 @@
+1. Be careful how you construct stack variables...you may wind up requiring a
+copy constructor...
+
+/* 376 */ // JDA::FtpClient::LineratorFtpClientCallback myIFtpClientCallback = JDA::FtpClient::LineratorFtpClientCallback( &myFtpIndexClientCallback );
+		JDA::FtpClient::LineratorFtpClientCallback myIFtpClientCallback( &myFtpIndexClientCallback );
+
+g++ -c -ggdb -Wall -Wno-reorder  -I/usr/local/include -I./cpp_lib -I/usr/local/include/libbson-1.0 -I/usr/local/include/libmongoc-1.0  -o build/Forms.o Forms.cpp
+Forms.cpp: In constructor ‘JDA::MyFtpIndexClientCallback::MyFtpIndexClientCallback()’:
+Forms.cpp:43:16: warning: unused variable ‘sWho’ [-Wunused-variable]
+Forms.cpp: In destructor ‘virtual JDA::MyFtpIndexClientCallback::~MyFtpIndexClientCallback()’:
+Forms.cpp:60:16: warning: unused variable ‘sWho’ [-Wunused-variable]
+Forms.cpp: In member function ‘virtual size_t JDA::MyFtpIndexClientCallback::dataReceived(void*, size_t, size_t, void*)’:
+Forms.cpp:68:16: warning: unused variable ‘sWho’ [-Wunused-variable]
+In file included from /usr/include/c++/4.6/ios:45:0,
+                 from /usr/include/c++/4.6/ostream:40,
+                 from /usr/include/c++/4.6/iostream:40,
+                 from ./cpp_lib/utils.h:10,
+                 from Forms.h:4,
+                 from Forms.cpp:8:
+/usr/include/c++/4.6/bits/ios_base.h: In copy constructor ‘std::basic_ios<char>::basic_ios(const std::basic_ios<char>&)’:
+/usr/include/c++/4.6/bits/ios_base.h:788:5: error: ‘std::ios_base::ios_base(const std::ios_base&)’ is private
+/usr/include/c++/4.6/bits/basic_ios.h:64:11: error: within this context
+In file included from ./cpp_lib/utils.h:14:0,
+                 from Forms.h:4,
+                 from Forms.cpp:8:
+/usr/include/c++/4.6/sstream: In copy constructor ‘std::basic_ostringstream<char>::basic_ostringstream(const std::basic_ostringstream<char>&)’:
+/usr/include/c++/4.6/sstream:373:11: note: synthesized method ‘std::basic_ios<char>::basic_ios(const std::basic_ios<char>&)’ first required here 
+/usr/include/c++/4.6/streambuf: In copy constructor ‘std::basic_stringbuf<char>::basic_stringbuf(const std::basic_stringbuf<char>&)’:
+/usr/include/c++/4.6/streambuf:782:7: error: ‘std::basic_streambuf<_CharT, _Traits>::basic_streambuf(const __streambuf_type&) [with _CharT = char, _Traits = std::char_traits<char>, std::basic_streambuf<_CharT, _Traits>::__streambuf_type = std::basic_streambuf<char>]’ is private
+/usr/include/c++/4.6/sstream:60:11: error: within this context
+/usr/include/c++/4.6/sstream: In copy constructor ‘std::basic_ostringstream<char>::basic_ostringstream(const std::basic_ostringstream<char>&)’:
+/usr/include/c++/4.6/sstream:373:11: note: synthesized method ‘std::basic_stringbuf<char>::basic_stringbuf(const std::basic_stringbuf<char>&)’ first required here 
+In file included from Forms.cpp:10:0:
+./cpp_lib/FtpClient.h: In copy constructor ‘JDA::FtpClient::LineratorFtpClientCallback::LineratorFtpClientCallback(const JDA::FtpClient::LineratorFtpClientCallback&)’:
+./cpp_lib/FtpClient.h:52:10: note: synthesized method ‘std::basic_ostringstream<char>::basic_ostringstream(const std::basic_ostringstream<char>&)’ first required here 
+Forms.cpp: In member function ‘int JDA::Forms::loadFromEdgarIndexUrl(const string&)’:
+Forms.cpp:376:139: note: synthesized method ‘JDA::FtpClient::LineratorFtpClientCallback::LineratorFtpClientCallback(const JDA::FtpClient::LineratorFtpClientCallback&)’ first required here 
+make: *** [build/Forms.o] Error 1

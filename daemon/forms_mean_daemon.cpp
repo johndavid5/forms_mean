@@ -3,7 +3,8 @@
 #include <ctime>
 #include <time.h>
 
-#ifdef WIN32
+#ifdef _WIN32
+	#include "winsock2.h" // Better to pro-actively include it now before it gets included later causing re-definition errors... 
 	#include "windows.h" // Sleep(), etc. (NOTE: In Windows it's Sleep(), in UNIX it's sleep()...) 
 #endif
 

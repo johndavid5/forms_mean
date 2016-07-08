@@ -80,15 +80,42 @@ class MongoDbClient {
 	/** destructor */
 	virtual ~MongoDbClient();
 
+	/** utilities */
 	string bson_as_json_string( bson_t* p_bson );
+
+	static time_t seconds_since_unix_epoch();
+	static int64_t milliseconds_since_unix_epoch();
+
+	static int64_t seconds_to_milliseconds( time_t seconds );
+	static time_t milliseconds_to_seconds( int64_t milliseconds );
 
 	/** @throws MongoDbClient::Exception if something goes wrong with the command. */
 	int find( const string& s_db_name, const string& s_collection_name, const string& s_json_query );
 
-	/** "irete kudasai"
+	/** "i-re-te ku-da-sa-i"
+	*
 	* @throws MongoDbClient::Exception if something goes wrong with the command.
 	*/
-	int insert( const string& s_db_name, const string& s_collection_name, const string& s_json_query );
+	int insert( const string& s_db_name, const string& s_collection_name, const string& s_json_doc );
+
+	/** "i-re-te ku-da-sa-i"
+	* @throws MongoDbClient::Exception if something goes wrong with the command.
+	*
+	* https://docs.mongodb.com/manual/reference/method/db.collection.update/
+	*
+	* db.collection.update(
+    *  <query>,
+    *  <update>,
+    *  {
+    *   upsert: <boolean>,
+    *   multi: <boolean>,
+    *   writeConcern: <document>
+    *  }
+	* )
+	*
+	* @throws MongoDbClient::Exception if something goes wrong with the command.
+	*/
+	int update( const string& s_db_name, const string& s_collection_name, const string& s_json_query, const string& s_json_update );
 
 }; /* class MongoDbClient */
 
