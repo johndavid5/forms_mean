@@ -1,8 +1,21 @@
-1. Begin re-using connections in MongoDbClient...I suspect this "no suitable
+1. Begin using FtpClient (curl) -- right now we only read from file:///... url...
+
+2. Put in the --manual-form-process-url functionality...(based on WaldoUtils::load_edgar_form_and_log_it()...)
+
+=================================
+----------
+completed:
+----------
+[x--2016-06-16--commit 6315] * Begin re-using connections in MongoDbClient...I suspect this "no suitable
    servers" error is a result of too many dudes trying to connect at once:
+
 [2016-06-14 19:31:53 EDT] ERROR: MongoDbClient::insert(): Trouble inserting document: "No suitable servers
 found (`serverselectiontryonce` set): [connection timeout calling ismaster on 'jayne:27017']"
 
-2. Begin using FtpClient -- right now we only read from file:///... url...
 
-2. Put in the --manual-form-process-url functionality...(based on WaldoUtils::load_edgar_form_and_log_it()...)
+./build/forms_mean_daemon --manual-index-process-url "file:///../edgar/daily-index/master.20141031.idx" 2>&1 | tee d.out
+[2016-06-16 19:57:36 EDT] INFO: Forms::loadFromEdgarIndexUrl(): SHEMP: Moe, I got news for ya, Moe...
+	myFtpIndexClientCallback.getByteCount = 355695...
+	myFtpIndexClientCallback.getIterationCount = 4076...
+	myFtpIndexClientCallback.getQueryAttemptCount = 4069...
+	myFtpIndexClientCallback.getQuerySucceedCount = 2748...
