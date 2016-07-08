@@ -1,0 +1,32 @@
+1. Put in the --manual-form-process-url functionality...(based on WaldoUtils::load_edgar_form_and_log_it()...)
+
+2. Add in the "load_next_index_entry()" clockwork.
+
+Extra Credit:
+3. Consider using log4cxx (log4j ported to C++) rather than JDA::Logger.
+
+4. Fancy: Add "command" to bag of tricks for MongoDbClient, which will
+allow for getting newly generated _id...(and allows for specifying
+the functionality in JSON, whether it's insert, upsert, update, find...)
+
+=================================
+----------
+completed:
+----------
+[x] Add "update" to bag of tricks for MongoDbClient.
+
+[x] Begin using FtpClient (curl) (in Forms::loadFromEdgarIndexUrl()...right now we only read from file:///... url...)
+
+[x--2016-06-16--commit 6315] * Begin re-using connections in MongoDbClient...I suspect this "no suitable
+   servers" error is a result of too many dudes trying to connect at once:
+
+[2016-06-14 19:31:53 EDT] ERROR: MongoDbClient::insert(): Trouble inserting document: "No suitable servers
+found (`serverselectiontryonce` set): [connection timeout calling ismaster on 'jayne:27017']"
+
+
+./build/forms_mean_daemon --manual-index-process-url "file:///../edgar/daily-index/master.20141031.idx" 2>&1 | tee d.out
+[2016-06-16 19:57:36 EDT] INFO: Forms::loadFromEdgarIndexUrl(): SHEMP: Moe, I got news for ya, Moe...
+	myFtpIndexClientCallback.getByteCount = 355695...
+	myFtpIndexClientCallback.getIterationCount = 4076...
+	myFtpIndexClientCallback.getQueryAttemptCount = 4069...
+	myFtpIndexClientCallback.getQuerySucceedCount = 2748...

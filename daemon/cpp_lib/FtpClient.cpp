@@ -1,5 +1,6 @@
 #include "FtpClient.h"
 
+#if 0
 #include <stdio.h>
 #include <iostream>
 #include <sstream>
@@ -8,8 +9,12 @@ using namespace std;
 
 #include "logger.h"
 
-#include <curl/curl.h>
+#ifdef _WIN32
+	#include "winsock2.h"
+#endif
 
+#include <curl/curl.h>
+#endif // #if 0
 
 //struct FtpFile {
 //  std::string filename;
@@ -20,12 +25,6 @@ using namespace std;
 //
 //  FtpFile(): filename(""), stream(NULL), iByteCount(0), iDebug(0), pLogger(NULL) {}
 //};
-
-
-#include <curl/curl.h>
- 
-
- 
 
 
 /* Used for 
@@ -56,13 +55,13 @@ size_t my_fwrite(void *buffer, size_t size, size_t nmemb, void *userdata) {
 
     /* "lazy-initialization of pFtpClient->stream": open file for writing */
 
-	#ifdef WIN32
+	#ifdef _WIN32
 	errno_t lastError = fopen_s( &(pFtpClient->stream), pFtpClient->filePath.c_str(), "wb" );
 	#else
 	pFtpClient->stream = fopen(pFtpClient->filePath.c_str(), "wb");
 	#endif
 
-	#ifdef WIN32
+	#ifdef _WIN32
 	if( lastError != 0 ){
 		pFtpClient->stream = NULL;
 

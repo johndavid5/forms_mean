@@ -13,6 +13,9 @@ git add ../db/forms_view.js
 git add ../db/setup.js
 git add ../db/mongoit.bat*
 
+git add ../edgar/daily-index/master.20141031.idx
+git add ../edgar/daily-index/master.20141031.sample.idx
+
 git add build/forms_mean_daemon.ini
 
 git add forms_mean_daemon.cpp

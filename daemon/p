@@ -1,3 +1,7 @@
-	if( m_p_logger ){
-		(*m_p_logger)
-	}
+#			if( m_p_logger ){
+#				(*m_p_logger)
+#			}
+#!/bin/bash
+set -x
+perl p_logger.pl <p.inp 2>p.err | tee p.out
+set +x

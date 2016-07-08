@@ -1,4 +1,5 @@
 #!/bin/bash
 set -x
-gvim forms_mean_daemon.cpp Forms.h Forms.cpp FormsMeanUtils.h FormsMeanUtils.cpp FormsMeanCommon.h FormsMeanCommon.cpp cpp_lib/MongoDbClient.h cpp_lib/MongoDbClient.cpp test/example-client.cpp mongoc.cpp &
+#gvim forms_mean_daemon.cpp Forms.h Forms.cpp FormsMeanUtils.h FormsMeanUtils.cpp FormsMeanCommon.h FormsMeanCommon.cpp cpp_lib/MongoDbClient.h cpp_lib/MongoDbClient.cpp test/example-client.cpp mongoc.cpp &
+gvim forms_mean_daemon.cpp Forms.h Forms.cpp EdgarForm.h EdgarForm.cpp FormsMeanUtils.h FormsMeanUtils.cpp FormsMeanCommon.h FormsMeanCommon.cpp cpp_lib/MongoDbClient.h cpp_lib/MongoDbClient.cpp test/example-client.cpp mongoc.cpp &
 set +x

@@ -1,7 +1,7 @@
 #include "MongoDbClient.h"
 
 	/** constructor */
-	JDA::MongoDbClient::MongoDbClient() : m_p_logger(NULL)
+	JDA::MongoDbClient::MongoDbClient() : m_p_logger(NULL), m_p_client(NULL), m_s_uri_str("")
    	{
 		const char* sWho = "JDA::MongoDbClient::MongoDbClient";
 
@@ -19,11 +19,25 @@
 			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "()..." << endl;
 		}
 
+		if( m_p_client != NULL ){
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_client_destroy(p_client)..." << endl;
+			}
+			mongoc_client_destroy (m_p_client);
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_cleanup()..." << endl;
+			}
+   			mongoc_cleanup();
+		}
+
 	}/* JDA::MongoDbClient::~MongoDbClient() */
+
 
 	string JDA::MongoDbClient::bson_as_json_string( bson_t* p_bson ){
 
 		const char* sWho = "MongoDbClient::bson_as_json_string";
+		(void)*sWho; /* Unused variable...who says? */
 
 		char *cp_bson_as_json;
 		string s_bson_as_json;
@@ -49,9 +63,28 @@
 		}
 
 		return s_bson_as_json;
-	}
 
-	int JDA::MongoDbClient::find( const string& s_uri_str, const string& s_db_name, const string& s_collection_name, const string& s_json_query ){
+	}/* string JDA::MongoDbClient::bson_as_json_string( bson_t* p_bson ) */
+
+	/* static */ time_t JDA::MongoDbClient::seconds_since_unix_epoch(){
+		time_t seconds_since_unix_epoch = time( NULL );
+		return seconds_since_unix_epoch;
+	}/* seconds_since_unix_epoch() */
+
+	/* static */ int64_t JDA::MongoDbClient::milliseconds_since_unix_epoch(){
+		return JDA::MongoDbClient::seconds_to_milliseconds( JDA::MongoDbClient::seconds_since_unix_epoch() );
+	}/* milliseconds_since_unix_epoch() */
+
+	/* static */ int64_t JDA::MongoDbClient::seconds_to_milliseconds( time_t seconds ){
+		return seconds * 1000;
+	}/* seconds_to_milliseconds() */
+
+	/* static */ time_t JDA::MongoDbClient::milliseconds_to_seconds( int64_t milliseconds ){
+		return milliseconds / 1000;
+	}/* milliseconds_to_seconds() */
+
+
+	int JDA::MongoDbClient::find( const string& s_db_name, const string& s_collection_name, const string& s_json_query ){
 
 		const char* sWho = "MongoDbClient::find";
 
@@ -66,21 +99,23 @@
 		bson_error_t bson_error;
 		const bson_t *p_bson_doc;
 
-		if( m_p_logger != NULL ){
-			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_init()..." << endl;
-		}
-		mongoc_init ();
+		//if( m_p_logger != NULL ){
+		//	(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_init()..." << endl;
+		//}
+		//mongoc_init ();
 
-		if( m_p_logger != NULL ){
-			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_client_new( s_uri_str = \"" << s_uri_str << "\" )..." << endl;
-		}
-		p_client = mongoc_client_new (s_uri_str.c_str());
+		//if( m_p_logger != NULL ){
+		//	(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_client_new( s_uri_str = \"" << s_uri_str << "\" )..." << endl;
+		//}
+		//p_client = mongoc_client_new (s_uri_str.c_str());
 
-		if (!p_client) {
-			ostringstream oss_out;
-			oss_out << "Failed to parse URI \"" << s_uri_str << "\"";
-			throw JDA::MongoDbClient::MongoDbException( oss_out.str() ); 
-		}
+		//if (!p_client) {
+		//	ostringstream oss_out;
+		//	oss_out << "Failed to parse URI \"" << s_uri_str << "\"";
+		//	throw JDA::MongoDbClient::Exception( oss_out.str() ); 
+		//}
+
+		p_client = this->getPMongocClient();
 
 		if( m_p_logger ){
 			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): Calling bson_new_from_json( \"" << s_json_query << "\" )..." << endl;
@@ -91,9 +126,9 @@
 			ostringstream oss_out;
 			oss_out << "Trouble converting json to bson: \"" << bson_error.message << "\"" << endl;
 			if( m_p_logger ){
-				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str() << "...tossing JDA::MongoDbClient::MongoDbException()..." << endl;
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str() << "...tossing JDA::MongoDbClient::Exception()..." << endl;
 			}
-			throw JDA::MongoDbClient::MongoDbException( oss_out.str() ); 
+			throw JDA::MongoDbClient::Exception( oss_out.str() ); 
 		}
 
 		// For debug purposes, convert the BSON back to JSON to see if looks the same
@@ -161,13 +196,13 @@
 		}
 
 		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << row_number << " row(s) returned..." << endl;
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << row_number << " doc(s) returned..." << endl;
 		}
 
 		if (mongoc_cursor_error (p_cursor, &bson_error)) {
 			ostringstream oss_out;
 			oss_out << "Cursor Failure: \"" << bson_error.message << "\"" << endl;
-			throw JDA::MongoDbClient::MongoDbException( oss_out.str() ); 
+			throw JDA::MongoDbClient::Exception( oss_out.str() ); 
 		}
 
 		if( m_p_logger ){
@@ -185,15 +220,15 @@
 		}
 		mongoc_collection_destroy (p_collection);
 
-		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_client_destroy(p_client)..." << endl;
-		}
-		mongoc_client_destroy (p_client);
+		//if( m_p_logger ){
+		//	(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_client_destroy(p_client)..." << endl;
+		//}
+		//mongoc_client_destroy (p_client);
 
-		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_cleanup()..." << endl;
-		}
-   		mongoc_cleanup();
+		//if( m_p_logger ){
+		//	(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_cleanup()..." << endl;
+		//}
+   		//mongoc_cleanup();
 
 		return row_number;
 
@@ -201,32 +236,33 @@
 
 
 
-	int JDA::MongoDbClient::insert( const string& s_uri_str, const string& s_db_name, const string& s_collection_name, const string& s_json_doc){
+	int JDA::MongoDbClient::insert( const string& s_db_name, const string& s_collection_name, const string& s_json_doc ){
+
 		// http://api.mongodb.com/c/current/tutorial.html#insert
 
 		const char* sWho = "MongoDbClient::insert";
 
-  		mongoc_client_t *p_client;
+  		mongoc_client_t *p_client = this->getPMongocClient();
 	    mongoc_collection_t *p_collection;
 	    bson_error_t bson_error;
 
 		bson_t *p_bson_doc;
 
-		if( m_p_logger != NULL ){
-			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_init()..." << endl;
-		}
-		mongoc_init ();
+		//if( m_p_logger != NULL ){
+		//	(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_init()..." << endl;
+		//}
+		//mongoc_init ();
 
-		if( m_p_logger != NULL ){
-			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_client_new( s_uri_str = \"" << s_uri_str << "\" )..." << endl;
-		}
-		p_client = mongoc_client_new (s_uri_str.c_str());
+		//if( m_p_logger != NULL ){
+		//	(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_client_new( s_uri_str = \"" << s_uri_str << "\" )..." << endl;
+		//}
+		//p_client = mongoc_client_new (s_uri_str.c_str());
 
-		if (!p_client) {
-			ostringstream oss_out;
-			oss_out << "Failed to parse URI \"" << s_uri_str << "\"";
-			throw JDA::MongoDbClient::MongoDbException( oss_out.str() ); 
-		}
+		//if (!p_client) {
+		//	ostringstream oss_out;
+		//	oss_out << "Failed to parse URI \"" << s_uri_str << "\"";
+		//	throw JDA::MongoDbClient::Exception( oss_out.str() ); 
+		//}
 
 		if( m_p_logger ){
 			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): Calling bson_new_from_json( \"" << s_json_doc << "\" )..." << endl;
@@ -237,9 +273,9 @@
 			ostringstream oss_out;
 			oss_out << "Trouble converting json to bson: \"" << bson_error.message << "\"" << endl;
 			if( m_p_logger ){
-				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str() << "...tossing JDA::MongoDbClient::MongoDbException()..." << endl;
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str() << "...tossing JDA::MongoDbClient::Exception()..." << endl;
 			}
-			throw JDA::MongoDbClient::MongoDbException( oss_out.str() ); 
+			throw JDA::MongoDbClient::Exception( oss_out.str() ); 
 		}
 
 		if( m_p_logger ){
@@ -258,16 +294,22 @@
 			ostringstream oss_out;
 			oss_out << "Trouble inserting document: \"" << bson_error.message << "\"" << endl;
 			if( m_p_logger ){
-				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str() << "...tossing JDA::MongoDbClient::MongoDbException()..." << endl;
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str() << "...tossing JDA::MongoDbClient::Exception()..." << endl;
 			}
-			throw JDA::MongoDbClient::MongoDbException( oss_out.str() ); 
+			throw JDA::MongoDbClient::Exception( oss_out.str() ); 
 		}
+
+		// New _id should be filled in for you now...
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "After insert, p_bson_doc = " << this->bson_as_json_string( p_bson_doc ) << "..." << endl;
+		}
+
 
 		// Extra Credit: Use mongoc_collection_get_last_error() to ascertain _id of newly inserted document...or try to...
 		// const bson_t * mongoc_collection_get_last_error (const mongoc_collection_t *collection);
 		
 		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Running bson_last_insert = mongoc_collection_get_last_error( " << s_collection_name << " ) to view newly inserted record..." << endl;
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Running bson_last_insert = mongoc_collection_get_last_error( " << s_collection_name << " ) to view insert record..." << endl;
 		}
 
 		//const bson_t* p_bson_last_insert = mongoc_collection_get_last_error( p_collection ); 
@@ -293,17 +335,197 @@
 		}
 		mongoc_collection_destroy (p_collection);
 
-		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_client_destroy(p_client)..." << endl;
-		}
-		mongoc_client_destroy (p_client);
+		//if( m_p_logger ){
+		//	(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_client_destroy(p_client)..." << endl;
+		//}
+		//mongoc_client_destroy (p_client);
 
-		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_cleanup()..." << endl;
-		}
-   		mongoc_cleanup();
+		//if( m_p_logger ){
+		//	(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_cleanup()..." << endl;
+		//}
+   		//mongoc_cleanup();
 
 		return 1;
 
 	}/* int JDA::MongoDbClient::insert() */
+
+
+	int JDA::MongoDbClient::update( const string& s_db_name, const string& s_collection_name, const string& s_json_query, const string& s_json_update ){
+
+		// http://api.mongodb.com/c/current/tutorial.html#update
+
+		const char* sWho = "MongoDbClient::update";
+
+  		mongoc_client_t *p_client = this->getPMongocClient();
+
+	    bson_error_t bson_error;
+
+		bson_t *p_bson_query;
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): Calling bson_new_from_json( s_json_query = \"" << s_json_query << "\" )..." << endl;
+		}
+		p_bson_query = bson_new_from_json( (const uint8_t *) s_json_query.c_str(), -1, &bson_error );
+
+		if( ! p_bson_query ){
+			ostringstream oss_out;
+			oss_out << "Trouble converting s_json_query = \"" << s_json_query << "\" to bson: \"" << bson_error.message << "\"" << endl;
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str() << "...tossing JDA::MongoDbClient::Exception()..." << endl;
+			}
+			throw JDA::MongoDbClient::Exception( oss_out.str() ); 
+		}
+
+		bson_t *p_bson_update;
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): Calling bson_new_from_json( s_json_update = \"" << s_json_update << "\" )..." << endl;
+		}
+		p_bson_update = bson_new_from_json( (const uint8_t *) s_json_update.c_str(), -1, &bson_error );
+
+		if( ! p_bson_update ){
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling bson_destroy( p_bson_query )..." << endl;
+			}
+	   		bson_destroy(p_bson_query); 
+
+			ostringstream oss_out;
+			oss_out << "Trouble converting s_json_update = \"" << s_json_update << "\" to bson: \"" << bson_error.message << "\"" << endl;
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str() << "...tossing JDA::MongoDbClient::Exception()..." << endl;
+			}
+			throw JDA::MongoDbClient::Exception( oss_out.str() ); 
+		}
+
+	    mongoc_collection_t *p_collection;
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoc_client_get_collection( p_client, \"" << s_db_name << "\", \"" << s_collection_name << "\" )..." << endl;
+		}
+
+		// Note: mongoc_client_get_collection() cannot fail...collection is created if it doesn't yet exist...
+		p_collection = mongoc_client_get_collection (p_client, s_db_name.c_str(), s_collection_name.c_str() );
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Running db." << s_collection_name << ".update( " << this->bson_as_json_string( p_bson_query ) << ", " << this->bson_as_json_string( p_bson_update ) << " )..." << endl;
+		}
+
+
+		if (!mongoc_collection_update (p_collection, MONGOC_UPDATE_NONE, p_bson_query, p_bson_update, NULL, &bson_error)) {
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling bson_destroy( p_bson_query )..." << endl;
+			}
+	   		bson_destroy(p_bson_query); 
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling bson_destroy( p_bson_update )..." << endl;
+			}
+   			bson_destroy(p_bson_update); 
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_collection_destroy(p_collection)..." << endl;
+			}
+			mongoc_collection_destroy (p_collection);
+
+			ostringstream oss_out;
+			oss_out << "Trouble updating: \"" << bson_error.message << "\"" << endl;
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str() << "...tossing JDA::MongoDbClient::Exception()..." << endl;
+			}
+			throw JDA::MongoDbClient::Exception( oss_out.str() ); 
+		}
+
+		// Extra Credit: Use mongoc_collection_get_last_error() to ascertain _id of newly inserted document...or try to...
+		// const bson_t * mongoc_collection_get_last_error (const mongoc_collection_t *collection);
+		
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Running bson_last_update = mongoc_collection_get_last_error( " << s_collection_name << " ) to view update record..." << endl;
+		}
+
+		//const bson_t* p_bson_last_insert = mongoc_collection_get_last_error( p_collection ); 
+		bson_t* p_bson_last_update = (bson_t * ) mongoc_collection_get_last_error( p_collection ); 
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "bson_as_json_string( p_bson_last_update ) = \"" << this->bson_as_json_string( p_bson_last_update ) << "\"..." << endl;
+		}
+
+		// Not a good idea...
+		//if( m_p_logger ){
+		//	(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling bson_destroy( p_bson_last_insert )..." << endl;
+		//}
+   		//bson_destroy(p_bson_last_insert ); 
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling bson_destroy( p_bson_query )..." << endl;
+		}
+   		bson_destroy(p_bson_query); 
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling bson_destroy( p_bson_update )..." << endl;
+		}
+   		bson_destroy(p_bson_update); 
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_collection_destroy(p_collection)..." << endl;
+		}
+		mongoc_collection_destroy (p_collection);
+
+		return 1;
+
+	}/* int JDA::MongoDbClient::update( const string& s_db_name, const string& s_collection_name, const string& s_json_query, const string& s_json_update ) */
+
+
+
+	void JDA::MongoDbClient::lazyInitPMongocClient(){
+
+		const char* sWho = "JDA::MongoDbClient::lazyInitPMongocClient";
+
+		if( m_p_logger != NULL ){
+			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "m_p_client = " << m_p_client << endl;
+		}
+
+		if( m_p_client == NULL ){
+
+			if( m_p_logger != NULL ){
+				(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): " << "m_p_client is NULL, going ahead with lazy initialization..." << endl;
+			}
+
+			if( m_p_logger != NULL ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_init()..." << endl;
+			}
+			mongoc_init ();
+		
+			if( m_p_logger != NULL ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_client_new( m_s_uri_str = \"" << m_s_uri_str << "\" )..." << endl;
+			}
+			m_p_client = mongoc_client_new (m_s_uri_str.c_str());
+
+			if( m_p_logger != NULL ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "After mongoc_client_new(), m_p_client = " << m_p_client << "..." << endl;
+			}
+		
+			if (!m_p_client) {
+				ostringstream oss_out;
+				oss_out << "Failed to parse URI \"" << m_s_uri_str << "\"";
+				throw JDA::MongoDbClient::Exception( oss_out.str() ); 
+			}
+
+		} /* if( m_p_client == NULL ) */
+		else {
+			if( m_p_logger != NULL ){
+				(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): " << "m_p_client is not NULL, no need to lazy initialize it..." << endl;
+			}
+		}
+
+	}/* void JDA::MongoDbClient::lazyInitPMongocClient() */
+
+
+	mongoc_client_t* JDA::MongoDbClient::getPMongocClient(){
+		this->lazyInitPMongocClient();
+		return m_p_client;
+	}
+
 

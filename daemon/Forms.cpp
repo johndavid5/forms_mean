@@ -1,4 +1,4 @@
-#ifdef WIN32
+#ifdef _WIN32
 	// Gotta include <winsock2.h> before 
 	// <windows.h>...avoids winsock already
 	// defined error when including mongoc.h 
@@ -6,9 +6,9 @@
 #endif
 
 #include "Forms.h"
+#include "EdgarForm.h"
 #include "FormsMeanUtils.h"
 #include "FtpClient.h"
-#include "MongoDbClient.h"
 
 namespace JDA { 
 
@@ -137,7 +137,7 @@ class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback
    		    	<< " cik = '" << cik << "'" << "\n"
 	   	    	<< " company_name = '" << company_name << "'" << "\n" 
 	   	    	<< " form_type = '" << form_type << "'" << "\n"
-	  	     	<< " date_filed = '" << date_filed << "'" << "\n"
+	  	    	<< " date_filed = '" << date_filed << "'" << "\n"
 	   	    	<< " file_name = '" << file_name << "'" << "\n"
 	   	    	<< " accession_number = '" << accession_number << "'" << "..." << endl;
 			}
@@ -150,9 +150,14 @@ class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback
 
 			try {
 				m_p_forms->insertIndexEntry( cik, form_type, date_filed, file_name, accession_number, this->m_s_url );
+
 				m_i_query_succeed_count++;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): SHEMP: Good news, Moe...Forms::insertIndexEntry() appears to be successful...m_i_query_succeed_count = " << m_i_query_succeed_count << "..." << endl;
+				}
 			}
-			catch( JDA::MongoDbClient::MongoDbException& e ){
+			catch( JDA::MongoDbClient::Exception& e ){
 				if( m_p_logger ){
 					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): SHEMP: Sorry, Moe, caught JDA::Utils::Exception during Forms::insertIndexEntry(): \"" << e.what() << "\"..." << endl;
 				}
@@ -235,26 +240,118 @@ int Forms::insertIndexEntry(
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: " << "oss_json = \"" << oss_json.str() << "\"..." << endl; 
 	}
 
-	JDA::MongoDbClient mongoDbClient;
-	mongoDbClient.setPLogger( m_p_logger );
-
 	string s_collection_name = "forms";
 
 	if( m_p_logger ){
-		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoDbClient.insert( \"" << this->getDbUrl() << "\", \"" << this->getDbName() << "\", \"" << s_collection_name << "\", \"" << oss_json.str() << "\")..." << endl;
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoDbClient.insert( \"" << this->getDbName() << "\", \"" << s_collection_name << "\", \"" << oss_json.str() << "\")..." << endl;
 	}
 
 	int i_ret_code = 0;
 
-	// NOTE: This call may toss a JDA::MongoDbClient::MongoDbException
-	i_ret_code = mongoDbClient.insert( this->getDbUrl(), this->getDbName(), s_collection_name, oss_json.str() );					
+	// NOTE: This call may toss a JDA::MongoDbClient::Exception
+	i_ret_code = mongoDbClient.insert( this->getDbName(), s_collection_name, oss_json.str() );					
 			
 	return i_ret_code;
 
 }/* insertIndexEntry() */
 
 
-// inspired by: WaldoUtils::load_index_into_db()... 
+	/**
+	* NOTE: We should be chaining this guy to the JDA::FtpClient::LineratorFtpClientCallback as a "decorator" so that we get
+	* the data line-by-line, which is precisely the way JDA::EdgarForm expects it...
+	*/
+	class MyFtpClientFormeratorCallback : public JDA::FtpClient::IFtpClientCallback 
+	{
+		public:
+
+		JDA::Logger* m_p_logger;
+
+		size_t m_i_iteration_count; 
+		size_t m_i_byte_count; 
+		bool m_b_intentional_abort;
+
+		JDA::EdgarForm* m_p_the_formerator;
+
+		void setPLogger( JDA::Logger* p_logger ){ m_p_logger = p_logger; }
+
+		MyFtpClientFormeratorCallback( JDA::EdgarForm* p_the_formerator ): m_p_logger(NULL), m_i_iteration_count(0), m_i_byte_count(0), m_b_intentional_abort(false), m_p_the_formerator(p_the_formerator ) {
+
+			const char* sWho = "MyFtpClientFormeratorCallback::MyFtpClientFormeratorCallback<constructor>";
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "()..." << endl;
+			}
+			
+		}
+
+		virtual ~MyFtpClientFormeratorCallback(){
+			const char* sWho = "MyFtpClientFormeratorCallback::~MyFtpClientFormeratorCallback<destructor>";
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "()..." << endl;
+			}
+			
+		}
+
+		size_t dataReceived( void* buffer, size_t size, size_t nmemb, void *userdata ){
+
+			const char* sWho = "MyFtpClientFormeratorCallback::dataReceived";
+	
+			m_i_iteration_count++;
+	
+			size_t numBytes = size * nmemb;
+	
+			m_i_byte_count += numBytes;
+	
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): m_i_iteration_count = " << m_i_iteration_count << "\n" 
+				<< "\t" << "size = " << size << "\n" 
+				<< "\t" << "nmemb = " << nmemb << "\n" 
+				<< "\t" << "numBytes = " << numBytes << "\n" 
+				<< "\t" << "m_i_byte_count = " << m_i_byte_count << endl;
+			}
+
+			// Note that `buffer` is NOT zero-terminated, so cast it to a char* then
+			// use ostringstream.write() with specific number of bytes...
+			char* cbuf = (char*)buffer;
+
+			ostringstream oss_line;
+			oss_line.write( cbuf, numBytes );
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): LINE " << m_i_iteration_count << ": \"" << oss_line.str() << "\"..." << endl;
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): LINE " << m_i_iteration_count << ": GILLIGAN: Feeding this line to m_p_the_formerator, Skipper..." << endl;
+			}
+
+			JDA::EdgarForm::StateType stateTypeReturn = m_p_the_formerator->parseLine( oss_line.str() );
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): LINE " << m_i_iteration_count << ": GILLIGAN:  stateTypeReturn = " << stateTypeReturn << " = " << JDA::EdgarForm::stateTypeToString(stateTypeReturn) << ", Skipper..." << endl; 
+			}
+
+			if( stateTypeReturn == JDA::EdgarForm::STATE_DONE_WITH_SEC_HEADER ){
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): JOE KOVACS: Looks like we're done with the SEC-HEADER, so returning 0 to attempt to cause an abort, Doc-tor Cy-a-nide..." << endl;
+				}
+
+				m_b_intentional_abort = true;
+				return 0; // Cause an abort by not returning numBytes...
+			}
+			else {
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): JOE KOVACS: returning numBytes = " << numBytes << ", Doc-tor Cy-a-nide..." << endl;
+				}
+				return numBytes; // JOE KOVACS: Important to return numBytes, Doc-tor Cy-a-nide...otherwise curl will abort...
+			}
+
+		}/* dataReceived() */
+
+	}; /* class MyFtpClientFormeratorCallback : public JDA::FtpClient::IFtpClientCallback  */
+
+
+// inspired by: FormsMeanUtils::load_index_into_db()... 
 int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 {
 	const char* sWho = "Forms::loadFromEdgarIndexUrl";
@@ -263,6 +360,7 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "( sEdgarIndexUrl = \"" << sEdgarIndexUrl << "\" ): SHEMP: Here goes, Moe..." << endl;
 	}
 
+	// Utilized in both read-from-file case and FtpClient case...
 	MyFtpIndexClientCallback myFtpIndexClientCallback = MyFtpIndexClientCallback();
 
 	myFtpIndexClientCallback.setPLogger( m_p_logger );
@@ -342,7 +440,7 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 
 			if( m_p_logger ){
 				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": \"" << le_line << "\"..." << endl;
-				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": SHEMP: Callin' myFtpClientCallback.dataReceived(), Moe..." << endl;
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": SHEMP: Callin' myFtpIndexClientCallback.dataReceived(), Moe..." << endl;
 			}
 
 			size_t i_return = myFtpIndexClientCallback.dataReceived( (void*)le_line.c_str(), le_line.size(), sizeof(char), NULL ); 
@@ -371,82 +469,97 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 		 	(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Looks like an FTP job, Moe..." << endl;
 		}
 
+		// Use Linerator as a "decorator" to grab info line-by-line and feed to pMyFtpIndexClientCallback...
+		// Requires copy constructor, causes error...
+		//JDA::FtpClient::LineratorFtpClientCallback myIFtpClientCallback = JDA::FtpClient::LineratorFtpClientCallback( &myFtpIndexClientCallback );
+		JDA::FtpClient::LineratorFtpClientCallback myIFtpClientCallback( &myFtpIndexClientCallback );
+	
+		string sFilePath = ""; // Use blankey so we don't download to a file...
+		ostream* pDownloadStream = NULL; // Use NULL so we don't squirt it to a stream...
+	
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << ": Calling ftpClient.grabIt(" << "\n" 
+				<< "\t" << "sEdgarIndexUrl = \"" << sEdgarIndexUrl << "\", sFilePath = \"" << sFilePath << "\", pDownloadStream=" << pDownloadStream << "," << "\n"
+				<< "\t" << "iFtpDebug = " << this->getFtpDebug() << ", bFtpNoProxy = " << std::boolalpha << this->getFtpNoProxy() << ", sFtpProxyUserPass = \"" << this->getFtpProxyUserPass() << "\"," << "\n" 
+				<< "\t" << "m_p_logger = " << m_p_logger << ", &myIFtpClientCallback = " << &myIFtpClientCallback << "\n"
+				<< ")..." << endl;
+		}
+	
+		JDA::FtpClient ftpClient;
+	
+		size_t iByteCount = 0;
+	
+		ostringstream oss_info_query;
+		oss_info_query << "SELECT * FROM filings";
+  
+  		/* NOTE: FtpClient::grabIt() may throw JDA::FtpClient::FtpException */
+		try {
+			iByteCount = ftpClient.grabIt( sEdgarIndexUrl, sFilePath, pDownloadStream,
+							this->getFtpDebug(), this->getFtpNoProxy(), this->getFtpProxyUserPass(),
+							m_p_logger, &myIFtpClientCallback );
+	
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "():" <<
+						"\n" << "***> Received " << JDA::Utils::commify( iByteCount ) << " byte" << (iByteCount == 1 ? "" : "s" ) << ", Sancho..." << endl;
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getByteCount() = " << myFtpIndexClientCallback.getByteCount() << "..." << endl;
+			}
 
-//		// Use Linerator as a "decorator" to grab info line-by-line and feed to pMyFtpIndexClientCallback...
-//		JDA::FtpClient::LineratorFtpClientCallback myIFtpClientCallback = JDA::FtpClient::LineratorFtpClientCallback( &myFtpClientCallback );
-//	
-//		JDA::Logger* pLogger = NULL;
-//		string sFilePath = ""; // Use blankey so we don't download to a file...
-//		ostream* pDownloadStream = NULL;
-//	
-//		if( m_p_logger ){
-//			(*m_p_logger)(JDA::Logger::INFO) << sWho << ": Calling ftpClient.grabIt(" << "\n" 
-//				<< "\t" << "ftp_url = \"" << ftp_url << "\", sFilePath = \"" << sFilePath << "\", pDownloadStream=" << pDownloadStream << "," << "\n"
-//				<< "\t" << "iFtpDebug = " << iFtpDebug << ", bFtpNoProxy = " << JDA::Utils::boolToString( bFtpNoProxy) << ", sFtpProxyUserPass = \"" << sFtpProxyUserPass << "\"," << "\n" 
-//				<< "\t" << "pLogger = " << pLogger << ", &myIFtpClientCallback = " << &myIFtpClientCallback << "\n"
-//				<< ")..." << endl;
-//		}
-//	
-//		JDA::FtpClient ftpClient;
-//	
-//		size_t iByteCount = 0;
-//	
-//		ostringstream oss_info_query;
-//		oss_info_query << "SELECT * FROM filings";
-//	
-//		/* NOTE: FtpClient::grabIt() may throw JDA::FtpClient::FtpException */
-//		try {
-//			iByteCount = ftpClient.grabIt( ftp_url, sFilePath, pDownloadStream, iFtpDebug, bFtpNoProxy, sFtpProxyUserPass, pLogger, &myIFtpClientCallback );
-//	
-//	
-//			if( m_p_logger ){
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "():" <<
-//						"\n" << "***> Received " << JDA::Utils::commify( iByteCount ) << " byte" << (iByteCount == 1 ? "" : "s" ) << ", Sancho..." << endl;
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_byte_count = " << myFtpClientCallback.m_i_byte_count << "..." << endl;
-//			}
-//
-//			byte_count_out = myFtpClientCallback.m_i_byte_count;
-//	
-//			if( m_p_logger ){
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_iteration_count = " << myFtpClientCallback.m_i_iteration_count << "..." << endl;
-//			}
-//
-//			iteration_count_out = myFtpClientCallback.m_i_iteration_count;
-//
-//			if( m_p_logger ){
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_query_attempt_count = " << myFtpClientCallback.m_i_query_attempt_count << "..." << endl;
-//			}
-//
-//			query_attempt_count_out = myFtpClientCallback.m_i_query_attempt_count;
-//	
-//			if( m_p_logger ){
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_query_succeed_count = " << myFtpClientCallback.m_i_query_succeed_count << "..." << endl;
-//			}
-//
-//			query_succeed_count_out = myFtpClientCallback.m_i_query_succeed_count;
-//	
-//		}
-//		catch( JDA::FtpClient::FtpException& e ){
-//			if( m_p_logger ){
-//				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Sorry, Moe, caught JDA::FtpClient::FtpException during FTP download attempt "
-//					<< "of \"" << ftp_url << "\": \"" << e.what() << "\".";
-//	
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_byte_count = " << myFtpClientCallback.m_i_byte_count << "..." << endl;
-//	
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_iteration_count = " << myFtpClientCallback.m_i_iteration_count << "..." << endl;
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_query_attempt_count = " << myFtpClientCallback.m_i_query_attempt_count << "..." << endl;
-//	
-//				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientCallback.m_i_query_succeed_count = " << myFtpClientCallback.m_i_query_succeed_count << "..." << endl;
-//	
-//				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Re-throwin' dhe exception, Moe..." << endl;
-//			}
-//	
-//			throw e;
-//		}
-//	
-//		/* Flush out any debug output from FtpClient... */
-//		fflush(stdout); 
-//		fflush(stderr);
+			//byte_count_out = myIFtpClientCallback.m_i_byte_count;
+	
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getIterationCount() = " << myFtpIndexClientCallback.getIterationCount() << "..." << endl;
+			}
+
+			//iteration_count_out = myFtpClientCallback.m_i_iteration_count;
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getQueryAttemptCount() = " << myFtpIndexClientCallback.getQueryAttemptCount() << "..." << endl;
+			}
+
+			//query_attempt_count_out = myFtpClientCallback.m_i_query_attempt_count;
+	
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getQuerySucceedCount() = " << myFtpIndexClientCallback.getQuerySucceedCount() << "..." << endl;
+			}
+
+			//query_succeed_count_out = myFtpClientCallback.m_i_query_succeed_count;
+	
+		}
+		catch( JDA::FtpClient::FtpException& e ){
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Sorry, Moe, caught JDA::FtpClient::FtpException during FTP download attempt "
+					<< "of \"" << sEdgarIndexUrl << "\": \"" << e.what() << "\".";
+			}
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "():" <<
+						"\n" << "***> Received " << JDA::Utils::commify( iByteCount ) << " byte" << (iByteCount == 1 ? "" : "s" ) << ", Sancho..." << endl;
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getByteCount() = " << myFtpIndexClientCallback.getByteCount() << "..." << endl;
+			}
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getIterationCount() = " << myFtpIndexClientCallback.getIterationCount() << "..." << endl;
+			}
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getQueryAttemptCount() = " << myFtpIndexClientCallback.getQueryAttemptCount() << "..." << endl;
+			}
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpIndexClientCallback.getQuerySucceedCount() = " << myFtpIndexClientCallback.getQuerySucceedCount() << "..." << endl;
+			}
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Re-throwin' dhe exception, Moe..." << endl;
+			}
+			
+	
+			throw e;
+		}/* catch */
+	
+		/* Flush out any debug output from FtpClient... */
+		fflush(stdout); 
+		fflush(stderr);
 
 	
 	}/* else -- an FTP job */
@@ -464,6 +577,264 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 	return myFtpIndexClientCallback.getQuerySucceedCount();
 
 }/* void Forms::loadFromEdgarIndexUrl() */
+
+/* Inspired by FormsMeanUtils::load_edgar_form_and_log_it() */
+int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
+
+	const char* sWho = "Forms::loadFromEdgarFormUrl";
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "( sEdgarFormUrl = \"" << sEdgarFormUrl << "\" ):..." << endl;
+	}
+
+	string s_accession_number_from_file_path = FormsMeanUtils::accessionNumberFromFilePath( sEdgarFormUrl );  	
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: s_accession_number_from_file_path = '" << s_accession_number_from_file_path << "'..." << endl;
+	}
+
+	string s_cik_from_url = FormsMeanUtils::cikFromUrl( sEdgarFormUrl );  	
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: s_cik_from_url = '" << s_cik_from_url << "'..." << endl;
+	}
+
+	JDA::EdgarForm le_formerator;
+	
+	size_t i_where;
+	string s_file_url_prefix = "file:///";
+
+	// Check to see if it looks like a file:/// URL...
+	if( ( i_where = JDA::Utils::ifind( sEdgarFormUrl, s_file_url_prefix ) ) == 0 ){
+
+		if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Looks like a file, Moe..." << endl;
+		}
+		string file_path = sEdgarFormUrl.substr( s_file_url_prefix.length() );	
+
+		if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: file_path = '" << file_path << "', Moe..." << endl;
+		}
+		std::ifstream le_ifs;
+
+		// Turn on exceptions...
+		le_ifs.exceptions ( std::ifstream::failbit | std::ifstream::badbit );
+
+		try {
+			if( m_p_logger ){
+						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Opening file_path = '" << file_path << "' for reading..." << endl;
+			}			le_ifs.open( file_path.c_str(), std::ifstream::in );
+		}catch( std::ifstream::failure e){
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "Trouble opening file_path = '" << file_path << "' for reading: \"" << e.what() << "\"" << endl;
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "s_error = \"" << JDA::Utils::s_error() << "\"..." << endl;
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: I'm gettin' outta here, Moe...!" << endl;
+			}
+			return -1;
+		}
+
+		string le_line;
+		int i_count = 0;
+		while(!le_ifs.eof() && ! le_ifs.fail() ){
+
+			try {
+				std::getline( le_ifs, le_line );
+			} catch( std::ifstream::failure e){
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "Trouble with getline(): \"" << e.what() << "\"" << endl;
+					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: I'm gettin' outta here, Moe...!" << endl;
+				}
+				return -2;
+			}
+
+			i_count++;
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": \"" << le_line << "\"..." << endl;
+			}
+			JDA::EdgarForm::StateType stateTypeReturn = le_formerator.parseLine( le_line );
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "line #" << i_count << ": \"" << "stateTypeReturn = " << stateTypeReturn << " = " << JDA::EdgarForm::stateTypeToString(stateTypeReturn) << "..." << endl;
+			}
+			if( stateTypeReturn == JDA::EdgarForm::STATE_DONE_WITH_SEC_HEADER ){
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): "<< "line #" << i_count << ": \"" << "SHEMP: Okey-Dokey, Moe...looks like we're all done with the SEC header, may as well bail out o' the loop now, Moe..." << endl;
+				}
+				break;
+			}
+
+		}/* while(!le_ifs.eof() && ! le_ifs.fail() ) */
+
+		try {
+			if( m_p_logger ){
+						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Closin' dhe file_path = '" << file_path << "' for reading, Moe..." << endl;
+			}
+			le_ifs.close();
+		}catch( std::ifstream::failure e){
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Trouble closin' dhe file_path = '" << file_path << "' for reading: \"" << e.what() << "\", sorry, Moe..." << endl;
+			}
+		}
+
+	}/* if( ( i_where = JDA::Utils::ifind( sEdgarFormUrl, s_file_url_prefix ) == 0 ) */
+	else {
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Looks like it's gonna be an FTP job, Moe..." << endl;
+		}
+		JDA::FtpClient ftpClient;
+
+		//MyFtpClientFormeratorCallback myFtpClientFormeratorCallback = MyFtpClientFormeratorCallback( &le_formerator );
+		MyFtpClientFormeratorCallback myFtpClientFormeratorCallback( &le_formerator );
+		myFtpClientFormeratorCallback.setPLogger( m_p_logger );
+
+		//JDA::FtpClient::LineratorFtpClientCallback myLineratorFtpClientCallback = JDA::FtpClient::LineratorFtpClientCallback( &myFtpClientFormeratorCallback ); 
+		JDA::FtpClient::LineratorFtpClientCallback myLineratorFtpClientCallback( &myFtpClientFormeratorCallback ); 
+
+		JDA::Logger* pLogger = NULL;
+		string sFilePath = ""; // Use blankey so we don't download to a file...
+		ostream* pDownloadStream = NULL; // Use null so it doesn't get squirted to a file stream...
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << ": Calling ftpClient.grabIt(" << "\n" 
+			<< "\t" << "sEdgarFormUrl = \"" << sEdgarFormUrl << "\", sFilePath = \"" << sFilePath << "\", pDownloadStream=" << pDownloadStream << "," << "\n"
+			<< "\t" << "this->getFtpDebug() = " << this->getFtpDebug() << ", this->getFtpNoProxy() = " << std::boolalpha << this->getFtpNoProxy() << ", this->getFtpProxyUserPass() = \"" << this->getFtpProxyUserPass() << "\"," << "\n" 
+			<< "\t" << "pLogger = " << pLogger << ", &myLineratorFtpClientCallback = " << &(myLineratorFtpClientCallback) << "\n"
+			<< ")..." << endl;
+		}
+		size_t iByteCount = 0;
+		bool b_ftp_exception_caught = false;
+		string s_ftp_exception = "";
+
+		/* NOTE: FtpClient::grabIt() may throw JDA::FtpClient::FtpException */
+		try {
+			iByteCount = ftpClient.grabIt( sEdgarFormUrl, sFilePath, pDownloadStream,
+							this->getFtpDebug(), this->getFtpNoProxy(), this->getFtpProxyUserPass(),
+							pLogger, &(myLineratorFtpClientCallback)
+			);
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << "\n" << "***> DON QUIJOTE: Received " << JDA::Utils::commify( iByteCount ) << " byte" << (iByteCount == 1 ? "" : "s" ) << ", Sancho..." << endl;
+			}
+		}
+		catch( JDA::FtpClient::FtpException& e ){
+			ostringstream oss_out;
+			oss_out << "Caught JDA::FtpClient::FtpException during FTP download attempt "
+				<< "of \"" << sEdgarFormUrl << "\": \"" << e.what() << "\"." << endl;
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str() << endl;
+			}
+
+			b_ftp_exception_caught = true;
+			s_ftp_exception = oss_out.str();
+		}
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientFormeratorCallback.m_i_byte_count = " << myFtpClientFormeratorCallback.m_i_byte_count << "..." << endl;
+
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientFormeratorCallback.m_i_iteration_count = " << myFtpClientFormeratorCallback.m_i_iteration_count << "..." << endl;
+
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "***> myFtpClientFormeratorCallback.m_b_intentional_abort = " << myFtpClientFormeratorCallback.m_b_intentional_abort << "..." << endl;
+		}
+
+		if( b_ftp_exception_caught && myFtpClientFormeratorCallback.m_b_intentional_abort == false ){
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): SHEMP: Sorry, Moe, caught an FTP Exception ['" << s_ftp_exception << "'] and myFtpClientFormeratorCallback.m_b_intentional_abort == false, so loggin' error to dhe database and bailin' out, Moe..." << endl;
+			}
+
+			//s_ftp_exception = FormsMeanUtils::single_quote_escape( s_ftp_exception );
+
+			//FormsMeanUtils::db_filings_edgar_header_load_log(
+			//	db_url, db_user, db_pass, 
+			//	s_accession_number_from_file_path, false, &s_ftp_exception, "FormsMeanDaemon"
+			//);
+
+			return -1;
+		}
+	}
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, le_formerator.m_s_accession_number = '" << le_formerator.m_s_accession_number << "'...\n" << endl;
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, le_formerator.toString = '" << le_formerator.toString() << "'..." << endl;
+	}
+
+	ostringstream oss_json_query;
+	ostringstream oss_json_update;
+
+	oss_json_query << "{ \"accession_number\": \"" << le_formerator.m_s_accession_number << "\" }";
+
+	//int64_t milliseconds_since_unix_epoch = JDA::MongoDbClient::milliseconds_since_unix_epoch();
+	time_t seconds_since_unix_epoch = time(NULL); 
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, seconds_since_unix_epoch = " << seconds_since_unix_epoch << " = " 
+			<< "\"" << JDA::Utils::get_utc_timestamp( seconds_since_unix_epoch ) << "\" = \"" << JDA::Utils::get_local_timestamp( seconds_since_unix_epoch ) << "\"..." << endl;
+	}
+
+	oss_json_update 
+	<< "{\n"
+	<< " \"$push\": { \"form_processing_attempts\" :  { \"when\": { \"$date\": " << seconds_since_unix_epoch << "000 }, \"success\": true } },\n"
+  	<< " \"$set\": {\n" 
+	<< "	\"issuer\": {\n" 
+	<< "		\"company_data\":{\n"
+	<< "			\"company_conformed_name\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_issuer.company_data.company_conformed_name ) << "\",\n"
+	<< "			\"central_index_key\": \"" << le_formerator.m_issuer.company_data.central_index_key << "\",\n"
+	<< "			\"standard_industrial_classification\": \"" << le_formerator.m_issuer.company_data.standard_industrial_classification << "\",\n"
+	<< "			\"irs_number\": \"" << le_formerator.m_issuer.company_data.irs_number << "\",\n"
+	<< "			\"state_of_incorporation\": \"" << le_formerator.m_issuer.company_data.state_of_incorporation << "\",\n"
+	<< "			\"fiscal_year_end\": \"" << le_formerator.m_issuer.company_data.fiscal_year_end << "\"\n"
+	<< "		},\n"
+	<< "		\"business_address\":{\n"
+	<< "			\"street_1\": \"" << le_formerator.m_issuer.business_address.street_1 << "\",\n"
+	<< "			\"street_2\": \"" << le_formerator.m_issuer.business_address.street_2 << "\",\n"
+	<< "			\"city\": \"" << le_formerator.m_issuer.business_address.city << "\",\n"
+	<< "			\"state\": \"" << le_formerator.m_issuer.business_address.state << "\",\n"
+	<< "			\"zip\": \"" << le_formerator.m_issuer.business_address.zip << "\",\n"
+	<< "			\"business_phone\": \"" << le_formerator.m_issuer.business_address.business_phone << "\"\n"
+	<< "		},\n"
+	<< "		\"mail_address\":{\n"
+	<< "			\"street_1\": \"" << le_formerator.m_issuer.mail_address.street_1 << "\",\n"
+	<< "			\"street_2\": \"" << le_formerator.m_issuer.mail_address.street_2 << "\",\n"
+	<< "			\"city\": \"" << le_formerator.m_issuer.mail_address.city << "\",\n"
+	<< "			\"state\": \"" << le_formerator.m_issuer.mail_address.state << "\",\n"
+	<< "			\"zip\": \"" << le_formerator.m_issuer.mail_address.zip << "\"\n"
+	<< "		}\n"
+	<< "	}\n"
+	<< " }\n"
+	<< "}"
+	;
+
+	string s_collection_name = "forms";
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoDbClient.update( \"" << this->getDbName() << "\", \"" << s_collection_name << "\", \"" << oss_json_query.str() << "\", \"" << oss_json_update.str() << "\" )..." << endl;
+	}
+
+	int i_ret_code = 0;
+
+	// NOTE: This call may toss a JDA::MongoDbClient::Exception
+	try {
+		i_ret_code = mongoDbClient.update( this->getDbName(), s_collection_name, oss_json_query.str(), oss_json_update.str() );					
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: i_ret_code = " << i_ret_code << endl;
+		}
+	}catch( JDA::MongoDbClient::Exception e ){
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Trouble with mongoDbClient.insert: \"" << e.what() << "\", sorry, Moe..." << endl;
+		}
+	}
+
+	//if( m_p_logger ){
+	//	(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, loggin' success to dhe database and returnin', Moe..." << endl;
+	//}
+	//FormsMeanUtils::db_filings_edgar_header_load_log(
+	//		db_url, db_user, db_pass, 
+	//		s_accession_number_from_file_path, true, NULL, "FormsMeanDaemon"
+	//);
+
+	return 1;
+
+}/* Forms::loadFromEdgarFormUrl() */
 
 
 } /* namespace JDA */

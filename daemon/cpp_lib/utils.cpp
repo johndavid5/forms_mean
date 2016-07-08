@@ -27,7 +27,7 @@
 
 	/* Open file with shared access... */
 
-	//#ifdef WIN32
+	//#ifdef _WIN32
 	//	myFile = _fsopen( filePath.c_str(), "r", _SH_DENYNO );
 	//#else
 	//
@@ -293,7 +293,7 @@
 *
 * ORIGINAL SOURCE courtesy Andrew Tucker: http://dslweb.nwnexus.com/~ast/dload/guicon.htm
 */
-#ifdef WIN32
+#ifdef _WIN32
 /* static */ void JDA::Utils::redirectIOToConsole()
 {
 	int hConHandle;
@@ -351,12 +351,14 @@
 	ios::sync_with_stdio();
 
 }/* JDA::Utils::redirectIOToConsole() */
-#endif /* #ifdef WIN32 */
+#endif /* #ifdef _WIN32 */
 
 
 			string JDA::Utils::Stopwatch::get_s_elapsed_seconds( int precision ){
 
 				const char* sWho = "JDA::Utils::Stopwatch::get_s_elapsed_seconds";
+
+				(void)sWho; // Unused?  Who says sWho is unused?
 
 				//float elapsed_seconds = this->get_elapsed_seconds();
 
