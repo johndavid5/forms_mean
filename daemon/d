@@ -1,0 +1,6 @@
+#!/bin/bash
+set -x
+#./build/ftpget http://cnn.com 2>&1 | tee d.out
+#./build/mongoc find -uri "mongodb://jayne/" -db "test" -collection "grades" -query "{ \"student_id\" : 2 }" 2>&1 | tee d.out
+./build/forms_mean_daemon --manual-index-process-url "file:///../edgar/daily-index/master.20141031.sample.idx" --no-daemon 2>&1 | tee d.out
+set +x
