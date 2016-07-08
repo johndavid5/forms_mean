@@ -18,6 +18,8 @@ class FormsMeanUtils {
 
 	public:
 
+		static int debug;
+
 		enum DownloadWindowType { DAY, EVENING, WEEKEND }; 
 
 		// Mirrors DownloadWindowType enum for easy conversion to std::string...
@@ -70,6 +72,11 @@ class FormsMeanUtils {
 		*    info = { "quote" : "The word is \\\"Groucho\\\"" }
 		*/
 		static string double_quote_escape(const string& input);
+
+		/* Can later move this to JDA::Utils... */
+		static bool nuttinButNumbers( const string& s_input );
+
+		static string regex_error_code_to_string( std::regex_constants::error_type le_error_code );
 
 }; /* class FormsMeanUtils */
 

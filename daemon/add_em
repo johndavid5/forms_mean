@@ -15,11 +15,12 @@ git add mongoc.cpp
 git add .gitignore
 git add add_em.bat
 git add add_em
+git add c
 git add c.bat
 git add clean.bat
 git add d.bat
 git add d
-git add m
+#git add m
 git add v
 git add v.bat
 git add forms_mean_daemon.mak
@@ -59,6 +60,8 @@ git add cpp_lib/utils.h
 git add cpp_lib/utils.cpp
 
 git add ../db.js
+
+git add ../db/m
 git add ../db/forms_insert.js
 git add ../db/forms_setup.js
 git add ../db/forms_view.js

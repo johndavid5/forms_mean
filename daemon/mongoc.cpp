@@ -8,6 +8,7 @@
 
 #include <string>
 #include <iostream>
+#include <sys/time.h>
 
 #include "logger.h"
 #include "MongoDbClient.h"
@@ -151,17 +152,30 @@ void print_format( ostream& oss_out ){
 void do_demo(){
 	const char* sWho = "do_demo";
 
+
+	time_t num_seconds_since_epoch = time(NULL);
+	long long num_milliseconds_since_epoch = (long long) num_seconds_since_epoch * 1000L;
+
+	cout << sWho << "(): num_seconds_since_epoch = " << num_seconds_since_epoch << endl;
+	cout << sWho << "(): num_milliseconds_since_epoch = " << num_milliseconds_since_epoch << endl;
+
+	struct timeval tp; // from <sys/time.h>
+    gettimeofday(&tp, NULL);
+    long long mslong = (long long) tp.tv_sec * 1000L + tp.tv_usec / 1000; //get current timestamp in milliseconds
+    std::cout << "mslong = " << mslong << std::endl;
+
+	cout << sWho << "(): Let off some steam, Bennett!" << endl;
+
 	bson_t *b = bson_new ();
 
 	BSON_APPEND_INT32 (b, "foo", 123);
 	BSON_APPEND_UTF8 (b, "bar", "foo");
 	BSON_APPEND_DOUBLE (b, "baz", 1.23f);
 	BSON_APPEND_DATE_TIME (b, "epoch_beginning", 0L);
+	BSON_APPEND_DATE_TIME (b, "now", mslong);
 
 	JDA::MongoDbClient mongoDbClient;
 	cout << sWho << "(): mongoDbClient->bson_as_json_string( b ) = \"" << mongoDbClient.bson_as_json_string( b ) << "\"" << endl;
-
-	cout << sWho << "(): Let off some steam, Bennett!" << endl;
 
 	bson_destroy (b);
 }
