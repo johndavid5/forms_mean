@@ -1,11 +1,20 @@
-1. Add "update" to bag of tricks for MongoDbClient.
+1. Put in the --manual-form-process-url functionality...(based on WaldoUtils::load_edgar_form_and_log_it()...)
 
-2. Put in the --manual-form-process-url functionality...(based on WaldoUtils::load_edgar_form_and_log_it()...)
+2. Add in the "load_next_index_entry()" clockwork.
+
+Extra Credit:
+3. Consider using log4cxx (log4j ported to C++) rather than JDA::Logger.
+
+4. Fancy: Add "command" to bag of tricks for MongoDbClient, which will
+allow for getting newly generated _id...(and allows for specifying
+the functionality in JSON, whether it's insert, upsert, update, find...)
 
 =================================
 ----------
 completed:
 ----------
+[x] Add "update" to bag of tricks for MongoDbClient.
+
 [x] Begin using FtpClient (curl) (in Forms::loadFromEdgarIndexUrl()...right now we only read from file:///... url...)
 
 [x--2016-06-16--commit 6315] * Begin re-using connections in MongoDbClient...I suspect this "no suitable

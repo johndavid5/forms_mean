@@ -762,10 +762,18 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 
 	oss_json_query << "{ \"accession_number\": \"" << le_formerator.m_s_accession_number << "\" }";
 
+	//int64_t milliseconds_since_unix_epoch = JDA::MongoDbClient::milliseconds_since_unix_epoch();
+	time_t seconds_since_unix_epoch = time(NULL); 
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, seconds_since_unix_epoch = " << seconds_since_unix_epoch << " = " 
+			<< "\"" << JDA::Utils::get_utc_timestamp( seconds_since_unix_epoch ) << "\" = \"" << JDA::Utils::get_local_timestamp( seconds_since_unix_epoch ) << "\"..." << endl;
+	}
+
 	oss_json_update 
 	<< "{\n"
+	<< " \"$push\": { \"form_processing_attempts\" :  { \"when\": { \"$date\": " << seconds_since_unix_epoch << "000 }, \"success\": true } },\n"
   	<< " \"$set\": {\n" 
-	<< "    \"updated\": { \"$date\": 1000 },\n"
 	<< "	\"issuer\": {\n" 
 	<< "		\"company_data\":{\n"
 	<< "			\"company_conformed_name\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_issuer.company_data.company_conformed_name ) << "\",\n"

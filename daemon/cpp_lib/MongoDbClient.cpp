@@ -33,6 +33,7 @@
 
 	}/* JDA::MongoDbClient::~MongoDbClient() */
 
+
 	string JDA::MongoDbClient::bson_as_json_string( bson_t* p_bson ){
 
 		const char* sWho = "MongoDbClient::bson_as_json_string";
@@ -64,6 +65,23 @@
 		return s_bson_as_json;
 
 	}/* string JDA::MongoDbClient::bson_as_json_string( bson_t* p_bson ) */
+
+	/* static */ time_t JDA::MongoDbClient::seconds_since_unix_epoch(){
+		time_t seconds_since_unix_epoch = time( NULL );
+		return seconds_since_unix_epoch;
+	}/* seconds_since_unix_epoch() */
+
+	/* static */ int64_t JDA::MongoDbClient::milliseconds_since_unix_epoch(){
+		return JDA::MongoDbClient::seconds_to_milliseconds( JDA::MongoDbClient::seconds_since_unix_epoch() );
+	}/* milliseconds_since_unix_epoch() */
+
+	/* static */ int64_t JDA::MongoDbClient::seconds_to_milliseconds( time_t seconds ){
+		return seconds * 1000;
+	}/* seconds_to_milliseconds() */
+
+	/* static */ time_t JDA::MongoDbClient::milliseconds_to_seconds( int64_t milliseconds ){
+		return milliseconds / 1000;
+	}/* milliseconds_to_seconds() */
 
 
 	int JDA::MongoDbClient::find( const string& s_db_name, const string& s_collection_name, const string& s_json_query ){
