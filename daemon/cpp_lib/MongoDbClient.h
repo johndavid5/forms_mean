@@ -4,8 +4,8 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <sys/time.h> // UNIX-specific: struct timeval tp and gettimeofday()...
 using namespace std;
-
 
 #include <mongoc.h>
 
@@ -83,11 +83,11 @@ class MongoDbClient {
 	/** utilities */
 	string bson_as_json_string( bson_t* p_bson );
 
-	static time_t seconds_since_unix_epoch();
+	//static time_t seconds_since_unix_epoch();
 	static int64_t milliseconds_since_unix_epoch();
 
-	static int64_t seconds_to_milliseconds( time_t seconds );
-	static time_t milliseconds_to_seconds( int64_t milliseconds );
+	//static int64_t seconds_to_milliseconds( time_t seconds );
+	//static time_t milliseconds_to_seconds( int64_t milliseconds );
 
 	/** @throws MongoDbClient::Exception if something goes wrong with the command. */
 	int find( const string& s_db_name, const string& s_collection_name, const string& s_json_query );

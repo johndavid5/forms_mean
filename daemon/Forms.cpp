@@ -762,18 +762,74 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 
 	oss_json_query << "{ \"accession_number\": \"" << le_formerator.m_s_accession_number << "\" }";
 
-	//int64_t milliseconds_since_unix_epoch = JDA::MongoDbClient::milliseconds_since_unix_epoch();
 	time_t seconds_since_unix_epoch = time(NULL); 
+	int64_t milliseconds_since_unix_epoch = JDA::MongoDbClient::milliseconds_since_unix_epoch();
 
 	if( m_p_logger ){
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, seconds_since_unix_epoch = " << seconds_since_unix_epoch << " = " 
-			<< "\"" << JDA::Utils::get_utc_timestamp( seconds_since_unix_epoch ) << "\" = \"" << JDA::Utils::get_local_timestamp( seconds_since_unix_epoch ) << "\"..." << endl;
+			<< "\"" << JDA::Utils::get_utc_timestamp( seconds_since_unix_epoch ) << "\" = \""
+			<< JDA::Utils::get_local_timestamp( seconds_since_unix_epoch ) << "\"..." << endl;
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, milliseconds_since_unix_epoch = " << milliseconds_since_unix_epoch << "..." << endl;
 	}
+
 
 	oss_json_update 
 	<< "{\n"
-	<< " \"$push\": { \"form_processing_attempts\" :  { \"when\": { \"$date\": " << seconds_since_unix_epoch << "000 }, \"success\": true } },\n"
-  	<< " \"$set\": {\n" 
+	<< " \"$push\": { \"form_processing_attempts\" :  { \"when\": { \"$date\": " << milliseconds_since_unix_epoch << " }, \"success\": true } },\n";
+
+  	oss_json_update
+	<< " \"$set\": {\n" 
+	;
+
+	oss_json_update
+	<< "	\"filers\": [\n" 
+	;
+
+	for( size_t i = 0; i < le_formerator.m_filers.size(); i++ ){ 
+		oss_json_update
+		<< "		{\n" 
+		<< "			\"company_data\":{\n"
+		<< "				\"company_conformed_name\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_filers[i]->company_data.company_conformed_name ) << "\",\n"
+		<< "				\"central_index_key\": \"" << le_formerator.m_filers[i]->company_data.central_index_key << "\",\n"
+		<< "				\"standard_industrial_classification\": \"" << le_formerator.m_filers[i]->company_data.standard_industrial_classification << "\",\n"
+		<< "				\"irs_number\": \"" << le_formerator.m_filers[i]->company_data.irs_number << "\",\n"
+		<< "				\"state_of_incorporation\": \"" << le_formerator.m_filers[i]->company_data.state_of_incorporation << "\",\n"
+		<< "				\"fiscal_year_end\": \"" << le_formerator.m_filers[i]->company_data.fiscal_year_end << "\"\n"
+		<< "			},\n"
+		<< "			\"filing_values\":{\n"
+		<< "				\"form_type\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_filers[i]->filing_values.form_type ) << "\",\n"
+		<< "				\"sec_act\": \"" << le_formerator.m_filers[i]->filing_values.sec_act << "\",\n"
+		<< "				\"sec_file_number\": \"" << le_formerator.m_filers[i]->filing_values.sec_file_number << "\",\n"
+		<< "				\"film_number\": \"" << le_formerator.m_filers[i]->filing_values.film_number << "\"\n"
+		<< "			},\n"
+		<< "			\"business_address\":{\n"
+		<< "				\"street_1\": \"" << le_formerator.m_filers[i]->business_address.street_1 << "\",\n"
+		<< "				\"street_2\": \"" << le_formerator.m_filers[i]->business_address.street_2 << "\",\n"
+		<< "				\"city\": \"" << le_formerator.m_filers[i]->business_address.city << "\",\n"
+		<< "				\"state\": \"" << le_formerator.m_filers[i]->business_address.state << "\",\n"
+		<< "				\"zip\": \"" << le_formerator.m_filers[i]->business_address.zip << "\",\n"
+		<< "				\"business_phone\": \"" << le_formerator.m_filers[i]->business_address.business_phone << "\"\n"
+		<< "			},\n"
+		<< "			\"mail_address\":{\n"
+		<< "				\"street_1\": \"" << le_formerator.m_filers[i]->mail_address.street_1 << "\",\n"
+		<< "				\"street_2\": \"" << le_formerator.m_filers[i]->mail_address.street_2 << "\",\n"
+		<< "				\"city\": \"" << le_formerator.m_filers[i]->mail_address.city << "\",\n"
+		<< "				\"state\": \"" << le_formerator.m_filers[i]->mail_address.state << "\",\n"
+		<< "				\"zip\": \"" << le_formerator.m_filers[i]->mail_address.zip << "\"\n"
+		<< "			}\n"
+		<< "		}";
+
+		if( i < le_formerator.m_filers.size()-1 ){
+			oss_json_update << ",";
+		}
+		oss_json_update << "\n";
+	}
+
+	oss_json_update
+	<< "	],\n" 
+	;
+
+	oss_json_update
 	<< "	\"issuer\": {\n" 
 	<< "		\"company_data\":{\n"
 	<< "			\"company_conformed_name\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_issuer.company_data.company_conformed_name ) << "\",\n"

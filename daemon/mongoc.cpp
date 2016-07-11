@@ -154,15 +154,26 @@ void do_demo(){
 
 
 	time_t num_seconds_since_epoch = time(NULL);
-	long long num_milliseconds_since_epoch = (long long) num_seconds_since_epoch * 1000L;
+	//long long num_milliseconds_since_epoch = (long long) num_seconds_since_epoch * 1000L;
+	int64_t num_milliseconds_since_epoch = (long long) num_seconds_since_epoch * 1000L;
 
+	cout << sWho << "(): sizeof(int) = " << sizeof(int) << endl;
+	cout << sWho << "(): sizeof(long) = " << sizeof(long) << endl;
+	cout << sWho << "(): sizeof(long long) = " << sizeof(long long) << endl;
+	cout << sWho << "(): sizeof(int64_t) = " << sizeof(int64_t) << endl;
+	cout << endl;
+	cout << sWho << "(): sizeof(num_seconds_since_epoch) = " << sizeof(num_seconds_since_epoch) << endl;
 	cout << sWho << "(): num_seconds_since_epoch = " << num_seconds_since_epoch << endl;
+	cout << sWho << "(): sizeof(num_milliseconds_since_epoch) = " << sizeof(num_milliseconds_since_epoch) << endl;
 	cout << sWho << "(): num_milliseconds_since_epoch = " << num_milliseconds_since_epoch << endl;
 
 	struct timeval tp; // from <sys/time.h>
     gettimeofday(&tp, NULL);
     long long mslong = (long long) tp.tv_sec * 1000L + tp.tv_usec / 1000; //get current timestamp in milliseconds
+    std::cout << "sizeof(mslong) = " << sizeof(mslong) << std::endl;
     std::cout << "mslong = " << mslong << std::endl;
+
+    std::cout << "JDA::MongoDbClient::milliseconds_since_unix_epoch() = " << JDA::MongoDbClient::milliseconds_since_unix_epoch() << "..." << endl;
 
 	cout << sWho << "(): Let off some steam, Bennett!" << endl;
 
