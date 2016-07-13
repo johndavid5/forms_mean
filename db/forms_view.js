@@ -34,4 +34,4 @@ var query = { accession_number : { $in: accession_numbers } };
 print( "=== " + "Runnin' find(..." );
 printjson( query )
 print("...), Moe..." );
-db.forms.find( query ).pretty();
+db.forms.find( query ).sort( { form_processing_attempts: -1 } ).pretty();

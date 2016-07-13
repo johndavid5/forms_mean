@@ -854,7 +854,38 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 	<< "			\"state\": \"" << le_formerator.m_issuer.mail_address.state << "\",\n"
 	<< "			\"zip\": \"" << le_formerator.m_issuer.mail_address.zip << "\"\n"
 	<< "		}\n"
-	<< "	}\n"
+	<< "	},\n";
+
+	oss_json_update
+	<< "	\"reporting_owner\": {\n" 
+	<< "		\"owner_data\":{\n"
+	<< "			\"company_conformed_name\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_reporting_owner.owner_data.company_conformed_name ) << "\",\n"
+	<< "			\"central_index_key\": \"" << le_formerator.m_reporting_owner.owner_data.central_index_key << "\"\n"
+	<< "		},\n"
+	<< "		\"filing_values\":{\n"
+	<< "			\"form_type\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_reporting_owner.filing_values.form_type ) << "\",\n"
+	<< "			\"sec_act\": \"" << le_formerator.m_reporting_owner.filing_values.sec_act << "\",\n"
+	<< "			\"sec_file_number\": \"" << le_formerator.m_reporting_owner.filing_values.sec_file_number << "\",\n"
+	<< "			\"film_number\": \"" << le_formerator.m_reporting_owner.filing_values.film_number << "\"\n"
+	<< "		},\n"
+	<< "		\"business_address\":{\n"
+	<< "			\"street_1\": \"" << le_formerator.m_reporting_owner.business_address.street_1 << "\",\n"
+	<< "			\"street_2\": \"" << le_formerator.m_reporting_owner.business_address.street_2 << "\",\n"
+	<< "			\"city\": \"" << le_formerator.m_reporting_owner.business_address.city << "\",\n"
+	<< "			\"state\": \"" << le_formerator.m_reporting_owner.business_address.state << "\",\n"
+	<< "			\"zip\": \"" << le_formerator.m_reporting_owner.business_address.zip << "\",\n"
+	<< "			\"business_phone\": \"" << le_formerator.m_reporting_owner.business_address.business_phone << "\"\n"
+	<< "		},\n"
+	<< "		\"mail_address\":{\n"
+	<< "			\"street_1\": \"" << le_formerator.m_reporting_owner.mail_address.street_1 << "\",\n"
+	<< "			\"street_2\": \"" << le_formerator.m_reporting_owner.mail_address.street_2 << "\",\n"
+	<< "			\"city\": \"" << le_formerator.m_reporting_owner.mail_address.city << "\",\n"
+	<< "			\"state\": \"" << le_formerator.m_reporting_owner.mail_address.state << "\",\n"
+	<< "			\"zip\": \"" << le_formerator.m_reporting_owner.mail_address.zip << "\"\n"
+	<< "		}\n"
+	<< "	}\n";
+
+	oss_json_update 
 	<< " }\n"
 	<< "}"
 	;

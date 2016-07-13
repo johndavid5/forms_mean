@@ -18,6 +18,7 @@ git add add_em
 git add c
 git add c.bat
 git add clean.bat
+git add clean
 git add d.bat
 git add d
 #git add m
@@ -42,6 +43,7 @@ git add ../edgar/daily-index/master.20141031.idx
 git add ../edgar/daily-index/master.20141031.sample.idx
 git add ../edgar/data/1000180/0001242648-14-000081.txt
 git add ../edgar/ftp.sec.gov--edgar--data--1066107--POSASR--has-a-gazillion-filers--0001047469-15-001027.txt
+git add ../edgar/ftp.sec.gov--edgar--data--1000180--SANDISK--issuer--reporting-owner--0001242648-14-000081.txt
 
 git add test/example-client.cpp
 git add test/Makefile

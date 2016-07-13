@@ -1,0 +1,5 @@
+#!/bin/bash
+set -x
+# make clean 2>&1 | tee clean.out
+rm build/*.o build/ftpget build/mongoc build/forms_mean_daemon
+set +x
