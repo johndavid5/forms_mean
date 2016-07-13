@@ -12,6 +12,9 @@ git add ../db/forms_setup.js
 git add ../db/forms_view.js
 git add ../db/setup.js
 git add ../db/mongoit.bat*
+git add ../db/mongoit.sh*
+git add ../db/m
+git add ../db/m.bat
 
 git add ../edgar/daily-index/master.20141031.idx
 git add ../edgar/daily-index/master.20141031.sample.idx

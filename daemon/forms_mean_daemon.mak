@@ -52,8 +52,8 @@ CC=cl /EHsc /I. /I"$(cpp_lib_inc_dir)" /I"$(forms_mean_inc_dir)" /I"$(boost_inc_
 #CFLAGSMT = -c -DSTRICT -DCURL_STATICLIB -W3 -Zp -Tp 
 # On /MT /MD, etc.
 # https://support.microsoft.com/en-us/kb/140584
-#CFLAGSMT = -c /MT -DSTRICT -DCURL_STATICLIB -W3 -Zp -Tp 
-CFLAGSMT = -c /MD -DSTRICT -DCURL_STATICLIB -W3 -Zp -Tp 
+CFLAGSMT = -c /MT -DSTRICT -DCURL_STATICLIB -W3 -Zp -Tp 
+#CFLAGSMT = -c /MD -DSTRICT -DCURL_STATICLIB -W3 -Zp -Tp 
 
 
 LINKER=link

@@ -4,7 +4,10 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <sys/time.h> // UNIX-specific: struct timeval tp and gettimeofday()...
+
+#ifdef linux
+	#include <sys/time.h> // UNIX-specific: struct timeval tp and gettimeofday()...
+#endif
 using namespace std;
 
 #include <mongoc.h>

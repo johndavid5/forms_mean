@@ -66,6 +66,41 @@
 
 	}/* string JDA::MongoDbClient::bson_as_json_string( bson_t* p_bson ) */
 
+#ifdef _WIN32
+	/** Since gettimeofday() is not defined on Windows, we'll define
+	* our own version...(on UNIX, it's found in sys/time.h)
+	* @reference http://stackoverflow.com/questions/10905892/equivalent-of-gettimeday-for-windows
+	*/
+	#include <Windows.h>
+	#include <stdint.h> // portable: uint64_t   MSVC: __int64 
+	
+	// MSVC defines timeval in winsock2.h!?
+	typedef struct wintimeval {
+	    long tv_sec;
+	    long tv_usec;
+	} wintimeval;
+	
+	int gettimeofday(struct wintimeval * tp, struct timezone * tzp)
+	{
+	    // Note: some broken versions only have 8 trailing zero's, the correct epoch has 9 trailing zero's
+	    static const uint64_t EPOCH = ((uint64_t) 116444736000000000ULL);
+	
+	    SYSTEMTIME  system_time;
+	    FILETIME    file_time;
+	    uint64_t    time;
+	
+	    GetSystemTime( &system_time );
+	    SystemTimeToFileTime( &system_time, &file_time );
+	    time =  ((uint64_t)file_time.dwLowDateTime )      ;
+	    time += ((uint64_t)file_time.dwHighDateTime) << 32;
+	
+	    tp->tv_sec  = (long) ((time - EPOCH) / 10000000L);
+	    tp->tv_usec = (long) (system_time.wMilliseconds * 1000);
+	    return 0;
+	}
+#endif
+
+
 	/* static */
 	//time_t JDA::MongoDbClient::seconds_since_unix_epoch(){
 	//	time_t seconds_since_unix_epoch = time( NULL );
@@ -74,7 +109,13 @@
 
 	/* static */ int64_t JDA::MongoDbClient::milliseconds_since_unix_epoch(){
 		//return JDA::MongoDbClient::seconds_to_milliseconds( JDA::MongoDbClient::seconds_since_unix_epoch() );
+
+		#ifdef linux
 		struct timeval tp; // from <sys/time.h>
+		#elif _WIN32
+		struct wintimeval tp;
+		#endif
+
 	    gettimeofday(&tp, NULL);
 		int64_t mslong = (int64_t) tp.tv_sec * 1000L + tp.tv_usec / 1000; //get current timestamp in milliseconds
 		return mslong;
