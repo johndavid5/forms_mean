@@ -28,8 +28,9 @@ var joe = { name: "Joe" };
 //db.forms.update( { accession_number :  "0001127602-14-030663" }, { $set: { "index_loaded_date": new ISODate() } } );
 //db.forms.update( { accession_number :  "0001127602-14-030663" }, { $set: { "index_loaded_date": { $date : 2000 } } } );
 db.forms.insert( { accession_number :  "0001047469-15-001027" } );
+db.forms.insert( { accession_number :  "0001193125-15-399601" } );
 
-var accession_numbers = ["0001242648-14-000081","0001127602-14-030663","0001047469-15-001027" ];
+var accession_numbers = ["0001242648-14-000081","0001127602-14-030663","0001047469-15-001027", "0001193125-15-399601" ];
 var query = { accession_number : { $in: accession_numbers } };
 print( "=== " + "Runnin' find(..." );
 printjson( query )

@@ -18,6 +18,14 @@ git add ../db/m.bat
 
 git add ../edgar/daily-index/master.20141031.idx
 git add ../edgar/daily-index/master.20141031.sample.idx
+git add ../edgar/ftp.sec.gov--edgar--data--1000180--SANDISK--issuer--reporting-owner--0001242648-14-000081.txt
+git add ../edgar/ftp.sec.gov--edgar--data--1016281--0001016281-15-000151--carriage-services-inc--4--2015-12-10.original.txt
+git add ../edgar/ftp.sec.gov--edgar--data--1016281--0001016281-15-000151--carriage-services-inc--4--2015-12-10.with-fake-o-business-address.txt
+git add ../edgar/ftp.sec.gov--edgar--data--1020425--litman-gregory-funds-trust--0001193125-15-399999.txt
+git add ../edgar/ftp.sec.gov--edgar--data--1021564--fx-energy-inc--0001021564-15-000002.txt
+git add ../edgar/ftp.sec.gov--edgar--data--1066107--POSASR--has-a-gazillion-filers--0001047469-15-001027.txt
+git add ../edgar/ftp.sec.gov--edgar--data--1403385--0000950157-15-000937--symetra-financial-corp--8-K--2015-08-11.txt
+git add ../edgar/ftp.sec.gov--edgar--data--99359--breeze-eastern-corp--subject-company--filed-by--0001193125-15-399601.txt
 
 git add build/forms_mean_daemon.ini
 

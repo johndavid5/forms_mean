@@ -1,0 +1,2131 @@
+<SEC-DOCUMENT>0001193125-15-399999.txt : 20151210
+<SEC-HEADER>0001193125-15-399999.hdr.sgml : 20151210
+<ACCEPTANCE-DATETIME>20151210143458
+ACCESSION NUMBER:		0001193125-15-399999
+CONFORMED SUBMISSION TYPE:	497K
+PUBLIC DOCUMENT COUNT:		2
+FILED AS OF DATE:		20151210
+DATE AS OF CHANGE:		20151210
+EFFECTIVENESS DATE:		20151210
+
+FILER:
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			LITMAN GREGORY FUNDS TRUST
+		CENTRAL INDEX KEY:			0001020425
+		IRS NUMBER:				931215604
+		STATE OF INCORPORATION:			DE
+		FISCAL YEAR END:			1231
+
+	FILING VALUES:
+		FORM TYPE:		497K
+		SEC ACT:		1933 Act
+		SEC FILE NUMBER:	333-10015
+		FILM NUMBER:		151280646
+
+	BUSINESS ADDRESS:	
+		STREET 1:		2020 E. FINANCIAL WAY
+		STREET 2:		SUITE 100
+		CITY:			GLENDORA
+		STATE:			CA
+		ZIP:			91741
+		BUSINESS PHONE:		6268521033
+
+	MAIL ADDRESS:	
+		STREET 1:		4 ORINDA WAY
+		STREET 2:		SUITE 230 D
+		CITY:			ORINDA
+		STATE:			CA
+		ZIP:			94563
+
+	FORMER COMPANY:	
+		FORMER CONFORMED NAME:	MASTERS SELECT FUNDS TRUST
+		DATE OF NAME CHANGE:	19980807
+
+	FORMER COMPANY:	
+		FORMER CONFORMED NAME:	MASTERS SELECT INVESTMENT TRUST
+		DATE OF NAME CHANGE:	19961226
+
+	FORMER COMPANY:	
+		FORMER CONFORMED NAME:	MASTERS SELECT EQUITY FUND
+		DATE OF NAME CHANGE:	19961213
+<SERIES-AND-CLASSES-CONTRACTS-DATA>
+<EXISTING-SERIES-AND-CLASSES-CONTRACTS>
+<SERIES>
+<OWNER-CIK>0001020425
+<SERIES-ID>S000005594
+<SERIES-NAME>Litman Gregory Masters International Fund
+<CLASS-CONTRACT>
+<CLASS-CONTRACT-ID>C000015261
+<CLASS-CONTRACT-NAME>Institutional Class
+<CLASS-CONTRACT-TICKER-SYMBOL>MSILX
+</CLASS-CONTRACT>
+<CLASS-CONTRACT>
+<CLASS-CONTRACT-ID>C000081046
+<CLASS-CONTRACT-NAME>Investor Class
+<CLASS-CONTRACT-TICKER-SYMBOL>MNILX
+</CLASS-CONTRACT>
+</SERIES>
+</EXISTING-SERIES-AND-CLASSES-CONTRACTS>
+</SERIES-AND-CLASSES-CONTRACTS-DATA>
+</SEC-HEADER>
+<DOCUMENT>
+<TYPE>497K
+<SEQUENCE>1
+<FILENAME>d101073d497k.htm
+<DESCRIPTION>497K
+<TEXT>
+<HTML><HEAD>
+<TITLE>497K</TITLE>
+</HEAD>
+ <BODY BGCOLOR="WHITE">
+
+ <P STYLE="margin-top:0pt; margin-bottom:0pt; font-size:20pt; font-family:arial" ALIGN="center"><FONT COLOR="#435363">LITMAN GREGORY&nbsp;MASTERS </FONT></P>
+<P STYLE="margin-top:0pt; margin-bottom:0pt; font-size:20pt; font-family:arial" ALIGN="center"><FONT COLOR="#435363">INTERNATIONAL FUND </FONT></P> <p STYLE="margin-top:0pt;margin-bottom:0pt ; font-size:8pt">&nbsp;</P>
+<P STYLE="margin-top:0pt; margin-bottom:0pt; font-size:18pt; font-family:arial" ALIGN="center">Summary Prospectus </P> <P STYLE="font-size:16pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" BORDER="0" STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:11pt" ALIGN="center">
+
+<TR>
+<TD WIDTH="51%"></TD>
+<TD VALIGN="bottom" WIDTH="2%"></TD>
+<TD WIDTH="47%"></TD></TR>
+<TR STYLE="font-family:arial; font-size:16pt">
+<TD VALIGN="top"><FONT STYLE="font-size:11pt"><B>Institutional Class Ticker Symbol: MSILX</B></FONT></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="right"><B>April&nbsp;30, 2015</B></TD></TR>
+<TR STYLE="font-family:arial; font-size:11pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>Investor Class Ticker Symbol: MNILX</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="right" STYLE="BORDER-BOTTOM:1.00pt solid #000000">As supplemented December&nbsp;10, 2015</TD></TR></TABLE> <P STYLE="margin-top:6pt; margin-bottom:0pt; font-size:10pt; font-family:arial"><I>Before you invest, you may want
+to review the Fund&#146;s Prospectus, which contains more information about the Fund and its risks. You can find the Fund&#146;s Prospectus, Statement of Additional Information and other information about the Fund online at
+http://mastersfunds.com/documents-forms. You may also obtain this information at no cost by calling 1-800-960-0188. The Fund&#146;s Prospectus and Statement of Additional Information, April 30, 2015, are incorporated by reference into this Summary
+Prospectus. </I></P> <p STYLE="margin-top:0pt;margin-bottom:0pt ; font-size:8pt">&nbsp;</P> <P STYLE="margin-top:0pt; margin-bottom:0pt; font-size:12pt; font-family:arial"><B>Investment Objective </B></P>
+<P STYLE="line-height:5.0pt;margin-top:0pt;margin-bottom:2pt;border-bottom:1px dotted #000000">&nbsp;</P> <P STYLE="margin-top:6pt; margin-bottom:0pt; font-size:10pt; font-family:arial">The Litman Gregory Masters International Fund (the
+&#147;International Fund&#148;) seeks long-term growth of capital; that is, the increase in the value of your investment over the long term. </P> <P STYLE="margin-top:12pt; margin-bottom:0pt; font-size:12pt; font-family:arial"><B>Fees and Expenses
+of the International Fund </B></P> <P STYLE="line-height:5.0pt;margin-top:0pt;margin-bottom:2pt;border-bottom:1px dotted #000000">&nbsp;</P> <P STYLE="margin-top:6pt; margin-bottom:0pt; font-size:10pt; font-family:arial">This table describes the
+fees and expenses that you may pay if you buy and hold shares of the International Fund. </P> <P STYLE="font-size:12pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" BORDER="0" STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" ALIGN="center">
+
+
+<TR>
+<TD WIDTH="62%"></TD>
+<TD VALIGN="bottom" WIDTH="6%"></TD>
+<TD></TD>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="7%"></TD>
+<TD VALIGN="bottom" WIDTH="7%"></TD>
+<TD></TD>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="8%"></TD></TR>
+
+
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:12pt">
+<TD VALIGN="top" COLSPAN="8" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>Shareholder Fees (fees paid directly from your investment)</B></TD>
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" COLSPAN="2" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>Institutional<BR>Class</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" COLSPAN="2" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"> <P STYLE="margin-top:0pt; margin-bottom:0pt; font-size:10pt; font-family:arial" ALIGN="center"><B>Investor</B></P>
+<P STYLE="margin-top:0pt; margin-bottom:1pt; font-size:10pt; font-family:arial" ALIGN="center"><B>Class</B></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;</TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center">None</TD>
+<TD NOWRAP VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center">None</TD>
+<TD NOWRAP VALIGN="bottom">&nbsp;&nbsp;</TD></TR>
+<TR>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:12pt">
+<TD VALIGN="top" COLSPAN="8" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>Annual Operating Expenses (expenses that you pay each year as a percentage of the value of your investment)</B></TD>
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;&nbsp;</B></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" COLSPAN="2" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>Institutional<BR>Class</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" COLSPAN="2" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"> <P STYLE="margin-top:0pt; margin-bottom:0pt; font-size:10pt; font-family:arial" ALIGN="center"><B>Investor</B></P>
+<P STYLE="margin-top:0pt; margin-bottom:1pt; font-size:10pt; font-family:arial" ALIGN="center"><B>Class</B></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;</TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial">Management Fees</P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="right">1.06%</TD>
+<TD NOWRAP VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="right">1.06%</TD>
+<TD NOWRAP VALIGN="bottom">&nbsp;&nbsp;</TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial">Distribution (12b-1) Fees</P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="right">None</TD>
+<TD NOWRAP VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="right">0.25%</TD>
+<TD NOWRAP VALIGN="bottom">&nbsp;&nbsp;</TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial">Other Expenses</P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="right">0.18%</TD>
+<TD NOWRAP VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="right">0.18%</TD>
+<TD NOWRAP VALIGN="bottom">&nbsp;&nbsp;</TD></TR>
+<TR STYLE="font-size:1px; ">
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"> <P STYLE="border-top:1.00px solid #000000">&nbsp;</P></TD>
+<TD VALIGN="bottom"> <P STYLE="border-top:1.00px solid #000000">&nbsp;</P></TD>
+<TD>&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"> <P STYLE="border-top:1.00px solid #000000">&nbsp;</P></TD>
+<TD VALIGN="bottom"> <P STYLE="border-top:1.00px solid #000000">&nbsp;</P></TD>
+<TD>&nbsp;</TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial"><B>Total Annual Fund Operating Expenses</B></P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="right">1.24%</TD>
+<TD NOWRAP VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="right">1.49%</TD>
+<TD NOWRAP VALIGN="bottom">&nbsp;&nbsp;</TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial">Fee Waiver and/or Expense Reimbursement<SUP STYLE="font-size:85%; vertical-align:top">(</SUP><SUP
+STYLE="font-size:85%; vertical-align:top">1)(</SUP><SUP STYLE="font-size:85%; vertical-align:top">2</SUP><SUP STYLE="font-size:85%; vertical-align:top">)(3</SUP><SUP STYLE="font-size:85%; vertical-align:top">)</SUP></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right">-0.25%</TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right">-0.25%</TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial"><B>Total Annual Fund Operating Expenses After Fee Waiver and/or Expense Reimbursement<SUP STYLE="font-size:85%; vertical-align:top">(1)(2)</SUP><SUP
+STYLE="font-size:85%; vertical-align:top">(3)</SUP></B></P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>0.99%</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>1.24%</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD></TR>
+<TR STYLE="font-size:1px; ">
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"> <P STYLE="border-top:3.00px double #000000">&nbsp;</P></TD>
+<TD VALIGN="bottom"> <P STYLE="border-top:3.00px double #000000">&nbsp;</P></TD>
+<TD>&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"> <P STYLE="border-top:3.00px double #000000">&nbsp;</P></TD>
+<TD VALIGN="bottom"> <P STYLE="border-top:3.00px double #000000">&nbsp;</P></TD>
+<TD>&nbsp;</TD></TR>
+</TABLE> <P STYLE="font-size:6pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:8pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="3%" VALIGN="top" ALIGN="left">(1)</TD>
+<TD ALIGN="left" VALIGN="top">Litman Gregory Fund Advisors, LLC (&#147;Litman Gregory&#148;), the advisor to the International Fund, has contractually agreed, through April&nbsp;30,&nbsp;2016, to waive a portion of its advisory fees so that after
+paying all of the sub-advisory fees, the net advisory fee as a percentage of the International Fund&#146;s daily net assets retained by Litman Gregory is 0.40% on the first $1&nbsp;billion of the International Fund&#146;s assets and 0.30% on assets
+over $1&nbsp;billion.&nbsp;This agreement may be terminated at any time by the Board of Trustees (the &#147;Board&#148;) of the Litman Gregory Funds Trust (the &#147;Trust&#148;) upon sixty (60)&nbsp;days&#146; written notice to Litman&nbsp;Gregory,
+and Litman Gregory may decline to renew this agreement by written notice to the Trust at least thirty (30)&nbsp;days before the agreement&#146;s annual expiration date. Litman Gregory has waived its right to receive reimbursement of the portion of
+its advisory fees waived pursuant to this agreement. </TD></TR></TABLE>
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:8pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="3%" VALIGN="top" ALIGN="left">(2)</TD>
+<TD ALIGN="left" VALIGN="top"> <P ALIGN="left" STYLE="font-family:arial; font-size:8pt">Litman Gregory has also contractually agreed to limit the International Fund&#146;s operating expenses (including management fees payable to Litman Gregory but
+excluding any taxes, interest, brokerage commissions, expenses incurred in connection with any merger or reorganization, borrowing costs (including commitment fees), dividend expenses, acquired fund fees and expenses and extraordinary expenses such
+as but not limited to </P></TD></TR></TABLE>
+ <p STYLE="margin-top:0pt;margin-bottom:0pt ; font-size:8pt">&nbsp;</P>
+<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" BORDER="0" STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:8pt">
+
+<TR>
+<TD WIDTH="95%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="1%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="1%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD></TD></TR>
+<TR STYLE="font-size:1pt">
+<TD HEIGHT="8"></TD>
+<TD HEIGHT="8" COLSPAN="2" STYLE="BORDER-RIGHT:1.00pt solid #000000">&nbsp;</TD>
+<TD HEIGHT="8" COLSPAN="2"></TD>
+<TD HEIGHT="8" COLSPAN="2"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="bottom" ALIGN="right"><FONT STYLE="font-size:8pt">Fund Summary</FONT></TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-RIGHT:1.00pt solid #000000">&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="right"><FONT STYLE="font-size:8pt"><B>1</B></FONT></TD></TR></TABLE>
+
+
+<p Style='page-break-before:always'>
+<HR  SIZE="3" style="COLOR:#999999" WIDTH="100%" ALIGN="CENTER">
+
+
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:8pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="3%">&nbsp;</TD>
+<TD ALIGN="left" VALIGN="top">
+litigation costs) through April&nbsp;30, 2016 (unless otherwise sooner terminated) to an annual rate of 0.99% for the Institutional Class and 1.24% for the Investor Class (the &#147;Operating
+Expense Limitation&#148;). This agreement may be renewed after April&nbsp;30, 2016 for additional periods not exceeding one (1)&nbsp;year and may be terminated by the Board upon sixty (60)&nbsp;days&#146; written notice to Litman Gregory. Litman
+Gregory may also decline to renew this agreement by written notice to the Trust at least thirty (30)&nbsp;days before the renewal date. Any fee waiver or expense reimbursement made by Litman Gregory pursuant to this agreement is subject to the
+repayment by the International Fund within three (3)&nbsp;years following the fiscal year in which the fee waiver or expense reimbursement occurred but only if the International Fund is able to make the repayment without exceeding its current
+expense limitation and the repayment is approved by the Board. </TD></TR></TABLE>
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:8pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="3%" VALIGN="top" ALIGN="left">(3)</TD>
+<TD ALIGN="left" VALIGN="top">The amounts stated under &#147;Fee Waiver and/or Expense Reimbursement&#148; in this table have been restated to reflect current amounts based upon current asset levels and the Operating Expense Limitation effective
+January 2015. This does not correlate to the Ratio of Total Expenses to Average Net Assets provided in the Financial Highlights section of this Prospectus. </TD></TR></TABLE>
+<P STYLE="margin-top:12pt; margin-bottom:0pt; font-size:12pt; font-family:arial"><B>Example </B></P> <P STYLE="margin-top:0pt; margin-bottom:0pt; font-size:10pt; font-family:arial">This example is intended to help you compare the cost of investing
+in the International Fund with the cost of investing in other mutual funds.&nbsp;The example assumes that you invest $10,000 in the International Fund for the time periods indicated and then redeem all of your shares at the end of those periods. The
+example also assumes that your investment has a 5% return each year and that the International Fund&#146;s operating expenses remain the same (taking into account the contractual expense waiver only in the first year).&nbsp;Although your actual
+costs may be higher or lower, based on these assumptions your costs would be: </P> <P STYLE="font-size:12pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" BORDER="0" STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" ALIGN="center">
+
+
+<TR>
+<TD WIDTH="35%"></TD>
+<TD VALIGN="bottom" WIDTH="6%"></TD>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="6%"></TD>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="6%"></TD>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="6%"></TD>
+<TD></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>One&nbsp;Year</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>Three&nbsp;Years</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>Five&nbsp;Years</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>Ten&nbsp;Years</B></TD></TR>
+
+
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1px solid #000000"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial">Institutional Class</P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1px solid #000000">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center" STYLE="BORDER-BOTTOM:1px solid #000000">$101</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1px solid #000000">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center" STYLE="BORDER-BOTTOM:1px solid #000000">$369</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1px solid #000000">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center" STYLE="BORDER-BOTTOM:1px solid #000000">$657</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1px solid #000000">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center" STYLE="BORDER-BOTTOM:1px solid #000000">$1,478</TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial">Investor Class</P></TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center">$126</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center">$446</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center">$790</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center">$1,758</TD></TR>
+</TABLE> <P STYLE="margin-top:14pt; margin-bottom:0pt; font-size:12pt; font-family:arial"><B>Portfolio Turnover </B></P> <P STYLE="line-height:5.0pt;margin-top:0pt;margin-bottom:2pt;border-bottom:1px dotted #000000">&nbsp;</P>
+<P STYLE="margin-top:6pt; margin-bottom:0pt; font-size:10pt; font-family:arial">The International Fund pays transaction costs, such as commissions, when it buys and sells securities (or &#147;turns over&#148; its portfolio).&nbsp;A higher portfolio
+turnover rate may indicate higher transaction costs and may result in higher taxes when shares of the International Fund are held in a taxable account as compared to shares in investment companies that hold investments for a longer
+period.&nbsp;These costs, which are not reflected in annual fund operating expenses or in the example, affect the International Fund&#146;s performance. During the most recent fiscal year, the International Fund&#146;s portfolio turnover rate was
+70.08% of the average value of its portfolio. </P> <P STYLE="margin-top:14pt; margin-bottom:0pt; font-size:12pt; font-family:arial"><B>Principal Strategies </B></P>
+<P STYLE="line-height:5.0pt;margin-top:0pt;margin-bottom:2pt;border-bottom:1px dotted #000000">&nbsp;</P> <P STYLE="margin-top:6pt; margin-bottom:0pt; font-size:10pt; font-family:arial">Litman Gregory Fund Advisors, LLC, the advisor to the
+International Fund, believes that it is possible to identify international investment managers who, over a market cycle, will deliver superior returns relative to their peers.&nbsp;Litman Gregory also believes it can identify skilled stock pickers
+who, within their more diversified portfolios, have higher confidence in the return potential of some stocks than others. Litman Gregory believes a portfolio comprised only of these managers&#146; &#147;higher confidence&#148; stocks should
+outperform their more diversified portfolios over a market cycle. </P> <P STYLE="margin-top:8pt; margin-bottom:0pt; font-size:10pt; font-family:arial">Based on these beliefs, the International Fund&#146;s strategy is to engage a number of proven
+managers as sub-advisors (each a &#147;manager&#148; or &#147;sub-advisor&#148;), with each manager investing in the securities of companies that it believes have strong appreciation potential.&nbsp;Under normal conditions, each sub-advisor manages
+a portion of the International Fund&#146;s assets by independently managing a portfolio typically composed of between 8 and 15 stocks.&nbsp;There is no minimum or maximum allocation of the Fund&#146;s portfolio assets to each sub-advisor.&nbsp;Under
+normal market conditions, the International Fund will invest at least 80% of its net assets, plus the amount of any borrowings for investment purposes, in the securities of companies organized or located outside of the United States, including
+large-, mid-, and small-cap companies and companies located in emerging markets.&nbsp;The International Fund ordinarily invests in the securities markets of at least five countries outside of the United States.&nbsp;Each sub-advisor uses its own
+discretion to invest in any sized company it deems appropriate.&nbsp;The managers have limited flexibility to invest in the securities of U.S. companies. By executing this strategy, the International Fund seeks to: </P>
+<P STYLE="font-size:8pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="2%" VALIGN="top" ALIGN="left"><FONT STYLE="font-family:Times New Roman">&#149;</FONT></TD>
+<TD WIDTH="1%" VALIGN="top">&nbsp;</TD>
+<TD ALIGN="left" VALIGN="top">combine the efforts of several experienced, high quality international managers; </TD></TR></TABLE> <P STYLE="font-size:8pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="2%" VALIGN="top" ALIGN="left"><FONT STYLE="font-family:Times New Roman">&#149;</FONT></TD>
+<TD WIDTH="1%" VALIGN="top">&nbsp;</TD>
+<TD ALIGN="left" VALIGN="top">access the favorite stock-picking ideas of each manager at any point in time; </TD></TR></TABLE>
+ <p STYLE="margin-top:0pt;margin-bottom:0pt ; font-size:8pt">&nbsp;</P>
+<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" BORDER="0" STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:8pt">
+
+<TR>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="1%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="1%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="95%"></TD></TR>
+<TR STYLE="font-size:1pt">
+<TD HEIGHT="8"></TD>
+<TD HEIGHT="8" COLSPAN="2"></TD>
+<TD HEIGHT="8" COLSPAN="2" STYLE="BORDER-LEFT:1.00pt solid #000000">&nbsp;</TD>
+<TD HEIGHT="8" COLSPAN="2"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="bottom"><FONT STYLE="font-size:8pt"><B>2</B></FONT></TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom" STYLE="BORDER-LEFT:1.00pt solid #000000">&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom"><FONT STYLE="font-size:8pt">Litman Gregory Funds Trust</FONT></TD></TR></TABLE>
+
+
+<p Style='page-break-before:always'>
+<HR  SIZE="3" style="COLOR:#999999" WIDTH="100%" ALIGN="CENTER">
+
+
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="2%" VALIGN="top" ALIGN="left"><FONT STYLE="font-family:Times New Roman">&#149;</FONT></TD>
+<TD WIDTH="1%" VALIGN="top">&nbsp;</TD>
+<TD ALIGN="left" VALIGN="top">deliver a portfolio that is prudently diversified in terms of stocks (typically 40 to 75) and industries while still allowing each manager to run portfolio segments focused on only his favorite stocks; and
+</TD></TR></TABLE> <P STYLE="font-size:8pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="2%" VALIGN="top" ALIGN="left"><FONT STYLE="font-family:Times New Roman">&#149;</FONT></TD>
+<TD WIDTH="1%" VALIGN="top">&nbsp;</TD>
+<TD ALIGN="left" VALIGN="top">further diversify across different sized companies, countries, and stock-picking styles by including managers with a variety of stock-picking disciplines. </TD></TR></TABLE>
+<P STYLE="margin-top:8pt; margin-bottom:0pt; font-size:10pt; font-family:arial">Generally, a security may be sold: (1)&nbsp;if the manager believes the security&#146;s market price exceeds the manager&#146;s estimate of intrinsic value; (2)&nbsp;if
+the manager&#146;s view of the business fundamentals or management of the underlying company changes; (3)&nbsp;if a more attractive investment opportunity is found; (4)&nbsp;if general market conditions trigger a change in the manager&#146;s
+assessment criteria; or (5)&nbsp;for other portfolio management reasons.&nbsp;The International Fund&#146;s managers may trade its portfolio frequently. </P>
+<P STYLE="margin-top:14pt; margin-bottom:0pt; font-size:12pt; font-family:arial"><B>Principal Risks </B></P> <P STYLE="line-height:5.0pt;margin-top:0pt;margin-bottom:2pt;border-bottom:1px dotted #000000">&nbsp;</P>
+<P STYLE="margin-top:6pt; margin-bottom:0pt; font-size:10pt; font-family:arial">Investment in stocks exposes shareholders of the International Fund to the risk of losing money if the value of the stocks held by the International Fund declines during
+the period an investor owns shares in the International Fund.&nbsp;The following risks could affect the value of your investment: </P> <P STYLE="font-size:8pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="2%" VALIGN="top" ALIGN="left"><FONT STYLE="font-family:Times New Roman">&#149;</FONT></TD>
+<TD WIDTH="1%" VALIGN="top">&nbsp;</TD>
+<TD ALIGN="left" VALIGN="top"><B>Market Risk.</B> As with all mutual funds that invest in common stocks, the value of an individual&#146;s investment will fluctuate daily in response to the performance of the individual stocks held in the
+International Fund.&nbsp;The stock market has been subject to significant volatility recently, which has increased the risks associated with an investment in the International&nbsp;Fund. </TD></TR></TABLE>
+<P STYLE="font-size:8pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="2%" VALIGN="top" ALIGN="left"><FONT STYLE="font-family:Times New Roman">&#149;</FONT></TD>
+<TD WIDTH="1%" VALIGN="top">&nbsp;</TD>
+<TD ALIGN="left" VALIGN="top"><B>Foreign Company and Emerging Markets Risk.</B> The International Fund will normally be invested in securities of companies based outside of the United States.&nbsp;Foreign securities involve additional risks,
+including those related to currency-rate fluctuations, political and economic instability, differences in financial reporting standards, and less-strict regulation of securities markets.&nbsp;These risks are greater in emerging markets.
+</TD></TR></TABLE> <P STYLE="font-size:8pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="2%" VALIGN="top" ALIGN="left"><FONT STYLE="font-family:Times New Roman">&#149;</FONT></TD>
+<TD WIDTH="1%" VALIGN="top">&nbsp;</TD>
+<TD ALIGN="left" VALIGN="top"><B>Emerging Markets Risk.&nbsp;</B>The International Fund may invest a portion of its assets in emerging market countries.&nbsp;Emerging market countries are those with immature economic and political structures, and
+investing in emerging markets entails greater risk than in developed markets.&nbsp;Such risks could include those related to government dependence on a few industries or resources, government-imposed taxes on foreign investment or limits on the
+removal of capital from a country, unstable government, and volatile markets. </TD></TR></TABLE> <P STYLE="font-size:8pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="2%" VALIGN="top" ALIGN="left"><FONT STYLE="font-family:Times New Roman">&#149;</FONT></TD>
+<TD WIDTH="1%" VALIGN="top">&nbsp;</TD>
+<TD ALIGN="left" VALIGN="top"><B>Smaller Companies Risk.</B> The International Fund may invest a portion of its assets in the securities of small- and mid-sized companies.&nbsp;Securities of small- and mid-cap companies are generally more volatile
+and less liquid than the securities of large-cap companies.&nbsp;This is because smaller companies may be more reliant on a few products, services or key personnel, which can make it riskier than investing in larger companies with more diverse
+product lines and structured&nbsp;management. </TD></TR></TABLE> <P STYLE="font-size:8pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="2%" VALIGN="top" ALIGN="left"><FONT STYLE="font-family:Times New Roman">&#149;</FONT></TD>
+<TD WIDTH="1%" VALIGN="top">&nbsp;</TD>
+<TD ALIGN="left" VALIGN="top"><B>Portfolio Turnover Risk.</B> High portfolio turnover involves correspondingly greater expenses to the International Fund, including brokerage commissions or dealer mark-ups and other transaction costs on the sale of
+securities and reinvestments in other securities, which may result in adverse tax consequences to the International Fund&#146;s shareholders as compared to shareholders of investment companies that hold investments for a longer period.
+</TD></TR></TABLE> <P STYLE="font-size:8pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="2%" VALIGN="top" ALIGN="left"><FONT STYLE="font-family:Times New Roman">&#149;</FONT></TD>
+<TD WIDTH="1%" VALIGN="top">&nbsp;</TD>
+<TD ALIGN="left" VALIGN="top"><B>Multi-Style Management Risk.&nbsp;</B>Because portions of the International Fund&#146;s assets are managed by different portfolio managers using different styles, the International Fund could experience overlapping
+security transactions. Certain portfolio managers may be purchasing securities at the same time other portfolio managers may be selling those same securities, which may lead to higher transaction expenses compared to a Fund using a single investment
+management&nbsp;style. </TD></TR></TABLE> <P STYLE="margin-top:14pt; margin-bottom:0pt; font-size:12pt; font-family:arial"><B>Performance </B></P>
+<P STYLE="line-height:5.0pt;margin-top:0pt;margin-bottom:2pt;border-bottom:1px dotted #000000">&nbsp;</P> <P STYLE="margin-top:6pt; margin-bottom:0pt; font-size:10pt; font-family:arial">The following performance information provides some indication
+of the risks of investing in the International Fund.&nbsp;The bar chart shows changes in the performance of the International Fund&#146;s Institutional Class shares from year to year.&nbsp;The table below shows how the International Fund&#146;s
+average annual total returns of the Institutional Class and Investor Class for the 1-, 5- and <FONT STYLE="white-space:nowrap">10-year</FONT> periods compare to those of a broad-based market index and a secondary index.&nbsp;Past performance,
+</P>
+ <p STYLE="margin-top:0pt;margin-bottom:0pt ; font-size:8pt">&nbsp;</P>
+<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" BORDER="0" STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:8pt">
+
+<TR>
+<TD WIDTH="95%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="1%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="1%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD></TD></TR>
+<TR STYLE="font-size:1pt">
+<TD HEIGHT="8"></TD>
+<TD HEIGHT="8" COLSPAN="2" STYLE="BORDER-RIGHT:1.00pt solid #000000">&nbsp;</TD>
+<TD HEIGHT="8" COLSPAN="2"></TD>
+<TD HEIGHT="8" COLSPAN="2"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="bottom" ALIGN="right"><FONT STYLE="font-size:8pt">Fund Summary</FONT></TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-RIGHT:1.00pt solid #000000">&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="right"><FONT STYLE="font-size:8pt"><B>3</B></FONT></TD></TR></TABLE>
+
+
+<p Style='page-break-before:always'>
+<HR  SIZE="3" style="COLOR:#999999" WIDTH="100%" ALIGN="CENTER">
+
+ <P STYLE="margin-top:0pt; margin-bottom:0pt; font-size:10pt; font-family:arial">
+before and after taxes, does not necessarily indicate how the International Fund will perform in the future.&nbsp;Updated performance information is available on the International Fund&#146;s
+website at www.mastersfunds.com. </P> <P STYLE="margin-top:12pt; margin-bottom:0pt; font-size:10pt; font-family:arial" ALIGN="center"><B>Litman Gregory Masters International Fund &#150; Institutional&nbsp;Class </B></P>
+<P STYLE="margin-top:0pt; margin-bottom:0pt; font-size:10pt; font-family:arial" ALIGN="center"><B>Calendar Year Total Returns as&nbsp;of&nbsp;December&nbsp;31 </B></P> <P STYLE="font-size:8pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<P STYLE="margin-top:0pt;margin-bottom:0pt" ALIGN="center">
+
+
+<IMG SRC="g101073g63s97.jpg" ALT="LOGO">
+ </P> <P STYLE="margin-top:8pt; margin-bottom:0pt; font-size:10pt; font-family:arial">During the period shown above, the highest and lowest quarterly returns earned by the International Fund were: </P>
+<P STYLE="font-size:12pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" BORDER="0" STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" ALIGN="center">
+
+
+<TR>
+<TD WIDTH="16%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD></TD>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD VALIGN="bottom" WIDTH="4%"></TD>
+<TD WIDTH="70%"></TD></TR>
+
+
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1px solid #000000"> <P STYLE="margin-left:1.00em; text-indent:-1.00em; font-size:10pt; font-family:arial"><B>Highest:</B></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1px solid #000000">&nbsp;</TD>
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1px solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1px solid #000000" ALIGN="right"><B>26.71%</B></TD>
+<TD NOWRAP VALIGN="top" STYLE="BORDER-BOTTOM:1px solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1px solid #000000">&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1px solid #000000"><B>Quarter ended June&nbsp;30, 2009</B></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"> <P STYLE="margin-left:1.00em; text-indent:-1.00em; font-size:10pt; font-family:arial"><B>Lowest:</B></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;</TD>
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>-24.94%</B></TD>
+<TD NOWRAP VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>Quarter ended December&nbsp;31, 2008</B></TD></TR>
+</TABLE> <P STYLE="font-size:12pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" BORDER="0" STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" ALIGN="center">
+
+
+<TR>
+<TD WIDTH="66%"></TD>
+<TD VALIGN="bottom" WIDTH="2%"></TD>
+<TD></TD>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="3%"></TD>
+<TD VALIGN="bottom" WIDTH="3%"></TD>
+<TD></TD>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="3%"></TD>
+<TD VALIGN="bottom" WIDTH="3%"></TD>
+<TD></TD>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="3%"></TD></TR>
+
+
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:12pt">
+<TD VALIGN="top" COLSPAN="12" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>Average Annual Total Returns (for the periods ended December&nbsp;31, 2014)</B></TD>
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>Litman Gregory Masters International Fund</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" COLSPAN="2" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>One&nbsp;Year</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" COLSPAN="2" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>Five&nbsp;Years</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" COLSPAN="2" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>Ten&nbsp;Years</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;</TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial"><B>Institutional Class</B></P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:2.80em; text-indent:-1.40em; font-size:10pt; font-family:arial">Return Before Taxes</P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>-2.72%</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>6.59%</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>6.74%</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:2.80em; text-indent:-1.40em; font-size:10pt; font-family:arial">Return After Taxes on Distributions</P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>-2.87%</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>6.57%</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>5.57%</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"> <P STYLE="margin-left:2.80em; text-indent:-1.40em; font-size:10pt; font-family:arial">Return After Taxes on Distributions and Sale of Fund Shares</P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>-1.19%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>5.31%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>5.50%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial"><B>Investor Class</B></P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"> <P STYLE="margin-left:2.80em; text-indent:-1.40em; font-size:10pt; font-family:arial">Return Before Taxes</P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>-2.98%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>6.30%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>10.97%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>*&nbsp;</B></TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial"><B>Russell Global Ex U.S. Large&nbsp;Cap&nbsp;Index</B></P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"> <P STYLE="margin-left:2.80em; text-indent:-1.40em; font-size:10pt; font-family:arial"><I>(</I><B></B><I>reflects no deduction for fees, expenses or taxes)</I></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>-3.06%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>5.35%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>5.89%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial"><B>MSCI EAFE Index</B></P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"> <P STYLE="margin-left:2.80em; text-indent:-1.40em; font-size:10pt; font-family:arial"><I>(</I><B></B><I>reflects no deduction of fees, expenses or taxes)</I></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>-4.50%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>5.80%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>4.91%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial"><B>Morningstar Foreign Large Blend&nbsp;Category</B></P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"> <P STYLE="margin-left:2.80em; text-indent:-1.40em; font-size:10pt; font-family:arial"><I>(reflects net performance of funds in this group)</I></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>-5.15%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>4.91%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>4.16%</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD></TR>
+</TABLE> <P STYLE="font-size:6pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:8pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="3%" VALIGN="top" ALIGN="left">*</TD>
+<TD ALIGN="left" VALIGN="top">The Return Before Taxes shown above for the Investor Class shares of the International Fund is from April&nbsp;30, 2009 (the inception date for the class) through December&nbsp;31, 2014. </TD></TR></TABLE>
+<P STYLE="margin-top:6pt; margin-bottom:0pt; font-size:10pt; font-family:arial">The International Fund&#146;s after-tax returns as shown in the above table are calculated using the historical highest applicable individual federal marginal income tax
+rates for the period and do not reflect the impact of state and local taxes. Your actual after-tax returns depend on your tax situation and may differ from those shown.&nbsp;If you own shares of </P>
+ <p STYLE="margin-top:0pt;margin-bottom:0pt ; font-size:8pt">&nbsp;</P>
+<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" BORDER="0" STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:8pt">
+
+<TR>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="1%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="1%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="95%"></TD></TR>
+<TR STYLE="font-size:1pt">
+<TD HEIGHT="8"></TD>
+<TD HEIGHT="8" COLSPAN="2"></TD>
+<TD HEIGHT="8" COLSPAN="2" STYLE="BORDER-LEFT:1.00pt solid #000000">&nbsp;</TD>
+<TD HEIGHT="8" COLSPAN="2"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="bottom"><FONT STYLE="font-size:8pt"><B>4</B></FONT></TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom" STYLE="BORDER-LEFT:1.00pt solid #000000">&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom"><FONT STYLE="font-size:8pt">Litman Gregory Funds Trust</FONT></TD></TR></TABLE>
+
+
+<p Style='page-break-before:always'>
+<HR  SIZE="3" style="COLOR:#999999" WIDTH="100%" ALIGN="CENTER">
+
+ <P STYLE="margin-top:0pt; margin-bottom:0pt; font-size:10pt; font-family:arial">
+the International Fund in a tax-deferred account, such as a 401(k) plan or an individual retirement account, after-tax returns shown are not relevant to your investment.&nbsp;After-tax returns
+are shown for only the International Fund&#146;s Institutional Class, and after-tax returns for the International Fund&#146;s Investor Class will vary.</P>
+<P STYLE="margin-top:14pt; margin-bottom:0pt; font-size:12pt; font-family:arial"><B>Management </B></P> <P STYLE="font-size:8pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<P STYLE="line-height:1.0pt;margin-top:0pt;margin-bottom:2pt;border-bottom:1px solid #000000">&nbsp;</P>
+<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" BORDER="0" STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" ALIGN="center">
+
+
+<TR>
+<TD WIDTH="32%"></TD>
+<TD VALIGN="bottom" WIDTH="14%"></TD>
+<TD WIDTH="36%"></TD>
+<TD VALIGN="bottom" WIDTH="9%"></TD>
+<TD></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>INVESTMENT ADVISOR</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>PORTFOLIO MANAGER</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>MANAGED THE<BR>INTERNATIONAL FUND SINCE:</B></TD></TR>
+
+
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.00em; text-indent:-1.00em; font-size:10pt; font-family:arial"><B>Litman Gregory Fund Advisors, LLC</B></P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">Jeremy DeGroot, CFA, President of the Trust, Principal, Chief Investment Officer and Co-Portfolio Manager</TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center">2005</TD></TR>
+<TR STYLE="font-size:1pt">
+<TD HEIGHT="5"></TD>
+<TD HEIGHT="5" COLSPAN="2"></TD>
+<TD HEIGHT="5" COLSPAN="2"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">Rajat Jain, CFA, Senior Research Analyst and <FONT STYLE="white-space:nowrap">Co-Portfolio&nbsp;Manager</FONT></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt solid #000000">2014</TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>SUB-ADVISOR</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>PORTFOLIO MANAGER</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt dotted #000000"><B>MANAGED THE<BR>INTERNATIONAL FUND SINCE:</B></TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"> <P STYLE="margin-left:1.00em; text-indent:-1.00em; font-size:10pt; font-family:arial"><B>Harris Associates L.P.</B></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">David G. Herro, CFA, Deputy Chairman, Portfolio Manager and Chief Investment Officer, International Equity</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt solid #000000">1997</TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"> <P STYLE="margin-left:1.00em; text-indent:-1.00em; font-size:10pt; font-family:arial"><B>Lazard Asset Management LLC</B></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">Mark Little, Portfolio Manager/Analyst</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt solid #000000">2013</TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.00em; text-indent:-1.00em; font-size:10pt; font-family:arial"><B>Northern Cross, LLC</B></P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">Howard Appleby, CFA, Portfolio Manager</TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center">2007</TD></TR>
+<TR STYLE="font-size:1pt">
+<TD HEIGHT="5"></TD>
+<TD HEIGHT="5" COLSPAN="2"></TD>
+<TD HEIGHT="5" COLSPAN="2"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom">Jean-Francois Ducrest, Portfolio Manager</TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center">2007</TD></TR>
+<TR STYLE="font-size:1pt">
+<TD HEIGHT="5"></TD>
+<TD HEIGHT="5" COLSPAN="2"></TD>
+<TD HEIGHT="5" COLSPAN="2"></TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">James LaTorre, CFA, Portfolio Manager</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt solid #000000">2007</TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"> <P STYLE="margin-left:1.00em; text-indent:-1.00em; font-size:10pt; font-family:arial"><B>Thornburg Investment Management, Inc.</B></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"> <P STYLE="margin-top:0pt; margin-bottom:1pt; font-size:10pt; font-family:arial">W. Vinson Walden, CFA, Portfolio Manager</P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="center" STYLE="BORDER-BOTTOM:1.00pt solid #000000">2008</TD></TR>
+</TABLE>
+ <p STYLE="margin-top:0pt;margin-bottom:0pt ; font-size:8pt">&nbsp;</P>
+<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" BORDER="0" STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:8pt">
+
+<TR>
+<TD WIDTH="95%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="1%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="1%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD></TD></TR>
+<TR STYLE="font-size:1pt">
+<TD HEIGHT="8"></TD>
+<TD HEIGHT="8" COLSPAN="2" STYLE="BORDER-RIGHT:1.00pt solid #000000">&nbsp;</TD>
+<TD HEIGHT="8" COLSPAN="2"></TD>
+<TD HEIGHT="8" COLSPAN="2"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="bottom" ALIGN="right"><FONT STYLE="font-size:8pt">Fund Summary</FONT></TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-RIGHT:1.00pt solid #000000">&nbsp;</TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom" ALIGN="right"><FONT STYLE="font-size:8pt"><B>5</B></FONT></TD></TR></TABLE>
+
+
+<p Style='page-break-before:always'>
+<HR  SIZE="3" style="COLOR:#999999" WIDTH="100%" ALIGN="CENTER">
+
+ <P STYLE="margin-top:0pt; margin-bottom:0pt; font-size:12pt; font-family:arial"><B>Purchase and Sale of Fund Shares </B></P>
+<P STYLE="line-height:5.0pt;margin-top:0pt;margin-bottom:2pt;border-bottom:1px dotted #000000">&nbsp;</P> <P STYLE="margin-top:6pt; margin-bottom:0pt; font-size:9pt; font-family:arial">You may purchase, redeem or exchange Fund shares on any business
+day by written request via mail (Litman Gregory Funds Trust, c/o Boston Financial Data Services, P.O. Box 219922, Kansas City, MO 64121-9922), by wire transfer, by telephone at 1-800-960-0188, or through a financial intermediary. The minimum initial
+and subsequent investment amounts for the Fund are shown below. </P> <P STYLE="font-size:8pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" BORDER="0" STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:10pt" ALIGN="center">
+
+
+<TR>
+<TD WIDTH="56%"></TD>
+<TD VALIGN="bottom" WIDTH="3%"></TD>
+<TD></TD>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="4%"></TD>
+<TD VALIGN="bottom" WIDTH="5%"></TD>
+<TD></TD>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="5%"></TD>
+<TD VALIGN="bottom" WIDTH="5%"></TD>
+<TD></TD>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="5%"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="bottom" STYLE="BORDER-TOP:1.00pt solid #000000; BORDER-BOTTOM:1.00pt dotted #000000"><B>Type of Account</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-TOP:1.00pt solid #000000; BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" COLSPAN="2" ALIGN="center" STYLE="BORDER-TOP:1.00pt solid #000000; BORDER-BOTTOM:1.00pt dotted #000000"> <P STYLE="margin-top:0pt; margin-bottom:0pt; font-size:10pt; font-family:arial" ALIGN="center"><B>Minimum<BR>Initial</B></P>
+<P STYLE="margin-top:0pt; margin-bottom:1pt; font-size:10pt; font-family:arial" ALIGN="center"><B>Investment</B></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-TOP:1.00pt solid #000000; BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-TOP:1.00pt solid #000000; BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" COLSPAN="2" ALIGN="center" STYLE="BORDER-TOP:1.00pt solid #000000; BORDER-BOTTOM:1.00pt dotted #000000">
+<P STYLE="margin-top:0pt; margin-bottom:0pt; font-size:10pt; font-family:arial" ALIGN="center"><B>Minimum<BR>Additional</B></P> <P STYLE="margin-top:0pt; margin-bottom:1pt; font-size:10pt; font-family:arial" ALIGN="center"><B>Investment</B></P></TD>
+
+<TD VALIGN="bottom" STYLE="BORDER-TOP:1.00pt solid #000000; BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-TOP:1.00pt solid #000000; BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" COLSPAN="2" ALIGN="center" STYLE="BORDER-TOP:1.00pt solid #000000; BORDER-BOTTOM:1.00pt dotted #000000"> <P STYLE="margin-top:0pt; margin-bottom:0pt; font-size:10pt; font-family:arial" ALIGN="center"><B>Minimum</B></P>
+<P STYLE="margin-top:0pt; margin-bottom:1pt; font-size:10pt; font-family:arial" ALIGN="center"><B>Account<BR>Balance</B></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-TOP:1.00pt solid #000000; BORDER-BOTTOM:1.00pt dotted #000000">&nbsp;</TD></TR>
+
+
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial">Regular</P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:2.80em; text-indent:-1.40em; font-size:10pt; font-family:arial"><B>- Institutional Class</B></P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>$100,000</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>$250</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>$2,500</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"> <P STYLE="margin-left:2.80em; text-indent:-1.40em; font-size:10pt; font-family:arial"><B>- Investor Class</B></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>$1,000</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>$100</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>$250</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial">Retirement Account</P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:2.80em; text-indent:-1.40em; font-size:10pt; font-family:arial"><B>- Institutional Class</B></P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>$5,000</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>$100</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>$250</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"> <P STYLE="margin-left:2.80em; text-indent:-1.40em; font-size:10pt; font-family:arial"><B>- Investor Class</B></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>$500</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>$100</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>$250</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:1.40em; text-indent:-1.40em; font-size:10pt; font-family:arial">Automatic Investment Account</P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top"> <P STYLE="margin-left:2.80em; text-indent:-1.40em; font-size:10pt; font-family:arial"><B>- Institutional Class</B></P></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>$2,500</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>$250</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" ALIGN="right"><B>$2,500</B></TD>
+<TD NOWRAP VALIGN="bottom"><B>&nbsp;&nbsp;</B></TD></TR>
+<TR BGCOLOR="#cceeff" STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="top" STYLE="BORDER-BOTTOM:1.00pt solid #000000"> <P STYLE="margin-left:2.80em; text-indent:-1.40em; font-size:10pt; font-family:arial"><B>- Investor Class</B></P></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>$2,500</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>$250</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000">&nbsp;&nbsp;</TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;</B></TD>
+<TD VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000" ALIGN="right"><B>$2,500</B></TD>
+<TD NOWRAP VALIGN="bottom" STYLE="BORDER-BOTTOM:1.00pt solid #000000"><B>&nbsp;&nbsp;</B></TD></TR>
+</TABLE> <P STYLE="font-size:6pt;margin-top:0pt;margin-bottom:0pt">&nbsp;</P>
+<TABLE STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:8pt" BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%">
+<TR>
+<TD WIDTH="3%" VALIGN="top" ALIGN="left">(1)</TD>
+<TD ALIGN="left" VALIGN="top">The minimum investment amounts may be waived or lowered for investments effected through banks and other institutions that have entered into arrangements with the International Fund or the distributor of the Fund and
+for investments effected on a group basis by certain other entities and their employees, such as investments pursuant to a payroll deduction plan and asset-based or wrap programs. Please consult your financial intermediary for information about
+minimum investment requirements. The International Fund reserves the right to change or waive the minimum initial and subsequent investment requirements at any&nbsp;time. </TD></TR></TABLE>
+<P STYLE="margin-top:14pt; margin-bottom:0pt; font-size:12pt; font-family:arial"><B>Tax Information &#150; All Funds </B></P> <P STYLE="line-height:5.0pt;margin-top:0pt;margin-bottom:2pt;border-bottom:1px dotted #000000">&nbsp;</P>
+<P STYLE="margin-top:6pt; margin-bottom:0pt; font-size:9pt; font-family:arial">Depending on the character of income distributed, the Funds&#146; distributions will be taxed as ordinary income or capital gains, unless you are investing through a
+tax-deferred arrangement, such as a 401(k) plan or an individual retirement account. Such tax-deferred arrangements may be taxed later upon withdrawal from those accounts. </P>
+<P STYLE="margin-top:14pt; margin-bottom:0pt; font-size:12pt; font-family:arial"><B>Payments to Broker-Dealers and Other Financial Intermediaries &#150; All Funds </B></P>
+<P STYLE="line-height:5.0pt;margin-top:0pt;margin-bottom:2pt;border-bottom:1px dotted #000000">&nbsp;</P> <P STYLE="margin-top:6pt; margin-bottom:0pt; font-size:9pt; font-family:arial">If you purchase shares of a Fund through a broker-dealer or
+other financial intermediary (such as a bank), the Fund and/or Litman Gregory may pay the intermediary for the sale of Fund shares and related services. These payments may create a conflict of interest by influencing the broker-dealer or other
+intermediary and your salesperson to recommend the Fund over another investment. Ask your salesperson or visit your financial intermediary&#146;s website for more information. </P>
+ <p STYLE="margin-top:0pt;margin-bottom:0pt ; font-size:8pt">&nbsp;</P>
+<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" BORDER="0" STYLE="BORDER-COLLAPSE:COLLAPSE; font-family:arial; font-size:8pt">
+
+<TR>
+<TD></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="1%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="1%"></TD>
+<TD VALIGN="bottom" WIDTH="1%"></TD>
+<TD WIDTH="95%"></TD></TR>
+<TR STYLE="font-size:1pt">
+<TD HEIGHT="8"></TD>
+<TD HEIGHT="8" COLSPAN="2"></TD>
+<TD HEIGHT="8" COLSPAN="2" STYLE="BORDER-LEFT:1.00pt solid #000000">&nbsp;</TD>
+<TD HEIGHT="8" COLSPAN="2"></TD></TR>
+<TR STYLE="font-family:arial; font-size:10pt">
+<TD VALIGN="bottom"><FONT STYLE="font-size:8pt"><B>6</B></FONT></TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom" STYLE="BORDER-LEFT:1.00pt solid #000000">&nbsp;</TD>
+<TD VALIGN="bottom"></TD>
+<TD VALIGN="bottom">&nbsp;</TD>
+<TD VALIGN="bottom"><FONT STYLE="font-size:8pt">Litman Gregory Funds Trust</FONT></TD></TR></TABLE>
+
+
+<p Style='page-break-before:always'>
+<HR  SIZE="3" style="COLOR:#999999" WIDTH="100%" ALIGN="CENTER">
+
+
+
+<p Style='page-break-before:always'>
+<HR  SIZE="3" style="COLOR:#999999" WIDTH="100%" ALIGN="CENTER">
+
+
+</BODY></HTML>
+</TEXT>
+</DOCUMENT>
+<DOCUMENT>
+<TYPE>GRAPHIC
+<SEQUENCE>2
+<FILENAME>g101073g63s97.jpg
+<DESCRIPTION>GRAPHIC
+<TEXT>
+begin 644 g101073g63s97.jpg
+M_]C_X  02D9)1@ ! 0(!>@%Z  #_X5K\:'1T<#HO+VYS+F%D;V)E+F-O;2]X
+M87 O,2XP+P \/WAP86-K970@8F5G:6X](N^[OR(@:60](E<U33!-<$-E:&E(
+M>G)E4WI.5&-Z:V,Y9"(_/CQX.GAM<&UE=&$@>&UL;G,Z>#TB861O8F4Z;G,Z
+M;65T82\B('@Z>&UP=&L](D%D;V)E(%A-4"!#;W)E(#4N,RUC,#$Q(#8V+C$T
+M-38V,2P@,C Q,B\P,B\P-BTQ-#HU-CHR-R @(" @(" @(CX*(" @/')D9CI2
+M1$8@>&UL;G,Z<F1F/2)H='1P.B\O=W=W+G<S+F]R9R\Q.3DY+S R+S(R+7)D
+M9BUS>6YT87@M;G,C(CX*(" @(" @/')D9CI$97-C<FEP=&EO;B!R9&8Z86)O
+M=70](B(*(" @(" @(" @(" @>&UL;G,Z>&UP/2)H='1P.B\O;G,N861O8F4N
+M8V]M+WAA<"\Q+C O(@H@(" @(" @(" @("!X;6QN<SIX;7!'26UG/2)H='1P
+M.B\O;G,N861O8F4N8V]M+WAA<"\Q+C O9R]I;6<O(CX*(" @(" @(" @/'AM
+M<#I-;V1I9GE$871E/C(P,34M,#0M,C)4,3@Z,C4Z,3$K,#4Z,S \+WAM<#I-
+M;V1I9GE$871E/@H@(" @(" @(" \>&UP.D-R96%T941A=&4^,C Q-2TP-"TR
+M,E0Q.#HR-3HQ,2LP-3HS,#PO>&UP.D-R96%T941A=&4^"B @(" @(" @(#QX
+M;7 Z365T861A=&%$871E/C(P,34M,#0M,C)4,3@Z,C4Z,3$K,#4Z,S \+WAM
+M<#I-971A9&%T841A=&4^"B @(" @(" @(#QX;7 Z0W)E871O<E1O;VP^061O
+M8F4@26QL=7-T<F%T;W(@0U,V("A7:6YD;W=S*3PO>&UP.D-R96%T;W)4;V]L
+M/@H@(" @(" @(" \>&UP.E1H=6UB;F%I;',^"B @(" @(" @(" @(#QR9&8Z
+M06QT/@H@(" @(" @(" @(" @(" \<F1F.FQI(')D9CIP87)S951Y<&4](E)E
+M<V]U<F-E(CX*(" @(" @(" @(" @(" @(" @/'AM<$=);6<Z=VED=&@^,C,R
+M/"]X;7!'26UG.G=I9'1H/@H@(" @(" @(" @(" @(" @(" \>&UP1TEM9SIH
+M96EG:'0^,C4V/"]X;7!'26UG.FAE:6=H=#X*(" @(" @(" @(" @(" @(" @
+M/'AM<$=);6<Z9F]R;6%T/DI014<\+WAM<$=);6<Z9F]R;6%T/@H@(" @(" @
+M(" @(" @(" @(" \>&UP1TEM9SII;6%G93XO.6HO-$%!45-K6DI29T%"06=%
+M05-!0DE!040O-U%!<U5':'9D1SEZ84<Y=TE$375-04$T46ML3D$K,$%!04%!
+M04)!05-!04%!045!)B-X03M!44))04%!04%104(O*S1!1&M&:V(R2FQ!1U1!
+M04%!04%F+V)!25%!0F=114)!545"9U5&0F=K1T)164I#=V='0F=G3$1!;TM#
+M=V]+)B-X03M$0D%-1$%W341!=U%$031014$X3T1"351&0E%417AW8D=X<V-(
+M>#AF2'@X9DAX.&9(=T5(0G=C3D1!,%E%0D%91VA54D92;V9(>#AF)B-X03M(
+M>#AF2'@X9DAX.&9(>#AF2'@X9DAX.&9(>#AF2'@X9DAX.&9(>#AF2'@X9DAX
+M.&9(>#AF2'@X9DAX.&8O.$%!15%G0D%!1&]!=T52)B-X03M!04E205%-4D%F
+M+T5!84E!04%!2$%114)!445!04%!04%!04%!05%&07=)1T%104A#06M+0W=%
+M04%G241!445"05%%04%!04%!04%!)B-X03M!44%#07=11D)G8TE#46],14%!
+M0T%1341!9U%#0F=C1$)!24=!;DU"06=-4D)!049)4DEX459%1T4R16EC6455
+M37!':$)X5WA1:5!")B-X03M5=$AH37A::3A#4GEG=D5L47I25&MQ2WE9,U!#
+M3E51;FLV3WI.:&156DA41#!U24E*;TU*0VAG6FA*4D92<5,P5G1.5DM"<GDT
+M+U!%)B-X03LQ3U0P6EA71FQA5S%X9%AL.5=:,FAP86UT<V)7-799,U(Q9&YD
+M-&58<#=F2#$K9C-/16A984AI26U+:31Y3FIO*T-K-5-6;'!E66U:)B-X03MQ
+M8FY*,F5N-4MJ<$M7;7 V:7!Q<75S<F$V=F]204%)0T%1241"455%0E%914-!
+M341B445!06A%1$)#15--545&55).:$EG6GAG6D5Y)B-X03MO8DAW1DU(4C13
+M3D-&5DII8W9%>DI$4D1G:&%357E7:5DW3$-",U!33F5*16=X9%5K=V=*0VAG
+M6DIJ6D9':61K9$95,SAQ3WIW>6=P)B-X03LP*U!Z:$I3:W1-5%4U4%)L9%E7
+M5G!B6$8Q95@Q4FQ:;61O85=P<F)',75B,E(Q9&YD-&58<#=F2#$K9C-/16A9
+M84AI26U+:31Y3FIO)B-X03LK1&Q*5U=L-6E:;7!U8VY:-F9K<4]K<&%A;G%+
+M;7%Q-GET<G$K=B]A04%W1$%104-%44U2040X03E5-'$W1EA9<3=&6%EQ-T98
+M67$W)B-X03M&6%EQ-T960RMV-TA4-U-7.'8W;4LP<S1">6UU6C-73TY&-E9:
+M,TE51#4T<7=Y,3@X-GIC+VU"839.8DI9,VUI6'-4,T55;&\W5#-%)B-X03MD
+M;TQD6EER,E=21TU3>%1Y=#9583!Q9G1!:UEQ:$Y7.#%F;4)A*V%D5S K>FLP
+M930P-U1B45AS.',P53EV.5=7955P8G).3S%W,&)&)B-X03M9,&ML:V]I-TQT
+M5&M+2W!*6F9M+S5Z2#9/;G9.1FEF5$QX6E5I,4=+3S1H9W571#-+43-%8VMP
+M2U%22#!)5UI:4U<T4SAW94M.:%90)B-X03LO=T%Z=%%T.5(O2C=5<C)#-W0W
+M-D]A0T$O5S=.9S%V27=N:D1T15%Z+T1Y0B]A3U-X.#)-*U1$+T%0;D=C=71J
+M-6I:1C5U1W1I<59P)B-X03M5.%IA0W54>3E'1TI.3$@X,&905C=Q35=I43(R
+M;&Y58GDX1G!B-FUV<E-A9DA*2&%3,U8Q8FMI44=A5S--2WAS-DU&2F)P=%1+
+M;3%&)B-X03LV1"MC,7AF5#)T,7%E;4149$1F>35,<C Q,'IR23!K<U5K0TUK
+M2$)Y,T)42WDP:U%->E5P=#%#<VHO2R]Z9'$O;6YY-U!F-G9B=U=T)B-X03LO
+M0F985FY,8E<O27%N,655;T%3>E!6='1Z,%!G359:9FER<U9D:7)S5F1I<G-6
+M9&ER<U9D:7)S5F1I<G-69&ER<U9D:7)S5F1I<G-6)B-X03MD:7)S5E=Y=WA4
+M4G1&36EY4G5+36IG37!(=41I<D8U=GEW.&QY-FIF86EB4V5/-C%)8V(P=S-T
+M-T-K9T59:4@W<4]:27AX44%,>%5C)B-X03ME,4U64G5Q*U)V2RMR46%T0F8R
+M6FQI,3!W='%O5V%E37DO5F=Q>$1L1S9S9U5)3FM)0C<Q<6-69$@U2#AS<G!S
+M96UY5WHS3FQ%;'A%)B-X03MK5C-C6$8Q.$8P<%-91G U2D=02D-60DHK145G
+M54)/2W!$*UE8;&U/,2]+>E9.13!#>6QK2$97:'194DIC5$\W,U-Y>4Y5;5-3
+M4FU:)B-X03MM9&U*2D\U3U-G9#)-*U1&+W=$;DAZ>3=R1VXR4&U#1%=.3W5R
+M0F)O,C9O3&E+5S-:,31Y:'5"64DR,TQQ=E1*-51B2$='6C(S-5-E)B-X03M1
+M8F)34G!-5VYY:7=6,&QH:6$X=EA-3&]'54=",FU:-&%R27=B,'EV24AE=59.
+M:6%(>5 U4UIO3V5L45-2,CEI9$QI=#-8;D%,2FY3)B-X03M1=VU"<7A-3U5+
+M2&1A-UEQ<F589DMN;'IY,V)4,C)H869$<#%V8WIV8WI2441I<&QK3E=.3W<W
+M2V\K1E)S04)I<6)9<3=&6%EQ-T98)B-X03M9<3=&6%EQ-T9867$W1EA9<3=&
+M6%EQ-T9867$W1EA9<3=&6%EQ-T9867$W1EA9<3=&6%EQ-T9867$W1EA9<3=&
+M6%EQ-T9867$W1EA9)B-X03MQ-T9867$W1EA9<3=&6%EQ-T9867$W1EA9<3=&
+M6%EQ-T9867$W1EA9<6LS;51Z:#5C.'11>%1A,V5F5E5N-65N4T]756M29T8S
+M2WA+)B-X03LU0TE#0WI(-%8W;D96;&HU-#AP,S)R6$]K,FUP4E,S,6]J4U1)
+M3U%4:6Y(;59L245B.$]A."M,2&I55G!I<41B.'IF27ER<')(5D8T)B-X03MA
+M<VE35TQI2UEQ>5-Y96I'.&I"2U)+.&YW<3!N144W1$972&9N3"M:=FU8>6IQ
+M.6AA850V2'!83G5:6E!7:DQN:TA+-T5-=EE:8FIG)B-X03M#,7IK43@Y+S9'
+M1R]-2"]L>2\U14@O;79**T5'2&EL,R]1=S,U9R\X=5@O26<O.$%.95!H0F9&
+M3'8K:&AV>D(O-6-V*U)"+S5R>#A))B-X03M,-'!D+W="1$1F;40O=T%U6"])
+M9R]W1$YE4&A"9D9,,&8X;5!Z2CAX*V(W,U9)9%@Y1&AA4GA01C9-6E$Q9&U"
+M<E9M.$UR>5%!6G=K)B-X03M3>F$P."ME56)U.#%#>G0Y4VIA9E,P:VMV87$V
+M27%1=5DU5U=2;$-33$<T-'-52F\R>#-Y='-25"MA3D)J.'1$>E!*9&A.1$YQ
+M="M,)B-X03MX;&-$-G4V0U)8-$9E939K9D1X-61Q5GA62DQN.#)F259R.55.
+M>&9Y=W<S,$UD>F%83#)D-G-$>%-W9E=68C%Z1#91+V,O1S%7<71$)B-X03M7
+M;$1I<61A4#5O,$Q79E0O045B9&971$Q%.'=52DEP5DDU5$,S<4(Q57AS2E5:
+M94PP87%T=#A*;W%M=4MU>%8R2W5X5C)+=7A6,DMU)B-X03MX5C)+=7A6,DMU
+M>%8R2W5X5C)+=7A6:$@U;F574$Y8;4LR<W)(4FA:1W=B,54Q;&)Q85,R;6UT
+M,T-J-G9&3DAB,TQ*2$Q4.3=3:$E!)B-X03M&8U93<E$O>6YU25!->EA'<7)9
+M,U!L-DIT5&QT<D1G,'!D=%AK:&ML:6U34E!4.4](,%-%-C$R,D=+;T9F>7 X
+M,F8T83AR84,Q,5E*)B-X03M$<$-76G8U,&%F;C9L;F,K=CA+.%%L>D=Y-T-/
+M6E9#=#A1,W=Q>% O04IY6"]W0U5J,&HO04IG,B]W0U1P>3=&>6%C<G@S3%=P
+M,DMU)B-X03MX5C)+=F%V*V-:9BM/<')V+T=#1"]I8C56;&)C5$TW2#AU=&5V
+M9%(X>'IE84Q04V)Y1%5R964Q,&Q9,V533S-G85E44E$O5FYT;S1X)B-X03M7
+M54-74U1K>D=106I+1S5U+W=$>3<X,S9J-40P=GEK.2]95V-/;%=M;E)I5# U
+M8G!,;5=Z='EK<U5Y13(O1TE43$A*1W=*2G X4SEI)B-X03MQ<BM8+W=!=&11
+M5TA1-TQZ3$IA-FIP*VME6'8P36)E3#%!<&YN06EU1T-K1#1F<3AA>&@V:&I6
+M:GA7=4MR=DMN:TQZ4#5D,3(R;7,W)B-X03LK0TQ1-2]6;3%I>$IE95=395%Y
+M<V]785I';6-+6&I037E,.%%K6FQ9>5965C9$:7)S5F1I<G-69&ER<U9D:7)S
+M5F1I<G-69&ER<U9D)B-X03MI<G-69&ER<U9D:7)S5F1I<5$K679);FQ0>DAC
+M4EA'=&%E=#5.06AJ:61N:U-I:S%P.$1,,WE1:U)Y45EG<%(O>7!N.',O.$%Q
+M>' O)B-X03MY3W50*W%M2'A#:F=$=CA!;%10-5HO.$%6:E0O04I(6$@O5E1(
+M>$-V04AF.'%:+TQ0+W%X<"]Y3W50.$%Q<&HT:%AG1'8K5DTO;&XO)B-X03M!
+M3E=.4"M2,7@O,55X.%%R=T)/9DQN:V9Y=#5B:VYL,%-W5WIE-4-R37EV22])
+M2U-14&I:=DA!6D4X,&E)0V5:1DQS5F1I<G-69&ER)B-X03MS5F1I<G-69&ER
+M<U9D:7)S5F1I<G-69&ER<U9D:7)S5F1I<G-69&ER<U9D:7)&4$]0-6UE5V9+
+M3C-B,G5R;6-3,TU:;&HY1U!M3TEB)B-X03MJ=6%J=FMO=TI9;5%$2'8K:&AF
+M>3DX8GHO:U%0*V%S;#124C1G9"\P34PK6'9J968X:4(O>E9J-%)8>$$W+V]9
+M6#AV9D<X+S5%1"]M)B-X03MR2'=I=FE",R]1=W8U92M.-2]Y24@O3E=0:$9F
+M14109$(Q=7DQ>E-,6%9R2&MB4S=4;D1Z2$9Q5DDS1R]H:T-+6D$R:CA#6%EQ
+M-T98)B-X03M9<3=&6%EQ-T9867$W1EA9<3=&6%EQ-T9867$W1EA9<3=&6%EQ
+M-T9867$X=B]04'I"1G!D:G!T<VUT>C92<4XK8FE05&QI=5):4D=9)B-X03M+
+M;D<U=5IY>2]U8F5V27@W*V]31F]C5E-B>7)R2&Y7.3@K6&5N4F$Q2SDK-#%6
+M3#14>'106C(X34UL=4Y,=45T=5533#9Y33=$:7<U)B-X03LQ3F$P=W%K;' U
+M>'9B:E1V249T2C5O=6)B>D9Q3G):,TPK=F1#1S-%9C%S:6%A-$1.5S9E-%5'
+M1T]%9R]Z8E5X5F(O>FMV.$$X<$AP)B-X03M(+TU',R]*,#5D:35.3U8T-VQR
+M53=&6%EQ-T98,4@U44]Q1#AK8E9T2W5K<W(Y3$-2-$QQ4TEZ0D]$<WI(9TAI
+M<5-O254X=&IV43!O)B-X03MC869.>5DX;4)79FY$>E)&<F9K<%I.479P;G5.
+M2S!#-31I9'9283-E3FTQ86$V:F,Q=4A-9$@Y4VIC86)S<$Y$1FMI4$YV;F9Z
+M62]N)B-X03LR-B]W=&585CE,3&)X,V5J5SA$;')*-T-44UIP=517-7!Z9')O
+M4G-S;U5J8TIY<CA/2V]F>3=Q=FYN571',#=59$DQ2S9-.6YQ161V)B-X03MC
+M5SEZ9GI8348S9%-R8E-K45-E:T=K:D5A5%)Z475E35):;54O=7=-5F5S9FQT
+M-6QT3F8X=')08FTX8S)S<E<Y>%!F<49L;&PT<DLW)B-X03MG2SAO0VXQ9G-6
+M<D=A;U%P5V=#<W%X5C)+=7A6,DMU>%8R2W5X5C)+=7A6,DMU>%8R2W5X5C)+
+M=7A6,DMU>%8R2W5X5C5L*V$O=T-6)B-X03M'<65D3E5S<GEZ=EE,5DQ707=S
+M<W=C:VMU5W%/25!J;&M*,'=N0S)$9CE#,&59+RMR=EHO.$1,+T%%>69I:&@T
+M5'8X06]7:GI(+S%D)B-X03LW4#A!-$=8*VU0:6AF0V0O,$Q2-6HO-G4Y;B]W
+M378X051(>%%V:$\O-D9O.'@O.$%6,W,O*T)L+W!J-&]8=VYT9FMR45HO3"]!
+M2E<P)B-X03LW4G U5FUM<V]Z1SAQ5D-S4WAB874O9DM:1WDR9U5%-W=*9&ER
+M<U9D:7)S5F1I<G-69&ER<U9D:7)S5F1I<G-69&ER<U9D:7)S5F1I)B-X03MR
+M<U9D:7)S5F1I<G-69&ER<U9D:7)S5F1I<G-69&ER<U9D:7)S5F1I<G-69&ER
+M<U9D:7)S5F1I<G-69&ER<U9D:7)(9DUV;DM(4DY9)B-X03LP3%,R<S5R:5A8
+M3'-7:51H6%=#24=.,TQ.3GA:3V8W=F%/;UEI<#9$1E5U.&<O;51"-7EI=G)Y
+M>71)>' Q=G9B5%$S559X330U34]%)B-X03LY=4%K:T5H0SAG<#5!9R]A<G1I
+M<5(S=C4R2%1T0S$R*S%(47!,9E5T2$9U63E,1G=R=$MB;4HU>$<X:7!32U=+
+M1THS;5-J8T%/*TMQ)B-X03LR9V9N3$AR2&UA2'DO1G!15S=U6&-2<4QP6&MJ
+M4T(Q13!L>D=)=UE154IE0W!0<6EN,F$T5E-,+T%*>5=L;&HP;E)05&1K<E!.
+M6&E3)B-X03M0,D8X37-X3F58:SA#*W0S6"LO;B]W0T-0.6-V84QD.6)U=CDO
+M4#A!.$5F-C1R8G9R9#$O=C4O*T-0.$%81F)E-B\X04].9'A+8DAZ)B-X03M%
+M.&AE6&<Q<U%T4WI':7EM9T(W;DMC=E)U>$UH:"]/2%4U<CAA3$@U86-E635:
+M-&]R9E1N=3%#8UIB5U<W26UN16)#2U=/2T$X-'5,)B-X03M52D<Y1%A+5S%-
+M4$QV-74V6')U;S(Q=&$V8F5P0DYO:C8U2D\P37!.16%&9E%G4EDR*W-T*RM.
+M5$54.%$T,$I/>7))4$DO;7!03EAL)B-X03MQ,S%X3%8W2DQI5S5J5S)L2DUI
+M:3)U6DQC1C9Q:%9M.4QK5G X3F%B,')I<64T<3=&6%EQ-T9867$W1EA9<3=&
+M6%EQ-T9867$W1EA9)B-X03MQ-T9867$W1EA9<7AS9FPW-5AH=#E*=&10=%)P
+M='!O*V]$5F)7,W1!<V-:=4)&2D5E64MT5E-S>')3:')49D95=3!4.' Y1#!/
+M-F4U)B-X03LP;2]V-U-2:6E+235)=4M7,&9Q<W1Q05ET-&A*8TTO>%9E;TAX
+M8V1S5E,V2#AI9DM8-D%L,%,X=F13=C=::DTY=DY,3VM5,$5T>D<P)B-X03MC
+M,'%V8E(R+W%V27(O1C8T:T(W:6Q15E5W,3<X;R]+*W0V9%DR1C5,9$=$5%E)
+M-V%Z<3AC>%9%<4A,0S1J;5=2<%)X-49W9G-Q5C1S)B-X03MO3TMS3B]0>GDO
+M9&IY,S5C,"]3-V$T=DER1FUH6&ER>GE"16E21DUJ04U34T8V;G)L=4ET95%B
+M4$5V.$%#+VU8+W$P,W8O4U!,+WI4)B-X03ML,6AP-%,W+T%!=C5L+S9T3C<O
+M,&IY+S@P-#)&-%,W+T%!=C5L+S9T3C<O,&IY+S@P-#)&-%,Y="]W0V-D=$DQ
+M3S%S4$U-5C5B,T9I)B-X03LP-71X1SAK8E)T.6U51FLY4F%%<EAW>6Y+5S-'
+M1U5A9"M41VDR1VQX5TU/<S9R>G1B;')Y>79J2F%R8W=44TDX8WIR26QU;DUZ
+M2DM2)B-X03M)6E$U3S(T>7!T5#=2=DEE:&%.9C9B96%E2EEV,%9P:F%085<O
+M24Y(.5AE4T]5<S%6-6U4;$-.*UAJ=&EQ3SAT95AB3'DY<$-A5EI0)B-X03M*
+M2F)X>3-%>79-5EHK5C%/.7<T<7%O2T(U4T)T,'A63DU69&ER<U9D:7)S5F1I
+M<G-69&ER<U9D:7)S5F1I<G-69&ER<U9D:7)S5F1I)B-X03MR<U9D:7)S5F1I
+M<G-69&ER<U9D:7)S5F1I<G-69&ER<U9D:7)S5F1I<G-69&ER<U9D:7)S5F1I
+M<G-69&ER<U9D:7)S5F1I<G-69&ER)B-X03MS5F1I<G-64V)Z2C5W.'5E5V]9
+M<'1B=E!Q<50X=E1P2$Q+4TEW0S=L66QC:$5"0EIJ.$LY>FEQ>7@X.&55-S=6
+M<FY38E15;W!B-C!2)B-X03MP2FM(24IX5&IZ2WEK0TXK2$YE9D9J>'%+,'A6
+M1$PK6DAK;'8P5U)Q:54Q<%9F5&TT4S!D6&8P:UIJ=W!'<GE(:7!K-#AJ<TU6
+M66HK)B-X03MB,S5Q95EF2G5R5TYN<&1V85126%5";6M.>6MR34=$;&1U16ME
+M,C)746=#,7IM47=(+V]:3'IZ+T%-<T]M9CA!27$T+S9R-5HT45EE)B-X03M+
+M6&8Y1$IE968K5TA44#A!:U9C9CE6.&9#0RM+6&8X05%Y6&YN+VQH,'HO:U9C
+M9CE6.&9#0RM+6'1F:VYZ6$IQ+VMA>CAX-G598E9P)B-X03M9<%IB<&\K4U%O
+M<U5J<E5C,F-G8U4X8W!K2TY.,%198B]W0U9J*U5$8V%D8E(S53 P,G)7,79F
+M5U-W5V0U341B6%I)9VQK36-40TI8)B-X03M+;BLX-#!P=FM5;W4O=T1/;FQF
+M5#EC:3!/.3%#3T15-6]J37-,:'=O44LW+T%">3 Y3D-6:&-Q<DU#47!P,'A6
+M3$(K83-K13(V6$@V)B-X03M5<$<W<VYX5SEY<DM&5EAA4C!-65I)47-I3C9R
+M04I19SAT.%9:3' K;U=M;U=K9#5:>65R8E,Q.4M7:DM'0W-6-4QY07%P<'-E
+M:$<T)B-X03LR>%9%67$W1EA9<3=&6%EQ-T9867$W1EA9<3=&6%EQ-T9867$W
+M1EA9<3=&6%EQ=VHX>G9,2&UR>D9B5U9J;W=S:EE.-G%A>70Q3DIB)B-X03M4
+M5%<W:%(Y6&EM:G0W;&MJ;' K.7!1:T%#=4MP5F]F-50S14AM6G)J5E9S8FYY
+M.44R<'DR,6AW855U,G)Y47E3>%1*26YP*VY$-DI#)B-X03MD83=B1$95;W0O
+M>5DX>4IP;6A71%AT;45H<TY0,#=75T)L67%U;F%H.696-U=Q1&M82DM(;GAP
+M,3,V6599-2]Z:W8X03AP2'!(+TU')B-X03LS+THP-61I-4Y/5C0W;')5-T98
+M67$K;W9Y.#!A,3%V.&QR2%-R<4-'-6EU-V$T45$S2T-33&XV.&AJ6FQ935!H
+M8T)G86)%5GI';CE4)B-X03MK=S5*6$8K5E!M,C-U9DQS=&YF5S%P4'!U;394
+M<#DU<45&>F5X>7(K:FHK*U)B9&8Y2'5O-6Q:;%@Q5EAI0V1J:T=31#@P9FLU
+M-7@X)B-X03LP83=0<6PO95=.;DIQ155-9#%*8E,S1&E"571P8F%32T]":U-/
+M9FUT>$IX;6M+=6Y)9T1#<4DP=CAL.5=M,&8Y1V593#,Q<EI8:&=T)B-X03LT
+M;W(V.6Q-1FU&<&5+:W)I2C)&,W=13D$S-W1+5D93359:-S5(,'9Z5'!M:U!A
+M95DW-D,K=45M4#%2<F%.66\T-V-)<7!'1E9)9T%')B-X03M$1E)1.%9)6&LY
+M3U)#<VAX5C)+=7A6,DMU>%8R2W5X5C)+=7A6,DMU>%8R2W5X5C)+=7A6,DMU
+M>%8R2W5X5C)+<V4X>F9L+S52.'HS)B-X03M-3GIR;&@Y8FUG47AX4#9S,%9&
+M2C55<$4V03<K3U-%:4]417A"-7!.+W=!<5 O2R\O<7DO.5!6,R]W0E9S4&E3
+M4C199"]W07%0+TLO)B-X03LO<7DO.5!6,R]W0E9S9D5K=FAH,R]+:B]!37(O
+M05!Q>2]W1%0Q9"\Y5G-F16MV:&AL=6DV3G!U:39:0G!E;5$O5C=',D)%35!*
+M,S1H)B-X03MM3$@T;DQ-9FE9.51K4V):055J8T-867$W1EA9<3=&6%EQ-T98
+M67$W1EA9<3=&6%EQ-T9867$W1EA9<3=&6%EQ-T9867$W1EA9<3=&)B-X03M8
+M67%X-WI.*UE(;$AY>&-W,C)U6"]W0E5M;E%Y4DHV53!T5D(T,7)%:F=B*T]3
+M15-E5$5Y035P3B]W07)W+TLO+W$Y9CE/=#,O=T)5)B-X03MC4&AY4C1G9"]W
+M07)W+TLO+W$Y9CE/=#,O=T)58V9$:W9I0C,O2SA0>78X02MR,2\P-C-F+U9(
+M2'<U3#1G9"]Y=D0X<B]W1'$Y9CA!)B-X03M4<F0O.55C9D1K=FE",R]+.%!Y
+M=B]W0W(Q+S V,V8X03%2>#A/4RM)2&8X04LX4'EV+S9V6"]4<F0O.$%62$AW
+M-4PT9V0O>79$.'(O)B-X03M!4'$Y9CE/=#,O,5)X.$]3*TE(9CAR=R]++SA!
+M-G98+T%%-C-F+U9(2'<U3#1G5&9Y,2M99FLW>DYE4S)E:6%H.6)U65DO5VMJ
+M.4=E)B-X03M/:4)G=&%Y;V<V<TU":5)Z4TI!<VIY3$HR2W5X5C)+=7A6,DMU
+M>%8R2W5X5C)+=7A6,DMU>%8R2W5X5C)+=DPO04TX+TU%5VPR3VTR)B-X03MY
+M83-0<$=O,S5U23E/5TLU1FQ%6F=Q8V)M-6Y,3"LU=#8X:DAV-FA)5VAX5F=U
+M<2MA=E!55V\V=6QV<3$W4&1O,39U<TI'6#E+,C K)B-X03M/.',P=&)Q,U%$
+M:D-:3%=36G=Y9&1Z,G%#<6E03TAN36%T<$YV839N<48S1$YC=$@U6DEL8B]3
+M648Q;WA'5S=$:T<V4C=(6E0X4E5$)B-X03MM,4YM>%9&9C@U3"]!4$M2-E(O
+M>D)T+WED3UA9=514;&5/-6$Q3WA6,DMU>%8R2W5X5C)+=7A6-C4O>FI8+WEL
+M*W!F.7,Y=BM4,%=6)B-X03M:951B:35O=GIZ-6HQ-C X>38Y2&\K<S9N36M6
+M=F1.9GAX>7I$,$=7.'1L4TUW;%97>FE71FY#6$UF2FY5<S,W3U5T>5E196-R
+M>34O)B-X03M+5V4S8E=(9S%63'A:0F-3,U8Q>513>G%X:5(O,&I$1SAX:&5+
+M3F]H9$92559*>%9*.5<X-2MB=%$O=V9A85-D63!/,&YB-G1(9'EF)B-X03M8
+M3'A,;35U,'5L5C)U,E0O045I3T5W>'E)<C=L5S5&84IS<7E(>5 U=S%842]/
+M375G*UI*8C(W835N1FYO-E)83#,Q=DAZ6E5U1V5E)B-X03LU349X8SA,:4UQ
+M5U=*=E(K24=I34-66'1'0EA9<3=&6%EQ-T9867$W1EA9<3=&6%EQ-T9867$W
+M1EA9<3=&6&QN-79F;%@U:#@U8719)B-X03LS;6PS1G!$1F%W1T=16$QY<7A9
+M=5<R-%)Y8F(U6D-91%A/0DQ!9CA!;U<S>GHO>3-A6B]Y3G50*W%'5V5+1TAH
+M1C,O471V;FXO;'4P)B-X03MZ+VMB8V8X059$2'A1=FA&,R]1='9N;B]!2F)T
+M32\U1S-(+U9$2'A1=FA&,R]1='9N;B]L=3!Z+T%*1S-(+U9$2'A1=FA&,R]!
+M14QB)B-X03LU-2\U8G1-+S5',T@O5D1(>%%V:$8S+U%T=FYN+VQU,'HO:V)C
+M9CA!5D1(>%%V:$8S+U%T=FYN+T%*8G1-+S5',T@O5D1(>%%V:$8S)B-X03LO
+M471V;FXO;'4P>B]!2D<S2"]61$AX479H1FY8-5)F;% U:3AM-C=D-FAQ9'I:
+M>E$S1G%915<R959M1$=22'%1.&-9<%)02$E4;4-')B-X03MC24505CAQ8DA9
+M<3=&6%EQ-T9867$W1EA9<3=&6%EQ-T9867$W1EA9<3=&6%EQ-T9867$W1EA9
+M<3=&6%EQ-T9867$W1EA9<3=&6%EQ)B-X03LW1EA9<3=&6%EQ-T972F5D9GI"
+M9SAS-G)O1VQR6G1F6&5T,S!&<39Q+W!I,V=M;5-!,T1N:3EA4U-Q1EAB;'9V
+M=&EQ1SAG9FU2+VDV)B-X03LV=FM30WAG=#=4;4M186=,;39(1U5X<5IR9C!9
+M=E-$0E,Q96)E1TMP4"]Y=6$V=71*.'AA='!7:7A81FHU9G5213!L>&5.0CE9
+M=#-I)B-X03M%:U4X45,S;DI-=DI21VXW6$E'=F)&559B9FUZ8W0U9U!L,C<P
+M33(R=$='27@R;W51.6)M4T]#5F\S4'!Q5FI68FQI2F%F1C95=G<O)B-X03M"
+M=7%L6"]/4E=O-FA9*UAD3&5Y=5IB5C-V0W).0S=2:VHP;4Y#5DEY,T5.,G9)
+M9&YG9CA!:6IZ3"]W0EAA.2\V4TIF*V%S=6].4$58)B-X03MF-&\X>2\X058R
+M=F8K:VE8+VUR1V=V15AF-&\X>2\X058R=F8K:VE8+VUR1V=V15AF-&\X>2\X
+M058R=F8K:VE8+VUR1V=V15AF-&\X)B-X03MY+SA!5C)V9BMK:5@O;7)'9W9%
+M6&8T;SAY+SA!5C)V9BMK:5@O;7)'9W9%6&8T;SAY+SA!5C)V9BMK:5@O;7)'
+M9W9%6&8T;SAY+SA!)B-X03M6,G9F*VMI6"]M<D=G=D589C1O.'DO.$%6,G9F
+M*VMI6"]M<D=G=D589C1O.'DO.$%6,G9F*VMI6"]M<D=G=D58=#,O3T]M<F%L
+M9#)8)B-X03MM0U,Y=5HW=W=T8FU-4T\P<D0T6E-1=DEN<E1+8V]B8UI4<4@X
+M-&14;79X;W-F;'!X-6IL;FEI=#E/93=52GAL=%IB<VEA8U)S27!9)B-X03LT
+M;T1Z:31T46MB,$YC<6)536XU.3)B5T$Q;CE#5&IY*U%)=G)V<DE:=G)N-DTO
+M4VYO96AX*WHV6'=C*V8R=3%..%9:9"M89FYI3'IL)B-X03MO:S)P2F)P8FTS
+M=5=T6%='8UA53$US85-C;S5L5U!K2U-G2#124F=2,GA6;$=+=7A6,DMU>%8R
+M2W5X5C)+=7A6,DMU>%9G;"\K4U@U)B-X03MD,TUT<$QB,D5M;5!:>7=3>&I4
+M-35B6D=&=DU:,5(T,6(P>4,W1W)C95DO6EEB67%R5W8U53928C-,6$@V5C%3
+M85%X+U9K371W:D9B)B-X03M->D-A4S!$*VXV:E)3<TM/6%EV5&\T>%91<V9Y
+M6#AM,D-88TYK.3E$83-L,5E88W1Q,3 X,%DO4FA2;UE2-B]Q=#9:35,X<6MT
+M5%I7)B-X03M646]#<60K879),FHK6C1P671495EO.$EG:E9#;$EW2E9M6C%6
+M,&173&U.5EE/1U5Q3TY+1G%Q=D]F.$%N2413,'-V2E!L+U1R4EI*)B-X03M)
+M8DMD24EI>$UJ.$EO0VEL;39K,$<U>3-&>F$X;DHT2#E5=78Y.'8O04U#9C9:
+M93!5-S9P9&8W-68O9U0O5$9A9#E5=78Y.'8O=T%#)B-X03MF-EER5'9Q;#$O
+M=FPO=T1G5"]41F%D.55U=CA!9DPO.$-F-EER5'9Q;#$O=FPO.$%G5"]41F%D
+M.55U=CDX=CA!.$-F-EER5'9Q;#$O)B-X03MV;"\K0E X051&860Y575V.3AV
+M+T%-0V8V67)4=G%L,2]V;"\K0E Y359P-W O>FI:8E1F55!-8V)C-$1),7-Q
+M>4%5659756-L-4%I)B-X03MO*U=5-65J9&E:9G S-4UA3%EA6$99=S9Z<79/
+M,757=DQ+*TUL<71Z0DY):GAZ3W-I5S9C>DUK<$5H;$1K-V)J2U<Q8DHK4G9K
+M<#14)B-X03MA8S<Q9$U-6$%A67,Y3&-3:7HK;T,U*WIZ.6(V=CA.95A(=GAR
+M:7)*4$MF:S-49DQ-9#<Y5FYU3'4T,4-:6C=Y-W5M47E/>5)R16TP)B-X03M3
+M4E)G2VE!9D-G.3A65#=&6%EQ-T9867$W1EA9<3=&6%EQ-T9867$W1EA9<3=&
+M6%EQ-T9867$W1EA9<3=&6%EQ-T9867$W1EA9<3=&)B-X03M867$W1EA9<3=&
+M6%EQ-T9867$W1EA9<3=&6%EQ-T9867$W1EA9<3=&6%EQ-T9867$W1EA9<3=&
+M6%EQ-T9867$W1E5(<65S-E!P56-C)B-X03MU<5@Q=EE2>75)-&YU6E5H5FY0
+M4E9,;&%S9D1&5G)A.6]A>C-D=3)O,G$S1F=N<3,P2FUJ1'=2:U8U>7)Y<6DP
+M-W1I<4-U4%!(:W$R)B-X03LK<F979DU';7<O6%5%=&XV;#5!;G))>D91.%98
+M2$Y3=TEQ=F9&5T<O;78X06UV<6YK=E9,2WIS-TM#-E,V9TUZ3DU80D)$;&%$
+M:5(T)B-X03M:6D-&<TIZ<&<S+U%Y+VU0+W$P5V8O0E,O=T)C;C11665+-R]!
+M2T=8.'@O.5=I>B]!3T-L+W)J-%%8>%AF.41,*UDO*W)26B\X1DPO)B-X03M!
+M1G@X24PT<G8K:&PO368O049A3% O9W!F-C0K148X5C9N*U9V;G4W.#1E6$QR
+M5G(V0TMZ83-U;G0K35I01&=K56-N26QJ+WA98W)N)B-X03M':3)2;%E4-5!.
+M=FQ6-TY,,4Y:<U=S-4IV<3!D>4QM17A.4"]!3#9$.'5*9B]*<EA)36TY6C@Q
+M95=.165*3F$Q:7DP>#5W5VA7.'59)B-X03MR8W5&,DI54TUT858W67%O4#4U
+M.&MO.7I'+VU$5%9E>DY,>%1E44%W:W1W+V5$;CA(>$=N>&0X5E1A,W9,4S5$
+M;3)N:FY%8D)*1$=Y)B-X03MV>%EQ2$-T>$IO941Q,WE)3TMQ=4MU>%8R2W5X
+M5C)+=7A6,DMU>%8R2W5X5C)+=7A6,DMU>%8R2W5X5C4U*V-':#8W<DYR65=/
+M;&%')B-X03LR<'!C3&,R*V\S,&(R;VYT<E=:5E=6245U<&]%.5-C1&E(,S1!
+M13EA67%W9E4O>6LX-#-&,652,FQG:U9V8GDS,3%"3S@X4F$Y:G4W)B-X03LR
+M,'5O<DYQ35=":FIT5VI9>69$,&]33CA+<VXP4'E&<G)J4DQB53E/4T145S%N
+M571C,4<Q1'=V.5A6<&YN<TQ2<49U445K;VM):G%T)B-X03M6*SE6:'8X07IK
+M=B]!37!(<$@O34<S+THP-61I-4Y/5C0W;')5-T9867$W1E@P1BM2:U1Z9FQ4
+M<CA35V8V4F53-G4P6%0K66HY8W1:)B-X03MW:C!E8D91=E W4$EK57EJ3'IB
+M.%A*27)J.'-F3S$Y<%4Q-THU9C1A>'%%96\R,3E94$Q:4E<X5#-T;$1A,C Q
+M=7-5,'EI3S%%4$5L)B-X03MM.5)T,G!V;&)9.4<Q=E%.9#$R>3AV-E!D-EIX
+M<TQB55%U<WIY>7=U6DQ+>%)N:68T6$PX3'%E3U T4'15,F-$9D973#)8-6,K
+M8EHY)B-X03M2,61,-D\V=&1.:&YV9%0P-'AZ861.3$IQ13 X>G%B5U(T3F]P
+M64QH,6-84V9#>$90<S%X5FM(-51A2C4U.'512'DW<3%J8E)A2%E1)B-X03ML
+M8E,K:6)L3$Y,>D9'3&5T2S!G6D-396-59D%J:4]A,&)!<C!81EA9<3=&6%EQ
+M-T9867$W1EA9<3=&6%EQ-T9867$W1EA9<3=&6%EQ)B-X03LW1EA9<3=&5TME
+M8V9Y>CAS*V)R=3-U=%A%-6QT;WI&2#9-;D%C4S-,8U509DI2;5%X35%74&8X
+M05%V6#5E*T8U+W=!:G@O>E1K=D9+)B-X03M01$1V*VAE=GDY.$QZ+VME4"MA
+M8V9&2RM'2&8Y0SEF;#<T6&XO23AF.# T*TM6.$U/+S9&-B],,W=V4"M2-"\U
+M<'@X57(T65IH-5 X)B-X03MM-DXU5#!Y6%1T2D5G='!:;75(.5HK8F,R4E5/
+M.4)T4TU:0U5R6D%5;FU"3'-69&ER<U9D:7)S5F1I<G-69&ER<U9D:7)S5F1I
+M<G-6)B-X03MD:7)S5F1I<G-69&ER<U9D:7)S5F1I<5$K67909FQ0>35C4E<K
+M=&%G=&Y.3VAK:5)K:V5Q9S!R.$-T,WE1:51Y45I!2E(O>75B.',O)B-X03LK
+M<C1N+TEM-"]W0W%E2'=Y:FI$=BM6>F9L;B\Q9D4O-44S2"]!1E1X.$UR>&@S
+M+TLU=GEZ+W=#<C1N+TEM-"\V<#0K1U8T=S<O;&,S)B-X03LU6B\Y6'A0*U).
+M>"\Q5'@X37)X:#,O2S5V>7HO04]R-&XO26TT+S9P-"M'5C1W>D<S=4EB;3-I
+M=4E7-7=Z27-K5#=I<7-+<60O14A))B-X03M-;%1&6%EQ-T9867$W1EA9<3=&
+M6%EQ-T9867$W1EA9<3=&6%EQ-T9867$W1EA9<3=&5T)F;3%R*W9A4EE743!0
+M57A:86ID1UI,2WI3)B-X03M#3V5E-W51<6U'34-65U))1C--.&AP>%AO4FER
+M03E7+TYF>C-:6&PX1&1W8S5:<C9Y3FUK36),<"]W0E-V8E,P5S9$16,S5C!U
+M;FLO)B-X03ME17)S2V5"2W5T=GIA.#%F<"LP,'4Y,4-33%1R3S1L:&TQ<3-T
+M8F%A3S<T-G$Y:$5:-#)-6D-/<V%G;3)O47IC=G-I;4MO3"]!2GE8)B-X03LO
+M=T-5:C!J+T%*9S(O=T-4<'DW1GEA8W)X,TQ7<#)+=7A6,DMU>%8Y4V5B=&0Q
+M3%)V>2\P3V94.51';7IY>%%24FE/0F)M-75*5W1I)B-X03M98F4S:FM$2GEE
+M44QZ6FAS9UDQ2%A-43@S3%-M,#@W*V$W2'IN;U5'=#9V8E!:6'@K<6%V6E=Y
+M,C=7,7!C:E1X3TDO5D).>C9P;%9N)B-X03M,3BLV.4UJ=FEQ+WDO=T-F+TY/
+M<"ME9&,P<%IF5&YH;3%#,C!B4W)Q2TI,2UE716MC9G%F5V]22F12=CAF2BMC
+M8DMW66-A57=+;$YR)B-X03LK65@U:G!O6&QN>D103D,K;&%J<'9Q6#%W-E%,
+M1THO5'5N;FUL5F%405%+:TUG16$X5$=*2R]&=W=Q.6(X=#9V639T;W1T9E=6
+M,#DU)B-X03M#=TUB6$US6F=K85-&:D9,-FM43$=9,T5I34=8:4M(=&=637-6
+M9&ER<U9D:7)S5F1I<G-69&ER<U9D:7)S5F1I<G-69&ER<U93>E=F)B-X03M,
+M2&QR6$1#9&$P;7DQ43(O3#!0<G1V1F-E;GIP>31E<7)C95A%5G T67%V2&PS
+M>2M*8FU585IA0U<X:45&,THV169+84E#9VIK4$=R)B-X03MO0G1X3S)+<E8X
+M=&581BMO.&1+<W@K:D-4<'1,94EF5FEE<&<K2#DS+W-A67$X-"]/6#AS=DUV
+M;3=6-T,W,&XP4%-T<F-X4V5T2550)B-X03M)=5<R059U>'DS2$U"<FY%;#4W
+M+T%.0S@O;40O04UU6"])."\X,%I0>%%W.$EU+S9&-2]-2"]L>2]W0U(U+S5O
+M>#A53#129"\P3'HK)B-X03M94#A!>35F.&IZ+WI2:C1O6'=I-R]O6&XX=V8K
+M6$PO:V5F.$%M:DAX479H1C,O4790-6<O.'58+T%#4% O3D=0:6AF0TPV02]W
+M;F]T)B-X03LO;V5M-F9R*VU797 O55E9:T5D,41(8TES:5)H1UI"2W)5-F1C
+M;TQE=FTX;2M52FTU>F%(<#AJ96=,6&LY<D-X*W)Q=D%1,4LO=T(R)B-X03M&
+M1D]04VU"56)$;RMK=V%H4'%53FQB>&%J8W%%=6(Q26M795)6*WER>4%C,D$W
+M06Y&5G-/:6%,0F)W,C!.:&)25S%V13A&=D%K36%P)B-X03M(1$I4;D=I9U56
+M1S1J:V\R3TMQ.6Q9,E9J87@R;&QB>#)T<$-/34YV0VEX>&]/=$92449!*U=+
+M<3)+=7A6,DMU>%8R2W5X5C)+=7A6)B-X03LR2W5X5C)+=7A6,DMU>%8R2W5X
+M5C)+=7A6,DMU>%8R2W5X5C)+=7A6,DMU>%8R2W5X5C)+=7A6,DMU>%8R2W5X
+M5C)+=7A6,DMU>%8R)B-X03M+=7A6,DMU>%8R2W5X5FDS-6=E8S=Z>7!P9C92
+M:#!O-FIB>%)Y>C-K:E1R8E)X4E%H4U)Z6EI/57-N2VM352M)-U9'2W-9=2]Z
+M>G,W)B-X03MA834U-DY-3%AL8U<K;'ET2W%V8UA6<&-15W-S36MF2#EZ4V$V
+M54)Q=#!/,UEL5E,P+T]6<G)7=$XP6DY/=$Q854QM831T<C9'.3%%)B-X03M7
+M-6EN=&)O,G-K9'8K-&8V>7A+37EF67(P,D]"5TQF.#5#95DO34]L82]P8U=L
+M-G!D,D55;'%Z4TIB5'EW<7IE;U)5:$=7<'DW14%1)B-X03LQ6D-1.' O>#4U
+M-2\V;4Q5+W=$<$UU4"MA.'0T4C-.6$589C0X.#@O.51&<68O4UIC9CA!3F50
+M0T\U94EU+W@U-34O-FU,52\K:WDT)B-X03LO=T-A.&5%9'DX4F0O:GIZ>B\Q
+M35=P+SE*;'@O>EAJ=VIU6&E,=CA!2&YN;B]Q6714+S943&HO;79(:$AC=D58
+M,#A035=Q-F(U0S!B)B-X03M564Q--G)E5%=L<UIJ3E V16$Q="]5:VYU3&@Q
+M:S1)3U!X359/-7I&4$YY4GE39E-F>F1K,4A64$QT<V1$:W1R5'I':UIT6EI:
+M,$9X)B-X03MY93).=S=P8D)36&=J-#A(;#5$8VHT8T-68GI:*UI/=6589&)U
+M8D]4>2](95=&=%DS3W%08S(Y-'I4<F$R<59,>5<U="M+8S54=U@Y)B-X03LV
+M934W2$959V<O-7E#:&4T:6=K,&5.,F%D8EE',79K=4)C=DQ)26LO4G!%4V98
+M07)%97)4:G<Y.%9E=%=Z>E!B4E!/:7A4<VET3$=J)B-X03ME;W%U4E9L1#!8
+M:T%E.4)81E941EA9<3=&6%EQ-T9867$W1EA9<3=&6%EQ-T9867$W1EA9<3=&
+M5TUE8R])5FXU<FPP,E,U,4<Y<U1P)B-X03M5<E0R-E=H='EJ4W-!1FMK4S5H
+M=49:;S9(9V%B5DHV-'%L=#$K5&YL4S=U-S8U=5IB>59R,%-S<UIL54I"4&-3
+M4E146$5!0T1J3$I,)B-X03MB;S5R559'=T$R>%9O9FLY-6(T5W-B6&UO4$9&
+M3CE:=DE7;E5P97IF5VIE*W!C<G=P>3EC.'%X8TMI:6XT4E1&6&UF+T%$:W8O
+M=T%P)B-X03M(<$@O041"="]W06Y4;"M,:S U6&IU5W14<U9D:7)S5F1I<C9X
+M:SAM,EAM-SAU9$$P<3EV3'%Z=&QT<D<T9C9O66%Y1TM&4W-C<7IX)B-X03M4
+M;SAF26AI<%AC9UII4S5U54]3<&,O;&)P=#%D,C$S8V%V<6ML>&%)1&)U6F]1
+M1756=#)T:W4P55%H56Q62#)#9U(X='EH=TI296]F)B-X03ML,V]E<$YR1&%H
+M3&,S5&$Q<#A';%A:95)15F=T+U5)35I65DMS-U1&;7)55G!S3591,6PK5FYL
+M-C,P<5146DQI-W5O6G!B;31U6DI:)B-X03M%5C5,:3=H1G4P>$U34D)(4U!:
+M4%1#9T4X<6-Q14MP-S58.'572&QV43=B4G)";F$P=&5F<&U5<GER2DDP:F))
+M<4EO-4]A2VEH44YG)B-X03M!35945$9867$W1E@O.6L]/"]X;7!'26UG.FEM
+M86=E/@H@(" @(" @(" @(" @(" \+W)D9CIL:3X*(" @(" @(" @(" @/"]R
+M9&8Z06QT/@H@(" @(" @(" \+WAM<#I4:'5M8FYA:6QS/@H@(" @(" \+W)D
+M9CI$97-C<FEP=&EO;CX*(" @(" @/')D9CI$97-C<FEP=&EO;B!R9&8Z86)O
+M=70](B(*(" @(" @(" @(" @>&UL;G,Z9&,](FAT=' Z+R]P=7)L+F]R9R]D
+M8R]E;&5M96YT<R\Q+C$O(CX*(" @(" @(" @/&1C.F9O<FUA=#YA<'!L:6-A
+M=&EO;B]P;W-T<V-R:7!T/"]D8SIF;W)M870^"B @(" @(" @(#QD8SIT:71L
+M93X*(" @(" @(" @(" @/')D9CI!;'0^"B @(" @(" @(" @(" @(#QR9&8Z
+M;&D@>&UL.FQA;F<](G@M9&5F875L="(^9S8S<SDW/"]R9&8Z;&D^"B @(" @
+M(" @(" @(#PO<F1F.D%L=#X*(" @(" @(" @/"]D8SIT:71L93X*(" @(" @
+M/"]R9&8Z1&5S8W)I<'1I;VX^"B @(" @(#QR9&8Z1&5S8W)I<'1I;VX@<F1F
+M.F%B;W5T/2(B"B @(" @(" @(" @('AM;&YS.GAM<$U-/2)H='1P.B\O;G,N
+M861O8F4N8V]M+WAA<"\Q+C O;6TO(@H@(" @(" @(" @("!X;6QN<SIS=%)E
+M9CTB:'1T<#HO+VYS+F%D;V)E+F-O;2]X87 O,2XP+W-4>7!E+U)E<V]U<F-E
+M4F5F(R(*(" @(" @(" @(" @>&UL;G,Z<W1%=G0](FAT=' Z+R]N<RYA9&]B
+M92YC;VTO>&%P+S$N,"]S5'EP92]297-O=7)C945V96YT(R(^"B @(" @(" @
+M(#QX;7!-33I$;V-U;65N=$E$/GAM<"YD:60Z.#5!0C8Q-C!%-44X130Q,3A#
+M,T%!-$1"-S V-3E".30\+WAM<$U-.D1O8W5M96YT240^"B @(" @(" @(#QX
+M;7!-33I);G-T86YC94E$/GAM<"YI:60Z.#5!0C8Q-C!%-44X130Q,3A#,T%!
+M-$1"-S V-3E".30\+WAM<$U-.DEN<W1A;F-E240^"B @(" @(" @(#QX;7!-
+M33I/<FEG:6YA;$1O8W5M96YT240^=75I9#HR.3-F8S@X,2TS83<R+30R930M
+M.6$X-"TW9&1E-3ED,&0T934\+WAM<$U-.D]R:6=I;F%L1&]C=6UE;G1)1#X*
+M(" @(" @(" @/'AM<$U-.E)E;F1I=&EO;D-L87-S/F1E9F%U;'0\+WAM<$U-
+M.E)E;F1I=&EO;D-L87-S/@H@(" @(" @(" \>&UP34TZ1&5R:79E9$9R;VT@
+M<F1F.G!A<G-E5'EP93TB4F5S;W5R8V4B/@H@(" @(" @(" @(" \<W12968Z
+M:6YS=&%N8V5)1#YX;7 N:6ED.C@S04(V,38P135%.$4T,3$X0S-!031$0C<P
+M-C4Y0CDT/"]S=%)E9CII;G-T86YC94E$/@H@(" @(" @(" @(" \<W12968Z
+M9&]C=6UE;G1)1#YX;7 N9&ED.C@S04(V,38P135%.$4T,3$X0S-!031$0C<P
+M-C4Y0CDT/"]S=%)E9CID;V-U;65N=$E$/@H@(" @(" @(" @(" \<W12968Z
+M;W)I9VEN86Q$;V-U;65N=$E$/G5U:60Z,CDS9F,X.#$M,V$W,BTT,F4T+3EA
+M.#0M-V1D934Y9#!D-&4U/"]S=%)E9CIO<FEG:6YA;$1O8W5M96YT240^"B @
+M(" @(" @(" @(#QS=%)E9CIR96YD:71I;VY#;&%S<SYD969A=6QT/"]S=%)E
+M9CIR96YD:71I;VY#;&%S<SX*(" @(" @(" @/"]X;7!-33I$97)I=F5D1G)O
+M;3X*(" @(" @(" @/'AM<$U-.DAI<W1O<GD^"B @(" @(" @(" @(#QR9&8Z
+M4V5Q/@H@(" @(" @(" @(" @(" \<F1F.FQI(')D9CIP87)S951Y<&4](E)E
+M<V]U<F-E(CX*(" @(" @(" @(" @(" @(" @/'-T179T.F%C=&EO;CYS879E
+M9#PO<W1%=G0Z86-T:6]N/@H@(" @(" @(" @(" @(" @(" \<W1%=G0Z:6YS
+M=&%N8V5)1#YX;7 N:6ED.D0P-$(Y,C@S.#!$.$4T,3$Y03<R1#1&.#DW1C@P
+M,S,T/"]S=$5V=#II;G-T86YC94E$/@H@(" @(" @(" @(" @(" @(" \<W1%
+M=G0Z=VAE;CXR,#$U+3 T+3 Q5#$Q.C0P.C4R+3 T.C P/"]S=$5V=#IW:&5N
+M/@H@(" @(" @(" @(" @(" @(" \<W1%=G0Z<V]F='=A<F5!9V5N=#Y!9&]B
+M92!);&QU<W1R871O<B!#4S8@*%=I;F1O=W,I/"]S=$5V=#IS;V9T=V%R94%G
+M96YT/@H@(" @(" @(" @(" @(" @(" \<W1%=G0Z8VAA;F=E9#XO/"]S=$5V
+M=#IC:&%N9V5D/@H@(" @(" @(" @(" @(" \+W)D9CIL:3X*(" @(" @(" @
+M(" @(" @/')D9CIL:2!R9&8Z<&%R<V54>7!E/2)297-O=7)C92(^"B @(" @
+M(" @(" @(" @(" @(#QS=$5V=#IA8W1I;VX^<V%V960\+W-T179T.F%C=&EO
+M;CX*(" @(" @(" @(" @(" @(" @/'-T179T.FEN<W1A;F-E240^>&UP+FEI
+M9#HX-4%"-C$V,$4U13A%-#$Q.$,S04$T1$(W,#8U.4(Y-#PO<W1%=G0Z:6YS
+M=&%N8V5)1#X*(" @(" @(" @(" @(" @(" @/'-T179T.G=H96X^,C Q-2TP
+M-"TR,E0Q.#HR-3HQ,2LP-3HS,#PO<W1%=G0Z=VAE;CX*(" @(" @(" @(" @
+M(" @(" @/'-T179T.G-O9G1W87)E06=E;G0^061O8F4@26QL=7-T<F%T;W(@
+M0U,V("A7:6YD;W=S*3PO<W1%=G0Z<V]F='=A<F5!9V5N=#X*(" @(" @(" @
+M(" @(" @(" @/'-T179T.F-H86YG960^+SPO<W1%=G0Z8VAA;F=E9#X*(" @
+M(" @(" @(" @(" @/"]R9&8Z;&D^"B @(" @(" @(" @(#PO<F1F.E-E<3X*
+M(" @(" @(" @/"]X;7!-33I(:7-T;W)Y/@H@(" @(" \+W)D9CI$97-C<FEP
+M=&EO;CX*(" @(" @/')D9CI$97-C<FEP=&EO;B!R9&8Z86)O=70](B(*(" @
+M(" @(" @(" @>&UL;G,Z<&1F/2)H='1P.B\O;G,N861O8F4N8V]M+W!D9B\Q
+M+C,O(CX*(" @(" @(" @/'!D9CI0<F]D=6-E<CY!9&]B92!01$8@;&EB<F%R
+M>2 Q,"XP,3PO<&1F.E!R;V1U8V5R/@H@(" @(" \+W)D9CI$97-C<FEP=&EO
+M;CX*(" @(" @/')D9CI$97-C<FEP=&EO;B!R9&8Z86)O=70](B(*(" @(" @
+M(" @(" @>&UL;G,Z>&UP5%!G/2)H='1P.B\O;G,N861O8F4N8V]M+WAA<"\Q
+M+C O="]P9R\B"B @(" @(" @(" @('AM;&YS.G-T1&EM/2)H='1P.B\O;G,N
+M861O8F4N8V]M+WAA<"\Q+C O<U1Y<&4O1&EM96YS:6]N<R,B"B @(" @(" @
+M(" @('AM;&YS.G-T1FYT/2)H='1P.B\O;G,N861O8F4N8V]M+WAA<"\Q+C O
+M<U1Y<&4O1F]N=",B"B @(" @(" @(" @('AM;&YS.GAM<$<](FAT=' Z+R]N
+M<RYA9&]B92YC;VTO>&%P+S$N,"]G+R(^"B @(" @(" @(#QX;7!44&<Z3E!A
+M9V5S/C$\+WAM<%109SI.4&%G97,^"B @(" @(" @(#QX;7!44&<Z2&%S5FES
+M:6)L951R86YS<&%R96YC>3Y&86QS93PO>&UP5%!G.DAA<U9I<VEB;&54<F%N
+M<W!A<F5N8WD^"B @(" @(" @(#QX;7!44&<Z2&%S5FES:6)L94]V97)P<FEN
+M=#Y4<G5E/"]X;7!44&<Z2&%S5FES:6)L94]V97)P<FEN=#X*(" @(" @(" @
+M/'AM<%109SI-87A086=E4VEZ92!R9&8Z<&%R<V54>7!E/2)297-O=7)C92(^
+M"B @(" @(" @(" @(#QS=$1I;3IW/C4Y-"XP,# P,# \+W-T1&EM.G<^"B @
+M(" @(" @(" @(#QS=$1I;3IH/C<W-"XP,# P,# \+W-T1&EM.F@^"B @(" @
+M(" @(" @(#QS=$1I;3IU;FET/E!O:6YT<SPO<W1$:6TZ=6YI=#X*(" @(" @
+M(" @/"]X;7!44&<Z36%X4&%G95-I>F4^"B @(" @(" @(#QX;7!44&<Z1F]N
+M=',^"B @(" @(" @(" @(#QR9&8Z0F%G/@H@(" @(" @(" @(" @(" \<F1F
+M.FQI(')D9CIP87)S951Y<&4](E)E<V]U<F-E(CX*(" @(" @(" @(" @(" @
+M(" @/'-T1FYT.F9O;G1.86UE/E-W:7-S-S(Q0E0M0F]L9#PO<W1&;G0Z9F]N
+M=$YA;64^"B @(" @(" @(" @(" @(" @(#QS=$9N=#IF;VYT1F%M:6QY/E-W
+M:7-S(#<R,2!"5#PO<W1&;G0Z9F]N=$9A;6EL>3X*(" @(" @(" @(" @(" @
+M(" @/'-T1FYT.F9O;G1&86-E/D)O;&0\+W-T1FYT.F9O;G1&86-E/@H@(" @
+M(" @(" @(" @(" @(" \<W1&;G0Z9F]N=%1Y<&4^5'EP92 Q/"]S=$9N=#IF
+M;VYT5'EP93X*(" @(" @(" @(" @(" @(" @/'-T1FYT.G9E<G-I;VY3=')I
+M;F<^,# S+C P,3PO<W1&;G0Z=F5R<VEO;E-T<FEN9SX*(" @(" @(" @(" @
+M(" @(" @/'-T1FYT.F-O;7!O<VET93Y&86QS93PO<W1&;G0Z8V]M<&]S:71E
+M/@H@(" @(" @(" @(" @(" @(" \<W1&;G0Z9F]N=$9I;&5.86UE/C P,#5!
+M7U]?+E!&0CL@,# P-6%?7U\N<&9M/"]S=$9N=#IF;VYT1FEL94YA;64^"B @
+M(" @(" @(" @(" @(#PO<F1F.FQI/@H@(" @(" @(" @(" \+W)D9CI"86<^
+M"B @(" @(" @(#PO>&UP5%!G.D9O;G1S/@H@(" @(" @(" \>&UP5%!G.E!L
+M871E3F%M97,^"B @(" @(" @(" @(#QR9&8Z4V5Q/@H@(" @(" @(" @(" @
+M(" \<F1F.FQI/D)L86-K/"]R9&8Z;&D^"B @(" @(" @(" @(" @(#QR9&8Z
+M;&D^4$%.5$].12 W-30U($,\+W)D9CIL:3X*(" @(" @(" @(" @/"]R9&8Z
+M4V5Q/@H@(" @(" @(" \+WAM<%109SI0;&%T94YA;65S/@H@(" @(" @(" \
+M>&UP5%!G.E-W871C:$=R;W5P<SX*(" @(" @(" @(" @/')D9CI397$^"B @
+M(" @(" @(" @(" @(#QR9&8Z;&D@<F1F.G!A<G-E5'EP93TB4F5S;W5R8V4B
+M/@H@(" @(" @(" @(" @(" @(" \>&UP1SIG<F]U<$YA;64^1&5F875L="!3
+M=V%T8V@@1W)O=7 \+WAM<$<Z9W)O=7!.86UE/@H@(" @(" @(" @(" @(" @
+M(" \>&UP1SIG<F]U<%1Y<&4^,#PO>&UP1SIG<F]U<%1Y<&4^"B @(" @(" @
+M(" @(" @(" @(#QX;7!'.D-O;&]R86YT<SX*(" @(" @(" @(" @(" @(" @
+M(" @/')D9CI397$^"B @(" @(" @(" @(" @(" @(" @(" @(#QR9&8Z;&D@
+M<F1F.G!A<G-E5'EP93TB4F5S;W5R8V4B/@H@(" @(" @(" @(" @(" @(" @
+M(" @(" @(" \>&UP1SIS=V%T8VA.86UE/E!!3E1/3D4@-S4T-2!#/"]X;7!'
+M.G-W871C:$YA;64^"B @(" @(" @(" @(" @(" @(" @(" @(" @(#QX;7!'
+M.G1Y<&4^4U!/5#PO>&UP1SIT>7!E/@H@(" @(" @(" @(" @(" @(" @(" @
+M(" @(" \>&UP1SIT:6YT/C$P,"XP,# P,# \+WAM<$<Z=&EN=#X*(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @/'AM<$<Z;6]D93Y,04(\+WAM<$<Z;6]D
+M93X*(" @(" @(" @(" @(" @(" @(" @(" @(" @/'AM<$<Z3#XS-"XU,#DX
+M,# \+WAM<$<Z3#X*(" @(" @(" @(" @(" @(" @(" @(" @(" @/'AM<$<Z
+M03XM-#PO>&UP1SI!/@H@(" @(" @(" @(" @(" @(" @(" @(" @(" \>&UP
+M1SI"/BTQ,CPO>&UP1SI"/@H@(" @(" @(" @(" @(" @(" @(" @(" \+W)D
+M9CIL:3X*(" @(" @(" @(" @(" @(" @(" @/"]R9&8Z4V5Q/@H@(" @(" @
+M(" @(" @(" @(" \+WAM<$<Z0V]L;W)A;G1S/@H@(" @(" @(" @(" @(" \
+M+W)D9CIL:3X*(" @(" @(" @(" @/"]R9&8Z4V5Q/@H@(" @(" @(" \+WAM
+M<%109SI3=V%T8VA'<F]U<',^"B @(" @(#PO<F1F.D1E<V-R:7!T:6]N/@H@
+M(" @(" \<F1F.D1E<V-R:7!T:6]N(')D9CIA8F]U=#TB(@H@(" @(" @(" @
+M("!X;6QN<SI%>'1E;G-I<T9O;G1396YS93TB:'1T<#HO+W=W=RYE>'1E;G-I
+M<RYC;VTO;65T82]&;VYT4V5N<V4O(CX*(" @(" @(" @/$5X=&5N<VES1F]N
+M=%-E;G-E.G-L=6<^"B @(" @(" @(" @(#QR9&8Z0F%G/@H@(" @(" @(" @
+M(" @(" \<F1F.FQI(')D9CIP87)S951Y<&4](E)E<V]U<F-E(CX*(" @(" @
+M(" @(" @(" @(" @/$5X=&5N<VES1F]N=%-E;G-E.E!O<W138W)I<'1.86UE
+M/E-W:7-S-S(Q0E0M0F]L9#PO17AT96YS:7-&;VYT4V5N<V4Z4&]S=%-C<FEP
+M=$YA;64^"B @(" @(" @(" @(" @(#PO<F1F.FQI/@H@(" @(" @(" @(" \
+M+W)D9CI"86<^"B @(" @(" @(#PO17AT96YS:7-&;VYT4V5N<V4Z<VQU9SX*
+M(" @(" @/"]R9&8Z1&5S8W)I<'1I;VX^"B @(#PO<F1F.E)$1CX*/"]X.GAM
+M<&UE=&$^"B @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" *(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @( H@(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @"B @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" *(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @( H@(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @"B @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" *(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @( H@(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @"B @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" *(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @( H@(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @"B @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" *(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @( H@(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @"B @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" *(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @( H@(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @"B @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" *(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @(" @
+M( H@(" @(" @(" @(" @(" @(" @(" @(" @(" */#]X<&%C:V5T(&5N9#TB
+M=R(_/O_; $,  0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$!
+M 0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$! ?_; $,! 0$! 0$! 0$! 0$!
+M 0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$! 0$!
+M 0$! 0$! ?_  !$( 38!%P,!$0 "$0$#$0'_Q  ?  $  @,  P$! 0
+M    " D&!PH#! 4""P'_Q !/$   !@,   $(!0@%!PH'     P0%!@<! @@)
+M$1(3%!I8E]<5%AE7U0H7(556E9;6&"(Y=]$C,CA!DI2T,30U<W5XL[6WTR8S
+M-D)1=K;_Q  ; 0$  P$! 0$              04&! (#!__$ $@1  (! @(&
+M! L&! 4#! ,    ! @,1!"$%$A8Q09-15-+3$Q4B4E-A<8&1L=$&,C0U<_ 4
+MDJ&S0G24P<)BH^$D,W+Q0X/#_]H # ,!  (1 Q$ /P#OX
+M      $8^ENG$?.2. ITE/73?,XLZ1.T>AE;4='HP[29=]78RZR^2/3H[3R8
+M5_ XVPLC&T'[FK)#,&U0Y.*IM9F-&ZN:XM-@2E?BE;.[O[.";X]!C4?[+B5A
+M\K5KUM2=47;?$*M5CC<BBT&K*-Q#\Z6&R0>ET/-<F*=3N$1Y)M&U2=0BD.I<
+ML4:E*2=]FG=W2[%*3 M9M-I6Z;_[)O\ H0\T\9BHEU/HKJ8>6^SI#%L,-WSZ
+M3)VVO*J]8AE/\\/#;'K,N-V?E%UE0)Z@Z=\6KFV+DPB92N63+>.2-;'8RM:6
+M[1Q4CUJ.]M:/#B][W+==>^R]9GK'XM_,TGLR95C&F"TGM>Q1D]W@[VC:85AO
+MN23$YI9.374 839X78+5+'=XZ%J./QI;:,*KJ%RAWDJG1@EK@A9'5<G$:CRW
+M>SHW[^'#@WZ]Y)_N/;;/$G8&V=<E[YY7Z VSKYV,YTV_-)+<YU\[7/DSG7/Z
+M/.USY,YQY<9\@ZL#^-P?^:P_]V!Q8_\ !8O_ "U?^W(X]/R?DTS?Q#F7&QF^
+MV/S0V=GR;;[9Q_S5I_U9SG V/V@26CI62_\ >I?-F3T#^81_2J_)'5?TKXBM
+M9<NV$JALTJ:_9-%(JFJ5;;MTPB'1I;4M+)+QGA];UMO-'60S6-29^4NTE(\Y
+MR;:OBE@.<=:#TKF]HT6BM*4=A#<J+>YKC9<797?"V[I:]1BM>>*?S_85N.59
+M)X3>+!'U!G1:6L[F=8&@=:QO1UY-<,ME^LE0IH5)999S^[0M00Y;-R-TKAC,
+MFY;(\X@_U@4)"B%(.+2O=<+J^:UMU[Y?URXF1QWQ,.=I%R5/NS"FZSFZKH18
+ME@U8ACCQ"#FFUYY.(/8JVK6V,0VN'1<B??K-8$O2IVZ(1:5:Q>1IC'$@N9MD
+M1.1O!;8&J[I<6D\NAJ_]$2THBXHMT-2517W!TCVAAETUI"+5B:*2I$:&1)(Y
+M/HVVREE3/J)N<7=O2.Y#<Z)RW%,B=7)(0KU-+3KE16NI^XAJS:Z&U\#:X$
+M                                      %1/5/AO6=/H@]PSE[HF25@
+MP6U:RNQ>DX[=4^Z,N!CM>/;$.^Q52L"IKO"%S"H:O=W%^<#I=%JDE<(3/[4C
+M:(UL81'25K8M'I22WJ]E96M&WKW.[]MS<SIS5U"X\Q63SDQVM0%1H)!RLDHV
+ML3*2IB60EAJ"?*FV41=]F$5:W"S9"L30U#$E\830>)E.&CM&GED6N1TF<BUR
+M5*@"ZO>S>=W=WOZGET[WQZ#1?5WAU71:\,YBHVC[5IJ'\K<_P%GB<EYLMBNK
+M+DU;W0NBC>S,\'ULE/5-O5"\R6$Q) R$JR*X=GM5"Y&]*SULV99.0E;$J(2I
+M)7;3;?%.S73:Z>?KWK@S9O4O!,@Z(:]'*/R>N:ALMKKF*ITDWKR'OD.<)5:3
+M2Z,R-UVE4EA\A8+.;ZR)JYNE]0P]H8K"S(HK'+EFCZWN14JB4'=4PA-+A?U.
+MV[WIK?GNX;CWI[4TWHSPIK\JJQ[%6VM,HCR/TNG=YHN4R-;E3HY0>QGIK8$+
+MA,G^4S!S9(0SN3?"(ZZRZ2/DI=&&.MKA(G-6\*5IVW5@?QN#_P UA_[L#CT@
+M[X+&.UO_ $U;+_\ 7(Y<OR??^T/9?[H;/_X5I&R^T/Y=+]:E\V9+0/YA']*K
+M\D=+75G%/4/0/5=:W WW+0[S053DQ)UA?-5V5?:LPAK;9K(];N[A<C@AK^ZZ
+MR8IG82+3)"*OSK$:)C&Z_P!T2=ZC\<2R0Y8\*,&;E2235G=\4TG;HS3RZ;6O
+MN9B'./AEV)2W0U32V1W/#9+S]R[.>QK$YK@K+ GEFLLE[[/D[E(98WVK,%TL
+M=(^^-5<I9++V6)&1N-LJM]U>R'-\RDW;"4)@ERNGD[NRD[Y>3NLO7DW?W'U=
+MO"F:)#3#C6LMO*Q621M74G6W3]=2RJ5:&)D,<BZ7DMFKV]%(V:0-DO2/YD-C
+M-F/$<PXD:MJTSUQV6-*AIW7^:4&OFLO\,5_+;._#=_\ 9-KB[GM=R?R?SYS8
+MYSESLEPI2JXG7JR:NA>J<QZ/C[<4EWRW(L8\YLCC?G'T5$V<\Y:K9HNA:&I8
+MY.BM&<Y*AYD[MO==MV]I)P"
+M          ,8F\,C5C0R75[-&S5[AT\C#_#)8S;JEJ+1WC4H:E;(^MFRQM4H
+MW%)JO:URI+LJ0+$JTC!N34JD@_0LW7U"<J<X5(/5G3E&<'9.TH-2B[--.S2=
+MFFGQ31YG"-2$Z<UK0J1E"<<U>,DU)7335T]Z::X.Y$6A/#=XJY@L FTZ+I%'
+M YZG:7-B)?R)M9;\9HU/&I6CDD]0E,S?&K.%.I!6,G;(<J"_,_R)I><[>7LQ
+M&DL;BJ?@J]=U*>LI:NI2CG'<[PA%Y7Z;')0T=@\-4\+0HJ%1)QUM>I+)[U:4
+MY+/V$X1PG:
+M                                                          %=
+MN/%'Y+(MJ3U2]/D^C">,N5ZQ_6VI)6DL:J1DDMYCCCO+>@(A$[(,0[MKW(*I
+MC\;E+A)"2R"D!N(K(D[(X.RIL-(R/6J[7]F5\\]S]C,?C/BV\;/=3VY<$A?[
+M$JQ@I:-0B;2QAMFKY;!YNX0FTHV]2JIY?$XLO1&KI*PV<TQU]S$%"#;8\Y8U
+M+4#NF:%97HLAJ2NEOONLUO6]7W9&2W#XG7,M'1JN)C-"+;51:?T[%^@G.01.
+MIY5+6>J:5EZYF:V:Q+;<61.J1Q-E-<WLE":E3'/#UKNA=E1;4:WMJA9@%%N^
+M[)VW[WZB,WCV2601?@%Q=XL_O,=<OSN5J1HZ1]U6M"[U8_=ZR:3JM;CTZCT!
+MV-=/2%X-]&9C77SL9\F!=: C&>D(J48R7@:KM))K<N#NBETY*4,"W&4HOPU-
+M7BVG_BXJS.(7\]]T_>]:'\?RO\6&Y\!0]#2Y</H8SP]?TU7F3^H_/?=/WO6A
+M_'\K_%@\!0]#2Y</H/#U_35>9/ZC\]]T_>]:'\?RO\6#P%#T-+EP^@\/7]-5
+MYD_J/SWW3][UH?Q_*_Q8/ 4/0TN7#Z#P]?TU7F3^H_/?=/WO6A_'\K_%@\!0
+M]#2Y</H/#U_35>9/ZDV_#;MVUWGO3DUJ=[.L-U;%]VPI,N;G*:21<@6IC7'7
+M4Q.K1JG(U.I(,U_1N4<7N7OC]&VN<#ATG1I1T?BW&E335";34(IK+@TKH[-'
+MUJSQV%3JU&G6@FG.335]S3>9W!]4=OTUR(?%6RQ&NT9=))?'+ G*"(4_6TBL
+MV3M]<50D95MF62_MS"3MHRPJ%%22/ENKFN4%J%*IX1HF9$Z+,G$$_G1^@J+E
+MNLMRS=LWN1X(OWSR[.;MJ'GV"V%]<;'NVI5=X0M(Q-#F8UZ5F7%XC,VJ1/CH
+ML3HB6KZS1J;,+I'F[?0UR5)SS=U:1#J7KDP-5V;MDG9^W]HR7IOLBAN1=*JU
+MNJ2N#0NNBR8[5E?M#(Q.4D=W21R1W:F%,O5(&HDXUJBK<\O\=:WR5./J[*TN
+M<DCC8J5:N+\TI5@A1<MRO;/]W- S/Q2^<JSLU[JZT8;TM6+BQ1B])R?*IYS?
+M:4=@#A N<XRZRZTIVP2U6Q^H2"'M3,V$;-K\S:K43VND$3;&W<]?)V9.K$J$
+MFKJSW+[T>.[*]U[S==$]I4_T.N:6&"H; ;Y@I6V$@D\&F<,71275JHK0R+DR
+M#6Q&QP.]&PX6&SB':1OU94Y[R/20%J&G52D9Y*>R"&FOWTWM\B6X$
+M                         41SSPZ^P.B[SZ2DG44OH":5I:]>].T;13PS
+MS*US9/RC3MW5A*ZZ:S:PJ+>!1ZM7"U)"2Y,V;AL:22MRDC^T&O,>CCNU1G1/
+M'U@]J225D[IIOH;3OGZNCXF3TWX>?3NT$[%6W_+Z)3VW?7#5=\-URCJ1PGKI
+M7[-&ZNK2THL@L.9NLKB,=?BWF:2RS#WERCC-'G))#&1K*;$#Y+5)^RK0')96
+MO92<L[7SME[K>\]/KWP_^O[UYAI_DB%R[G)76#!SW3M=R%WG+O;43F%17S5)
+M"-O1]"U0X0%A6XM I.TX,):*ML Z",1;NT-+VO>E&%BUK3@I)-O/>]W%/@^C
+MVKV'I^/PE4H?#@V1+%YSJL1VK4R54Z*"B25#DI3EO!1Z\\E-H6G*.6&Z;*#2
+MB--"2]S-M2M-=,:XQ>?9[\QC^C5^2*+3WX!_K4_^1PN#>&)       G1X9/]
+MH'R%_?I!_P#S+4<&E/R[&?H3^1VZ._'X3]>G\SM,\1_F[L+J%!6U<T/-:I8J
+M'.^M.>E*_FTZLRLG^[F=:F;T<?K?>>U="I/*F&LUI6SWO8C7'7.,O<R2GH6
+MQZ2L>75,Y?FQ^BQ:5VUGP?1Z_;T='M-@*>4YFX=$^'_=1.E8PN/<HT!T%5DS
+MKR&[/FC*G>+BC% L["V524>QI"LP6('U.]($_P!._0+B6R'L&"&W<_*U.C"^
+M4EONT[^R_P!2&_7'AC]*=?H(Y:<AZ;0U5T3Z*BXQ*(K7;)$G[GQNAU/=0MEZ
+M8<Z_4VG4<YM>.S%P2,D;D#D0D>FZ,3>P81"&R?-[W!(^C0$B8S4>%UGONGG&
+MW!V_I=9VS)R0'E9\UZMZNZ!NA?#[)8+>K>I*&J&-KD9CN;$:,B<9<E]GQ.4M
+M3HSI8_Y;4MB42.121N:M'%J>6-NB2-SSC9KT1)QYODDN#;OZW]$LO>0:,\-?
+MHFN+?K:<<L6!5/.$"UL;5?857U2XR*MH-%:WB]O1J0PUDCL(B5>88;Q)>:I3
+MV@T2V"V<?"XXV6[>UAVJPOJI22R-B4>M99WSRRW-WM;-[\G:WJ21>*!X
+M                                 CWTUS!4?758'5!=C0Z/<(/?6B1F
+M(6A\<8\LRZ,F5&6\W#BUFDJL%EY5'>>3C?T9OEQY^,^;@=&%Q5;!U?#4&HU-
+M5QO**DK2M?)Y<#GQ.&I8NGX*M%RAK*5E)Q=XWMFK/B5T_8(>&_\ =Q/OBQ-/
+MQ 67C_27I*?)A]#@\1Z.]%/FU.T/L$/#?^[B??%B:?B >/\ 27I*?)A]!XCT
+M=Z*?-J=H?8(>&_\ =Q/OBQ-/Q /'^DO24^3#Z#Q'H[T4^;4[0^P0\-_[N)]\
+M6)I^(!X_TEZ2GR8?0>(]'>BGS:G:'V"'AO\ W<3[XL33\0#Q_I+TE/DP^@\1
+MZ.]%/FU.T;$J3P8^#Z1LR#VY7\$FC?-J\D3=*8PM763*W-(E>&L[!Z,Y0WK%
+MIB585H9CR[D'Z;%F8_1MC.!\ZVFL?7I5*-2I!PJ1<))4H)M/?9I71]*6B,#1
+MJ0JTZ<E.G)2BW4FTFLUDW9^\M6%268
+M
+M        063>)+QP?<$HI$^U%K3*XBJM=L<9#(*]LB/U2OD%#L:J37=%8U<K
+MS$D562J5U)'T"]WL".QV7.3I'$;<Z[+4^N[0ZEHQZU96O;HXJ^>[*]\_88W%
+M?%5X1E-56A<YMY)8+ Z?;XJ\S55;\/G5+O9;)83 XRBKWJ/16UHU#Y+,&NV6
+M%I<7"K545:G?$^]44(XUJX.!!R0L-22=K9N^ZSW;]U]W'H/LVQXEW'E)-U;N
+MUAV')$#=9U6Q^\FY:Q51:TU2Q"EY.I;4#/:]K*H7#) FJ6 J71V1-'UEL,Z.
+MMVKGZXE]+G9K=<H@46\DO5O6_H5][]2(R>.59L_K+@U;,JIL&85](M[4KA(F
+ME5>RQZBCUNUN.7?90F(?(VO0+MD"[30G8XDM5E.IUT+SOKOC77R7.@J5.KCU
+M"K3A4CX*H]6I",XW25G:2:NN#L4VFZE2E@G*G.=.7A::UH2E"5GK75XM.SXG
+M%_\ TW^TO>]ZA^/UK_S8-K_ X+J>%_T]+L&/_C,9UO$\^KVA_3?[2][WJ'X_
+M6O\ S8'\#@NIX7_3TNP/XS&=;Q//J]H?TW^TO>]ZA^/UK_S8'\#@NIX7_3TN
+MP/XS&=;Q//J]H?TW^TO>]ZA^/UK_ ,V!_ X+J>%_T]+L#^,QG6\3SZO:']-_
+MM+WO>H?C]:_\V!_ X+J>%_T]+L#^,QG6\3SZO:.NK\GUMBT[?Y4MU_MFRY_:
+M#ZW=!N[.WO5B3*139V0M)=<5PM+:T;E)7%S6)6XM8M6*]$1!VB;52K4GZE8-
+M/-WWR'VAHTJ.*HQHTJ=*+PZ;C3A&";\)45VHI)NR2OOLC5Z!JU:N&K2JU*E5
+MJNTG4G*;2\'!V3DVTKMNQ8D;XB'&.FW4&Y-]PQS;>-&B*.O1S['SEDG8:[-F
+M:N7MS+'#W2-I79.^S7+K!WYE7P>.9=Y8W/\ J@CZQH*>W-"WG4!>ZKRR^]N]
+M?K]GKW&P:5ZVHN^X)/;"A$F>&AGJAX=V"V&FSH3-:>FE6O#''V^6N*.PH+:+
+M!$Y;$\:11V:Y.F5N[.F0+F%>F=$*I0EVV,U!IK+IW6:=^&35S0,7\5+B26P6
+M:V&W67*T#)"6ZM'S9KDU+77$YM-X[=;X=&:7DM25Y):^:YS<$?MR1$&LE>.M
+M:Q^3II(YZ^J)-O2[:XR)U97M;??BN&^^>5N-[6XGW$7B7<@K#*J3[3>:MRVV
+MWH^/-3:]TI=+(Y0=W(LMKI?":ZD+K 4BFC2U=O/C+6S6MMDN(('B5NB-(TJE
+MJ;?=66&J\_5ZT^%\K//+/+<3 K^P(O:$6236%KC76+N2]]1-+QLC5HTKR4P/
+MKE'CW=GRL))V<H\YK&I0LCD@2:F-$F8CF^1,*MP8W1N7J1Y,T
+M                      <_-B\"=F]+7;TAMT7$:)TJB<P7KNH.7Y/!;TDK
+M8AYBAM_U3.*\*L@GG=OYX9T5D7O8^7PDFVY]+KP5?1[-)I$WPEM0(DIR"0CZ
+M*44E:]TTW=+-IWMK7R71Y/M]664]P3U6_0'M%XOAEI.$6;=7 M7\-U9#X'/7
+M^=0_=3457VU&M;4EDE<J\B:EE33.9664I96%!'WERA\7;-R5RUV<3==,"')9
+M6OE)R;:2WVW6;W6Z3Y_2O%W<4_A7+%"1J"T'8O,U?\PU5772L#5W])Z"F-\S
+MZ#ID:#:N)/9+'SG;TH6<W-9;1JZFQ.-J(&\3ITDCFGD2U*QH3&IY$J45=YIW
+M=G9.R?%>4O*]>=OED/C_ !7H?#F4$Y3)T62K9JHKU-)G&4B3T>'G7U9+G!*?
+M&4Y'D]$3G!!&,EZ:YP27C^IK>?9[\QC^C5^2*'3WX!_K4_\ D<+ WAB0
+M  .TS\FQ_P!#ZZ?^\H]?^E]7C%?:7\90_P LO[M4V'V=_"UO\P_[=,E5>7 4
+MYM*9^*"\',=;2:*]A4/RI"JJC#O,I=##=I_S_K<3LM7RY_B; >ZPG!4HF$.=
+M8G*&#ZT*T[DW'.+DQG$(/HUSS=L_A_1LT2E;5]3=\D][^A@7'O$G4U1-O1*Z
+MW$$,L11W!9SB9?3%;%[RFU9/"J?C_.">I(>D.L!AJJNDEGS&529I+3RI VQZ
+MO&"+UZ[I6^,N"I='$R93),I)VM_A65E9-WN^.2Z.E[[%=I/@D=2S%G-F]AK&
+M<Z25$R\<06HJ(DO5MA3^/SBO.8+9D,^E\&+O!LJ" 2NG8))XV^:1:GT*2,3*
+M71-<E4OTRE"IS<SEY(]^$7KS<G>R3\I6O:[OGOS+ ZQ\,%_<^=X5"[UB$#7V
+MDDZ"L.2P%V_.%,;+=..^;I[97YQ$535K:,H1,\IL60P!IC[0U5N^O;:0@KZT
+MW9DL>-H\Z5XVF+AX<L[KH2=LM9KBTO?[?5=DIO#GIKLZDXG/HKUE/HQ+6M&;
+M"6:JFB,O#&\M;(5'&9P:Y@ZQ5,PU35*>OZODN^(SBN*=5II>X5LW,KBC43-V
+MU="BTS]_O]^\B33M9=-_]KY[^E\=^\L@ \@
+M           1AZYY+K'M*H#Z3MQ=+F^(*)&R2C=1"75M9WS#BP95;(=-5CJR
+MOR3"7;*LWU@K+?DPSR:>8<7Y,^=U8/%U<%65>BH.:C*/EIRC:5KY*47?++,Y
+ML7A:6,I>!JN:AK1EY#2E>-[9M25L^@JQ]G0X+_:OI#X@PCY7"UVCQ_F8;ES[
+MTK-G\#YV(YD.['LZ'!?[5](?$&$?*X-H\?YF&Y<^]&S^!\[$<R'=CV=#@O\
+M:OI#X@PCY7!M'C_,PW+GWHV?P/G8CF0[L>SH<%_M7TA\081\K@VCQ_F8;ES[
+MT;/X'SL1S(=V/9T."_VKZ0^(,(^5P;1X_P S#<N?>C9_ ^=B.9#NRRKB_B.G
+M^$J[DM8TPXSERCLJFBF=N1T]>FE\=-'I6QL<?-*2*6B/QU.4@PACZ'?0@Q(<
+M=A1NH,RIVT,T**K,;CJV/J1JUU34H05->#BXK54I2S3E)WO)\=ULBQP>"HX&
+MG*G1<W&<]=Z\E)WU5'*T8Y6BN'O)A#C.L
+M                                                           #
+M\[[ZEZ[;[[:Z:::YWWWWSC77377&<[;;;9SC&NNN,9SG.<XQC&,YSGR "+W]
+M-CE#:OK<M<B^*^6UM14YTK*TILVNN[I'8Y81R").":&)W%N(5$R21K-9W$6]
+M"U13+XK7O[XEC*,L^1:*&LD39Y*V_=^_<9'$NJ>=YQ1CMTM&[;B"JBH\W2QT
+MDMD+EAS&R1=+!%*]%,RY44_)VQSC+C%UK6X(WUH?D#>[-JM-NF5(BSLZ:;!9
+MIVMGEE[=WQ,,A7=?(U@T[9-_1:]88IJ2G=UQ5J2QUR[1G\WQR!L1/.Y$L8I.
+MV,\E95"QK<FU<S)UK,4<_IW% 8QZ..%B;TH:KNE;-[O6>PS]P\F/\SK2OVB]
+M(2ME=PU]'K2KAOT4+RTTD@TNBSU.(H[Z/)R IC;%$GAD;D4KCS&].3;('J.Q
+M]\>6UJ4M[0X*$X:LDF[.R=G[5E\\B1,1E;!/(K&YM%%_TK%Y>Q-4ECCIZJM0
+MZN;&]HB')J<2TCBF1KB"EJ%20J)T5)2#O1&Z9W*USGR 0?SJE'B@^(/JH/UU
+MZYNC&NIQNNN,2DSR8QC?;&,8_P C_JQ^@?HZT5HZR_\ 24=R_P /_D_/?&>/
+MZW6_F/#]J%XA/O=73_%)G_LB?%6CNIT?Y7]1XSQ_6ZW\P^U"\0GWNKI_BDS_
+M -D/%6CNIT?Y7]1XSQ_6ZW\P^U"\0GWNKI_BDS_V0\5:.ZG1_E?U'C/'];K?
+MS%MO@I=N=:WQV^TP"X[_ +(L6&'5C8+L;&Y.^;KVO=R;4S;L@6[)]B]<9/2[
+M&F9)W\O]7.^W_P"14:;P.#P^!=2CAZ=.?A::UHJSLV[K?Q+70^-Q5?&QIUJ]
+M2I#P=1ZLI75TE9^XZ:[:[9Y3HFSXG35NW=#8+94T+CQ[)&7@QQR82FES^=%8
+MDMD;HC;U3)#$$JDR92P1IPF+DPHG]X3*6]I/5JDYQ6F.-<HMYI7/%$.X.2Y[
+M;D]HJ)WS G:U*Q3RQ5-HOAP4(M6@J *DB&P/0OKBD1QIY.@"U<D1SQ,Q/#FH
+MA:H_5/)RFHW&VFH6=KVR9[.W:W)Y=)2WI R^ZY*HF$/<YC;_ &B:^:%1/Z?K
+MAP=VN6M+&O,+US+%R1P875*UD10MZWDYB7&8M],ZJ$VQP:KO:SOEE[=Q)%J=
+M$#XUMKTU*=5C6\-Z-T;5>FIFFBI X)RU:-3IH;H6;IJ>G.+-UU-+T,UQMC&^
+MFNV,XP(/H                                 -$V17%O2VQZMDT*Z!=
+M:UKR)+%IMF5,DK2NY<V7*@4G(]R6QUEDI;%DIAA*5,0L2>GB"M$>HT<-S#\[
+M&)R,ZB4U9Y7;W//+]^LI1MOPS+I7T]U?%:[@B!A0.GBNU%VQ5%8578K33+G8
+M%*UY".?F-_B\-FT;4M"6G)VXJX;-5L-<U"N/*&24,K&\ZNC)NJ2/24>]976_
+M[CB_:[Y^M9J_[1NFJJW[VK+C>PZ<DG,<5Z-=YTIZ>FE<P/I?H",6QK6K*ZSU
+MI6\VT+>;[+-'W>]S"&ES=GV6S3:?.&K2CBR.+Z25X6*VMW1"&XZUT[?=5XJU
+M\O*:65L^'KN1U;O#H[2NND; 7V*O::PZ.F]MEWG?"R[D<+ON&=7SR+4_O Z<
+M9V^,4E9U/LM-5_1;BB8W"K8TZ.\O)0R=@B<NEWUP7Q_8]4)UDFN*2LK736=W
+MOO>_'WVL9V5X6M@K^1>2XF[0:#J>NZ[Y:B%:V).S)E-F*FT:RF*1D\,JZO)9
+M5359;]#+)E3G]<3:*DUQ&1=S<BZ??+R>H<\UROD< C"8'):TGP<K[E?-YN]L
+MMUTN#MOS+..#T_726E%Q'9AAF]C%SEXUB>KIFJ<S(FN-6:.:-I,[VHU$W5+E
+M\TE>LRRS8A:0HC2!;0TM^\^6:2#?8>96OY.[W_[Y_P#GU'\VA5_SE1_UYO\
+MXFP_5UN7L7R/RT\ D   !=U^3[_VA[+_ '0V?_PK2*/[0_ETOUJ7S9<Z!_,(
+M_I5?DB_SNB@NI;SZ>:HLR<NQ^7\8.J.F'Z[76O[#INL;8Z1F=83<V8PF*6_,
+M)60IFV:1J%?JG=6F%QE,AD$D>%K\03+&QB7GM2_!FZBTEOSSM>[2NLVO;FF:
+MJY>X%Z6BG0W/<0MNK(:FH7DFQ?$EFGYX%DUBLL*Z9CW;TN?W")14RN22SY(Q
+MG,[#,W#%FIIVB(9E:V+M*-C5/Z4_507''V?O,ERBTVM[U5;HU5;?[LK? V-K
+MX>MA'^%WW'R:NJVNU-AV98G?<OY[B:C>(*(VQF7-8%J/%%NK,M,+W9(.Y)8]
+M+&HI*>1EN5Q$M2>BVW18*.+Q(UO*@\\E!/W6O[2Y>N69?'*]@D>=2]"7-BAL
+M79G$HLW0XLI>ULB%"L+T.+SL6;IHH(,UU-+SG0S7&-M<YUSC('AYMOUF9 0
+M                                        !SE&?DU_+)AFYF;XO_&3
+M-]M\XQO77DQG;;.V<8_^"_\ D_2-(OM+BEE_#X?_ +G;,_L[A?38CXT^[/Q[
+M-9RQ]_/0'^W77\EAM-BNKX?_ +G;&SN%]-B/C3[L>S6<L??ST!_MUU_)8;38
+MKJ^'_P"YVQL[A?38CXT^['LUG+'W\] ?[==?R6&TV*ZOA_\ N=L;.X7TV(^-
+M/NR6G%?@TT;Q#=R2](#:5KRV0I(S((OHT3#:(99MDDB+3%J5&V&6-MBWUDC"
+M;3)'D58*\NVWI--\>3R<>-TU7QU!T*E*C"+E&=X:^M>-[+RI-<>@ZL'HBA@J
+MRKTZE:4E&4;3<-6TM_W8)_U+A!3EL
+M
+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
+MQ<=^>=_430F_ASWHJH&D)FFK-.^]LI.:"Y%=4:23%''N;'NX*SYR3TPW0?\
+M-W&WB,P#:=W/&WE#0$I4QXV/5JIHI-;J!"[0MU<H5)]!&LKM7M&]D^*BY7WY
+M[M_3K6WEQ7%TDZ0E=&H77J2,[1>QL2V:HFDA;&X["9*[5VAD"M/ I!-(/$)]
+M:$6ALM=V'0@]UC[#.WY$GUPF4[Y:EBM4QM@\.U\MV7_GH^7QWN6 $
+M                               !"_O3CEK[HH)31#Q.W"ND:F71N69D
+M;:Q)Y$IT-CNRW;1%AM5.;25DM5ZYG&YWK>-BO1X\A>_G9\G;@,8\!B%B(TU4
+M:A*&JY.*\JV=TGNMT''CL&L;0\!*;IK7C/645)^3?*S:WWZ2D?V9: >]Q,/A
+M&R_SV+S:>IU.'.EW93;.4^M3Y4>V/9EH![W$P^$;+_/8;3U.IPYTN[&SE/K4
+M^5'MCV9: >]Q,/A&R_SV&T]3J<.=+NQLY3ZU/E1[8]F6@'O<3#X1LO\ /8;3
+MU.IPYTN[&SE/K4^5'ME]_'7-J#D/FZM.=6R5JYPAK=-)$Y$I7M)+&K=<2.92
+M*8&;G-:=<Y$I,I39#NATQHM/]*6ET/SG38W)6E!C<2\9B:N)<%3=75\A/62U
+M81AO:5[ZM]W$O,)AUA,/3PZDYJGK>4U9O6G*>Y-VMK6W\"3(Y3I
+M
+M                               -;-]S4^[6"]U*U6M6SG:D9;\.\DK-
+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
+M,99T4X4[#<1IDHE@P@$/5EO=FNB]MR65\WT;^%WO.D #Y@
+M             !!7Q$^-UW=7.2JAVZ?I*V4J9I%I9B2K8X=*2--(YLNVV0Y:
+MB'EA,SLK]<QYJCU_&"?1Y\I)GG?U>_1V-6 Q*Q#INJE"<-52U/O6SOJRW6Z#
+MATA@WCL/X!5%3>O&>LXZWW;Y6O'??I*#_9DI9[X<=^";E\SA?[3PZG+GKNBC
+MV;GUN/)?>#V9*6>^''?@FY?,X-IX=3ESUW0V;GUN/)?>#V9*6>^''?@FY?,X
+M-IX=3ESUW0V;GUN/)?>#V9*6>^''?@FY?,X-IX=3ESUW0V;GUN/)?>#V9*6>
+M^''?@FY?,X-IX=3ESUW0V;GUN/)?>#V9*6>^''?@FY?,X-IX=3ESUW0V;GUN
+M/)?>#V9*6>^''?@FY?,X-IX=3ESUW0V;GUN/)?>#V9*6>^''?@FY?,X-IX=3
+MESUW0V;GUN/)?>#V9*6>^''?@FY?,X-IX=3ESUW0V;GUN/)?>#V9*6>^''?@
+MFY?,X-IX=3ESUW0V;GUN/)?>$NN$O PD/&O4]9='+ND6:?I:]+FVAL325>NC
+MBAT^MU?2J$:9+>3IT\EI/43))HX[XV;5'K&B39+CT.QV#R^/'Z=CC<+4PRPT
+MJ;J:GENJI6U*D9_=\'&]]6V_C<Z\#H66#Q-/$/$1J*&OY*I.-]>$H;]=VMK7
+MW<#H@&=+\
+M              \"E4F1$&JEB@A(F(USN<I4FED$$Z8_1G<TXW;4LO7&<XQG
+M;?;&/T_\H ] Q^8R59" UY:2EZK!.4R(QQ1Z*U&%'Z$^2$VQV#C<'YSCT/H]
+M-O2^7^IYP ]U4L2(2\'+529&3L863J:J/*3EY..VQH45C<W;37)AN^<:%Z8S
+MYV^V<:ZXSG/D 'H%R*/FKLMA3ZSF.6#32,MY;FBW78/(\_TQ.4FI^3\&D^C,
+M]*7DOSR_,W\_&/-SY "&11]S3-JUM?6=P1O*A0D9U:%S1*TSJK2E+3E25M/(
+M/,*7*$Q+:XFJ"4NYIA)2!:89KKJE/R6!4KXQ7=-U<(U)4LWI-'!UCS-[%7Q5
+MYTG+$XOJ+1L31E<[E[(B&U]8C"%7K28O&QIAY^F2O.TP5C;.-\7&AL!0Q]:M
+M3KNHHPIJ<?!R47?64<[QEE9]!4Z6QM; T:52BH.4ZFH]>+DK:LI96E'.ZZ3G
+MR]HF[Z_4?/7P[E/S$&AV<P'GXGF0[HH=H,=YN'Y<^\'M$W?7ZCYZ^'<I^8@;
+M.8#S\3S(=T-H,=YN'Y<^\'M$W?7ZCYZ^'<I^8@;.8#S\3S(=T-H,=YN'Y<^\
+M'M$W?7ZCYZ^'<I^8@;.8#S\3S(=T-H,=YN'Y<^\'M$W?7ZCYZ^'<I^8@;.8#
+MS\3S(=T-H,=YN'Y<^\'M$W?7ZCYZ^'<I^8@;.8#S\3S(=T-H,=YN'Y<^\'M$
+MW?7ZCYZ^'<I^8@;.8#S\3S(=T-H,=YN'Y<^\'M$W?7ZCYZ^'<I^8@;.8#S\3
+MS(=T-H,=YN'Y<^\'M$W?7ZCYZ^'<I^8@;.8#S\3S(=T-H,=YN'Y<^\'M$W?7
+MZCYZ^'<I^8@;.8#S\3S(=T-H,=YN'Y<^\'M$W?7ZCYZ^'<I^8@;.8#S\3S(=
+MT-H,=YN'Y<^\'M$W?7ZCYZ^'<I^8@;.8#S\3S(=T-H,=YN'Y<^\+(?"K\7CJ
+MKL[K%NI2W6RI$L.50&:24TV&Q%\9GKZ18"$)B'75:OESRGPFVV4F>L%919W,
+MQYN-32_)GRUNE=#X3!81UZ,JSFJD(^7.,HVE>^2A%WRRS+#1FEL5C,4J-545
+M!PG+R(24KQ2MFYR7]#I86OS&VN#6TN+TTH'5[W/+96Q:XHTK@[F)2\&JBVM&
+M><6I<-TQ6VIA^J0LW8DO;&YF-=<XR,P:0_U.^LBQS<61(\-2IY9RTIKLT)W!
+M(>YM92W3)J,QQ0%';*T1:LO&3$NZDHK51IC.Y6=]<>4 ?-S-X9AA/E69=&,1
+MA*:82ID>7]J^@4YQ2G",TH]X];^CR32U><)3"S%&N^BG."-L8-SYH R,DXE0
+M24H3FEGD'EZ'$'D[ZFDG$FZXW+-*,TSMH869IMKOIOIMG7?7.-M<YQG&0!Y
+M                   <['BH51XGG0G(]IUS,*.I&?0+2$=(R>10GF2WK)5R
+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
+MZ)AG#0
+M                                                           !
+M7GXG77TZX@Y>67E7<;B4JD:>=Q&*Z-,T*>#F39%(=G'54HVT8W9F7>M$X1E^
+MKYPMP5CSM_2%&?H\ECHO!T\=BE0J2G"+ISG>&KK7C:WWE)6SSR*_26+G@L,Z
+MU.,9R\)"%IWU;2O=^2T^'2<Y'M*'6WW'\Z?[A9?S#&DV:P?I\3\:7=&?VBQ7
+MH</\*G>#VE#K;[C^=/\ <++^88;-8/T^)^-+NAM%BO0X?X5.\'M*'6WW'\Z?
+M[A9?S##9K!^GQ/QI=T-HL5Z'#_"IW@]I0ZV^X_G3_<++^88;-8/T^)^-+NAM
+M%BO0X?X5.\'M*'6WW'\Z?[A9?S##9K!^GQ/QI=T-HL5Z'#_"IWA9EX4_B[WG
+MWIT9*:<LNN*GB+ Q4])+%3.<&2S EW.=667P*/)T1^[_ "M\19;S4LK6G':E
+MI-%.5"=+G11H7@TLVLTMH?#X##1K4JE:<I5HT[5'#5M*%23?DPB[W@N-LV6.
+MB]+5\=B)4:E.E"*I2J7@IWO&4(V\J<E;RGPZ#H1&=+\
+M                       Y$9YEOL3LWKAUY 7776?0==0_Q$6UEFDS+NEV
+MN/LR^991MAH8A7<,V;H<@J2$\T\_REO3.=$J9)*#G]WD4*AR:'Q]*F.-D,A=
+M/]3ZK)+6LTW#HM&-UG[7Q]]]^4<XRS17U:.[5O';@(\,PNQ?# V[>:W)ANDN
+M,+)^EK?H?3H<^4-#JC^L3B@3SXWG//3!C4E/;U4A*9C9=LHV)7;8'KB[VU[3
+MU<UNRMZO.MN^1)^$<JL_2- >'Q3<UK"S-'^^K^Z+C4/N63N5MLD[J3PXJ.N"
+MX+G@S'DU4\(]X](+$@SI!ZQK!UF+6>]MD,GY3@W;ZJ(^S901999;LL^'Q/-[
+M.3RR4<LK.323]N:;=N/MN6(^/ZA2MGARGMJ$KT")OMBJ4*,C&YAF"4J35Y(3
+ME8W-VW-W]&47IIYYF^YFWD\N^VVV<YS>_9[\QC^C5^2*#3WX!_K4_P#D<+(W
+MAB0      +_OR<+_ $ZK$_[KL\_]3J9&?^TGX"G_ )JG_:K%[]GOQT_\M4_N
+M4BQ/N$ZG9OXH]?0-M66I7]QQ>QN4YK*>GY:3<CS'*WC\9>$3XU\V<H1JNX<X
+ML&SG>*-QQI?,DL!\;JZ9FF7*S'@Z3NQ*>.,6'-NKZE[)KRLLK[OO-^KAZUP-
+M">'O-\4E?M>6I,4UT,=D5_0?=[[XNCTZPJ[).8IL(GHZ+'4&>^LQ+&]%3*:9
+M19EJFKDM>MCV][U1N9HS$;1[!Y>HF6::RS<-2VKT-/W;K^NUR;L^Y?K>Q_$3
+MN^SZ[K:9P=-R[SFY7D^3:-Z6:O>+MZFZ38[!WAY3?&CW[1!*VFI81%W&2?4:
+M+IVLQVL2P8VB=2B<,+:D5197OQ(OY*5_O.WLBOZJ[]UDT5_<;<W1^VZ9Z%HI
+MIL.&;TQ7=3<I79+^N-N=N@8W$9=-8"382^P><NCZ:MB[5*FW#XHT-J>?3'2$
+M2N K&V12!MUD[86O2-C 4M;=9>X]2=FGQO)))JZ65G%I9="O?=\+#/#INVTJ
+MTZ(1<>VC4-F/DN/JFO&I5=ECR:0K[-;*TJRC84_5-K-8GM7VT010DQ)+WB-3
+M&:H[FD#PO[%=[N84L2UBV6IX3R>)6:UD^.[AFW?W^[[ML[JQ?D!X
+M                             KC\4WDBS.UN5%E(U,Z0QGEJB?PZ4Z+)
+MVZ/#0PX;H_LY;+2]EC&P25=A7OA65ZL7ALR5OY-_2'E>3'G66BL72P6+5>LI
+MN"ISC:FDY7E:V4I15LL\RNTGA*F,PO@:3@I^$A*\VU&T;WSC&3OGED<TOLXO
+M=G[?\P_Q[9/R>&FVDP'H\5RZ7?&=V>QWGX;F5.Z'LXO=G[?\P_Q[9/R>#:3
+M>CQ7+I=\-GL=Y^&YE3NA[.+W9^W_ ##_ ![9/R>#:3 >CQ7+I=\-GL=Y^&YE
+M3NA[.+W9^W_,/\>V3\G@VDP'H\5RZ7?#9['>?AN94[H>SB]V?M_S#_'MD_)X
+M-I,!Z/%<NEWPV>QWGX;F5.Z+1?"2\);I;A3I65W!<,HIMZB[Y3$FKU&DKZ3R
+MYY>]'MYF5?2!*>H2OT!BZ/1MT115Q+//+<#5.BDU'IHD,+,--(J]+Z7PV/PT
+M*-&%:,XUHU&ZD81CJQA4B\XU)N]YKA:U\RST5HK$X+$RK5I47%T94TJ<IN6L
+MYTY+*5.*M:+X]&1T8C-F@
+M
+M    "!OB.=BO/#'-RJ]F*#MEA+TTVBL3Q'79Y5,*38F1;+]3%F5Z-"X'8,2^
+MIZYT)]7SJ9Y^?.WU\F/+WZ-P<<?B5AY3=-.$YZRBI/R;96;6^YPZ0QCP6'\/
+M&"J/7C#5<G%>5?.Z3W6Z#G^]IFLWW4()\3Y!_*8T.S%+K=3E1[11;1U.JPYL
+MNP/:9K-]U""?$^0?RF&S%+K=3E1[0VCJ=5AS9=@>TS6;[J$$^)\@_E,-F*76
+MZG*CVAM'4ZK#FR[ ]IFLWW4()\3Y!_*8;,4NMU.5'M#:.IU6'-EV![3-9ONH
+M03XGR#^4PV8I=;J<J/:&T=3JL.;+L#VF:S?=0@GQ/D'\IALQ2ZW4Y4>T-HZG
+M58<V78+CO"O\2*2>(DR70[2*K&.L=ZJ=8.W)"662KY'J\:RY))U)QJC=<U-F
+M4FR+,?+T+U+U.P=A3OG;.GH]<;4VE=&1T<Z"C5E5\*JC>M%1U=1PW6;O?6_H
+M6^C-(RT@JSE2C2\$X)6DY7UU+I2M;5+914%H
+M              '(A/+H02_LWKDSBKI.S_S_ -00_P 1(AY*L:]9&^3SJ"\,
+M4;81];<^<^<SMZS:)M-.\K2ME;WJ'V(OC3$ZOKQ!"&J.ZRXA7(9HL'U6Y:R5
+MGJO)+R5=7;:XOH=_7P(^1FUX[DJ,L]== 6\^^&T[6)X7>O:MF.5YV^XL<2GD
+MUK;H5;T(RR*W7*6;2:OT,FGC7SSIT6VM$H8D,5?'9O:GXB.8>%R79^_9_O\
+M[D^Y:WE:J26[+5=OC;*[WFJY_?/0J*O:?=9Y:[R?0<-YOZ5L#CA';5R=*UY/
+M^DWB*=QV P51&JAF=83:)2B:=$K>>VVGF^FW2??G"PFA,B+?2H+($,F=W]$)
+M25WEG>*EJVLKQ\JZSLE+?NXJZR+[O'I7*G3PTTKFN;ES.M<;*IY<L:'3)>SD
+MU*E:5U4*&YQV)UU)V7(33-TRO)6NI>5!1F=-<:^3 O/L]^8Q_1J_)&>T_P#@
+M'^M3_P"1PSC>&)        #K>_)D_P#Z-[ __9J8_P#*K)&1^T_W\'_\:_SI
+M&J^S?W,7_P#*C\JAAZ6Z:'E_B#= F5UUIT'%$E2Z]UH.CY-^?*52*_+\7J:P
+MF.^:HY,YG9B7R-L< XV3-*N65E9)D#3/KQ(Z[;T$7:9X2H?Y4YY4U7^%7C%W
+MU;99+=G*7_5N:O[;62)(>%?T;3T"M?L^-1^[?KKS?(;DY.@?*TL0VS:MZ5<]
+M36W*_DS>@@Q$VL#1X?FSH24N,<;Y!?\ &T2O6&1:0O3 07]%+#5V5HF:=HNU
+MGY3EDD\FOZ='$BYX0,ZN6VKE>Z\LJVY0HN^X>7[ADG2,ZJ2U[5<[3YHN.-]#
+M-3(5%;XK:Z7"RZ0AEJ.A#D](ZAQ%:WA9D5@4>>(VWQ22Q;9++ _?[_\ H326
+M:65TE=)*66]-6;2M\7[39$!INY[F\*KB2VD_3-F1:3U*Y74E6(ECI8CQ85N6
+M)..D5<:JETB[K&K-KC1;?:&0,2:"U8=9.LOJTO>U) =+(@H;4R?=-'#WOYNW
+M^UB,E)JR:=O5DEG[N+W/+>62>&AV%K>D@OBE)!%7LBUJHD[]*+;FATM:I0C<
+MIT_6C9,#?XZ]1M(9L^TDJ97&MCL574\Q]/(-:!S6DB4+#E"U?KI)YE&R3X/=
+ME;@OCZVN);2!Y                                \'JR;T1I'JY'H#L
+MFY.)]$7Z(W)^=MC\FE^;YAF3MMMMC<[XSZ3.VV=_+G.0!_NZ<@WT/I""3/5S
+M-34_GEZ;^@-TUVTU-)\[7/HC-=-]]-=]/-VQKMMKC.,;9QD"L[Q;.7;:Z^Y%
+M6T]2K>SN<V/L6$R0M*^O:1@09:V/=SRX&9<%O^1P;IA43Z,G_.-\N?-_S<BS
+MT1BJ.#QBK5W)05.<;QBY.\K6R7L*W2N&JXO".E12<_"0E:4E%6C>^;RXG+=]
+M@+XC'[&5G\5([_@-5M!HWSZO*D9GQ%I#S*?-B/L!?$8_8RL_BI'?\ V@T;Y]
+M7E2'B+2'F4^;$?8"^(Q^QE9_%2._X!M!HWSZO*D/$6D/,I\V(^P%\1C]C*S^
+M*D=_P#:#1OGU>5(>(M(>93YL1]@+XC'[&5G\5([_ (!M!HWSZO*D/$6D/,I\
+MV(^P%\1C]C*S^*D=_P  V@T;Y]7E2'B+2'F4^;$O^\%#A#H7AZ.]"MM^L\;:
+M%5C/5;KHQK'90WR70]/&D,S(=<JMT'Z$>Q9CT@P3J;^D[&YF=/\ Y>PS^F\?
+MA\=+#/#N35)55+6@X_?=.UK[_NLO=#8'$8*.(5>,8NHZ;CJR4KZJG>]MWWD7
+ME"B+L\11)*?3T9!11)?G;[^847H7IYYF^3#-_-TQKKYQF^VV^^WD\NV^V=ML
+MYSG.0 T()*W.,+)*+,4;:[GF:%Z:;G[Z::E:[G;:XQL9MJ5IH7KMOG;.---=
+M,9QKKC& /UN669YOI---_,WU,T\_7&WF&:_YN^OEQGS=]?\ [=L>3./]60 T
+M*++V,VT+TTV.WP8;MIIKKL:9C30O&YF<8QG??!999>-MO+G&FFFOE\W7&, ?
+ML
+M                                   $)^_>R$O"G/JF^%=?'V:2FF$:
+MB?U832<N(F;[2/9;KJN^ES6&1ZZZI/4\YRF^C<Y/])^@\KS?ZW=H_!/'XA8=
+M5/!-PE/6<=?[MLK:T=]]]_<<6/QG\#0\.Z?A/+C#5UM3[U\[ZLMUN@HV]IP8
+M?<T=_CRC^4(O-F)]<CR'WI2[2+J;YZ[D>TX,/N:._P >4?RA#9B?7(\A]Z-I
+M%U-\]=R/:<&'W-'?X\H_E"&S$^N1Y#[T;2+J;YZ[D>TX,/N:._QY1_*$-F)]
+M<CR'WHVD74WSUW(]IP8?<T=_CRC^4(;,3ZY'D/O1M(NIOGKN1[3@P^YH[_'E
+M'\H0V8GUR/(?>C:1=3?/7<EI'AH^* @\1E7<B1#2ZRI/S1)H$H-W53XF;?3W
+MUY-F)>FFFI,/BOT;]&_5+;.VVVR[UOU_7&,)_5LY/J])Z+>C51;K*MX;PFZF
+MX:O@]3_KE>^OZK6+/1NDEI!UDJ/@O!>#_P#R:^MKZ_\ T0M;4]=[\+%K(J2T
+M                                      #E*LSIFP]>KNMW3D;MB?69
+M8-!0;Q!':RX/9%V1TB"36QXY2,\=Z-YFY5XX62=W=']YYMF+*T/,YNIB@D?1
+M232&RAJ=9/,UCXZHFA^_W\.!]4LEK1LFXV:3RSS;EZUNC=[[V61'YCZ:GJ5_
+M@50Q'NF])QR!9LY\+<WHSI!QZ0D3Q+*ED-]UGT=([BA+-T/E\^L=/-=CRVOJ
+M8UD3,S2AB)K7>4;L4?)B*:4;)=Q-EF[+66O96Z+6NO5GO6?&YC<GZWO[6CZ]
+MM*3=</,GKRD*KZ/?VB'[]K6IS9T-U15L0[5L2K*LL2'ND.@CVRWA,GFLH<TQ
+MB+N;J];K9 [F$.CJA4FRY"^+G[_?[]X44W:S5W'_  ZR5XIM/=;-_#V%QOC\
+MK?I/PX=W+U58A^D+5J=;ZBXD^K."/ULMX/\ 55R?SM_5UB?TGH5)/G[>B.TW
+MT\[;S?+F\^SWYC']&K\D9_3WX!_K4_\ D<+@WAB0        ZIOR8W_ICL__
+M +-H#_BKD&4^U&[!>W$?*@:?[-[\9[*'SK&[GCH!&Z^)7/V&L_$"L9-I3LXO
+M];U'K-;@8TU8QV'H*1D&L5YIYGXP->WYSM^TZ9?4B"Q)?;47K,HQ.NC4C9GJ
+M02Y^<%$+19+]_O\ ?2:VWDW<<G;5RXW2NY=#W6?JM;>9YX;73\1AO3?3E=2+
+ML=\N>@5E:<9R*C;)LSI11?['*97<KS8T,(=7*<S'+.X4W<5YR!+&C2.46YJ)
+M98OE,E.B>-M'+Z/3!)/565GY5THV=E;@MZ6?E?'<:*NY=:-;1[Q;;XI;K;LU
+M+6?&U1R+G>&_6JZY?;Y3YU3*8Q&)K84[2M$P=TC5$H]2C3.H)"&9S18)4QAQ
+M<+"G>ZU3I%X\BR)5GJ)I>4[NRMY*;5N-[V?].DU+62CL&Y*8ZV0PGM:2P-HY
+M3OM,[&+&3K6Y^GHVV,4_Y>KQUA^]9=81[1)9G3LHAEI+G65Z\P3IC;H!)YC)
+M6ZJGKUIO-:CCA+LM7R;N4?-2W2>^.Y72M=.]E?+,N4\/7MI!>\_NBE)BW62D
+MO2-2.PYM.MY._0I[A32HB5DK*1DM=0-FC$\DC_7[%5D@B*6&-Q4UAE9;7&:A
+M>+TB[(ZD39]<"A\Y*UGPR^5[[N/M=MSMD6M@>0
+M       #!6ZKZS:'_,L::[@K9*<J%JO,E;HBP(G_ "K<M%!3BJR\IF\IQRH<
+M"U2HM:=ZSZ15HI4:'[&:G&8V$W>Z[L>LFJ*IT<7?(.CK"O$L*DRQ0X22()H5
+M&R(O(%ZPPDY6N?(^4V:M+LL5')DYJA2O2*#CS$Y.YF^VQ6F=0N]]W<]A?5M9
+M.GU/RYUU!''\WFQ&\ ]?B,?5_4?=*6G*3;P_UAO,^K.R<I(D+(V9?4LE%I4^
+MA>==22\:B+OIW[_64]_E!G]GFY_WQUE_XCX+S[/?F,?T:OR12Z>_ /\ 6I_\
+MCA.&\,2        '5-^3&_\ 3'9__9M ?\5<@RGVHW8+VXCY4#3_ &;WXSV4
+M/G6.I!-5]9HI%M+T==P5)+-UJMRWE":(L!$BW<5_ILKG#9Z*;]'+9:M]94>M
+MJLJ<GJ?3G>F,W]+OYV2-3=[KY=!X62IZLC*%4V1NM*_C[:N?D\J6M[)#8ZTH
+M5DG2'EJ4LC5)$#:G(4/R9244H3O!Q>[@2>46:6HU,TUVP%WTF3%1N/$)7E"0
+MPLI**1J5ZR0HRFM"6E?5CJ3HF<U3RGT(P4Z*7).7HG7GKM#S5A.FA2C8PO7&
+MN /B,-:UU%8\GB48@,*CD41NJ1]21EABK$SQY*]M[FD>T#RG96] G;2'5$\H
+M$+ND<"DVJM,YHDB\D[14F)-T"Y]1JB,48GB02%DC$>9W^6G(E,J?&IE;6]XD
+JRAM3[)&Y1('-(F)6O)R!+MLF1&N1ZDQ*GVV)(VT+SG4 9"      /__9
+
+end
+</TEXT>
+</DOCUMENT>
+</SEC-DOCUMENT>
