@@ -30,9 +30,15 @@ var joe = { name: "Joe" };
 db.forms.insert( { accession_number :  "0001047469-15-001027" } );
 db.forms.insert( { accession_number :  "0001193125-15-399601" } );
 
-var accession_numbers = ["0001242648-14-000081","0001127602-14-030663","0001047469-15-001027", "0001193125-15-399601" ];
-var query = { accession_number : { $in: accession_numbers } };
-print( "=== " + "Runnin' find(..." );
-printjson( query )
-print("...), Moe..." );
-db.forms.find( query ).sort( { form_processing_attempts: -1 } ).pretty();
+//var accession_numbers = ["0001242648-14-000081","0001127602-14-030663","0001047469-15-001027", "0001193125-15-399601" ];
+//var query = { accession_number : { $in: accession_numbers } };
+//print( "=== " + "Runnin' find(..." );
+//printjson( query )
+//print("...), Moe..." );
+//db.forms.find( query ).sort( { form_processing_attempts: -1 } ).pretty();
+
+//db.forms.find( { form_processing_attempts: { "$exists" : true} } ).sort( { date_filed : -1 } ).limit( 5 );
+db.forms.find( { form_processing_attempts: { "$exists" : false}, date_filed: { "$exists": true } }, { date_filed: 1, accession_number: 1 } ).sort( { date_filed : -1 } ).limit( 20 );
+db.forms.find( {} ).count();
+db.forms.find( { form_processing_attempts: { "$exists" : true} } ).count();
+db.forms.find( { form_processing_attempts: { "$exists" : false} } ).count();

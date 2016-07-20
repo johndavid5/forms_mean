@@ -1,1 +1,35 @@
-1. use log4cxx rather than JDA::Logger...
+1. Add in MongoDbClient::command()...this appears to be the easiest way to
+   do sort().skip().limit()...(also seems to be the only way to get the 
+   new automatically generated _id(), if we need it...)
+
+2015-07-19:
+[Caught JDA::MongoDbClient::Exception during MongoDbClient::command(): "Cursor Failure: "find command not yet implemented"]
+[https://jira.mongodb.org/browse/CSHARP-1502: You are using version 3.0.7 of the server. The find command was not introduced until server version 3.2.0. You'll need to upgrade your server in order to use the find command.]
+
+C:\Users\john.aynedjian\bin>mongod --version
+db version v3.0.7
+git version: 6ce7cbe8c6b899552dadd907604559806aa2e9bd
+C:\Users\john.aynedjian\bin>which mongod
+/cygdrive/c/Program Files/MongoDB/Server/3.0/bin/mongod
+[2016-07-19 8:48 PM
+ Installed MongoDb 3.2...it looks like they gutted 
+	/cygdrive/c/Program Files/MongoDB/Server/3.2/bin
+]
+C:\Users\john.aynedjian\bin>mongod --version
+db version v3.2.8
+git version: ed70e33130c977bda0024c125b56d159573dbaf0
+allocator: tcmalloc
+modules: none
+build environment:
+    distarch: i386
+    target_arch: i386
+---
+C:\Users\john.aynedjian\bin>which mongod
+/cygdrive/c/Program Files/MongoDB/Server/3.2/bin/mongod
+---
+Looks like the find() command is now supported in mongoc!
+
+
+
+Extra Credit:
+1. use log4cxx rather than JDA::Logger...?

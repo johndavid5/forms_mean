@@ -93,6 +93,9 @@ class MongoDbClient {
 	//static time_t milliseconds_to_seconds( int64_t milliseconds );
 
 	/** @throws MongoDbClient::Exception if something goes wrong with the command. */
+	int command( const string& s_db_name, const string& s_collection_name, const string& s_json_command );
+
+	/** @throws MongoDbClient::Exception if something goes wrong with the command. */
 	int find( const string& s_db_name, const string& s_collection_name, const string& s_json_query );
 
 	/** "i-re-te ku-da-sa-i"

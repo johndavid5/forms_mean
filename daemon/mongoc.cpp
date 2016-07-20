@@ -8,7 +8,10 @@
 
 #include <string>
 #include <iostream>
-#include <sys/time.h>
+
+#ifdef __linux__
+	#include <sys/time.h>
+#endif
 
 #include "logger.h"
 #include "MongoDbClient.h"
@@ -32,6 +35,8 @@ int main (int   argc, char *argv[])
 	string s_uri = ""; // e.g., "mongodb://127.0.0.1/"
 	string s_db_name = ""; // e.g., "test"
 	string s_collection_name = ""; // e.g., "grades"
+
+	string s_json_command = ""; // e.g., "{ $set: { \"name\": \"Joseph S. Kovacs\" } }"
 	string s_json_doc = ""; // e.g., "{ \"student_id\": 2, \"name\": \"Joe Kovacs\" }"
 	//string s_json_query = "{}";
 	string s_json_query = ""; // e.g., "{ \"student_id\": 2 }"
@@ -60,6 +65,9 @@ int main (int   argc, char *argv[])
 		else if( strcmp( argv[i], "-collection" ) == 0 && i+1 < argc ){ 
 			s_collection_name = argv[++i];
 		}
+		else if( strcmp( argv[i], "-command" ) == 0 && i+1 < argc ){ 
+			s_json_command = argv[++i];
+		}
 		else if( strcmp( argv[i], "-query" ) == 0 && i+1 < argc ){ 
 			s_json_query = argv[++i];
 		}
@@ -75,9 +83,31 @@ int main (int   argc, char *argv[])
 	cout << "s_uri = \"" << s_uri << "\"..." << endl;
 	cout << "s_db_name = \"" << s_db_name << "\"..." << endl;
 	cout << "s_collection_name = \"" << s_collection_name << "\"..." << endl;
+	cout << "s_json_command = \"" << s_json_command.c_str() << "\"..." << endl;
 	cout << "s_json_query = \"" << s_json_query.c_str() << "\"..." << endl;
 	cout << "s_json_doc = \"" << s_json_doc.c_str() << "\"..." << endl;
 	cout << "s_json_update = \"" << s_json_update.c_str() << "\"..." << endl;
+
+	if( s_json_command.compare("-")==0 ){
+
+		cout << "Reading s_json_command from STDIN..." << endl;
+
+		s_json_command = "";
+
+		string s_line;
+		int i_line_number = 0;
+
+		while( !cin.eof() && ! cin.fail() ) {
+			std::getline( cin, s_line );
+			i_line_number++;
+			cout << "s_line[" << i_line_number << "]: \"" << s_line << "\"" << endl;
+			s_json_command += s_line;
+		}
+
+		cout << "After reading s_json_command from STDIN,\n" 
+			<< "s_json_command = \"" << s_json_command << "\"..." << endl;
+
+	}/* if( s_json_command.equals("-") ) */
 
 	JDA::MongoDbClient mongoDbClient;
 	mongoDbClient.setPLogger( & le_logger );
@@ -86,7 +116,20 @@ int main (int   argc, char *argv[])
 	mongoDbClient.setSUriStr( s_uri );
 
 	try {
-		if( s_verb.compare("find") == 0 ){
+		if( s_verb.compare("command") == 0 ){
+			cout << "Calling mongoDbClient.command( \"" << s_db_name << "\", \"" << s_collection_name << "\", \"" << s_json_command << "\")..." << endl;
+			try {
+				int i_ret_code = mongoDbClient.command( s_db_name, s_collection_name, s_json_command );					
+				cout << "i_ret_code = " << i_ret_code << "..." << endl;
+			}
+			catch( JDA::MongoDbClient::Exception& e ){
+				cout << "Caught JDA::MongoDbClient::Exception during MongoDbClient::command(): \"" << e.what() << "\"..." << endl;
+			}
+			catch( ... ){
+				cout << "Caught unknown exception during MongoDbClient::command()." << endl;
+			}
+		}
+		else if( s_verb.compare("find") == 0 ){
 			cout << "Calling mongoDbClient.find( \"" << s_db_name << "\", \"" << s_collection_name << "\", \"" << s_json_query << "\")..." << endl;
 			try {
 				int i_ret_code = mongoDbClient.find( s_db_name, s_collection_name, s_json_query );					
@@ -167,11 +210,13 @@ void do_demo(){
 	cout << sWho << "(): sizeof(num_milliseconds_since_epoch) = " << sizeof(num_milliseconds_since_epoch) << endl;
 	cout << sWho << "(): num_milliseconds_since_epoch = " << num_milliseconds_since_epoch << endl;
 
+	#ifdef __linux__
 	struct timeval tp; // from <sys/time.h>
     gettimeofday(&tp, NULL);
     long long mslong = (long long) tp.tv_sec * 1000L + tp.tv_usec / 1000; //get current timestamp in milliseconds
     std::cout << "sizeof(mslong) = " << sizeof(mslong) << std::endl;
     std::cout << "mslong = " << mslong << std::endl;
+	#endif
 
     std::cout << "JDA::MongoDbClient::milliseconds_since_unix_epoch() = " << JDA::MongoDbClient::milliseconds_since_unix_epoch() << "..." << endl;
 
@@ -183,7 +228,8 @@ void do_demo(){
 	BSON_APPEND_UTF8 (b, "bar", "foo");
 	BSON_APPEND_DOUBLE (b, "baz", 1.23f);
 	BSON_APPEND_DATE_TIME (b, "epoch_beginning", 0L);
-	BSON_APPEND_DATE_TIME (b, "now", mslong);
+	//BSON_APPEND_DATE_TIME (b, "now", mslong);
+	BSON_APPEND_DATE_TIME (b, "now", JDA::MongoDbClient::milliseconds_since_unix_epoch() );
 
 	JDA::MongoDbClient mongoDbClient;
 	cout << sWho << "(): mongoDbClient->bson_as_json_string( b ) = \"" << mongoDbClient.bson_as_json_string( b ) << "\"" << endl;

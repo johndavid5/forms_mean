@@ -1,7 +1,9 @@
 git add add_em.bat
 git add c.bat
+git add clean.bat
 git add d.bat
 git add v.bat
+git add nextel.txt
 git add status.bat
 git add reference.txt
 

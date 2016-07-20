@@ -131,6 +131,106 @@
 	//	return milliseconds / 1000;
 	//}/* milliseconds_to_seconds() */
 
+	int JDA::MongoDbClient::command( const string& s_db_name, const string& s_collection_name, const string& s_json_command ){
+
+		const char* sWho = "MongoDbClient::command";
+
+		mongoc_client_t *p_client;
+		mongoc_collection_t *p_collection;
+
+		bson_t* p_bson_command;
+		char *cp_bson_as_json;
+		string s_bson_as_json;
+
+		mongoc_cursor_t *p_cursor;
+		bson_error_t bson_error;
+		const bson_t *p_bson_doc;
+
+		p_client = this->getPMongocClient();
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): Calling bson_new_from_json( \"" << s_json_command << "\" )..." << endl;
+		}
+		p_bson_command = bson_new_from_json( (const uint8_t *) s_json_command.c_str(), -1, &bson_error );
+
+		if( ! p_bson_command ){
+			ostringstream oss_out;
+			oss_out << "Trouble converting json to bson: \"" << bson_error.message << "\"" << endl;
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str() << "...tossing JDA::MongoDbClient::Exception()..." << endl;
+			}
+			throw JDA::MongoDbClient::Exception( oss_out.str() ); 
+		}
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Getting s_db_name = \"" << s_db_name << "\", s_collection_name = \"" << s_collection_name << "\"..." << endl;
+		}
+		// Note: mongoc_client_get_collection() cannot fail...collection is created if it doesn't yet exist...
+		p_collection = mongoc_client_get_collection (p_client, s_db_name.c_str(), s_collection_name.c_str() );
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Running db." << s_collection_name << ".command( " << this->bson_as_json_string( p_bson_command) << " )..." << endl;
+		}
+
+		p_cursor = mongoc_collection_command (p_collection,
+                                    MONGOC_QUERY_NONE,
+                                    0,
+                                    0,
+                                    0,
+									p_bson_command,
+                                    NULL,  /* Fields, NULL for all. */
+                                    NULL /* Read Prefs, NULL for default */
+									);
+
+		int row_number = 0;
+
+		while (mongoc_cursor_next (p_cursor, &p_bson_doc)) {
+
+			row_number++;
+
+			cp_bson_as_json = bson_as_json (p_bson_doc, NULL);
+
+			if( cp_bson_as_json != NULL ){
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "[" << row_number << "]: " << cp_bson_as_json << "\n" << endl; 
+				}
+				bson_free (cp_bson_as_json);
+			}
+			else {
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "[" << row_number << "]: cp_bson_as_json is NULL" << "\n" << endl; 
+				}
+			}
+		}
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << row_number << " doc(s) returned..." << endl;
+		}
+
+		if (mongoc_cursor_error (p_cursor, &bson_error)) {
+			ostringstream oss_out;
+			oss_out << "Cursor Failure: \"" << bson_error.message << "\"" << endl;
+			throw JDA::MongoDbClient::Exception( oss_out.str() ); 
+		}
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling bson_destroy( p_bson_command )..." << endl;
+		}
+   		bson_destroy(p_bson_command); 
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_cursor_destroy( p_cursor )..." << endl;
+		}
+		mongoc_cursor_destroy (p_cursor);
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): " << "Calling mongoc_collection_destroy(p_collection)..." << endl;
+		}
+		mongoc_collection_destroy (p_collection);
+
+		return row_number;
+
+	}/* JDA::MongoDbClient::command() */
 
 	int JDA::MongoDbClient::find( const string& s_db_name, const string& s_collection_name, const string& s_json_query ){
 
