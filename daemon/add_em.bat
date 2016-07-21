@@ -58,5 +58,8 @@ git add test/example-client.cpp
 git add test/example-client.mak
 git add test/c.bat
 git add test/d.bat
+git add test/view-1.js
+git add test/view-2.js
+git add test/view-3.js
 
 

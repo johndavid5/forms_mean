@@ -98,9 +98,33 @@ int main (int   argc, char *argv[])
 		int i_line_number = 0;
 
 		while( !cin.eof() && ! cin.fail() ) {
+
 			std::getline( cin, s_line );
 			i_line_number++;
 			cout << "s_line[" << i_line_number << "]: \"" << s_line << "\"" << endl;
+
+			size_t i_where = s_line.find("//");
+			cout << "i_where = " << i_where << "..." << endl;
+			if( i_where != std::string::npos ){
+				cout << "SPOCK: Captain, this line looks like it's been C++ // commented..." << endl;
+				if( i_where == 0 ){
+					cout << "Comment begins at beginning of line, so excluding entire line from s_json_command..." << endl;
+					continue;
+				}
+				else {
+					cout << "After taking substr( 0, " << i_where << " )..." << endl;
+					s_line = s_line.substr( 0, i_where );
+					cout << "s_line = \"" + s_line + "\"..." << endl;
+				}
+			}
+			else {
+				cout << "SPOCK: Captain, this line looks like it's NOT been C++ // commented..." << endl;
+			}
+
+			if( i_line_number > 1 ){
+				s_json_command += "\n";
+			}
+
 			s_json_command += s_line;
 		}
 

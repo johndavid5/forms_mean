@@ -80,6 +80,14 @@ class Forms {
 		*/							
 		int loadFromEdgarFormUrl( const string& sEdgarFormUrl );
 
+		/**
+		* Looks in forms collection for a form that has only its bare-bones
+		* "index" information, determined at the moment by...
+		*     { form_processing_attempts: { "$exists" : false }
+		* ...and, if found calls loadFromEdgarFormUrl().
+		*/
+		int loadNextEdgarForm( const string& sEdgarFormUrl );
+
 		//int getIterationCount(){ return m_i_iteration_count; }
 		//int getByteCount(){ return m_i_byte_count; }
 		//int getQueryAttemptCount(){ return m_i_query_attempt_count; }
