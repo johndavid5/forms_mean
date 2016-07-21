@@ -34,7 +34,8 @@
 	}/* JDA::MongoDbClient::~MongoDbClient() */
 
 
-	string JDA::MongoDbClient::bson_as_json_string( bson_t* p_bson ){
+	/** utilities-start */
+	string JDA::MongoDbClient::bson_as_json_string( const bson_t* p_bson ){
 
 		const char* sWho = "MongoDbClient::bson_as_json_string";
 		(void)*sWho; /* Unused variable...who says? */
@@ -65,6 +66,34 @@
 		return s_bson_as_json;
 
 	}/* string JDA::MongoDbClient::bson_as_json_string( bson_t* p_bson ) */
+
+	void JDA::MongoDbClient::bson_traverse( const bson_t* p_bson_doc, int i_level ){
+
+		const char* sWho = "JDA::MongoDbClient::bson_traverse";
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << "..." << endl;
+		}
+
+		bson_iter_t iter;
+		bson_iter_t child;
+
+		if (bson_iter_init (&iter, p_bson_doc)) {
+
+			while (bson_iter_next (&iter)) {
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": found a field named \"" << bson_iter_key(&iter) << "\"..." << endl;
+				}
+				if( BSON_ITER_HOLDS_DOCUMENT( &iter ) && bson_iter_recurse(&iter, &child) ){
+					if( m_p_logger ){
+						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": found a sub-field named \"" << bson_iter_key(&child) << "\"..." << endl;
+					}
+					bson_traverse( &child, i_level + 1 );
+				}
+			}
+		}
+
+	}/* bson_traverse() */
 
 #ifdef _WIN32
 	/** Since gettimeofday() is not defined on Windows, we'll define
@@ -100,7 +129,6 @@
 	}
 #endif
 
-
 	/* static */
 	//time_t JDA::MongoDbClient::seconds_since_unix_epoch(){
 	//	time_t seconds_since_unix_epoch = time( NULL );
@@ -130,6 +158,8 @@
 	//time_t JDA::MongoDbClient::milliseconds_to_seconds( int64_t milliseconds ){
 	//	return milliseconds / 1000;
 	//}/* milliseconds_to_seconds() */
+	
+	/** utilities-end */
 
 	int JDA::MongoDbClient::command( const string& s_db_name, const string& s_collection_name, const string& s_json_command ){
 
@@ -139,7 +169,6 @@
 		mongoc_collection_t *p_collection;
 
 		bson_t* p_bson_command;
-		char *cp_bson_as_json;
 		string s_bson_as_json;
 
 		mongoc_cursor_t *p_cursor;
@@ -188,19 +217,12 @@
 
 			row_number++;
 
-			cp_bson_as_json = bson_as_json (p_bson_doc, NULL);
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "[" << row_number << "]: " << this->bson_as_json_string( p_bson_doc ) << "\n" << endl; 
+			}
 
-			if( cp_bson_as_json != NULL ){
-				if( m_p_logger ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "[" << row_number << "]: " << cp_bson_as_json << "\n" << endl; 
-				}
-				bson_free (cp_bson_as_json);
-			}
-			else {
-				if( m_p_logger ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "[" << row_number << "]: cp_bson_as_json is NULL" << "\n" << endl; 
-				}
-			}
+			this->bson_traverse( p_bson_doc, 1 );
+
 		}
 
 		if( m_p_logger ){

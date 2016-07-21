@@ -83,14 +83,16 @@ class MongoDbClient {
 	/** destructor */
 	virtual ~MongoDbClient();
 
-	/** utilities */
-	string bson_as_json_string( bson_t* p_bson );
+	/** utilities-start */
+	string bson_as_json_string( const bson_t* p_bson );
+	void bson_traverse( const bson_t* p_bson, int i_level );
 
 	//static time_t seconds_since_unix_epoch();
 	static int64_t milliseconds_since_unix_epoch();
 
 	//static int64_t seconds_to_milliseconds( time_t seconds );
 	//static time_t milliseconds_to_seconds( int64_t milliseconds );
+	/** utilities-end */
 
 	/** @throws MongoDbClient::Exception if something goes wrong with the command. */
 	int command( const string& s_db_name, const string& s_collection_name, const string& s_json_command );
