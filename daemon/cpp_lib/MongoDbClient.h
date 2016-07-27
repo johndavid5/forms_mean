@@ -23,6 +23,8 @@ class MongoDbClient {
 
 		JDA::Logger* m_p_logger; // User supplies a pointer to a JDA::Logger object if they would like logging enabled...
 
+		JDA::Logger m_default_logger;
+
 		mongoc_client_t* m_p_client; // Lazy initialize this one...
 
 		string m_s_uri_str; // e.g., "mongodb://127.0.0.1/"
@@ -85,7 +87,8 @@ class MongoDbClient {
 
 	/** utilities-start */
 	string bson_as_json_string( const bson_t* p_bson );
-	void bson_traverse( const bson_t* p_bson, int i_level );
+	void bson_traverse_doc( bson_t* p_bson, int i_level );
+	void bson_traverse_iter( bson_iter_t* p_bson, int i_level );
 
 	//static time_t seconds_since_unix_epoch();
 	static int64_t milliseconds_since_unix_epoch();

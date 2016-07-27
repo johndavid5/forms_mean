@@ -39,14 +39,15 @@ db.forms.insert( { accession_number :  "0001193125-15-399601" } );
 
 //db.forms.find( { form_processing_attempts: { "$exists" : true} } ).sort( { date_filed : -1 } ).limit( 5 );
 //db.forms.find( { form_processing_attempts: { "$exists" : false}, date_filed: { "$exists": true } }, { date_filed: 1, accession_number: 1 } ).sort( { date_filed : -1 } ).limit( 20 );
-db.forms.runCommand(
-{
- "find": "forms",
- "filter": { "form_processing_attempts": { "$exists" : false}, "date_filed": { "$exists": true } },
- //"projection": { "date_filed": 1, "accession_number": 1 },
- "sort": { "date_filed" : 1 },
- "limit": 3 
-});
+
+//db.forms.runCommand(
+//{
+// "find": "forms",
+// "filter": { "form_processing_attempts": { "$exists" : false}, "date_filed": { "$exists": true } },
+// //"projection": { "date_filed": 1, "accession_number": 1 },
+// "sort": { "date_filed" : 1 },
+// "limit": 3 
+//});
 
 db.forms.runCommand(
 {
@@ -57,18 +58,17 @@ db.forms.runCommand(
  "limit": 3 
 });
 
-db.forms.runCommand(
-{
- "find": "forms",
- "filter": { "form_processing_attempts": { "$exists" : true} },
- //"projection": { "date_filed": 1, "accession_number": 1 },
- "sort": { "date_filed" : -1 },
- "batchSize": 1000,
- "limit": 1000 
-});
+//db.forms.runCommand(
+//{
+// "find": "forms",
+// "filter": { "form_processing_attempts": { "$exists" : true} },
+// //"projection": { "date_filed": 1, "accession_number": 1 },
+// "sort": { "date_filed" : -1 },
+// "batchSize": 1000,
+// "limit": 1000 
+//});
 
-db.forms.find( { form_processing_attempts: { "$exists" : true } } ).sort( { date_filed : -1 } ).limit( 20 );
-
+//db.forms.find( { form_processing_attempts: { "$exists" : true } } ).sort( { date_filed : -1 } ).limit( 20 ).prety();
 
 db.forms.find( {} ).count();
 db.forms.find( { form_processing_attempts: { "$exists" : true} } ).count();

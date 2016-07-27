@@ -1,9 +1,12 @@
 #include "MongoDbClient.h"
 
 	/** constructor */
-	JDA::MongoDbClient::MongoDbClient() : m_p_logger(NULL), m_p_client(NULL), m_s_uri_str("")
+	//JDA::MongoDbClient::MongoDbClient() : m_p_logger(NULL), m_p_client(NULL), m_s_uri_str("")
+	JDA::MongoDbClient::MongoDbClient() : m_p_client(NULL), m_s_uri_str("")
    	{
 		const char* sWho = "JDA::MongoDbClient::MongoDbClient";
+
+		m_p_logger = &m_default_logger;
 
 		if( m_p_logger != NULL ){
 			(*m_p_logger)(JDA::Logger::TRACE) << sWho << "()..." << endl;
@@ -67,33 +70,110 @@
 
 	}/* string JDA::MongoDbClient::bson_as_json_string( bson_t* p_bson ) */
 
-	void JDA::MongoDbClient::bson_traverse( const bson_t* p_bson_doc, int i_level ){
+	void JDA::MongoDbClient::bson_traverse_doc( bson_t* p_bson_doc, int i_level ){
 
-		const char* sWho = "JDA::MongoDbClient::bson_traverse";
+		const char* sWho = "JDA::MongoDbClient::bson_traverse_doc";
 
-		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << "..." << endl;
-		}
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << "..." << endl;
 
 		bson_iter_t iter;
-		bson_iter_t child;
+		//const char* key;
+		//bson_iter_t child;
+		//int j = 0;
 
 		if (bson_iter_init (&iter, p_bson_doc)) {
 
-			while (bson_iter_next (&iter)) {
-				if( m_p_logger ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": found a field named \"" << bson_iter_key(&iter) << "\"..." << endl;
-				}
-				if( BSON_ITER_HOLDS_DOCUMENT( &iter ) && bson_iter_recurse(&iter, &child) ){
-					if( m_p_logger ){
-						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": found a sub-field named \"" << bson_iter_key(&child) << "\"..." << endl;
-					}
-					bson_traverse( &child, i_level + 1 );
-				}
-			}
-		}
+			bson_traverse_iter( &iter, i_level );
 
-	}/* bson_traverse() */
+		}/* if (bson_iter_init (&iter, p_bson_doc)) */
+
+	}/* bson_traverse_doc() */
+
+
+	void JDA::MongoDbClient::bson_traverse_iter( bson_iter_t* p_bson_iter, int i_level ){
+
+		const char* sWho = "JDA::MongoDbClient::bson_traverse_iter";
+
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << "..." << endl;
+
+		const char* key;
+
+		const char* utf8;
+		uint32_t utf8_len;
+
+		int32_t int32;
+		int64_t int64;
+
+		bson_iter_t child;
+		int j = 0;
+
+			while (bson_iter_next (p_bson_iter)) {
+
+				j++;
+
+				key = bson_iter_key( p_bson_iter );
+
+				if( BSON_ITER_IS_KEY( p_bson_iter, key ) ){ 
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": found a field with key \"" << key << "\"..." << endl;
+				}
+				else {
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": found a field \"" << key << "\" that is not a key..." << endl;
+				}
+
+				// http://cpansearch.perl.org/src/MONGODB/MongoDB-v1.4.2/bson/bson-iter.h
+
+				if( BSON_ITER_HOLDS_DOCUMENT( p_bson_iter ) ){
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_DOCUMENT..." << endl;
+
+					if( bson_iter_recurse(p_bson_iter, &child) ){
+						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << " j = " << j << ": found a sub-document child via bson_iter_recurse()...traversing it via bson_traverse_iter()..." << endl;
+						bson_traverse_iter( &child, i_level + 1 );
+					}
+				}/* if( BSON_ITER_HOLDS_DOCUMENT( &iter ) */
+				else if( BSON_ITER_HOLDS_ARRAY( p_bson_iter ) ){
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_ARRAY..." << endl;
+
+					if( bson_iter_recurse(p_bson_iter, &child) ){
+						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << " j = " << j << ": found an array-element child via bson_iter_recurse()...traversing it via bson_traverse_iter()..." << endl;
+						bson_traverse_iter( &child, i_level + 1 );
+					}
+
+				}/* if( BSON_ITER_HOLDS_UTF8( &iter ) */
+				else if( BSON_ITER_HOLDS_UTF8( p_bson_iter ) ){
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_UTF8..." << endl;
+
+					utf8 = bson_iter_utf8( p_bson_iter, &utf8_len );
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": utf8_len = " << utf8_len << "..." << endl;
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": utf8 = \"" << utf8 << "\"..." << endl;
+
+				}/* if( BSON_ITER_HOLDS_UTF8( &iter ) */
+				else if( BSON_ITER_HOLDS_INT32( p_bson_iter ) ){
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_INT32..." << endl;
+
+					int32 = bson_iter_int32( p_bson_iter );
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": int32 = \"" << int32 << "\"..." << endl;
+
+				}/* if( BSON_ITER_HOLDS_INT32( &iter ) */
+				else if( BSON_ITER_HOLDS_INT64( p_bson_iter ) ){
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_INT64..." << endl;
+
+					int64 = bson_iter_int64( p_bson_iter );
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": int64 = \"" << int64 << "\"..." << endl;
+
+				}/* if( BSON_ITER_HOLDS_INT64( &iter ) */
+
+			}/* while (bson_iter_next (p_bson_iter)) */
+
+	}/* bson_traverse_iter() */
 
 #ifdef _WIN32
 	/** Since gettimeofday() is not defined on Windows, we'll define
@@ -221,7 +301,7 @@
 				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "[" << row_number << "]: " << this->bson_as_json_string( p_bson_doc ) << "\n" << endl; 
 			}
 
-			this->bson_traverse( p_bson_doc, 1 );
+			this->bson_traverse_doc( (bson_t*) p_bson_doc, 1 );
 
 		}
 
