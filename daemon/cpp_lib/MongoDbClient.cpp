@@ -104,6 +104,9 @@
 		int32_t int32;
 		int64_t int64;
 
+		const bson_oid_t* p_bson_oid;
+		char bson_oid_str[25];
+
 		bson_iter_t child;
 		int j = 0;
 
@@ -168,6 +171,59 @@
 					int64 = bson_iter_int64( p_bson_iter );
 
 					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": int64 = \"" << int64 << "\"..." << endl;
+
+				}/* if( BSON_ITER_HOLDS_INT64( &iter ) */
+				else if( BSON_ITER_HOLDS_OID( p_bson_iter ) ){
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_OID..." << endl;
+
+					p_bson_oid = bson_iter_oid( p_bson_iter );
+					bson_oid_to_string( p_bson_oid, bson_oid_str );
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": bson_oid_str = \"" << bson_oid_str << "\"..." << endl;
+
+					//uint8_t le_byte;
+					unsigned int le_byte;
+
+					for( size_t i = 0; i < sizeof(p_bson_oid->bytes)/sizeof(uint8_t); i++ ){
+						le_byte = p_bson_oid->bytes[i];
+						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": p_bson_oid->bytes[" << setw(2) << setfill('0') << i << "] = 0x" << setfill('0') << setw(2) << hex << le_byte << " = " << dec << le_byte << "..." << endl;
+					}
+
+					#ifdef WIN32 
+						//DWORD WINAPI GetCurrentProcessId(void);
+						DWORD our_process_id = GetCurrentProcessId();
+						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": [WIN32] GetCurrentProcessId() = " << "0x" << hex << setfill('0') << setw(sizeof(our_process_id)*2) << our_process_id << " = " << dec << our_process_id << "..." << endl;
+					#endif
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": sizeof(oid_struct) = " << sizeof(oid_struct) << "..." << endl;
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": sizeof(p_bson_oid->bytes) = " << sizeof(p_bson_oid->bytes) << "..." << endl;
+
+					oid_struct our_oid_struct;
+					memcpy( &our_oid_struct, p_bson_oid->bytes, sizeof( p_bson_oid->bytes) );
+
+					time_t seconds_since_unix_epoch;
+					memcpy( &seconds_since_unix_epoch, our_oid_struct.seconds_since_unix_epoch, sizeof(our_oid_struct.seconds_since_unix_epoch)  );
+
+					unsigned int machine_id;
+					memcpy( &machine_id, our_oid_struct.machine_id, sizeof(our_oid_struct.machine_id)  );
+
+					unsigned int process_id;
+					memcpy( &process_id, our_oid_struct.process_id, sizeof(our_oid_struct.process_id)  );
+
+					unsigned int counter;
+					memcpy( &counter, our_oid_struct.counter, sizeof(our_oid_struct.counter)  );
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": seconds_since_unix_epoch = 0x" << hex << setw(sizeof(seconds_since_unix_epoch)*2) << setfill('0') << seconds_since_unix_epoch << " = " << dec << seconds_since_unix_epoch << "..." << endl;
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": machine_id = 0x" << hex << setw(sizeof(machine_id)*2) << setfill('0') << machine_id << " = " << dec << machine_id << "..." << endl;
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": process_id = 0x" << hex << setw(sizeof(process_id)*2) << setfill('0') << process_id << " = " << dec << process_id << "..." << endl;
+
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": counter = 0x" << hex << setw(sizeof(counter)*2) << setfill('0') << counter << " = " << dec << counter << "..." << endl;
+					
+					time_t oid_unix_time = bson_oid_get_time_t( p_bson_oid );
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": oid_unix_time = " << hex << "0x" << oid_unix_time << " = " << dec << oid_unix_time << " = \"" << JDA::Utils::get_nyc_pretty_timestamp(oid_unix_time) << "\"..." << endl;
 
 				}/* if( BSON_ITER_HOLDS_INT64( &iter ) */
 

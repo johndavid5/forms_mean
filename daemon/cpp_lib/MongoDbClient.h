@@ -21,6 +21,18 @@ class MongoDbClient {
 
 	protected:
 
+		// ObjectId is a 12-byte BSON type, constructed using:
+		// a 4-byte value representing the seconds since the Unix epoch (in Big Endian)
+		// a 3-byte machine identifier
+		// a 2-byte process id (Big Endian), and
+		// a 3-byte counter (Big Endian), starting with a random value.
+		struct oid_struct {
+			char seconds_since_unix_epoch[4];
+			char machine_id[3];
+			char process_id[2];
+			char counter[3];
+		};
+
 		JDA::Logger* m_p_logger; // User supplies a pointer to a JDA::Logger object if they would like logging enabled...
 
 		JDA::Logger m_default_logger;
