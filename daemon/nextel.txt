@@ -29,7 +29,7 @@ C:\Users\john.aynedjian\bin>which mongod
 ---
 Looks like the find() command is now supported in mongoc!
 
-
+* Add In Unit Tests via "gtest"...
 
 Extra Credit:
 1. use log4cxx rather than JDA::Logger...?

@@ -936,7 +936,7 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 		i_ret_code = mongoDbClient.update( this->getDbName(), s_collection_name, oss_json_query.str(), oss_json_update.str() );					
 
 		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: i_ret_code = " << i_ret_code << endl;
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i_ret_code = " << i_ret_code << endl;
 		}
 	}catch( JDA::MongoDbClient::Exception e ){
 		if( m_p_logger ){
@@ -955,6 +955,42 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 	return 1;
 
 }/* Forms::loadFromEdgarFormUrl() */
+
+int loadNextEdgarForm( ){
+
+	ostringstream oss_json_command;
+
+	string s_collection_name = "forms";
+
+	oss_json_command
+	<< "{\n"
+	<< "  \"find\": \"" << s_collection_name << "\",\n"
+	<< "  \"filter\": { \"form_processing_attempts\": { \"$exists\" : false}, \"date_filed\": { \"$exists\": true } },\n"
+	//"projection": { "date_filed": 1, "accession_number": 1 },
+	<< " \"sort\": { \"date_filed\" : -1 },\n" 
+	<< " \"limit\": 3\n" 
+	<< "}";
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoDbClient.command( \"" << this->getDbName() << "\", \"" << s_collection_name << "\", \"" << oss_json_command.str() << "\" )..." << endl;
+	}
+
+	int i_ret_code = 0;
+
+	// NOTE: This call may toss a JDA::MongoDbClient::Exception
+	try {
+		i_ret_code = mongoDbClient.command( this->getDbName(), s_collection_name, oss_json_command.str() );
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i_ret_code = " << i_ret_code << endl;
+		}
+	}catch( JDA::MongoDbClient::Exception e ){
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Trouble with mongoDbClient.command: \"" << e.what() << "\", sorry, Moe..." << endl;
+		}
+	}
+
+}
 
 
 } /* namespace JDA */

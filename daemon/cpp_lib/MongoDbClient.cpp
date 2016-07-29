@@ -495,7 +495,14 @@
 				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "[" << row_number << "]: pretty_json_string =\n" << this->bson_as_pretty_json_string( p_bson_doc ) << "\n" << endl; 
 			}
 
-		}
+			if( p_callback != NULL ){
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "[" << row_number << "]: Callin' p_callback->documentRecieved( p_bson_doc )..." << endl;
+				}
+				p_callback->documentRecieved( p_bson_doc );
+			}
+
+		}/* while (mongoc_cursor_next (p_cursor, &p_bson_doc)) */
 
 		if( m_p_logger ){
 			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << row_number << " doc(s) returned..." << endl;

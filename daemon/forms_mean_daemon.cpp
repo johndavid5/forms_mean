@@ -24,9 +24,12 @@ struct OurParams {
 	string s_argv_zero; /* copy argv[0] to this field */
 	string s_manual_index_process_url;
 	string s_manual_form_process_url;
+	bool b_manual_load_next_edgar_form;
 	string s_daily_index_backfill_days;
 	string s_load_daily_indexes;
 	string s_load_next_edgar_filing_header;
+
+	OurParams(): b_manual_load_next_edgar_form(false){}
 	
 };
 
@@ -35,6 +38,7 @@ ostream& operator<<(ostream& s, OurParams& ourParams){
 	s << "s_argv_zero = \"" << ourParams.s_argv_zero << "\"\n" 
 	<< "s_manual_index_process_url = \"" << ourParams.s_manual_index_process_url << "\"\n" 
 	<< "s_manual_form_process_url = \"" <<  ourParams.s_manual_form_process_url << "\"\n"
+	<< "b_manual_load_next_edgar_form = " << boolalpha << b_manual_load_next_edgar_form << "\n"
 	<< "s_daily_index_backfill_days = \"" <<  ourParams.s_daily_index_backfill_days << "\"\n"
 	<< "s_load_daily_indexes = \"" <<  ourParams.s_load_daily_indexes << "\"\n"
 	<< "s_load_next_edgar_filing_header = \"" <<  ourParams.s_load_next_edgar_filing_header << "\"";
@@ -213,6 +217,10 @@ int main(int argc, char** argv)
 				cout << "Setting ourParams.s_manual_form_process_url equal to argv[++i]..." << endl;
 				ourParams.s_manual_form_process_url = argv[++i];
 			}
+		}
+		else if( strcmp( argv[i], "--manual-load-next-edgar-form" ) == 0 ){
+			cout << "Setting ourParams.b_manual_load_next_edgar_form equal to true..." << endl;
+			ourParams.b_manual_load_next_edgar_form = true;
 		}
 		else if( strcmp( argv[i], "--daily-index-backfill-days" ) == 0 ){
 			if( i+1 < argc ){
