@@ -33,6 +33,10 @@ class MongoDbClient {
 			char counter[3];
 		};
 
+		static string m_indent_char;
+
+		static string get_indent_prefix( int i_level );
+
 		JDA::Logger* m_p_logger; // User supplies a pointer to a JDA::Logger object if they would like logging enabled...
 
 		JDA::Logger m_default_logger;
@@ -58,6 +62,11 @@ class MongoDbClient {
 		mongoc_client_t* getPMongocClient();
 
 	public:
+
+	class IMongoDbClientCallback {
+		public:
+			virtual void documentRecieved( const bson_t *p_bson_doc ) = 0; 
+	};
 
 	class Exception : std::exception {
 		public:
@@ -99,8 +108,12 @@ class MongoDbClient {
 
 	/** utilities-start */
 	string bson_as_json_string( const bson_t* p_bson );
-	void bson_traverse_doc( bson_t* p_bson, int i_level );
-	void bson_traverse_iter( bson_iter_t* p_bson, int i_level );
+
+	/** Experimental utility using bson_iter_recurse() */
+	string bson_as_pretty_json_string( const bson_t* p_bson );
+
+	void bson_traverse_doc( const bson_t* p_bson, int i_level, ostream* p_oss_out=NULL );
+	void bson_traverse_iter( bson_iter_t* p_bson, int i_level, ostream* p_oss_out=NULL );
 
 	//static time_t seconds_since_unix_epoch();
 	static int64_t milliseconds_since_unix_epoch();
@@ -110,7 +123,7 @@ class MongoDbClient {
 	/** utilities-end */
 
 	/** @throws MongoDbClient::Exception if something goes wrong with the command. */
-	int command( const string& s_db_name, const string& s_collection_name, const string& s_json_command );
+	int command( const string& s_db_name, const string& s_collection_name, const string& s_json_command, JDA::MongoDbClient::IMongoDbClientCallback* p_callback = NULL );
 
 	/** @throws MongoDbClient::Exception if something goes wrong with the command. */
 	int find( const string& s_db_name, const string& s_collection_name, const string& s_json_query );
