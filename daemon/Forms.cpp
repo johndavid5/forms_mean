@@ -956,7 +956,9 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 
 }/* Forms::loadFromEdgarFormUrl() */
 
-int loadNextEdgarForm( ){
+int Forms::loadNextEdgarForm( ){
+
+	const char* sWho = "Forms::loadNextEdgarForm";
 
 	ostringstream oss_json_command;
 
@@ -979,18 +981,27 @@ int loadNextEdgarForm( ){
 
 	// NOTE: This call may toss a JDA::MongoDbClient::Exception
 	try {
-		i_ret_code = mongoDbClient.command( this->getDbName(), s_collection_name, oss_json_command.str() );
+		JDA::Forms::NextFormClientCallback nextFormClientCallback( m_p_logger );
+
+		i_ret_code = mongoDbClient.command( this->getDbName(), s_collection_name, oss_json_command.str(), &nextFormClientCallback );
 
 		if( m_p_logger ){
 			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i_ret_code = " << i_ret_code << endl;
 		}
+
+		return i_ret_code;
+
 	}catch( JDA::MongoDbClient::Exception e ){
 		if( m_p_logger ){
 			(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Trouble with mongoDbClient.command: \"" << e.what() << "\", sorry, Moe..." << endl;
 		}
+
+		return 0;
 	}
 
-}
+
+
+}/* Forms::loadNextEdgarForm() */
 
 
 } /* namespace JDA */

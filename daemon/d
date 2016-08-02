@@ -18,5 +18,6 @@ set -x
 #./build/mongoc demo 2>&1 | tee d.out
 #./build/forms_mean_daemon --manual-form-process-url "file:///../edgar/ftp.sec.gov--edgar--data--1066107--POSASR--has-a-gazillion-filers--0001047469-15-001027.txt" 2>&1 | tee d.out
 #./build/forms_mean_daemon --manual-form-process-url "file:///../edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
-./build/forms_mean_daemon --manual-form-process-url "file:///../edgar/ftp.sec.gov--edgar--data--1000180--SANDISK--issuer--reporting-owner--0001242648-14-000081.txt" 2>&1 | tee d.out
+#./build/forms_mean_daemon --manual-form-process-url "file:///../edgar/ftp.sec.gov--edgar--data--1000180--SANDISK--issuer--reporting-owner--0001242648-14-000081.txt" 2>&1 | tee d.out
+./build/forms_mean_daemon --manual-load-next-edgar-form 2>&1 | tee d.out
 set +x

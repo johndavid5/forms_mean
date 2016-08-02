@@ -10,6 +10,44 @@ namespace JDA {
 class Forms {
 
 	protected:
+		class NextFormClientCallback : public MongoDbClient::IMongoDbClientCallback { 
+			protected:
+				JDA::Logger* m_p_logger;
+
+			public:
+				NextFormClientCallback( JDA::Logger* p_logger) : m_p_logger(p_logger){ }
+
+				void documentRecieved( const bson_t *p_bson_doc ){
+					const char* sWho = "NextFormClientCallback::documentRecieved";
+					JDA::MongoDbClient mongoDbClient;
+					if( m_p_logger ){
+						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got a bson document: \n" 
+						<< mongoDbClient.bson_as_pretty_json_string( p_bson_doc ) << "\n" << "..." << endl;
+					}
+
+					bson_iter_t iter;
+					bson_iter_t baz;
+					const char* file_name;
+					uint32_t len;
+
+					if( m_p_logger ){
+						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Let's try to find the file_name..." << endl;
+					}
+
+					if( bson_iter_init( &iter, p_bson_doc ) &&
+						bson_iter_find_descendant( &iter, "cursor.firstBatch.0.file_name", &baz ) &&
+						BSON_ITER_HOLDS_UTF8(&baz)){
+							file_name = bson_iter_utf8(&baz, &len);
+							if( m_p_logger ){
+								(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got the file_name:\n" 
+									<< "\t" << "\"" << file_name << "\"..." << endl;
+							}
+						}
+
+				}/* documentReceived() */
+
+		}; /* class NextFormClientCallback */
+
 		JDA::Logger* m_p_logger;
 
 		//int m_i_iteration_count;

@@ -5,7 +5,7 @@
 #include <iomanip>
 #include <string>
 
-#ifdef linux
+#ifdef __linux__
 	#include <sys/time.h> // UNIX-specific: struct timeval tp and gettimeofday()...
 #endif
 using namespace std;
@@ -63,6 +63,7 @@ class MongoDbClient {
 
 	public:
 
+	/* If you'd like to observe bson documents as they are received... */
 	class IMongoDbClientCallback {
 		public:
 			virtual void documentRecieved( const bson_t *p_bson_doc ) = 0; 

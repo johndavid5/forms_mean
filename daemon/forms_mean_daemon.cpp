@@ -19,26 +19,27 @@
 using namespace std;
 
 /* Feed a pointer to OurParams to ServiceThread if launched as a non-daemon... */
-struct OurParams {
+class OurParams {
 
-	string s_argv_zero; /* copy argv[0] to this field */
-	string s_manual_index_process_url;
-	string s_manual_form_process_url;
-	bool b_manual_load_next_edgar_form;
-	string s_daily_index_backfill_days;
-	string s_load_daily_indexes;
-	string s_load_next_edgar_filing_header;
+	public:
+		string s_argv_zero; /* copy argv[0] to this field */
+		string s_manual_index_process_url;
+		string s_manual_form_process_url;
+		bool b_manual_load_next_edgar_form;
+		string s_daily_index_backfill_days;
+		string s_load_daily_indexes;
+		string s_load_next_edgar_filing_header;
 
-	OurParams(): b_manual_load_next_edgar_form(false){}
-	
-};
+		OurParams(): b_manual_load_next_edgar_form(false){}
+
+};/* class OurParams */
 
 ostream& operator<<(ostream& s, OurParams& ourParams){
 
 	s << "s_argv_zero = \"" << ourParams.s_argv_zero << "\"\n" 
 	<< "s_manual_index_process_url = \"" << ourParams.s_manual_index_process_url << "\"\n" 
 	<< "s_manual_form_process_url = \"" <<  ourParams.s_manual_form_process_url << "\"\n"
-	<< "b_manual_load_next_edgar_form = " << boolalpha << b_manual_load_next_edgar_form << "\n"
+	<< "b_manual_load_next_edgar_form = " << boolalpha << ourParams.b_manual_load_next_edgar_form << "\n"
 	<< "s_daily_index_backfill_days = \"" <<  ourParams.s_daily_index_backfill_days << "\"\n"
 	<< "s_load_daily_indexes = \"" <<  ourParams.s_load_daily_indexes << "\"\n"
 	<< "s_load_next_edgar_filing_header = \"" <<  ourParams.s_load_next_edgar_filing_header << "\"";
@@ -187,6 +188,35 @@ int ServiceThread(OurParams& our_params)
 		return 0;
 
 	}/* if( our_params.s_manual_index_process_url.length() > 0 ) */
+	else if( our_params.b_manual_load_next_edgar_form == true ){
+
+		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "our_params.b_manual_load_next_edgar_form is TRUE...\n"
+			<< "\t" << "Running forms.loadNextEdgarForm(), and exiting the daemon..." << endl;
+
+		try {
+			JDA::Forms forms;
+			forms.setPLogger( &le_logger );
+			forms.setDbUrl( configMap["db_url"] );
+			forms.setDbName( configMap["db_name"] );
+			forms.loadNextEdgarForm();
+		}
+		catch(JDA::FtpClient::FtpException& e) {
+			(le_logger)(JDA::Logger::ERROR) << sWho << "(): Caught JDA::FtpClient::FtpException: \"" 
+				<< e.what() << "\"" << endl;
+		}
+		catch(std::exception& e ){
+			(le_logger)(JDA::Logger::ERROR) << sWho << "(): Caught std::exception: \"" 
+				<< e.what() << "\"" << endl;
+		}
+		catch(...){
+			(le_logger)(JDA::Logger::ERROR) << sWho << "(): Caught unknown exception." << endl;
+		}
+
+		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "Exiting daemon now..." << endl;
+
+		return 0;
+
+	}/* if( our_params.s_manual_index_process_url.length() > 0 ) */
 
 	/* ...placeholder for daemon loop... */
 	
@@ -199,7 +229,6 @@ int ServiceThread(OurParams& our_params)
 int main(int argc, char** argv)
 {
 	OurParams ourParams;
-
 
 	cout << "Setting ourParams.s_argv_zero equal to argv[0]..." << endl;
 	ourParams.s_argv_zero = argv[0];

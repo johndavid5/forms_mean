@@ -200,7 +200,7 @@
 						}
 					}
 
-				}/* if( BSON_ITER_HOLDS_UTF8( &iter ) */
+				}/* if( BSON_ITER_HOLDS_ARRAY( &iter ) */
 				else if( BSON_ITER_HOLDS_DOUBLE( p_bson_iter ) ){
 					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_DOUBLE..." << endl;
 
@@ -408,13 +408,14 @@
 	/* static */ int64_t JDA::MongoDbClient::milliseconds_since_unix_epoch(){
 		//return JDA::MongoDbClient::seconds_to_milliseconds( JDA::MongoDbClient::seconds_since_unix_epoch() );
 
-		#ifdef linux
+		#ifdef __linux__
 		struct timeval tp; // from <sys/time.h>
 		#elif _WIN32
 		struct wintimeval tp;
 		#endif
 
 	    gettimeofday(&tp, NULL);
+
 		int64_t mslong = (int64_t) tp.tv_sec * 1000L + tp.tv_usec / 1000; //get current timestamp in milliseconds
 		return mslong;
 	}/* milliseconds_since_unix_epoch() */

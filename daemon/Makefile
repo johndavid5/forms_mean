@@ -12,9 +12,14 @@
 
 CFLAGS = -I/usr/local/include -I./cpp_lib -I/usr/local/include/libbson-1.0 -I/usr/local/include/libmongoc-1.0 
 # For shared_ptr, -std=c++0x
-CFLAGS += -std=c++0x
+#CFLAGS += -std=c++0x
 # If you want C++11...
-# CFLAGS += -std=c++11
+# http://stackoverflow.com/questions/36816570/glibcxx-3-4-21-not-defined-in-file-libstdc-so-6-with-link-time-reference
+# Need -D_GLIBCXX_USE_CXX11_ABI=0 if you have an older "ABI"...consider
+# simply updgrading ubuntu and it will come with a C++11 g++ installed,
+# perhaps...
+# symbol _xxx_ version GLIBCXX_3.4.21 not defined in file libstdc++. so.6 with link time reference
+CFLAGS += -std=c++11 -D_GLIBCXX_USE_CXX11_ABI=0
 LIBS = -L/usr/local/lib -lcurl -L/usr/local/lib -lmongoc-1.0 -lssl -lcrypto -lrt -lbson-1.0
 
 DEBUG=-ggdb
@@ -27,7 +32,8 @@ OPTS=
 #WARNINGS=-Wall -Wno-reorder -fpermissive 
 WARNINGS=-Wall -Wno-reorder
 #CC=g++ -v
-CC=/usr/bin/g++
+CC=g++
+#CC=/usr/bin/g++
 
 all: build/ftpget build/mongoc build/forms_mean_daemon
 
