@@ -13,9 +13,14 @@ class Forms {
 		class NextFormClientCallback : public MongoDbClient::IMongoDbClientCallback { 
 			protected:
 				JDA::Logger* m_p_logger;
+				string s_file_name;
 
 			public:
-				NextFormClientCallback( JDA::Logger* p_logger) : m_p_logger(p_logger){ }
+				NextFormClientCallback( JDA::Logger* p_logger) : m_p_logger(p_logger), s_file_name("") { }
+
+				string getFileName(){
+					return s_file_name;
+				}
 
 				void documentRecieved( const bson_t *p_bson_doc ){
 					const char* sWho = "NextFormClientCallback::documentRecieved";
@@ -42,7 +47,13 @@ class Forms {
 								(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got the file_name:\n" 
 									<< "\t" << "\"" << file_name << "\"..." << endl;
 							}
+							this->s_file_name = file_name;
 						}
+					else {
+							if( m_p_logger ){
+								(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Couldn't find the file_name." << endl;
+							}
+					}
 
 				}/* documentReceived() */
 
@@ -62,6 +73,8 @@ class Forms {
 		string m_s_db_url;
 		string m_s_db_name;
 
+		string m_s_ftp_server; // e.g., ftp.sec.gov...use to form ftp:// URL...
+
 		JDA::MongoDbClient mongoDbClient;
 
 	public:
@@ -77,6 +90,9 @@ class Forms {
 
 		void setDbName( string sDbName ){ m_s_db_name = sDbName; }
 		string getDbName(){ return m_s_db_name; }
+
+		void setFtpServer( string sFtpServer){ m_s_ftp_server = sFtpServer; }
+		string getFtpServer(){ return m_s_ftp_server; }
 
 		/** NOTE: curl will read HTTP_PROXY, HTTPS_PROXY, FTP_PROXY environmental variables
 		 * for proxy URL...the remainder you can set here...

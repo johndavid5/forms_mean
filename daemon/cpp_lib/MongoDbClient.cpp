@@ -91,7 +91,7 @@
 
 		const char* sWho = "JDA::MongoDbClient::bson_traverse_doc";
 
-		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << "..." << endl;
+		(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << "..." << endl;
 
 		bson_iter_t iter;
 		//const char* key;
@@ -121,7 +121,7 @@
 
 		const char* sWho = "JDA::MongoDbClient::bson_traverse_iter";
 
-		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << "..." << endl;
+		(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << "..." << endl;
 
 		string s_indent_prefix = get_indent_prefix( i_level );
 
@@ -146,7 +146,7 @@
 				key = bson_iter_key( p_bson_iter );
 
 				if( BSON_ITER_IS_KEY( p_bson_iter, key ) ){ 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": found a field with key \"" << key << "\"..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": found a field with key \"" << key << "\"..." << endl;
 
 					if( p_oss_out ){	
 						//(*p_oss_out) << s_indent_prefix << "\"" << key << "\" : ";
@@ -154,18 +154,18 @@
 					}
 				}
 				else {
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": found a field \"" << key << "\" that is not a key..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": found a field \"" << key << "\" that is not a key..." << endl;
 				}
 
 				// http://cpansearch.perl.org/src/MONGODB/MongoDB-v1.4.2/bson/bson-iter.h
 
 				if( BSON_ITER_HOLDS_DOCUMENT( p_bson_iter ) ){
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_DOCUMENT..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_DOCUMENT..." << endl;
 
 
 					if( bson_iter_recurse(p_bson_iter, &child) ){
-						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << " j = " << j << ": found a sub-document child via bson_iter_recurse()...traversing it via bson_traverse_iter()..." << endl;
+						(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << " j = " << j << ": found a sub-document child via bson_iter_recurse()...traversing it via bson_traverse_iter()..." << endl;
 
 						if( p_oss_out ){	
 							//(*p_oss_out) << s_indent_prefix << "{\n";
@@ -183,10 +183,10 @@
 				}/* if( BSON_ITER_HOLDS_DOCUMENT( &iter ) */
 				else if( BSON_ITER_HOLDS_ARRAY( p_bson_iter ) ){
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_ARRAY..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_ARRAY..." << endl;
 
 					if( bson_iter_recurse(p_bson_iter, &child) ){
-						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << " j = " << j << ": found an array-element child via bson_iter_recurse()...traversing it via bson_traverse_iter()..." << endl;
+						(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << " j = " << j << ": found an array-element child via bson_iter_recurse()...traversing it via bson_traverse_iter()..." << endl;
 
 						if( p_oss_out ){	
 							//(*p_oss_out) << s_indent_prefix << " [\n";
@@ -202,11 +202,11 @@
 
 				}/* if( BSON_ITER_HOLDS_ARRAY( &iter ) */
 				else if( BSON_ITER_HOLDS_DOUBLE( p_bson_iter ) ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_DOUBLE..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_DOUBLE..." << endl;
 
 					double le_double = bson_iter_double( p_bson_iter );  
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": le_double = " << le_double << "..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": le_double = " << le_double << "..." << endl;
 
 					if( p_oss_out ){	
 						//(*p_oss_out) << s_indent_prefix << " " << int32 << ",\n";
@@ -217,13 +217,13 @@
 				}
 				else if( BSON_ITER_HOLDS_UTF8( p_bson_iter ) ){
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_UTF8..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_UTF8..." << endl;
 
 					utf8 = bson_iter_utf8( p_bson_iter, &utf8_len );
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": utf8_len = " << utf8_len << "..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": utf8_len = " << utf8_len << "..." << endl;
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": utf8 = \"" << utf8 << "\"..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": utf8 = \"" << utf8 << "\"..." << endl;
 
 					if( p_oss_out ){	
 						//(*p_oss_out) << s_indent_prefix << " \"" << utf8 << "\",\n";
@@ -233,19 +233,19 @@
 
 				}/* if( BSON_ITER_HOLDS_UTF8( &iter ) */
 				else if( BSON_ITER_HOLDS_BINARY( p_bson_iter ) ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_BINARY..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_BINARY..." << endl;
 				}
 				else if( BSON_ITER_HOLDS_UNDEFINED( p_bson_iter ) ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_UNDEFINED..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_UNDEFINED..." << endl;
 				}
 				else if( BSON_ITER_HOLDS_OID( p_bson_iter ) ){
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_OID..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_OID..." << endl;
 
 					p_bson_oid = bson_iter_oid( p_bson_iter );
 					bson_oid_to_string( p_bson_oid, bson_oid_str );
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": bson_oid_str = \"" << bson_oid_str << "\"..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": bson_oid_str = \"" << bson_oid_str << "\"..." << endl;
 
 					if( p_oss_out ){	
 						//(*p_oss_out) << s_indent_prefix << " { $oid: \"" << bson_oid_str << "\" },\n";
@@ -258,17 +258,17 @@
 
 					for( size_t i = 0; i < sizeof(p_bson_oid->bytes)/sizeof(uint8_t); i++ ){
 						le_byte = p_bson_oid->bytes[i];
-						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": p_bson_oid->bytes[" << setw(2) << setfill('0') << i << "] = 0x" << setfill('0') << setw(2) << hex << le_byte << " = " << dec << le_byte << "..." << endl;
+						(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": p_bson_oid->bytes[" << setw(2) << setfill('0') << i << "] = 0x" << setfill('0') << setw(2) << hex << le_byte << " = " << dec << le_byte << "..." << endl;
 					}
 
 					#ifdef WIN32 
 						//DWORD WINAPI GetCurrentProcessId(void);
 						DWORD our_process_id = GetCurrentProcessId();
-						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": [WIN32] GetCurrentProcessId() = " << "0x" << hex << setfill('0') << setw(sizeof(our_process_id)*2) << our_process_id << " = " << dec << our_process_id << "..." << endl;
+						(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": [WIN32] GetCurrentProcessId() = " << "0x" << hex << setfill('0') << setw(sizeof(our_process_id)*2) << our_process_id << " = " << dec << our_process_id << "..." << endl;
 					#endif
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": sizeof(oid_struct) = " << sizeof(oid_struct) << "..." << endl;
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": sizeof(p_bson_oid->bytes) = " << sizeof(p_bson_oid->bytes) << "..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": sizeof(oid_struct) = " << sizeof(oid_struct) << "..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": sizeof(p_bson_oid->bytes) = " << sizeof(p_bson_oid->bytes) << "..." << endl;
 
 					oid_struct our_oid_struct;
 					memcpy( &our_oid_struct, p_bson_oid->bytes, sizeof( p_bson_oid->bytes) );
@@ -285,49 +285,49 @@
 					unsigned int counter;
 					memcpy( &counter, our_oid_struct.counter, sizeof(our_oid_struct.counter)  );
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": seconds_since_unix_epoch = 0x" << hex << setw(sizeof(seconds_since_unix_epoch)*2) << setfill('0') << seconds_since_unix_epoch << " = " << dec << seconds_since_unix_epoch << "..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": seconds_since_unix_epoch = 0x" << hex << setw(sizeof(seconds_since_unix_epoch)*2) << setfill('0') << seconds_since_unix_epoch << " = " << dec << seconds_since_unix_epoch << "..." << endl;
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": machine_id = 0x" << hex << setw(sizeof(machine_id)*2) << setfill('0') << machine_id << " = " << dec << machine_id << "..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": machine_id = 0x" << hex << setw(sizeof(machine_id)*2) << setfill('0') << machine_id << " = " << dec << machine_id << "..." << endl;
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": process_id = 0x" << hex << setw(sizeof(process_id)*2) << setfill('0') << process_id << " = " << dec << process_id << "..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": process_id = 0x" << hex << setw(sizeof(process_id)*2) << setfill('0') << process_id << " = " << dec << process_id << "..." << endl;
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": counter = 0x" << hex << setw(sizeof(counter)*2) << setfill('0') << counter << " = " << dec << counter << "..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": counter = 0x" << hex << setw(sizeof(counter)*2) << setfill('0') << counter << " = " << dec << counter << "..." << endl;
 					
 					time_t oid_unix_time = bson_oid_get_time_t( p_bson_oid );
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": oid_unix_time = " << hex << "0x" << oid_unix_time << " = " << dec << oid_unix_time << " = \"" << JDA::Utils::get_nyc_pretty_timestamp(oid_unix_time) << "\"..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": oid_unix_time = " << hex << "0x" << oid_unix_time << " = " << dec << oid_unix_time << " = \"" << JDA::Utils::get_nyc_pretty_timestamp(oid_unix_time) << "\"..." << endl;
 
 				}/* if( BSON_ITER_HOLDS_OID( &iter ) */
 				else if( BSON_ITER_HOLDS_BOOL( p_bson_iter ) ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_BOOL..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_BOOL..." << endl;
 				}
 				else if( BSON_ITER_HOLDS_DATE_TIME( p_bson_iter ) ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_DATE_TIME..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_DATE_TIME..." << endl;
 				}
 				else if( BSON_ITER_HOLDS_NULL( p_bson_iter ) ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_NULL..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_NULL..." << endl;
 				}
 				else if( BSON_ITER_HOLDS_REGEX( p_bson_iter ) ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_REGEX..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_REGEX..." << endl;
 				}
 				else if( BSON_ITER_HOLDS_DBPOINTER( p_bson_iter ) ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_DBPOINTER..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_DBPOINTER..." << endl;
 				}
 				else if( BSON_ITER_HOLDS_CODE( p_bson_iter ) ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_CODE..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_CODE..." << endl;
 				}
 				else if( BSON_ITER_HOLDS_SYMBOL( p_bson_iter ) ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_SYMBOL..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_SYMBOL..." << endl;
 				}
 				else if( BSON_ITER_HOLDS_CODEWSCOPE( p_bson_iter ) ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_CODEWSCOPE..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_CODEWSCOPE..." << endl;
 				}
 				else if( BSON_ITER_HOLDS_INT32( p_bson_iter ) ){
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_INT32..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_INT32..." << endl;
 
 					int32 = bson_iter_int32( p_bson_iter );
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": int32 = \"" << int32 << "\"..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": int32 = \"" << int32 << "\"..." << endl;
 
 					if( p_oss_out ){	
 						//(*p_oss_out) << s_indent_prefix << " " << int32 << ",\n";
@@ -337,15 +337,15 @@
 
 				}/* if( BSON_ITER_HOLDS_INT32( &iter ) */
 				else if( BSON_ITER_HOLDS_TIMESTAMP( p_bson_iter ) ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_TIMESTAMP..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_TIMESTAMP..." << endl;
 				}
 				else if( BSON_ITER_HOLDS_INT64( p_bson_iter ) ){
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_INT64..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_INT64..." << endl;
 
 					int64 = bson_iter_int64( p_bson_iter );
 
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": int64 = \"" << int64 << "\"..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": int64 = \"" << int64 << "\"..." << endl;
 
 					if( p_oss_out ){	
 						//(*p_oss_out) << s_indent_prefix << " " << int64 << ",\n";
@@ -355,10 +355,10 @@
 
 				}/* if( BSON_ITER_HOLDS_INT64( &iter ) */
 				else if( BSON_ITER_HOLDS_MAXKEY( p_bson_iter ) ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_MAXKEY..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_MAXKEY..." << endl;
 				}
 				else if( BSON_ITER_HOLDS_MINKEY( p_bson_iter ) ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_MINKEY..." << endl;
+					(*m_p_logger)(JDA::Logger::TRACE) << sWho << "(): i_level = " << i_level << ": j = " << j << ": BSON_ITER_HOLDS_MINKEY..." << endl;
 				}
 
 			}/* while (bson_iter_next (p_bson_iter)) */

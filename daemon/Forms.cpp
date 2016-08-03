@@ -583,6 +583,11 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 
 	const char* sWho = "Forms::loadFromEdgarFormUrl";
 
+	ostringstream oss_json_query;
+	ostringstream oss_json_update;
+
+	string s_collection_name = "forms";
+
 	if( m_p_logger ){
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "( sEdgarFormUrl = \"" << sEdgarFormUrl << "\" ):..." << endl;
 	}
@@ -717,7 +722,7 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 		catch( JDA::FtpClient::FtpException& e ){
 			ostringstream oss_out;
 			oss_out << "Caught JDA::FtpClient::FtpException during FTP download attempt "
-				<< "of \"" << sEdgarFormUrl << "\": \"" << e.what() << "\"." << endl;
+				<< "of \"" << sEdgarFormUrl << "\": \"" << e.what() << "\".";
 
 			if( m_p_logger ){
 				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << oss_out.str() << endl;
@@ -741,12 +746,40 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): SHEMP: Sorry, Moe, caught an FTP Exception ['" << s_ftp_exception << "'] and myFtpClientFormeratorCallback.m_b_intentional_abort == false, so loggin' error to dhe database and bailin' out, Moe..." << endl;
 			}
 
-			//s_ftp_exception = FormsMeanUtils::single_quote_escape( s_ftp_exception );
+			oss_json_query.str(""); // clear it...
+			oss_json_query << "{ \"accession_number\": \"" << s_accession_number_from_file_path << "\" }";
 
-			//FormsMeanUtils::db_filings_edgar_header_load_log(
-			//	db_url, db_user, db_pass, 
-			//	s_accession_number_from_file_path, false, &s_ftp_exception, "FormsMeanDaemon"
-			//);
+			oss_json_update.str(""); // clear it...
+			oss_json_update 
+			<< "{\n"
+			<< " \"$push\":\n" 
+		   	<< "   {\n"
+			<< "    \"form_processing_attempts\" :\n" 
+			<< "        { \"when\": { \"$date\": " << JDA::MongoDbClient::milliseconds_since_unix_epoch() << " },\n" 
+		   	<< "          \"success\": false,\n" 
+		   	<< "          \"message\": \"" << FormsMeanUtils::double_quote_escape( s_ftp_exception ) << "\"\n"
+			<< "		}\n"
+			<< "  }\n"
+			<< "}";
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoDbClient.update( \"" << this->getDbName() << "\", \"" << s_collection_name << "\", \"" << oss_json_query.str() << "\", \"" << oss_json_update.str() << "\" )..." << endl;
+			}
+
+			int i_ret_code = 0;
+
+			// NOTE: This call may toss a JDA::MongoDbClient::Exception
+			try {
+				i_ret_code = mongoDbClient.update( this->getDbName(), s_collection_name, oss_json_query.str(), oss_json_update.str() );					
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i_ret_code = " << i_ret_code << endl;
+				}
+			}catch( JDA::MongoDbClient::Exception e ){
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Trouble with mongoDbClient.update: \"" << e.what() << "\", sorry, Moe..." << endl;
+				}
+			}
 
 			return -1;
 		}
@@ -757,9 +790,7 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, le_formerator.toString = '" << le_formerator.toString() << "'..." << endl;
 	}
 
-	ostringstream oss_json_query;
-	ostringstream oss_json_update;
-
+	oss_json_query.str(""); // clear it...
 	oss_json_query << "{ \"accession_number\": \"" << le_formerator.m_s_accession_number << "\" }";
 
 	time_t seconds_since_unix_epoch = time(NULL); 
@@ -772,6 +803,8 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, milliseconds_since_unix_epoch = " << milliseconds_since_unix_epoch << "..." << endl;
 	}
 
+
+	oss_json_update.str(""); // clear it...
 
 	oss_json_update 
 	<< "{\n"
@@ -923,7 +956,6 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 	<< "}"
 	;
 
-	string s_collection_name = "forms";
 
 	if( m_p_logger ){
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoDbClient.update( \"" << this->getDbName() << "\", \"" << s_collection_name << "\", \"" << oss_json_query.str() << "\", \"" << oss_json_update.str() << "\" )..." << endl;
@@ -940,17 +972,9 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 		}
 	}catch( JDA::MongoDbClient::Exception e ){
 		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Trouble with mongoDbClient.insert: \"" << e.what() << "\", sorry, Moe..." << endl;
+			(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Trouble with mongoDbClient.update: \"" << e.what() << "\", sorry, Moe..." << endl;
 		}
 	}
-
-	//if( m_p_logger ){
-	//	(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: Moe, loggin' success to dhe database and returnin', Moe..." << endl;
-	//}
-	//FormsMeanUtils::db_filings_edgar_header_load_log(
-	//		db_url, db_user, db_pass, 
-	//		s_accession_number_from_file_path, true, NULL, "FormsMeanDaemon"
-	//);
 
 	return 1;
 
@@ -967,7 +991,7 @@ int Forms::loadNextEdgarForm( ){
 	oss_json_command
 	<< "{\n"
 	<< "  \"find\": \"" << s_collection_name << "\",\n"
-	<< "  \"filter\": { \"form_processing_attempts\": { \"$exists\" : false}, \"date_filed\": { \"$exists\": true } },\n"
+	<< "  \"filter\": { \"form_processing_attempts\": { \"$exists\" : false}, \"date_filed\": { \"$exists\": true }, \"jor_el\": { \"$exists\": false } },\n"
 	//"projection": { "date_filed": 1, "accession_number": 1 },
 	<< " \"sort\": { \"date_filed\" : -1 },\n" 
 	<< " \"limit\": 3\n" 
@@ -987,6 +1011,23 @@ int Forms::loadNextEdgarForm( ){
 
 		if( m_p_logger ){
 			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i_ret_code = " << i_ret_code << endl;
+		}
+
+		string s_file_name = nextFormClientCallback.getFileName();
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, s_file_name = \"" << s_file_name << "\"..." << endl;
+		}
+
+		if( s_file_name.length() > 0 ){
+			ostringstream oss_ftp_url;
+			oss_ftp_url << "ftp://" << getFtpServer() << "/" << s_file_name;
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, calling loadFromEdgarFormUrl( \"" << oss_ftp_url.str() << "\" )...\n";
+			}
+
+			loadFromEdgarFormUrl( oss_ftp_url.str() );
 		}
 
 		return i_ret_code;

@@ -126,6 +126,17 @@ int ServiceThread(OurParams& our_params)
 	// NOTE: ostream& operator<<(ostream& s, const vector<string>& v); defined in utils.h
 	(le_logger)(JDA::Logger::INFO) << sWho << "(): configMap = " << configMap << "..." << endl;
 
+	// i_ftp_debug defaults to 0 if parsing fails...
+	int i_ftp_debug = JDA::Utils::stringToInt( configMap["edgar_ftp_debug"], 0 );
+	(le_logger)(JDA::Logger::INFO) << sWho << "(): i_ftp_debug = " << i_ftp_debug << "..." << endl;
+
+	JDA::Forms forms;
+	forms.setPLogger( &le_logger );
+	forms.setDbUrl( configMap["db_url"] );
+	forms.setDbName( configMap["db_name"] );
+	forms.setFtpServer( configMap["edgar_ftp_server"] );
+	forms.setFtpDebug( i_ftp_debug );
+
 	if( our_params.s_manual_index_process_url.length() > 0 ){
 
 		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "our_params.s_manual_index_process_url = \""
@@ -134,10 +145,6 @@ int ServiceThread(OurParams& our_params)
 			<< "and exiting the daemon..." << endl;
 
 		try {
-			JDA::Forms forms;
-			forms.setPLogger( &le_logger );
-			forms.setDbUrl( configMap["db_url"] );
-			forms.setDbName( configMap["db_name"] );
 			forms.loadFromEdgarIndexUrl( our_params.s_manual_index_process_url );
 		}
 		catch(JDA::FtpClient::FtpException& e) {
@@ -165,10 +172,6 @@ int ServiceThread(OurParams& our_params)
 			<< "and exiting the daemon..." << endl;
 
 		try {
-			JDA::Forms forms;
-			forms.setPLogger( &le_logger );
-			forms.setDbUrl( configMap["db_url"] );
-			forms.setDbName( configMap["db_name"] );
 			forms.loadFromEdgarFormUrl( our_params.s_manual_form_process_url );
 		}
 		catch(JDA::FtpClient::FtpException& e) {
@@ -194,10 +197,6 @@ int ServiceThread(OurParams& our_params)
 			<< "\t" << "Running forms.loadNextEdgarForm(), and exiting the daemon..." << endl;
 
 		try {
-			JDA::Forms forms;
-			forms.setPLogger( &le_logger );
-			forms.setDbUrl( configMap["db_url"] );
-			forms.setDbName( configMap["db_name"] );
 			forms.loadNextEdgarForm();
 		}
 		catch(JDA::FtpClient::FtpException& e) {
