@@ -43,6 +43,14 @@ git add FormsMeanUtils.h
 git add mongoc.cpp
 git add mongoc.mak
 
+git add test/example-client.cpp
+git add test/example-client.mak
+git add test/c.bat
+git add test/d.bat
+git add test/view-1.js
+git add test/view-2.js
+git add test/view-3.js
+
 git add cpp_lib/FtpClient.cpp
 git add cpp_lib/FtpClient.h
 git add cpp_lib/MongoDbClient.cpp
@@ -54,12 +62,17 @@ git add cpp_lib/wlogger.h
 git add cpp_lib/utils.h
 git add cpp_lib/utils.cpp
 
-git add test/example-client.cpp
-git add test/example-client.mak
-git add test/c.bat
-git add test/d.bat
-git add test/view-1.js
-git add test/view-2.js
-git add test/view-3.js
+git add cpp_lib/test/TestsCommon.h
+git add cpp_lib/test/Stooge.h
+git add cpp_lib/test/TestsCommon.cpp
+git add cpp_lib/test/UtilsTest.cpp
+git add cpp_lib/test/logger_demo.cpp
+git add cpp_lib/test/tests.cpp
+git add cpp_lib/test/Makefile
+git add cpp_lib/test/c.bat
+git add cpp_lib/test/d
+git add cpp_lib/test/d.bat
+git add cpp_lib/test/tests.mak
+
 
 

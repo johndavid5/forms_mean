@@ -1,0 +1,4 @@
+#!/bin/bash
+set -x
+build/logger_demo 2>&1 | tee d.out
+set +x
