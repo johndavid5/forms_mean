@@ -62,8 +62,8 @@ class UtilsTest: public ::testing::Test {
 		ordinal_suffix_expecteds.push_back( make_shared<OrdinalSuffixExpected>( 0, "th" ) );  
 		ordinal_suffix_expecteds.push_back( make_shared<OrdinalSuffixExpected>( 1, "st" ) );  
 		ordinal_suffix_expecteds.push_back( make_shared<OrdinalSuffixExpected>( 2, "nd" ) );  
-		//ordinal_suffix_expecteds.push_back( make_shared<OrdinalSuffixExpected>( 3, "rd" ) );  
-		ordinal_suffix_expecteds.push_back( make_shared<OrdinalSuffixExpected>( 3, "th" ) );  
+		ordinal_suffix_expecteds.push_back( make_shared<OrdinalSuffixExpected>( 3, "rd" ) );  
+		//ordinal_suffix_expecteds.push_back( make_shared<OrdinalSuffixExpected>( 3, "th" ) );  
 		ordinal_suffix_expecteds.push_back( make_shared<OrdinalSuffixExpected>( 4, "th" ) );  
 		ordinal_suffix_expecteds.push_back( make_shared<OrdinalSuffixExpected>( 5, "th" ) );  
 		ordinal_suffix_expecteds.push_back( make_shared<OrdinalSuffixExpected>( 6, "th" ) );  
@@ -157,7 +157,7 @@ TEST_F(	UtilsTest, TestCompare ){
 			"\t" << "expected: \"" << ordinal_suffix_expecteds[i]->expected_suffix << "\",\n"
 			"\t" << "actual: \"" << s_ordinal_suffix << "\"" << endl;
 
-			EXPECT_EQ( ordinal_suffix_expecteds[i]->expected_suffix, s_ordinal_suffix );
+			EXPECT_EQ( ordinal_suffix_expecteds[i]->expected_suffix, s_ordinal_suffix ) << "test case " << i << ": get_ordinal_suffix( " << ordinal_suffix_expecteds[i]->input << " )";
 		}
 		catch(JDA::Utils::Exception & e){ 
 			// NOTE: FAIL() causes fatal failure, while ADD_FAILURE() causes non-fatal failure like EXPECT()

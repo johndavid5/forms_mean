@@ -27,8 +27,8 @@ var joe = { name: "Joe" };
 //db.forms.update( { accession_number :  "0001127602-14-030663" }, { $set: { "index_loaded_date": ISODate("2016-07-07T00:00:01Z") } } );
 //db.forms.update( { accession_number :  "0001127602-14-030663" }, { $set: { "index_loaded_date": new ISODate() } } );
 //db.forms.update( { accession_number :  "0001127602-14-030663" }, { $set: { "index_loaded_date": { $date : 2000 } } } );
-db.forms.insert( { accession_number :  "0001047469-15-001027" } );
-db.forms.insert( { accession_number :  "0001193125-15-399601" } );
+//db.forms.insert( { accession_number :  "0001047469-15-001027" } );
+//db.forms.insert( { accession_number :  "0001193125-15-399601" } );
 
 //var accession_numbers = ["0001242648-14-000081","0001127602-14-030663","0001047469-15-001027", "0001193125-15-399601" ];
 //var query = { accession_number : { $in: accession_numbers } };
@@ -58,6 +58,7 @@ db.forms.insert( { accession_number :  "0001193125-15-399601" } );
 // "limit": 3 
 //});
 
+print( "=== forms attempts exists true ===");
 db.forms.runCommand(
 {
  "find": "forms",
@@ -68,8 +69,15 @@ db.forms.runCommand(
  "limit": 1000 
 });
 
-//db.forms.find( { form_processing_attempts: { "$exists" : true } } ).sort( { date_filed : -1 } ).limit( 20 ).prety();
+//db.forms.find( { form_processing_attempts: { "$exists" : true } } ).sort( { date_filed : -1 } ).limit( 20 ).pretty();
 
+print( "=== count all forms ===");
 db.forms.find( {} ).count();
+print( "=== count forms attempts $exists true ===");
 db.forms.find( { form_processing_attempts: { "$exists" : true} } ).count();
-db.forms.find( { form_processing_attempts: { "$exists" : false} } ).count();
+print( "=== count forms attempts success true ===");
+db.forms.find( { "form_processing_attempts.success" : { "$eq": true } } ).count();
+print( "=== count forms attempts success != true ===");
+db.forms.find( { "form_processing_attempts": { "$exists" : true} , "form_processing_attempts.success" : { "$ne": true } } ).count();
+print( "=== count forms attempts $exists false ===");
+db.forms.find( { "form_processing_attempts": { "$exists" : false} } ).count();
