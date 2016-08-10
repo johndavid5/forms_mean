@@ -130,6 +130,10 @@ int ServiceThread(OurParams& our_params)
 	int i_ftp_debug = JDA::Utils::stringToInt( configMap["edgar_ftp_debug"], 0 );
 	(le_logger)(JDA::Logger::INFO) << sWho << "(): i_ftp_debug = " << i_ftp_debug << "..." << endl;
 
+	// i_download_sleep_time defaults to JDA::FormsMeanCommon::DEFAULT_DOWNLOAD_SLEEP_TIME if parsing fails...
+	int i_download_sleep_time = JDA::Utils::stringToInt( configMap["download_sleep_time"], JDA::FormsMeanCommon::DEFAULT_DOWNLOAD_SLEEP_TIME );
+	(le_logger)(JDA::Logger::INFO) << sWho << "(): i_download_sleep_time = " << i_download_sleep_time << "..." << endl;
+
 	JDA::Forms forms;
 	forms.setPLogger( &le_logger );
 	forms.setDbUrl( configMap["db_url"] );
@@ -218,6 +222,27 @@ int ServiceThread(OurParams& our_params)
 	}/* if( our_params.s_manual_index_process_url.length() > 0 ) */
 
 	/* ...placeholder for daemon loop... */
+	while( 1 ){
+		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "main daemon loop: Running forms.loadNextEdgarForm()..." << endl;
+
+		try {
+			forms.loadNextEdgarForm();
+		}
+		catch(JDA::FtpClient::FtpException& e) {
+			(le_logger)(JDA::Logger::ERROR) << sWho << "(): Caught JDA::FtpClient::FtpException: \"" 
+				<< e.what() << "\"" << endl;
+		}
+		catch(std::exception& e ){
+			(le_logger)(JDA::Logger::ERROR) << sWho << "(): Caught std::exception: \"" 
+				<< e.what() << "\"" << endl;
+		}
+		catch(...){
+			(le_logger)(JDA::Logger::ERROR) << sWho << "(): Caught unknown exception." << endl;
+		}
+
+		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "main daemon loop: Sleeping for i_download_sleep_time = " << i_download_sleep_time << " second(s)..." << endl;  
+		::Sleep( 1000 * i_download_sleep_time );
+	}
 	
 	(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "Let off some steam, Bennett!" << endl;
 
@@ -278,6 +303,7 @@ int main(int argc, char** argv)
 
 }/* main() */
 
+
 void getConfig( map<string, string>& configMap, OurParams& our_params ) {
 
 	string sWho = "::getConfig";
@@ -302,6 +328,8 @@ void getConfig( map<string, string>& configMap, OurParams& our_params ) {
 
 	configMap["load_daily_indexes"] = JDA::Utils::boolToString( JDA::FormsMeanCommon::DEFAULT_LOAD_DAILY_INDEXES );
 	configMap["load_next_edgar_filing_header"] = JDA::Utils::boolToString( JDA::FormsMeanCommon::DEFAULT_LOAD_NEXT_EDGAR_FILING_HEADER );
+
+	configMap["download_sleep_time"] = JDA::Utils::intToString( JDA::FormsMeanCommon::DEFAULT_DOWNLOAD_SLEEP_TIME );
 
 	//JDA::Utils::debug = 1;
 	try {

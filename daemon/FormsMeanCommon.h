@@ -56,6 +56,8 @@ namespace JDA {
 			static const bool DEFAULT_LOAD_DAILY_INDEXES;
 			static const bool DEFAULT_LOAD_NEXT_EDGAR_FILING_HEADER;
 
+			static const int DEFAULT_DOWNLOAD_SLEEP_TIME;
+
 	};
 
 

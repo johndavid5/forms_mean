@@ -25,4 +25,6 @@ namespace JDA {
 	/* static */ const bool FormsMeanCommon::DEFAULT_LOAD_DAILY_INDEXES = true;
 	/* static */ const bool FormsMeanCommon::DEFAULT_LOAD_NEXT_EDGAR_FILING_HEADER = true;
 
+	/* static */ const int FormsMeanCommon::DEFAULT_DOWNLOAD_SLEEP_TIME = 60; // seconds
+
 } /* namespace JDA */

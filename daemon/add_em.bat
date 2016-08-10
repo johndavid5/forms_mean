@@ -40,6 +40,9 @@ git add Forms.h
 git add FormsMeanUtils.cpp
 git add FormsMeanUtils.h
 
+git add FormsMeanCommon.cpp
+git add FormsMeanCommon.h
+
 git add mongoc.cpp
 git add mongoc.mak
 
