@@ -221,6 +221,7 @@ int ServiceThread(OurParams& our_params)
 
 	}/* if( our_params.s_manual_index_process_url.length() > 0 ) */
 
+	
 	/* ...placeholder for daemon loop... */
 	while( 1 ){
 		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "main daemon loop: Running forms.loadNextEdgarForm()..." << endl;
@@ -242,6 +243,9 @@ int ServiceThread(OurParams& our_params)
 
 		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "main daemon loop: Sleeping for i_download_sleep_time = " << i_download_sleep_time << " second(s)..." << endl;  
 		::Sleep( 1000 * i_download_sleep_time );
+
+		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "main daemon loop: Calling resetLogFilePath()..." << endl;
+		resetLogFilePath( le_logger, configMap["debug_log_file_path"] );
 	}
 	
 	(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "Let off some steam, Bennett!" << endl;
@@ -432,6 +436,7 @@ void resetLogFilePath(
 
 	string sWho = (string)SERVICE_NAME + "::resetLogFilePath";
 
+	// Fills in date stamp, if applicable...
 	string sLogFilePath = getLogFilePath( s_debug_log_file_path );
 
 	kenny_loggins(JDA::Logger::INFO) << sWho << "(): Setting logFilePath to '" << sLogFilePath << "'..." << endl;
