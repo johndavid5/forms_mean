@@ -1,0 +1,12 @@
+git add Makefile
+git add Makefile.Debug
+git add Makefile.Release
+git add c.bat
+git add d.bat
+git add main.cpp
+git add regen.bat
+git add regenvc.bat
+git add sfg.pro
+git add status.bat
+git add add_em.bat
+git add sfg_plugin_import.cpp

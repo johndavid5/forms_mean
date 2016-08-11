@@ -1,0 +1,1 @@
+.\release\sfg.exe
