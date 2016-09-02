@@ -1,11 +1,24 @@
-1. Add in MongoDbClient::command()...this appears to be the easiest way to
+* gui: figure out how to handle multiple entities:
+      tree...?
+      tree embedded in table cell?
+	  file explorer style en reverso (table on left, tree on right while file explorer is tree on left, table on right)
+      multiple expando-records embedded in a table cell...
+* gui: add search/sort functionality
+* gui: add table to main window, load with first 100...
+* daemon: add slow/fast download windows
+
+* Add In Unit Tests via "gtest"...
+  [x]-Added some unit tests for "JUtils"...how about one for EdgarForms...even if it's
+  as simple as reading a file and comparing to a static object.
+
+* [x] Add in MongoDbClient::command()...this appears to be the easiest way to
    do sort().skip().limit()...(also seems to be the only way to get the 
    new automatically generated _id(), if we need it...)
 
-2015-07-19:
-[Caught JDA::MongoDbClient::Exception during MongoDbClient::command(): "Cursor Failure: "find command not yet implemented"]
-[https://jira.mongodb.org/browse/CSHARP-1502: You are using version 3.0.7 of the server. The find command was not introduced until server version 3.2.0. You'll need to upgrade your server in order to use the find command.]
-
+   2015-07-19:
+   [Caught JDA::MongoDbClient::Exception during MongoDbClient::command(): "Cursor Failure: "find command not yet implemented"]
+   [https://jira.mongodb.org/browse/CSHARP-1502: You are using version 3.0.7 of the server. The find command was not introduced until server version 3.2.0. You'll need to upgrade your server in order to use the find command.]
+ 
 C:\Users\john.aynedjian\bin>mongod --version
 db version v3.0.7
 git version: 6ce7cbe8c6b899552dadd907604559806aa2e9bd
@@ -29,7 +42,6 @@ C:\Users\john.aynedjian\bin>which mongod
 ---
 Looks like the find() command is now supported in mongoc!
 
-* Add In Unit Tests via "gtest"...
 
 Extra Credit:
 1. use log4cxx rather than JDA::Logger...?

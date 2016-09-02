@@ -1,4 +1,5 @@
 use forms_mean;
+// NOTE: ensureIndex() is deprecated.
 //db.forms.ensureIndex({"cik":1}, {"unique": true });
 //db.forms.dropIndex({"cik":1}, {"unique": true });
 // ensureIndex() is deprecated since MongoDb version 3.0.0

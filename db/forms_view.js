@@ -65,8 +65,8 @@ db.forms.runCommand(
  "filter": { "form_processing_attempts": { "$exists" : true} },
  //"projection": { "date_filed": 1, "accession_number": 1 },
  "sort": { "date_filed" : -1 },
- "batchSize": 1000,
- "limit": 1000 
+ //"batchSize": 5,
+ "limit": 100 
 });
 
 //db.forms.find( { form_processing_attempts: { "$exists" : true } } ).sort( { date_filed : -1 } ).limit( 20 ).pretty();

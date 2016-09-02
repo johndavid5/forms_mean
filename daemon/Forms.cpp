@@ -7,10 +7,178 @@
 
 #include "Forms.h"
 #include "EdgarForm.h"
-#include "FormsMeanUtils.h"
+#include "FormsUtils.h"
 #include "FtpClient.h"
 
 namespace JDA { 
+
+void Forms::NextFormClientCallback::documentRecieved( const bson_t *p_bson_doc ){
+
+	const char* sWho = "NextFormClientCallback::documentRecieved";
+
+	//JDA::MongoDbClient mongoDbClient;
+	//JDA::BsonTraverser bsonTraverser;
+	JDA::BsonPrettyPrintTraverser bsonPrettyPrintTraverser;
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got a bson document: \n" 
+		"bsonPrettyPrintTraverser.bson_as_pretty_json_string( p_bson_doc ) = \n" 
+		<< bsonPrettyPrintTraverser.bson_as_pretty_json_string( p_bson_doc ) << "\n" << "..." << endl;
+	}
+
+	bson_iter_t iter;
+	bson_iter_t baz;
+	const char* file_name;
+	uint32_t len;
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Let's try to find the file_name, Moe..." << endl;
+	}
+
+	if( bson_iter_init( &iter, p_bson_doc ) &&
+		bson_iter_find_descendant( &iter, "cursor.firstBatch.0.file_name", &baz ) &&
+		BSON_ITER_HOLDS_UTF8(&baz)){
+			file_name = bson_iter_utf8(&baz, &len);
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got the file_name:\n" 
+					<< "\t" << "\"" << file_name << "\"..." << endl;
+			}
+			this->s_file_name = file_name;
+		}
+	else {
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Couldn't find the file_name." << endl;
+			}
+	}
+
+}/* void Forms::NextFormClientCallback::documentRecieved( const bson_t *p_bson_doc ) */
+
+/* Get information from filers[] -- probably filers[0] or maybe issuer where
+* filers[].central_index_key or issuer.central_index_key is the same
+* as cik near root of document....and fill into "dn_xxx" fields
+* near root of document.
+*/
+void Forms::DenormalizeFormClientCallback::documentRecieved( const bson_t *p_bson_doc ){
+
+	const char* sWho = "DenormalizeFormClientCallback::documentRecieved";
+
+	//JDA::MongoDbClient mongoDbClient;
+	//JDA::BsonTraverser bsonTraverser;
+	JDA::BsonPrettyPrintTraverser bsonPrettyPrintTraverser;
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got a bson document: \n" 
+		"bsonPrettyPrintTraverser.bson_as_pretty_json_string( p_bson_doc ) = \n" 
+		<< bsonPrettyPrintTraverser.bson_as_pretty_json_string( p_bson_doc ) << "\n" << "..." << endl;
+	}
+
+	m_b_success = false;	
+	JDA::BsonFormParseTraverser bsonFormParseTraverser;
+	bsonFormParseTraverser.setPLogger( m_p_logger );
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Let's try running it through "
+	 	<< "the BsonFormParseTraverser, Moe..." << endl; 	
+	}
+
+	JDA::Logger::DebugLevelType prevDebugLevel;
+	if( m_p_logger ){
+		prevDebugLevel = m_p_logger->getDebugLevel();
+		//m_p_logger->setDebugLevel( JDA::Logger::TRACE );
+		m_p_logger->setDebugLevel( JDA::Logger::DEBUG );
+	}
+
+	bsonFormParseTraverser.setPLogger( m_p_logger );
+	bsonFormParseTraverser.parse_it( p_bson_doc );
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, after parse_it(), bsonFormParseTraverser =\n" 
+		<< bsonFormParseTraverser << "..." << endl;
+		//"\t" << "bsonFormParseTraverser.getCik() = " << bsonFormParseTraverser.getCik() << ",\n"
+		//"\t" << "getFilerCompanyDataCentralIndexKey() = \"" << getFilerCompanyDataCentralIndexKey() << "\"," 
+		//"\t" << "getFilerCompanyDataCompanyConformedName() = \"" << 
+	}
+
+	if( m_p_logger ){
+		m_p_logger->setDebugLevel( prevDebugLevel );
+	}
+	
+	if( false ){
+		string s_what = "";	
+		bson_iter_t iter;
+		bson_iter_t baz;
+	
+		const char* utf8;
+		uint32_t utf8_len;
+	
+		//const char* sz_subject_company_name;
+		//uint32_t len;
+	
+		s_what = "cursor.firstBatch.0.cik";
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Let's try to find i_cik in \"" << s_what << "\"..." << endl;
+		}
+	
+		if( bson_iter_init( &iter, p_bson_doc ) &&
+			bson_iter_find_descendant( &iter, s_what.c_str(), &baz ) )
+		{
+			if( BSON_ITER_HOLDS_INT32(&baz) ){
+				this->m_i_cik = bson_iter_int32( &baz );
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got i_cik as int32: " << m_i_cik << "..." << endl;
+				}
+			}
+			else if( BSON_ITER_HOLDS_INT64(&baz) ){
+				this->m_i_cik = bson_iter_int64( &baz );
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::WARN) << sWho << "(): " << "Got i_cik as int64: " << m_i_cik << "...possible loss of data may have occurred..." << endl;
+				}
+			}
+			else {
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::WARN) << sWho << "(): " << "Found cik, but it's not an int32 or int64..." << endl;
+				}
+				m_b_success = false;	
+				return;
+			}
+		}
+		else {
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::WARN) << sWho << "(): " << "Couldn't find the cik." << endl;
+			}
+			m_b_success = false;	
+			return;
+		}
+	
+		s_what = "cursor.firstBatch.0.filers.0.company_data.central_index_key";
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Next, let's see if \"" << s_what << "\" (string) matches m_i_cik (int)..." << endl;
+		}
+	
+		if( bson_iter_init( &iter, p_bson_doc ) &&
+			bson_iter_find_descendant( &iter, s_what.c_str(), &baz ) )
+		{
+			if( BSON_ITER_HOLDS_UTF8( &baz ) ){
+				utf8 = bson_iter_utf8( &baz, &utf8_len );
+	
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got utf8_len = " << utf8_len << ", utf8 = \"" << utf8 << "\"..." << endl;
+				}
+	
+			}
+			else {
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::WARN) << sWho << "(): " << "Couldn't find the central_index_key as UTF8..." << endl;
+				}
+			}
+		}
+	
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Next, let's try to find m_s_subject_company_name in cursor.firstBatch.0.filers.0.company_data..." << endl;
+		}
+	}/* if(false) */
+
+}/* void Forms::DenormalizeFormClientCallback::documentRecieved( const bson_t *p_bson_doc ) */
 
 /** Used to process lines in an EDGAR index... */
 class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback 
@@ -127,10 +295,10 @@ class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback
 			string company_name = this->mr_fields[ COMPANY_NAME_IDX ];
 
 			string form_type = this->mr_fields[ FORM_TYPE_IDX ];
-			string date_filed = JDA::FormsMeanUtils::isoDateFromYyyyMmDd( this->mr_fields[ DATE_FILED_IDX ] );
+			string date_filed = JDA::FormsUtils::isoDateFromYyyyMmDd( this->mr_fields[ DATE_FILED_IDX ] );
 			string file_name = this->mr_fields[ FILE_NAME_IDX ];
 
-			string accession_number = FormsMeanUtils::accessionNumberFromFilePath( file_name );
+			string accession_number = FormsUtils::accessionNumberFromFilePath( file_name );
 
 			if( m_p_logger ){
 				(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): " << "\n" 
@@ -351,7 +519,6 @@ int Forms::insertIndexEntry(
 	}; /* class MyFtpClientFormeratorCallback : public JDA::FtpClient::IFtpClientCallback  */
 
 
-// inspired by: FormsMeanUtils::load_index_into_db()... 
 int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 {
 	const char* sWho = "Forms::loadFromEdgarIndexUrl";
@@ -578,7 +745,6 @@ int Forms::loadFromEdgarIndexUrl( const string& sEdgarIndexUrl )
 
 }/* void Forms::loadFromEdgarIndexUrl() */
 
-/* Inspired by FormsMeanUtils::load_edgar_form_and_log_it() */
 int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 
 	const char* sWho = "Forms::loadFromEdgarFormUrl";
@@ -592,12 +758,12 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "( sEdgarFormUrl = \"" << sEdgarFormUrl << "\" ):..." << endl;
 	}
 
-	string s_accession_number_from_file_path = FormsMeanUtils::accessionNumberFromFilePath( sEdgarFormUrl );  	
+	string s_accession_number_from_file_path = FormsUtils::accessionNumberFromFilePath( sEdgarFormUrl );  	
 	if( m_p_logger ){
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: s_accession_number_from_file_path = '" << s_accession_number_from_file_path << "'..." << endl;
 	}
 
-	string s_cik_from_url = FormsMeanUtils::cikFromUrl( sEdgarFormUrl );  	
+	string s_cik_from_url = FormsUtils::cikFromUrl( sEdgarFormUrl );  	
 	if( m_p_logger ){
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): SHEMP: s_cik_from_url = '" << s_cik_from_url << "'..." << endl;
 	}
@@ -757,7 +923,7 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 			<< "    \"form_processing_attempts\" :\n" 
 			<< "        { \"when\": { \"$date\": " << JDA::MongoDbClient::milliseconds_since_unix_epoch() << " },\n" 
 		   	<< "          \"success\": false,\n" 
-		   	<< "          \"message\": \"" << FormsMeanUtils::double_quote_escape( s_ftp_exception ) << "\"\n"
+		   	<< "          \"message\": \"" << FormsUtils::double_quote_escape( s_ftp_exception ) << "\"\n"
 			<< "		}\n"
 			<< "  }\n"
 			<< "}";
@@ -822,7 +988,7 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 		oss_json_update
 		<< "		{\n" 
 		<< "			\"company_data\":{\n"
-		<< "				\"company_conformed_name\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_filers[i]->company_data.company_conformed_name ) << "\",\n"
+		<< "				\"company_conformed_name\": \"" << FormsUtils::double_quote_escape( le_formerator.m_filers[i]->company_data.company_conformed_name ) << "\",\n"
 		<< "				\"central_index_key\": \"" << le_formerator.m_filers[i]->company_data.central_index_key << "\",\n"
 		<< "				\"standard_industrial_classification\": \"" << le_formerator.m_filers[i]->company_data.standard_industrial_classification << "\",\n"
 		<< "				\"irs_number\": \"" << le_formerator.m_filers[i]->company_data.irs_number << "\",\n"
@@ -830,22 +996,22 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 		<< "				\"fiscal_year_end\": \"" << le_formerator.m_filers[i]->company_data.fiscal_year_end << "\"\n"
 		<< "			},\n"
 		<< "			\"filing_values\":{\n"
-		<< "				\"form_type\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_filers[i]->filing_values.form_type ) << "\",\n"
+		<< "				\"form_type\": \"" << FormsUtils::double_quote_escape( le_formerator.m_filers[i]->filing_values.form_type ) << "\",\n"
 		<< "				\"sec_act\": \"" << le_formerator.m_filers[i]->filing_values.sec_act << "\",\n"
 		<< "				\"sec_file_number\": \"" << le_formerator.m_filers[i]->filing_values.sec_file_number << "\",\n"
 		<< "				\"film_number\": \"" << le_formerator.m_filers[i]->filing_values.film_number << "\"\n"
 		<< "			},\n"
 		<< "			\"business_address\":{\n"
-		<< "				\"street_1\": \"" << le_formerator.m_filers[i]->business_address.street_1 << "\",\n"
-		<< "				\"street_2\": \"" << le_formerator.m_filers[i]->business_address.street_2 << "\",\n"
+		<< "				\"street_1\": \"" << FormsUtils::double_quote_escape( le_formerator.m_filers[i]->business_address.street_1 ) << "\",\n"
+		<< "				\"street_2\": \"" << FormsUtils::double_quote_escape( le_formerator.m_filers[i]->business_address.street_2 ) << "\",\n"
 		<< "				\"city\": \"" << le_formerator.m_filers[i]->business_address.city << "\",\n"
 		<< "				\"state\": \"" << le_formerator.m_filers[i]->business_address.state << "\",\n"
 		<< "				\"zip\": \"" << le_formerator.m_filers[i]->business_address.zip << "\",\n"
 		<< "				\"business_phone\": \"" << le_formerator.m_filers[i]->business_address.business_phone << "\"\n"
 		<< "			},\n"
 		<< "			\"mail_address\":{\n"
-		<< "				\"street_1\": \"" << le_formerator.m_filers[i]->mail_address.street_1 << "\",\n"
-		<< "				\"street_2\": \"" << le_formerator.m_filers[i]->mail_address.street_2 << "\",\n"
+		<< "				\"street_1\": \"" << FormsUtils::double_quote_escape( le_formerator.m_filers[i]->mail_address.street_1 ) << "\",\n"
+		<< "				\"street_2\": \"" << FormsUtils::double_quote_escape( le_formerator.m_filers[i]->mail_address.street_2 ) << "\",\n"
 		<< "				\"city\": \"" << le_formerator.m_filers[i]->mail_address.city << "\",\n"
 		<< "				\"state\": \"" << le_formerator.m_filers[i]->mail_address.state << "\",\n"
 		<< "				\"zip\": \"" << le_formerator.m_filers[i]->mail_address.zip << "\"\n"
@@ -865,7 +1031,7 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 	oss_json_update
 	<< "	\"issuer\": {\n" 
 	<< "		\"company_data\":{\n"
-	<< "			\"company_conformed_name\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_issuer.company_data.company_conformed_name ) << "\",\n"
+	<< "			\"company_conformed_name\": \"" << FormsUtils::double_quote_escape( le_formerator.m_issuer.company_data.company_conformed_name ) << "\",\n"
 	<< "			\"central_index_key\": \"" << le_formerator.m_issuer.company_data.central_index_key << "\",\n"
 	<< "			\"standard_industrial_classification\": \"" << le_formerator.m_issuer.company_data.standard_industrial_classification << "\",\n"
 	<< "			\"irs_number\": \"" << le_formerator.m_issuer.company_data.irs_number << "\",\n"
@@ -873,16 +1039,16 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 	<< "			\"fiscal_year_end\": \"" << le_formerator.m_issuer.company_data.fiscal_year_end << "\"\n"
 	<< "		},\n"
 	<< "		\"business_address\":{\n"
-	<< "			\"street_1\": \"" << le_formerator.m_issuer.business_address.street_1 << "\",\n"
-	<< "			\"street_2\": \"" << le_formerator.m_issuer.business_address.street_2 << "\",\n"
+	<< "			\"street_1\": \"" << FormsUtils::double_quote_escape( le_formerator.m_issuer.business_address.street_1 ) << "\",\n"
+	<< "			\"street_2\": \"" << FormsUtils::double_quote_escape( le_formerator.m_issuer.business_address.street_2 ) << "\",\n"
 	<< "			\"city\": \"" << le_formerator.m_issuer.business_address.city << "\",\n"
 	<< "			\"state\": \"" << le_formerator.m_issuer.business_address.state << "\",\n"
 	<< "			\"zip\": \"" << le_formerator.m_issuer.business_address.zip << "\",\n"
 	<< "			\"business_phone\": \"" << le_formerator.m_issuer.business_address.business_phone << "\"\n"
 	<< "		},\n"
 	<< "		\"mail_address\":{\n"
-	<< "			\"street_1\": \"" << le_formerator.m_issuer.mail_address.street_1 << "\",\n"
-	<< "			\"street_2\": \"" << le_formerator.m_issuer.mail_address.street_2 << "\",\n"
+	<< "			\"street_1\": \"" << FormsUtils::double_quote_escape( le_formerator.m_issuer.mail_address.street_1 ) << "\",\n"
+	<< "			\"street_2\": \"" << FormsUtils::double_quote_escape( le_formerator.m_issuer.mail_address.street_2 ) << "\",\n"
 	<< "			\"city\": \"" << le_formerator.m_issuer.mail_address.city << "\",\n"
 	<< "			\"state\": \"" << le_formerator.m_issuer.mail_address.state << "\",\n"
 	<< "			\"zip\": \"" << le_formerator.m_issuer.mail_address.zip << "\"\n"
@@ -892,26 +1058,26 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 	oss_json_update
 	<< "	\"reporting_owner\": {\n" 
 	<< "		\"owner_data\":{\n"
-	<< "			\"company_conformed_name\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_reporting_owner.owner_data.company_conformed_name ) << "\",\n"
+	<< "			\"company_conformed_name\": \"" << FormsUtils::double_quote_escape( le_formerator.m_reporting_owner.owner_data.company_conformed_name ) << "\",\n"
 	<< "			\"central_index_key\": \"" << le_formerator.m_reporting_owner.owner_data.central_index_key << "\"\n"
 	<< "		},\n"
 	<< "		\"filing_values\":{\n"
-	<< "			\"form_type\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_reporting_owner.filing_values.form_type ) << "\",\n"
+	<< "			\"form_type\": \"" << FormsUtils::double_quote_escape( le_formerator.m_reporting_owner.filing_values.form_type ) << "\",\n"
 	<< "			\"sec_act\": \"" << le_formerator.m_reporting_owner.filing_values.sec_act << "\",\n"
 	<< "			\"sec_file_number\": \"" << le_formerator.m_reporting_owner.filing_values.sec_file_number << "\",\n"
 	<< "			\"film_number\": \"" << le_formerator.m_reporting_owner.filing_values.film_number << "\"\n"
 	<< "		},\n"
 	<< "		\"business_address\":{\n"
-	<< "			\"street_1\": \"" << le_formerator.m_reporting_owner.business_address.street_1 << "\",\n"
-	<< "			\"street_2\": \"" << le_formerator.m_reporting_owner.business_address.street_2 << "\",\n"
+	<< "			\"street_1\": \"" << FormsUtils::double_quote_escape( le_formerator.m_reporting_owner.business_address.street_1 ) << "\",\n"
+	<< "			\"street_2\": \"" << FormsUtils::double_quote_escape( le_formerator.m_reporting_owner.business_address.street_2 ) << "\",\n"
 	<< "			\"city\": \"" << le_formerator.m_reporting_owner.business_address.city << "\",\n"
 	<< "			\"state\": \"" << le_formerator.m_reporting_owner.business_address.state << "\",\n"
 	<< "			\"zip\": \"" << le_formerator.m_reporting_owner.business_address.zip << "\",\n"
 	<< "			\"business_phone\": \"" << le_formerator.m_reporting_owner.business_address.business_phone << "\"\n"
 	<< "		},\n"
 	<< "		\"mail_address\":{\n"
-	<< "			\"street_1\": \"" << le_formerator.m_reporting_owner.mail_address.street_1 << "\",\n"
-	<< "			\"street_2\": \"" << le_formerator.m_reporting_owner.mail_address.street_2 << "\",\n"
+	<< "			\"street_1\": \"" << FormsUtils::double_quote_escape( le_formerator.m_reporting_owner.mail_address.street_1 ) << "\",\n"
+	<< "			\"street_2\": \"" << FormsUtils::double_quote_escape( le_formerator.m_reporting_owner.mail_address.street_2 ) << "\",\n"
 	<< "			\"city\": \"" << le_formerator.m_reporting_owner.mail_address.city << "\",\n"
 	<< "			\"state\": \"" << le_formerator.m_reporting_owner.mail_address.state << "\",\n"
 	<< "			\"zip\": \"" << le_formerator.m_reporting_owner.mail_address.zip << "\"\n"
@@ -921,7 +1087,7 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 	oss_json_update
 	<< "	\"filed_by\": {\n" 
 	<< "		\"company_data\":{\n"
-	<< "			\"company_conformed_name\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_filed_by.company_data.company_conformed_name ) << "\",\n"
+	<< "			\"company_conformed_name\": \"" << FormsUtils::double_quote_escape( le_formerator.m_filed_by.company_data.company_conformed_name ) << "\",\n"
 	<< "			\"central_index_key\": \"" << le_formerator.m_filed_by.company_data.central_index_key << "\",\n"
 	<< "			\"standard_industrial_classification\": \"" << le_formerator.m_filed_by.company_data.standard_industrial_classification << "\",\n"
 	<< "			\"irs_number\": \"" << le_formerator.m_filed_by.company_data.irs_number << "\",\n"
@@ -929,22 +1095,22 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 	<< "			\"fiscal_year_end\": \"" << le_formerator.m_filed_by.company_data.fiscal_year_end << "\"\n"
 	<< "		},\n"
 	<< "		\"filing_values\":{\n"
-	<< "			\"form_type\": \"" << FormsMeanUtils::double_quote_escape( le_formerator.m_filed_by.filing_values.form_type ) << "\",\n"
+	<< "			\"form_type\": \"" << FormsUtils::double_quote_escape( le_formerator.m_filed_by.filing_values.form_type ) << "\",\n"
 	<< "			\"sec_act\": \"" << le_formerator.m_filed_by.filing_values.sec_act << "\",\n"
 	<< "			\"sec_file_number\": \"" << le_formerator.m_filed_by.filing_values.sec_file_number << "\",\n"
 	<< "			\"film_number\": \"" << le_formerator.m_filed_by.filing_values.film_number << "\"\n"
 	<< "		},\n"
 	<< "		\"business_address\":{\n"
-	<< "			\"street_1\": \"" << le_formerator.m_filed_by.business_address.street_1 << "\",\n"
-	<< "			\"street_2\": \"" << le_formerator.m_filed_by.business_address.street_2 << "\",\n"
+	<< "			\"street_1\": \"" << FormsUtils::double_quote_escape( le_formerator.m_filed_by.business_address.street_1 ) << "\",\n"
+	<< "			\"street_2\": \"" << FormsUtils::double_quote_escape( le_formerator.m_filed_by.business_address.street_2 ) << "\",\n"
 	<< "			\"city\": \"" << le_formerator.m_filed_by.business_address.city << "\",\n"
 	<< "			\"state\": \"" << le_formerator.m_filed_by.business_address.state << "\",\n"
 	<< "			\"zip\": \"" << le_formerator.m_filed_by.business_address.zip << "\",\n"
 	<< "			\"business_phone\": \"" << le_formerator.m_filed_by.business_address.business_phone << "\"\n"
 	<< "		},\n"
 	<< "		\"mail_address\":{\n"
-	<< "			\"street_1\": \"" << le_formerator.m_filed_by.mail_address.street_1 << "\",\n"
-	<< "			\"street_2\": \"" << le_formerator.m_filed_by.mail_address.street_2 << "\",\n"
+	<< "			\"street_1\": \"" << FormsUtils::double_quote_escape( le_formerator.m_filed_by.mail_address.street_1 ) << "\",\n"
+	<< "			\"street_2\": \"" << FormsUtils::double_quote_escape( le_formerator.m_filed_by.mail_address.street_2 ) << "\",\n"
 	<< "			\"city\": \"" << le_formerator.m_filed_by.mail_address.city << "\",\n"
 	<< "			\"state\": \"" << le_formerator.m_filed_by.mail_address.state << "\",\n"
 	<< "			\"zip\": \"" << le_formerator.m_filed_by.mail_address.zip << "\"\n"
@@ -980,6 +1146,7 @@ int Forms::loadFromEdgarFormUrl( const string& sEdgarFormUrl ){
 
 }/* Forms::loadFromEdgarFormUrl() */
 
+
 int Forms::loadNextEdgarForm( ){
 
 	const char* sWho = "Forms::loadNextEdgarForm";
@@ -993,7 +1160,8 @@ int Forms::loadNextEdgarForm( ){
 	<< "  \"find\": \"" << s_collection_name << "\",\n"
 	<< "  \"filter\": { \"form_processing_attempts\": { \"$exists\" : false}, \"date_filed\": { \"$exists\": true }, \"jor_el\": { \"$exists\": false } },\n"
 	//"projection": { "date_filed": 1, "accession_number": 1 },
-	<< " \"sort\": { \"date_filed\" : -1 },\n" 
+	//<< " \"sort\": { \"date_filed\" : -1 },\n" 
+	<< " \"sort\": { \"date_filed\" : 1 },\n" 
 	<< " \"limit\": 3\n" 
 	<< "}";
 
@@ -1029,6 +1197,11 @@ int Forms::loadNextEdgarForm( ){
 
 			loadFromEdgarFormUrl( oss_ftp_url.str() );
 		}
+		else {
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, don't see a file-name for loading, so not callin' loadFromEdgarFormUrl()..." << endl;
+			}
+		}
 
 		return i_ret_code;
 
@@ -1040,9 +1213,64 @@ int Forms::loadNextEdgarForm( ){
 		return 0;
 	}
 
-
-
 }/* Forms::loadNextEdgarForm() */
+
+
+int Forms::denormalizeForm( const string& s_accession_number ){  
+
+	const char* sWho = "Forms::denormalizeForm";
+
+	ostringstream oss_json_command;
+
+	string s_collection_name = "forms";
+
+	oss_json_command
+	<< "{\n"
+	<< "  \"find\": \"" << s_collection_name << "\",\n"
+	<< "  \"filter\": { \"accession_number\": \"" << s_accession_number << "\" },\n"
+	<< " \"sort\": { \"date_filed\" : 1 },\n" 
+	<< " \"limit\": 1\n" 
+	<< "}";
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoDbClient.command( \"" << this->getDbName() << "\", \"" << s_collection_name << "\", \"" << oss_json_command.str() << "\" )..." << endl;
+	}
+
+	int i_ret_code = 0;
+
+	// NOTE: This call may toss a JDA::MongoDbClient::Exception
+	try {
+		JDA::Forms::DenormalizeFormClientCallback denormalizeFormClientCallback( m_p_logger );
+
+		i_ret_code = mongoDbClient.command( this->getDbName(), s_collection_name, oss_json_command.str(), &denormalizeFormClientCallback );
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i_ret_code = " << i_ret_code << endl;
+		}
+
+		int i_cik = denormalizeFormClientCallback.getCik();
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, i_cik = \"" << i_cik << "\"..." << endl;
+		}
+
+		string s_subject_company_name = denormalizeFormClientCallback.getSubjectCompanyName();
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, s_subject_company_name = \"" << s_subject_company_name << "\"..." << endl;
+		}
+
+		return 1;
+
+	}catch( JDA::MongoDbClient::Exception e ){
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Trouble with mongoDbClient.command: \"" << e.what() << "\", sorry, Moe..." << endl;
+		}
+
+		return 0;
+	}
+
+}/* Forms::denormalizeForm() */
 
 
 } /* namespace JDA */

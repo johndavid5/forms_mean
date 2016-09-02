@@ -4,6 +4,9 @@
 #include "utils.h"
 #include "logger.h"
 #include "MongoDbClient.h"
+#include "BsonTraverser.h"
+#include "BsonPrettyPrintTraverser.h"
+#include "BsonFormParseTraverser.h"
 
 namespace JDA { 
 
@@ -22,40 +25,33 @@ class Forms {
 					return s_file_name;
 				}
 
-				void documentRecieved( const bson_t *p_bson_doc ){
-					const char* sWho = "NextFormClientCallback::documentRecieved";
-					JDA::MongoDbClient mongoDbClient;
-					if( m_p_logger ){
-						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got a bson document: \n" 
-						<< mongoDbClient.bson_as_pretty_json_string( p_bson_doc ) << "\n" << "..." << endl;
-					}
+				void documentRecieved( const bson_t *p_bson_doc );
 
-					bson_iter_t iter;
-					bson_iter_t baz;
-					const char* file_name;
-					uint32_t len;
 
-					if( m_p_logger ){
-						(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Let's try to find the file_name..." << endl;
-					}
+		}; /* class NextFormClientCallback */
 
-					if( bson_iter_init( &iter, p_bson_doc ) &&
-						bson_iter_find_descendant( &iter, "cursor.firstBatch.0.file_name", &baz ) &&
-						BSON_ITER_HOLDS_UTF8(&baz)){
-							file_name = bson_iter_utf8(&baz, &len);
-							if( m_p_logger ){
-								(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got the file_name:\n" 
-									<< "\t" << "\"" << file_name << "\"..." << endl;
-							}
-							this->s_file_name = file_name;
-						}
-					else {
-							if( m_p_logger ){
-								(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Couldn't find the file_name." << endl;
-							}
-					}
+		/* Attempt to grab out the cik, subject_company_name, etc... */
+		class DenormalizeFormClientCallback : public MongoDbClient::IMongoDbClientCallback { 
 
-				}/* documentReceived() */
+			protected:
+				JDA::Logger* m_p_logger;
+				int m_i_cik;
+				string m_s_subject_company_name;
+				bool m_b_success;
+
+			public:
+				DenormalizeFormClientCallback( JDA::Logger* p_logger) : m_p_logger(p_logger), m_s_subject_company_name(""), m_i_cik(0) { }
+
+				string getSubjectCompanyName(){
+					return m_s_subject_company_name;
+				}
+
+				int getCik(){
+					return m_i_cik;
+				}
+
+
+				void documentRecieved( const bson_t *p_bson_doc );
 
 		}; /* class NextFormClientCallback */
 
@@ -141,6 +137,9 @@ class Forms {
 		* ...and, if found, calls loadFromEdgarFormUrl().
 		*/
 		int loadNextEdgarForm(); 
+
+		/* Perform denormalization of form doc on MongoDb... */
+		int denormalizeForm( const string& s_accession_number );  
 
 		//int getIterationCount(){ return m_i_iteration_count; }
 		//int getByteCount(){ return m_i_byte_count; }
