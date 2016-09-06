@@ -1,3 +1,4 @@
+call git add .gitignore
 call git add add_em.bat
 call git add c.bat
 call git add clean.bat

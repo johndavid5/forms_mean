@@ -5,6 +5,11 @@
 
 namespace JDA {
 
+/** Your mission, Jim, should you decide to accept it, is
+* to traverse the tree, find a filer or issuer whose
+* central_index_key matches the top-level _cik, and
+* copy its information to the top level..."company"...
+*/
 class BsonFormParseTraverser : public BsonTraverser {
 
 	protected:
@@ -23,6 +28,7 @@ class BsonFormParseTraverser : public BsonTraverser {
 							STATE_IN_FILER_COMPANY_DATA_DOC,
 								STATE_IN_FILER_COMPANY_DATA_DOC_COMPANY_CONFORMED_NAME,
 								STATE_IN_FILER_COMPANY_DATA_DOC_CENTRAL_INDEX_KEY,
+								STATE_IN_FILER_COMPANY_DATA_DOC_STANDARD_INDUSTRIAL_CLASSIFICATION,
 								STATE_IN_FILER_COMPANY_DATA_DOC_STATE_OF_INCORPORATION,
 
 						STATE_IN_FILER_FILING_VALUES,
@@ -30,9 +36,39 @@ class BsonFormParseTraverser : public BsonTraverser {
 
 						STATE_IN_FILER_BUSINESS_ADDRESS,
 							STATE_IN_FILER_BUSINESS_ADDRESS_DOC,
+								STATE_IN_FILER_BUSINESS_ADDRESS_DOC_STREET_1,
+								STATE_IN_FILER_BUSINESS_ADDRESS_DOC_STREET_2,
+								STATE_IN_FILER_BUSINESS_ADDRESS_DOC_CITY,
+								STATE_IN_FILER_BUSINESS_ADDRESS_DOC_STATE,
+								STATE_IN_FILER_BUSINESS_ADDRESS_DOC_ZIP,
+								STATE_IN_FILER_BUSINESS_ADDRESS_DOC_BUSINESS_PHONE,
 
 						STATE_IN_FILER_MAIL_ADDRESS,
-							STATE_IN_FILER_MAIL_ADDRESS_DOC
+							STATE_IN_FILER_MAIL_ADDRESS_DOC,
+
+			STATE_IN_ISSUER,
+					STATE_IN_ISSUER_COMPANY_DATA,
+						STATE_IN_ISSUER_COMPANY_DATA_DOC,
+							STATE_IN_ISSUER_COMPANY_DATA_DOC_COMPANY_CONFORMED_NAME,
+							STATE_IN_ISSUER_COMPANY_DATA_DOC_CENTRAL_INDEX_KEY,
+							STATE_IN_ISSUER_COMPANY_DATA_DOC_STANDARD_INDUSTRIAL_CLASSIFICATION,
+							STATE_IN_ISSUER_COMPANY_DATA_DOC_STATE_OF_INCORPORATION,
+
+						STATE_IN_ISSUER_FILING_VALUES,
+							STATE_IN_ISSUER_FILING_VALUES_DOC,
+
+						STATE_IN_ISSUER_BUSINESS_ADDRESS,
+							STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC,
+								STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_STREET_1,
+								STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_STREET_2,
+								STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_CITY,
+								STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_STATE,
+								STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_ZIP,
+								STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_BUSINESS_PHONE,
+
+						STATE_IN_ISSUER_MAIL_ADDRESS,
+							STATE_IN_ISSUER_MAIL_ADDRESS_DOC
+
 		};
 
 		// Used by stateTypeToString()
@@ -48,8 +84,21 @@ class BsonFormParseTraverser : public BsonTraverser {
 		// used on the Securities and Exchange Commission's computer systems to
 		// identify corporations and individuals who have filed disclosure with the SEC.
 		int _cik;
+
+		string _company_company_data_central_index_key; 
+		string _company_company_data_company_conformed_name;
+		string _company_company_data_standard_industrial_classification;
+		string _company_company_data_state_of_incorporation;
+		string _company_business_address_street_1;
+		string _company_business_address_street_2;
+		string _company_business_address_city;
+		string _company_business_address_state;
+		string _company_business_address_zip;
+		string _company_business_address_business_phone;             
+
 		string _filer_company_data_central_index_key;
 		string _filer_company_data_company_conformed_name;
+		string _filer_company_data_standard_industrial_classification;
 		string _filer_company_data_state_of_incorporation;
 		string _filer_business_address_street_1;
 		string _filer_business_address_street_2;
@@ -57,6 +106,17 @@ class BsonFormParseTraverser : public BsonTraverser {
 		string _filer_business_address_state;
 		string _filer_business_address_zip;
 		string _filer_business_address_business_phone;
+
+		string _issuer_company_data_central_index_key;
+		string _issuer_company_data_company_conformed_name;
+		string _issuer_company_data_standard_industrial_classification;
+		string _issuer_company_data_state_of_incorporation;
+		string _issuer_business_address_street_1;
+		string _issuer_business_address_street_2;
+		string _issuer_business_address_city;
+		string _issuer_business_address_state;
+		string _issuer_business_address_zip;
+		string _issuer_business_address_business_phone;
 
 		StateType _state;
 
@@ -72,10 +132,41 @@ class BsonFormParseTraverser : public BsonTraverser {
 			//<< "\t" << "getCik() = " << this->getCik() << ",\n"
 			//<< "\t" << "getFilerCompanyDataCentralIndexKey() = \"" << this->getFilerCompanyDataCentralIndexKey() << "\",\n" 
 			//<< "\t" << "getFilerCompanyDataCompanyConformedName() = \"" << this->getFilerCompanyDataCompanyConformedName() << "\",\n"
-			<< "\t" << "_cik = " << this->_cik << ",\n"
+			<< "\t" << "_cik = " << _cik << ".\n"
+			<< "\n" 
+			<< "\t" << "_company_company_data_central_index_key = \"" << _company_company_data_central_index_key << "\",\n" 
+			<< "\t" << "_company_company_data_company_conformed_name = \"" << _company_company_data_company_conformed_name << "\",\n" 
+			<< "\t" << "_company_company_data_standard_industrial_classification = \"" << _company_company_data_standard_industrial_classification << "\",\n" 
+			<< "\t" << "_company_company_data_state_of_incorporation = \"" << _company_company_data_state_of_incorporation << "\",\n" 
+			<< "\t" << "_company_business_address_street_1 = \"" << _company_business_address_street_1 << "\",\n"
+			<< "\t" << "_company_business_address_street_2 = \"" << _company_business_address_street_2 << "\",\n"
+			<< "\t" << "_company_business_address_city = \"" << _company_business_address_city << "\",\n"
+			<< "\t" << "_company_business_address_state = \"" << _company_business_address_state << "\",\n"
+			<< "\t" << "_company_business_address_zip = \"" << _company_business_address_zip << "\",\n"
+			<< "\t" << "_company_business_address_business_phone = \"" << _company_business_address_business_phone << "\".\n"
+			<< "\n" 
 			<< "\t" << "_filer_company_data_central_index_key = \"" << _filer_company_data_central_index_key << "\",\n" 
 			<< "\t" << "_filer_company_data_company_conformed_name = \"" << _filer_company_data_company_conformed_name << "\",\n" 
-			<< "\t" << "_filer_company_data_state_of_incorporation = \"" << _filer_company_data_state_of_incorporation << "\"." 
+			<< "\t" << "_filer_company_data_standard_industrial_classification = \"" << _filer_company_data_standard_industrial_classification << "\",\n" 
+			<< "\t" << "_filer_company_data_state_of_incorporation = \"" << _filer_company_data_state_of_incorporation << "\",\n" 
+			<< "\t" << "_filer_business_address_street_1 = \"" << _filer_business_address_street_1 << "\",\n"
+			<< "\t" << "_filer_business_address_street_2 = \"" << _filer_business_address_street_2 << "\",\n"
+			<< "\t" << "_filer_business_address_city = \"" << _filer_business_address_city << "\",\n"
+			<< "\t" << "_filer_business_address_state = \"" << _filer_business_address_state << "\",\n"
+			<< "\t" << "_filer_business_address_zip = \"" << _filer_business_address_zip << "\",\n"
+			<< "\t" << "_filer_business_address_business_phone = \"" << _filer_business_address_business_phone << "\".\n"
+			<< "\n" 
+			<< "\t" << "_issuer_company_data_central_index_key = \"" << _issuer_company_data_central_index_key << "\",\n" 
+			<< "\t" << "_issuer_company_data_company_conformed_name = \"" << _issuer_company_data_company_conformed_name << "\",\n" 
+			<< "\t" << "_issuer_company_data_standard_industrial_classification = \"" << _issuer_company_data_standard_industrial_classification << "\",\n" 
+			<< "\t" << "_issuer_company_data_company_conformed_name = \"" << _issuer_company_data_company_conformed_name << "\",\n" 
+			<< "\t" << "_issuer_company_data_state_of_incorporation = \"" << _issuer_company_data_state_of_incorporation << "\",\n" 
+			<< "\t" << "_issuer_business_address_street_1 = \"" << _issuer_business_address_street_1 << "\",\n"
+			<< "\t" << "_issuer_business_address_street_2 = \"" << _issuer_business_address_street_2 << "\",\n"
+			<< "\t" << "_issuer_business_address_city = \"" << _issuer_business_address_city << "\",\n"
+			<< "\t" << "_issuer_business_address_state = \"" << _issuer_business_address_state << "\",\n"
+			<< "\t" << "_issuer_business_address_zip = \"" << _issuer_business_address_zip << "\",\n"
+			<< "\t" << "_issuer_business_address_business_phone = \"" << _issuer_business_address_business_phone << "\"."
 			;
 			return out;
 		}

@@ -8,5 +8,7 @@ REM .\build\sec_forms_daemon.exe --manual-form-process-url "file:///../edgar/ftp
 REM .\build\sec_forms_daemon.exe --manual-load-next-edgar-form 2>&1 | tee d.out
 REM .\build\sec_forms_daemon.exe --manual-index-process-url "file:///../edgar/ftp.sec.gov--edgar--full-index--2016--QTR1--master.idx" 2>&1 | tee d.out
 REM .\build\sec_forms_daemon.exe 2>&1 | tee d.out
-REM "WESTERN INTERNATIONAL SECURITIES, INC."
-.\build\sec_forms_daemon.exe --manual-denormalize-form-accession-number "9999999997-16-022382" 2>&1 | tee d.out
+REM "WESTERN INTERNATIONAL SECURITIES, INC." -- filer matches cik
+REM .\build\sec_forms_daemon.exe --manual-denormalize-form-accession-number "9999999997-16-022382" 2>&1 | tee d.out
+REM - "WATERS CORP /DE/" -- issuer matches cik
+.\build\sec_forms_daemon.exe --manual-denormalize-form-accession-number "0001127602-16-035587" 2>&1 | tee d.out

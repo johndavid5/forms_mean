@@ -15,6 +15,7 @@ namespace JDA {
 							"STATE_IN_FILER_COMPANY_DATA_DOC",
 								"STATE_IN_FILER_COMPANY_DATA_DOC_COMPANY_CONFORMED_NAME",
 								"STATE_IN_FILER_COMPANY_DATA_DOC_CENTRAL_INDEX_KEY",
+								"STATE_IN_FILER_COMPANY_DATA_DOC_STANDARD_INDUSTRIAL_CLASSIFICATION",
 								"STATE_IN_FILER_COMPANY_DATA_DOC_STATE_OF_INCORPORATION",
 
 						"STATE_IN_FILER_FILING_VALUES",
@@ -22,9 +23,38 @@ namespace JDA {
 
 						"STATE_IN_FILER_BUSINESS_ADDRESS",
 							"STATE_IN_FILER_BUSINESS_ADDRESS_DOC",
+								"STATE_IN_FILER_BUSINESS_ADDRESS_DOC_STREET_1",
+								"STATE_IN_FILER_BUSINESS_ADDRESS_DOC_STREET_2",
+								"STATE_IN_FILER_BUSINESS_ADDRESS_DOC_CITY",
+								"STATE_IN_FILER_BUSINESS_ADDRESS_DOC_STATE",
+								"STATE_IN_FILER_BUSINESS_ADDRESS_DOC_ZIP",
+								"STATE_IN_FILER_BUSINESS_ADDRESS_DOC_BUSINESS_PHONE",
 
 						"STATE_IN_FILER_MAIL_ADDRESS",
 							"STATE_IN_FILER_MAIL_ADDRESS_DOC"
+
+			"STATE_IN_ISSUER",
+					"STATE_IN_ISSUER_COMPANY_DATA",
+						"STATE_IN_ISSUER_COMPANY_DATA_DOC",
+							"STATE_IN_ISSUER_COMPANY_DATA_DOC_COMPANY_CONFORMED_NAME",
+							"STATE_IN_ISSUER_COMPANY_DATA_DOC_CENTRAL_INDEX_KEY",
+							"STATE_IN_ISSUER_COMPANY_DATA_DOC_STANDARD_INDUSTRIAL_CLASSIFICATION",
+							"STATE_IN_ISSUER_COMPANY_DATA_DOC_STATE_OF_INCORPORATION",
+
+						"STATE_IN_ISSUER_FILING_VALUES",
+							"STATE_IN_ISSUER_FILING_VALUES_DOC",
+
+						"STATE_IN_ISSUER_BUSINESS_ADDRESS",
+							"STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC",
+								"STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_STREET_1",
+								"STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_STREET_2",
+								"STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_CITY",
+								"STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_STATE",
+								"STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_ZIP",
+								"STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_BUSINESS_PHONE",
+
+						"STATE_IN_ISSUER_MAIL_ADDRESS",
+							"STATE_IN_ISSUER_MAIL_ADDRESS_DOC"
 	};
 
 
@@ -58,7 +88,11 @@ namespace JDA {
 				else if( s_key.compare("filers") == 0 ){
 					_state = STATE_IN_FILERS;
 				}
+				else if( s_key.compare("issuer") == 0 ){
+					_state = STATE_IN_ISSUER;
+				}
 				break;
+
 
 			case STATE_IN_FILER:
 				if( s_key.compare("company_data") == 0 ){
@@ -75,6 +109,7 @@ namespace JDA {
 				}
 				break;
 
+
 			case STATE_IN_FILER_COMPANY_DATA_DOC:
 				if( s_key.compare("company_conformed_name") == 0 ){ 
 					_state = STATE_IN_FILER_COMPANY_DATA_DOC_COMPANY_CONFORMED_NAME;
@@ -82,10 +117,88 @@ namespace JDA {
 				else if( s_key.compare("central_index_key") == 0 ){ 
 					_state = STATE_IN_FILER_COMPANY_DATA_DOC_CENTRAL_INDEX_KEY;
 				}
+				else if( s_key.compare("standard_industrial_classification") == 0 ){ 
+					_state = STATE_IN_FILER_COMPANY_DATA_DOC_STANDARD_INDUSTRIAL_CLASSIFICATION;
+				}
 				else if( s_key.compare("state_of_incorporation") == 0 ){ 
 					_state = STATE_IN_FILER_COMPANY_DATA_DOC_STATE_OF_INCORPORATION;
 				}
 				break;
+
+			case STATE_IN_FILER_BUSINESS_ADDRESS_DOC:
+				if( s_key.compare("street_1") == 0 ){ 
+					_state = STATE_IN_FILER_BUSINESS_ADDRESS_DOC_STREET_1;
+				}
+				else if( s_key.compare("street_2") == 0 ){ 
+					_state = STATE_IN_FILER_BUSINESS_ADDRESS_DOC_STREET_2;
+				}
+				else if( s_key.compare("city") == 0 ){ 
+					_state = STATE_IN_FILER_BUSINESS_ADDRESS_DOC_CITY;
+				}
+				else if( s_key.compare("state") == 0 ){ 
+					_state = STATE_IN_FILER_BUSINESS_ADDRESS_DOC_STATE;
+				}
+				else if( s_key.compare("zip") == 0 ){ 
+					_state = STATE_IN_FILER_BUSINESS_ADDRESS_DOC_ZIP;
+				}
+				else if( s_key.compare("business_phone") == 0 ){ 
+					_state = STATE_IN_FILER_BUSINESS_ADDRESS_DOC_BUSINESS_PHONE;
+				}
+				break;
+
+			////
+			
+			case STATE_IN_ISSUER:
+				if( s_key.compare("company_data") == 0 ){
+					_state = STATE_IN_ISSUER_COMPANY_DATA;
+				}
+				else if( s_key.compare("filing_values") == 0 ){
+					_state = STATE_IN_ISSUER_FILING_VALUES;
+				}
+				else if( s_key.compare("business_address") == 0 ){
+					_state = STATE_IN_ISSUER_BUSINESS_ADDRESS;
+				}
+				else if( s_key.compare("mail_address") == 0 ){
+					_state = STATE_IN_ISSUER_MAIL_ADDRESS;
+				}
+				break;
+
+			case STATE_IN_ISSUER_COMPANY_DATA_DOC:
+				if( s_key.compare("company_conformed_name") == 0 ){ 
+					_state = STATE_IN_ISSUER_COMPANY_DATA_DOC_COMPANY_CONFORMED_NAME;
+				}
+				else if( s_key.compare("central_index_key") == 0 ){ 
+					_state = STATE_IN_ISSUER_COMPANY_DATA_DOC_CENTRAL_INDEX_KEY;
+				}
+				else if( s_key.compare("standard_industrial_classification") == 0 ){ 
+					_state = STATE_IN_ISSUER_COMPANY_DATA_DOC_STANDARD_INDUSTRIAL_CLASSIFICATION;
+				}
+				else if( s_key.compare("state_of_incorporation") == 0 ){ 
+					_state = STATE_IN_ISSUER_COMPANY_DATA_DOC_STATE_OF_INCORPORATION;
+				}
+				break;
+
+			case STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC:
+				if( s_key.compare("street_1") == 0 ){ 
+					_state = STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_STREET_1;
+				}
+				else if( s_key.compare("street_2") == 0 ){ 
+					_state = STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_STREET_2;
+				}
+				else if( s_key.compare("city") == 0 ){ 
+					_state = STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_CITY;
+				}
+				else if( s_key.compare("state") == 0 ){ 
+					_state = STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_STATE;
+				}
+				else if( s_key.compare("zip") == 0 ){ 
+					_state = STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_ZIP;
+				}
+				else if( s_key.compare("business_phone") == 0 ){ 
+					_state = STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_BUSINESS_PHONE;
+				}
+				break;
+
 
 		}/* switch(_state) */
 
@@ -111,6 +224,8 @@ namespace JDA {
 				_state = STATE_IN_FILER;
 				break;
 
+			////
+
 			case STATE_IN_FILER_COMPANY_DATA:
 				_state = STATE_IN_FILER_COMPANY_DATA_DOC;
 				break;
@@ -125,6 +240,24 @@ namespace JDA {
 
 			case STATE_IN_FILER_MAIL_ADDRESS:
 				_state = STATE_IN_FILER_MAIL_ADDRESS_DOC;
+				break;
+
+			////
+
+			case STATE_IN_ISSUER_COMPANY_DATA:
+				_state = STATE_IN_ISSUER_COMPANY_DATA_DOC;
+				break;
+
+			case STATE_IN_ISSUER_FILING_VALUES:
+				_state = STATE_IN_ISSUER_FILING_VALUES_DOC;
+				break;
+
+			case STATE_IN_ISSUER_BUSINESS_ADDRESS:
+				_state = STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_ISSUER_MAIL_ADDRESS:
+				_state = STATE_IN_ISSUER_MAIL_ADDRESS_DOC;
 				break;
 
 		}/* switch(_state) */
@@ -150,7 +283,40 @@ namespace JDA {
 		switch( _state ){
 		
 			case STATE_IN_FILER:
-				_state = STATE_IN_FILERS;
+				{
+					_state = STATE_IN_FILERS;
+					// We've reached the end of a filer...check to see if its central_index_key matches the top level
+					// _cik...if so, copy its data into the "company" fields...
+					if( m_p_logger ){
+						(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: Looks like the end of a \"filer\", Moe...let's see if its central_index_key matches the top-level _cik..." << endl;
+					}
+					int i_filer_central_index_key = JDA::Utils::stringToInt( _filer_company_data_central_index_key, -1 );	
+					if( m_p_logger ){
+						(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: i_filer_central_index_key = " << i_filer_central_index_key << "..." << endl;
+					}
+					if( i_filer_central_index_key == this->_cik ){
+						if( m_p_logger ){
+							(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: They're a match, Moe...copyin' over to dhe \"_company\" fields..." << endl;
+						}
+	
+						_company_company_data_central_index_key = _filer_company_data_central_index_key; 
+						_company_company_data_company_conformed_name = _filer_company_data_company_conformed_name; 
+						_company_company_data_standard_industrial_classification =_filer_company_data_standard_industrial_classification;
+						_company_company_data_state_of_incorporation =_filer_company_data_state_of_incorporation;
+						_company_business_address_street_1 = _filer_business_address_street_1;
+						_company_business_address_street_2 = _filer_business_address_street_2;
+						_company_business_address_city = _filer_business_address_city;
+						_company_business_address_state = _filer_business_address_state;
+						_company_business_address_zip = _filer_business_address_zip;
+						_company_business_address_business_phone = _filer_business_address_business_phone;
+	
+					}
+					else {
+						if( m_p_logger ){
+							(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: Sorry, They ain't a match, Moe...not copyin' nuttin' to nuttin'..." << endl;
+						}
+					}
+				}
 				break;
 
 			case STATE_IN_FILER_COMPANY_DATA_DOC:
@@ -167,6 +333,61 @@ namespace JDA {
 
 			case STATE_IN_FILER_MAIL_ADDRESS_DOC:
 				_state = STATE_IN_FILER;
+				break;
+
+			///
+			
+			case STATE_IN_ISSUER:
+				{
+					_state = STATE_WITHOUT;
+					// We've reached the end of an issuer...check to see if its central_index_key matches the top level
+					// _cik...if so, copy its data into the "company" fields...
+					if( m_p_logger ){
+						(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: Looks like the end of an \"issuer\", Moe...let's see if its central_index_key matches the top-level _cik..." << endl;
+					}
+					int i_issuer_central_index_key = JDA::Utils::stringToInt( _issuer_company_data_central_index_key, -1 );	
+					if( m_p_logger ){
+						(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: i_issuer_central_index_key = " << i_issuer_central_index_key << "..." << endl;
+					}
+					if( i_issuer_central_index_key == this->_cik ){
+						if( m_p_logger ){
+							(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: They're a match, Moe...copyin' over to dhe \"_company\" fields..." << endl;
+						}
+	
+						_company_company_data_central_index_key = _issuer_company_data_central_index_key; 
+						_company_company_data_company_conformed_name = _issuer_company_data_company_conformed_name; 
+						_company_company_data_standard_industrial_classification =_issuer_company_data_standard_industrial_classification;
+						_company_company_data_state_of_incorporation =_issuer_company_data_state_of_incorporation;
+						_company_business_address_street_1 = _issuer_business_address_street_1;
+						_company_business_address_street_2 = _issuer_business_address_street_2;
+						_company_business_address_city = _issuer_business_address_city;
+						_company_business_address_state = _issuer_business_address_state;
+						_company_business_address_zip = _issuer_business_address_zip;
+						_company_business_address_business_phone = _issuer_business_address_business_phone;
+	
+					}
+					else {
+						if( m_p_logger ){
+							(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: Sorry, They ain't a match, Moe...not copyin' nuttin' to nuttin'..." << endl;
+						}
+					}
+				}
+				break;
+
+			case STATE_IN_ISSUER_COMPANY_DATA_DOC:
+				_state = STATE_IN_ISSUER;
+				break;
+
+			case STATE_IN_ISSUER_FILING_VALUES_DOC:
+				_state = STATE_IN_ISSUER;
+				break;
+
+			case STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC:
+				_state = STATE_IN_ISSUER;
+				break;
+
+			case STATE_IN_ISSUER_MAIL_ADDRESS_DOC:
+				_state = STATE_IN_ISSUER;
 				break;
 
 		}/* switch(_state) */
@@ -249,6 +470,17 @@ namespace JDA {
 				_state = STATE_IN_FILER_COMPANY_DATA_DOC;
 				break;
 
+			case STATE_IN_FILER_COMPANY_DATA_DOC_STANDARD_INDUSTRIAL_CLASSIFICATION:
+				_filer_company_data_standard_industrial_classification = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _filer_company_data_standard_industrial_classification = s_utf8 = \"" 
+					 << _filer_company_data_standard_industrial_classification << "\"..." << endl;
+				}
+
+				_state = STATE_IN_FILER_COMPANY_DATA_DOC;
+				break;
+
 			case STATE_IN_FILER_COMPANY_DATA_DOC_STATE_OF_INCORPORATION:
 				_filer_company_data_state_of_incorporation = s_utf8;
 
@@ -258,6 +490,184 @@ namespace JDA {
 				}
 
 				_state = STATE_IN_FILER_COMPANY_DATA_DOC;
+				break;
+
+			case STATE_IN_FILER_BUSINESS_ADDRESS_DOC_STREET_1:
+				_filer_business_address_street_1 = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _filer_business_address_street_1 = s_utf8 = \"" 
+					 << _filer_business_address_street_1 << "\"..." << endl;
+				}
+
+				_state = STATE_IN_FILER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_FILER_BUSINESS_ADDRESS_DOC_STREET_2:
+				_filer_business_address_street_2 = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _filer_business_address_street_2 = s_utf8 = \"" 
+					 << _filer_business_address_street_2 << "\"..." << endl;
+				}
+
+				_state = STATE_IN_FILER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_FILER_BUSINESS_ADDRESS_DOC_CITY:
+				_filer_business_address_city = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _filer_business_address_city = s_utf8 = \"" 
+					 << _filer_business_address_city << "\"..." << endl;
+				}
+
+				_state = STATE_IN_FILER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_FILER_BUSINESS_ADDRESS_DOC_STATE:
+				_filer_business_address_state = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _filer_business_address_state = s_utf8 = \"" 
+					 << _filer_business_address_state << "\"..." << endl;
+				}
+
+				_state = STATE_IN_FILER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_FILER_BUSINESS_ADDRESS_DOC_ZIP:
+				_filer_business_address_zip = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _filer_business_address_zip = s_utf8 = \"" 
+					 << _filer_business_address_zip << "\"..." << endl;
+				}
+
+				_state = STATE_IN_FILER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_FILER_BUSINESS_ADDRESS_DOC_BUSINESS_PHONE:
+				_filer_business_address_business_phone = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _filer_business_address_business_phone = s_utf8 = \"" 
+					 << _filer_business_address_business_phone << "\"..." << endl;
+				}
+
+				_state = STATE_IN_FILER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			///////////
+			
+			case STATE_IN_ISSUER_COMPANY_DATA_DOC_CENTRAL_INDEX_KEY:
+				_issuer_company_data_central_index_key = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _issuer_company_data_central_index_key = s_utf8 = \"" 
+					 << _issuer_company_data_central_index_key << "\"..." << endl;
+				}
+
+				_state = STATE_IN_ISSUER_COMPANY_DATA_DOC;
+				break;
+
+			case STATE_IN_ISSUER_COMPANY_DATA_DOC_COMPANY_CONFORMED_NAME:
+				_issuer_company_data_company_conformed_name = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _issuer_company_data_company_conformed_name = s_utf8 = \"" 
+					 << _issuer_company_data_company_conformed_name << "\"..." << endl;
+				}
+
+				_state = STATE_IN_ISSUER_COMPANY_DATA_DOC;
+				break;
+
+			case STATE_IN_ISSUER_COMPANY_DATA_DOC_STANDARD_INDUSTRIAL_CLASSIFICATION:
+				_issuer_company_data_standard_industrial_classification = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _issuer_company_data_standard_industrial_classification = s_utf8 = \"" 
+					 << _issuer_company_data_standard_industrial_classification << "\"..." << endl;
+				}
+
+				_state = STATE_IN_ISSUER_COMPANY_DATA_DOC;
+				break;
+
+			case STATE_IN_ISSUER_COMPANY_DATA_DOC_STATE_OF_INCORPORATION:
+				_issuer_company_data_state_of_incorporation = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _issuer_company_data_state_of_incorporation = s_utf8 = \"" 
+					 << _issuer_company_data_state_of_incorporation << "\"..." << endl;
+				}
+
+				_state = STATE_IN_ISSUER_COMPANY_DATA_DOC;
+				break;
+
+			case STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_STREET_1:
+				_issuer_business_address_street_1 = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _issuer_business_address_street_1 = s_utf8 = \"" 
+					 << _issuer_business_address_street_1 << "\"..." << endl;
+				}
+
+				_state = STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_STREET_2:
+				_issuer_business_address_street_2 = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _issuer_business_address_street_2 = s_utf8 = \"" 
+					 << _issuer_business_address_street_2 << "\"..." << endl;
+				}
+
+				_state = STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_CITY:
+				_issuer_business_address_city = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _issuer_business_address_city = s_utf8 = \"" 
+					 << _issuer_business_address_city << "\"..." << endl;
+				}
+
+				_state = STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_STATE:
+				_issuer_business_address_state = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _issuer_business_address_state = s_utf8 = \"" 
+					 << _issuer_business_address_state << "\"..." << endl;
+				}
+
+				_state = STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_ZIP:
+				_issuer_business_address_zip = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _ISSUER_business_address_zip = s_utf8 = \"" 
+					 << _issuer_business_address_zip << "\"..." << endl;
+				}
+
+				_state = STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_BUSINESS_PHONE:
+				_issuer_business_address_business_phone = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _issuer_business_address_business_phone = s_utf8 = \"" 
+					 << _issuer_business_address_business_phone << "\"..." << endl;
+				}
+
+				_state = STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC;
 				break;
 
 		}/* switch( _state ) */
