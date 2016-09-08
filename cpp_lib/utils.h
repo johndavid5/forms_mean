@@ -34,6 +34,10 @@
 	#include <tchar.h>
 #endif
 
+#ifdef __linux__
+	#include <unistd.h> // e.g., usleep()...
+#endif
+
 #include <limits.h> /* CHAR_BIT */
 
 #include <memory.h>
@@ -2795,6 +2799,24 @@ static string stringVectorToString( vector< string >& vec, const string& name = 
 	return oss_out.str();
 
 }/* stringVectorToString() */
+
+
+/** cross-platform Sleep() method...
+*
+* implementation notes:
+* note that __linux__ usleep() has limit of 1000 seconds 
+* so nano-sleep may be better.
+*
+* @referenc: http://stackoverflow.com/questions/10918206/cross-platform-sleep-function-for-c
+*/
+static void sleep( int sleepMs ){
+	#ifdef __WIN32
+		Sleep( sleepMs );
+	#endif
+	#ifdef __linux__
+		usleep( sleepMs * 1000 );
+	#endif
+}
 
 static long factorial(long n){
 	if( n == 0 ){

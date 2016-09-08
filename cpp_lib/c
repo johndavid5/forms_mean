@@ -1,0 +1,5 @@
+#!/bin/bash
+set -x
+#make build/mongoc 2>&1 | tee c.out
+make 2>&1 | tee c.out
+set +x

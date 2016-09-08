@@ -271,7 +271,7 @@ int ServiceThread(OurParams& our_params)
 		}
 
 		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "main daemon loop: Sleeping for i_download_sleep_time = " << i_download_sleep_time << " second(s)..." << endl;  
-		::Sleep( 1000 * i_download_sleep_time );
+		JDA::Utils::sleep( 1000 * i_download_sleep_time );
 
 		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "main daemon loop: Calling resetLogFilePath()..." << endl;
 		resetLogFilePath( le_logger, configMap["debug_log_file_path"] );

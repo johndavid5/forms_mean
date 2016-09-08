@@ -9,17 +9,18 @@
 # $curl-config --libs
 # CURL_LIBS = -L/usr/local/lib -lcurl
 # CURL_CFLAGS = -I/usr/local/include
+CPP_LIB = ../cpp_lib
 
-CFLAGS = -I/usr/local/include -I./cpp_lib -I/usr/local/include/libbson-1.0 -I/usr/local/include/libmongoc-1.0 
+CFLAGS = -I/usr/local/include -I$(CPP_LIB) -I/usr/local/include/libbson-1.0 -I/usr/local/include/libmongoc-1.0 
 # For shared_ptr, -std=c++0x
-#CFLAGS += -std=c++0x
+CFLAGS += -std=c++0x
 # If you want C++11...
 # http://stackoverflow.com/questions/36816570/glibcxx-3-4-21-not-defined-in-file-libstdc-so-6-with-link-time-reference
 # Need -D_GLIBCXX_USE_CXX11_ABI=0 if you have an older "ABI"...consider
 # simply updgrading ubuntu and it will come with a C++11 g++ installed,
 # perhaps...
 # symbol _xxx_ version GLIBCXX_3.4.21 not defined in file libstdc++. so.6 with link time reference
-CFLAGS += -std=c++11 -D_GLIBCXX_USE_CXX11_ABI=0
+#CFLAGS += -std=c++11 -D_GLIBCXX_USE_CXX11_ABI=0
 LIBS = -L/usr/local/lib -lcurl -L/usr/local/lib -lmongoc-1.0 -lssl -lcrypto -lrt -lbson-1.0
 
 DEBUG=-ggdb
@@ -35,25 +36,15 @@ WARNINGS=-Wall -Wno-reorder
 CC=g++
 #CC=/usr/bin/g++
 
-all: build/ftpget build/mongoc build/forms_mean_daemon
+all: build/sec_forms_daemon
 
-build/forms_mean_daemon: build/forms_mean_daemon.o build/Forms.o build/EdgarForm.o build/FormsMeanUtils.o build/FormsMeanCommon.o build/utils.o build/FtpClient.o build/MongoDbClient.o
-	$(CC) $(DEBUG) $(WARNINGS) $(OPTS) -o build/forms_mean_daemon build/forms_mean_daemon.o build/Forms.o build/EdgarForm.o build/FormsMeanUtils.o build/FormsMeanCommon.o build/utils.o build/FtpClient.o build/MongoDbClient.o $(LIBS) 
+OBJECTS = build/sec_forms_daemon.o build/Forms.o build/EdgarForm.o build/FormsUtils.o build/FormsCommon.o build/BsonFormParseTraverser.o build/utils.o build/FtpClient.o build/MongoDbClient.o build/BsonPrettyPrintTraverser.o build/BsonTraverser.o
 
-build/ftpget: build/ftpget.o build/utils.o build/FtpClient.o
-	$(CC) $(DEBUG) $(WARNINGS) $(OPTS) -o build/ftpget build/ftpget.o build/utils.o build/FtpClient.o $(LIBS) 
+build/sec_forms_daemon: $(OBJECTS)
+	$(CC) $(DEBUG) $(WARNINGS) $(OPTS) -o build/sec_forms_daemon $(OBJECTS) $(LIBS) 
 
-build/mongoc: build/mongoc.o build/utils.o build/MongoDbClient.o
-	$(CC) $(DEBUG) $(WARNINGS) $(OPTS) -o build/mongoc build/mongoc.o build/utils.o build/MongoDbClient.o $(LIBS) 
-
-build/ftpget.o: ftpget.cpp
-	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/ftpget.o ftpget.cpp
-
-build/mongoc.o: mongoc.cpp
-	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/mongoc.o mongoc.cpp
-
-build/forms_mean_daemon.o: forms_mean_daemon.cpp
-	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/forms_mean_daemon.o forms_mean_daemon.cpp
+build/sec_forms_daemon.o: sec_forms_daemon.cpp
+	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/sec_forms_daemon.o sec_forms_daemon.cpp
 
 build/Forms.o: Forms.cpp Forms.h
 	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/Forms.o Forms.cpp
@@ -61,20 +52,29 @@ build/Forms.o: Forms.cpp Forms.h
 build/EdgarForm.o: EdgarForm.cpp EdgarForm.h
 	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/EdgarForm.o EdgarForm.cpp
 
-build/FormsMeanUtils.o: FormsMeanUtils.cpp FormsMeanUtils.h
-	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/FormsMeanUtils.o FormsMeanUtils.cpp
+build/FormsUtils.o: FormsUtils.cpp FormsUtils.h
+	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/FormsUtils.o FormsUtils.cpp
 
-build/FormsMeanCommon.o: FormsMeanCommon.cpp FormsMeanCommon.h
-	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/FormsMeanCommon.o FormsMeanCommon.cpp
+build/FormsCommon.o: FormsCommon.cpp FormsCommon.h
+	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/FormsCommon.o FormsCommon.cpp
 
-build/FtpClient.o: ./cpp_lib/FtpClient.cpp ./cpp_lib/FtpClient.h
-	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/FtpClient.o ./cpp_lib/FtpClient.cpp
+build/BsonFormParseTraverser.o: BsonFormParseTraverser.cpp BsonFormParseTraverser.h
+	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/BsonFormParseTraverser.o BsonFormParseTraverser.cpp
 
-build/MongoDbClient.o: ./cpp_lib/MongoDbClient.cpp ./cpp_lib/MongoDbClient.h
-	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/MongoDbClient.o ./cpp_lib/MongoDbClient.cpp
+build/FtpClient.o: $(CPP_LIB)/FtpClient.cpp $(CPP_LIB)/FtpClient.h
+	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/FtpClient.o $(CPP_LIB)/FtpClient.cpp
 
-build/utils.o: ./cpp_lib/utils.cpp
-	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/utils.o ./cpp_lib/utils.cpp
+build/MongoDbClient.o: $(CPP_LIB)/MongoDbClient.cpp $(CPP_LIB)/MongoDbClient.h
+	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/MongoDbClient.o $(CPP_LIB)/MongoDbClient.cpp
+
+build/BsonTraverser.o: $(CPP_LIB)/BsonTraverser.cpp $(CPP_LIB)/BsonTraverser.h
+	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/BsonTraverser.o $(CPP_LIB)/BsonTraverser.cpp
+
+build/BsonPrettyPrintTraverser.o: $(CPP_LIB)/BsonPrettyPrintTraverser.cpp $(CPP_LIB)/BsonPrettyPrintTraverser.h
+	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/BsonPrettyPrintTraverser.o $(CPP_LIB)/BsonPrettyPrintTraverser.cpp
+
+build/utils.o: $(CPP_LIB)/utils.cpp
+	$(CC) -c $(DEBUG) $(WARNINGS) $(OPTS) $(CFLAGS) -o build/utils.o $(CPP_LIB)/utils.cpp
 
 clean:
-	rm build/*.o build/ftpget build/mongoc build/forms_mean_daemon
+	rm build/*.o build/sec_forms_daemon

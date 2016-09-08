@@ -2,22 +2,28 @@
 set -x
 #./build/ftpget http://cnn.com 2>&1 | tee d.out
 #./build/mongoc find -uri "mongodb://jayne/" -db "test" -collection "grades" -query "{ \"student_id\" : 2 }" 2>&1 | tee d.out
-#./build/forms_mean_daemon --manual-index-process-url "file:///../edgar/daily-index/master.20141031.sample.idx" --no-daemon 2>&1 | tee d.out
+#./build/sec_forms_daemon --manual-index-process-url "file:///../edgar/daily-index/master.20141031.sample.idx" --no-daemon 2>&1 | tee d.out
 #./build/mongoc insert -uri "mongodb://jayne/" -db "test" -collection "grades" -doc "{ \"student_id\" : 0, \"name\": \"Joe Kovacs\" }" 2>&1 | tee d.out
 #./build/mongoc update -uri "mongodb://jayne/" -db "test" -collection "grades" -query "{ \"student_id\" : 0 }" -update "{ \"\$set\": { \"name\": \"Joseph S. Kovacs\" } }"  2>&1 | tee d.out
 #./build/mongoc find -uri "mongodb://jayne/" -db "test" -collection "grades" -query "{ \"student_id\" : 2 }" 2>&1 | tee d.out
 #./build/mongoc find -uri "mongodb://jayne/" -db "test" -collection "grades" -query "{ \"student_id\" : 0 }" 2>&1 | tee d.out
-#./build/forms_mean_daemon --manual-index-process-url "file:///../edgar/daily-index/master.20141031.idx" 2>&1 | tee d.out
-#./build/forms_mean_daemon --manual-index-process-url "ftp://ftp.sec.gov/edgar/daily-index/master.20160616.idx" 2>&1 | tee d.out
-#./build/forms_mean_daemon --manual-index-process-url "file:///../edgar/daily-index/master.20141031.sample.idx" 2>&1 | tee d.out
-#./build/forms_mean_daemon --manual-form-process-url "file:///../edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
-# ./build/forms_mean_daemon --manual-form-process-url "ftp://ftp.sec.gov/edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
+#./build/sec_forms_daemon --manual-index-process-url "file:///../edgar/daily-index/master.20141031.idx" 2>&1 | tee d.out
+#./build/sec_forms_daemon --manual-index-process-url "ftp://ftp.sec.gov/edgar/daily-index/master.20160616.idx" 2>&1 | tee d.out
+#./build/sec_forms_daemon --manual-index-process-url "file:///../edgar/daily-index/master.20141031.sample.idx" 2>&1 | tee d.out
+#./build/sec_forms_daemon --manual-form-process-url "file:///../edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
+# ./build/sec_forms_daemon --manual-form-process-url "ftp://ftp.sec.gov/edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
 # curl "ftp://ftp.sec.gov/edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
 #./build/mongoc find -uri "mongodb://jayne/" -db "forms_mean" -collection "forms" -query "{ \"accession_number\" : \"0001242648-14-000081\" }" 2>&1 | tee d.out
-#./build/forms_mean_daemon --manual-form-process-url "ftp://ftp.sec.gov/edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
+#./build/sec_forms_daemon --manual-form-process-url "ftp://ftp.sec.gov/edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
 #./build/mongoc demo 2>&1 | tee d.out
-#./build/forms_mean_daemon --manual-form-process-url "file:///../edgar/ftp.sec.gov--edgar--data--1066107--POSASR--has-a-gazillion-filers--0001047469-15-001027.txt" 2>&1 | tee d.out
-#./build/forms_mean_daemon --manual-form-process-url "file:///../edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
-#./build/forms_mean_daemon --manual-form-process-url "file:///../edgar/ftp.sec.gov--edgar--data--1000180--SANDISK--issuer--reporting-owner--0001242648-14-000081.txt" 2>&1 | tee d.out
-./build/forms_mean_daemon --manual-load-next-edgar-form 2>&1 | tee d.out
+#./build/sec_forms_daemon --manual-form-process-url "file:///../edgar/ftp.sec.gov--edgar--data--1066107--POSASR--has-a-gazillion-filers--0001047469-15-001027.txt" 2>&1 | tee d.out
+#./build/sec_forms_daemon --manual-form-process-url "file:///../edgar/data/1000180/0001242648-14-000081.txt" 2>&1 | tee d.out
+#./build/sec_forms_daemon --manual-form-process-url "file:///../edgar/ftp.sec.gov--edgar--data--1000180--SANDISK--issuer--reporting-owner--0001242648-14-000081.txt" 2>&1 | tee d.out
+#./build/sec_forms_daemon --manual-load-next-edgar-form 2>&1 | tee d.out
+#./build/sec_forms_daemon --manual-index-process-url "file:///../edgar/ftp.sec.gov--edgar--full-index--2016--QTR1--master.idx" 2>&1 | tee d.out
+#./build/sec_forms_daemon 2>&1 | tee d.out
+# "WESTERN INTERNATIONAL SECURITIES, INC." -- filer matches cik
+# ./build/sec_forms_daemon --manual-denormalize-form-accession-number "9999999997-16-022382" 2>&1 | tee d.out
+# "WATERS CORP /DE/" -- issuer matches cik
+./build/sec_forms_daemon --manual-denormalize-form-accession-number "0001127602-16-035587" 2>&1 | tee d.out
 set +x

@@ -1,0 +1,4 @@
+#!/bin/bash
+set -x
+python BsonFormParseTraverserStateType.py < BsonFormParseTraverser.h 2>&1 | tee p.out
+set +x

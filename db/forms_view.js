@@ -58,7 +58,7 @@ var joe = { name: "Joe" };
 // "limit": 3 
 //});
 
-print( "=== forms attempts exists true ===");
+print( "=== forms attempts exists true : limit 100 ===");
 db.forms.runCommand(
 {
  "find": "forms",

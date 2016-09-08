@@ -4,13 +4,13 @@ git add EdgarForm.h
 git add EdgarForm.cpp
 git add Forms.h
 git add Forms.cpp
-git add FormsMeanCommon.h
-git add FormsMeanCommon.cpp
-git add FormsMeanUtils.h
-git add FormsMeanUtils.cpp
-git add forms_mean_daemon.cpp
-git add ftpget.cpp
-git add mongoc.cpp
+git add FormsCommon.h
+git add FormsCommon.cpp
+git add FormsUtils.h
+git add FormsUtils.cpp
+git add BsonFormParseTraverser.h
+git add BsonFormParseTraverser.cpp
+git add sec_forms_daemon.cpp
 
 git add .gitignore
 git add add_em.bat
@@ -55,12 +55,21 @@ git add test/d
 git add test/m
 git add test/example-client.mak
 
-git add cpp_lib/tests/stooge.h
-git add cpp_lib/MongoDbClient.h
-git add cpp_lib/MongoDbClient.cpp
-git add cpp_lib/tlogger.h
-git add cpp_lib/utils.h
-git add cpp_lib/utils.cpp
+git add ../cpp_lib/tests/stooge.h
+git add ../cpp_lib/MongoDbClient.h
+git add ../cpp_lib/MongoDbClient.cpp
+git add ../cpp_lib/BsonTraverser.h
+git add ../cpp_lib/BsonTraverser.cpp
+git add ../cpp_lib/BsonPrettyPrintTraverser.h
+git add ../cpp_lib/BsonPrettyPrintTraverser.cpp
+git add ../cpp_lib/tlogger.h
+git add ../cpp_lib/utils.h
+git add ../cpp_lib/utils.cpp
+git add ../cpp_lib/ftpget.cpp
+git add ../cpp_lib/mongoc.cpp
+git add ../cpp_lib/Makefile
+git add ../cpp_lib/c
+git add ../cpp_lib/d
 
 git add ../db.js
 
@@ -81,4 +90,7 @@ git add ../lib/jutils.js
 git add ../models/forms_index.js
 git add ../package.json
 git add ../status.bat
+
+git add ../scripts/BsonFormParseTraverserStateType.py
 set +x
+
