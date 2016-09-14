@@ -1,2 +1,2 @@
-REM start gvim sec_forms_daemon.cpp Forms.h Forms.cpp FormsUtils.h FormsUtils.cpp FormsCommon.h FormsCommon.cpp ../cpp_lib/MongoDbClient.h ../cpp_lib/MongoDbClient.cpp BsonFormParseTraverser.h BsonFormParseTraverser.cpp ../cpp_lib/BsonTraverser.h ../cpp_lib/BsonTraverser.cpp test/example-client.cpp mongoc.cpp ..\..\mongodb\libbson\src\bson\bson.c ..\..\mongodb\libbson\src\bson
-start gvim BsonFormParseTraverser.h BsonFormParseTraverser.cpp d.out
+REM start gvim BsonFormParseTraverser.h BsonFormParseTraverser.cpp d.out
+start gvim sec_forms_daemon.cpp Forms.h Forms.cpp FormsUtils.h FormsUtils.cpp FormsCommon.h FormsCommon.cpp ../cpp_lib/MongoDbClient.h ../cpp_lib/MongoDbClient.cpp BsonFormParseTraverser.h BsonFormParseTraverser.cpp ../cpp_lib/BsonTraverser.h ../cpp_lib/BsonTraverser.cpp test/example-client.cpp mongoc.cpp ..\..\mongodb\libbson\src\bson\bson.c ..\..\mongodb\libbson\src\bson

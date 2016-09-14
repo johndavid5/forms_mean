@@ -202,4 +202,18 @@ TEST_F(	UtilsTest, TestOrdSuffix){
 }/* TEST_F(	UtilsTest, TestOrdSuffix) */
 
 
+TEST_F(	UtilsTest, TestStringToInt){ 
+
+	const char* sWho = "UtilsTest::TestStringToInt";
+
+	EXPECT_EQ( 1, JDA::Utils::stringToInt("1", 0 ) );
+	EXPECT_EQ( 1, JDA::Utils::stringToInt("01", 0 ) );
+	EXPECT_EQ( 10, JDA::Utils::stringToInt("010", 0 ) );
+	EXPECT_EQ( -1, JDA::Utils::stringToInt("", -1 ) );
+	EXPECT_EQ( -1, JDA::Utils::stringToInt("x", -1 ) );
+	EXPECT_EQ( -1, JDA::Utils::stringToInt("x5", -1 ) );
+
+}/* TEST_F(	UtilsTest, TestStringToInt ) */
+
+
 }/* namespace { */ 

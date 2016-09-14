@@ -62,8 +62,6 @@ void Forms::DenormalizeFormClientCallback::documentRecieved( const bson_t *p_bso
 
 	const char* sWho = "DenormalizeFormClientCallback::documentRecieved";
 
-	//JDA::MongoDbClient mongoDbClient;
-	//JDA::BsonTraverser bsonTraverser;
 	JDA::BsonPrettyPrintTraverser bsonPrettyPrintTraverser;
 
 	if( m_p_logger ){
@@ -72,112 +70,29 @@ void Forms::DenormalizeFormClientCallback::documentRecieved( const bson_t *p_bso
 		<< bsonPrettyPrintTraverser.bson_as_pretty_json_string( p_bson_doc ) << "\n" << "..." << endl;
 	}
 
-	m_b_success = false;	
-	JDA::BsonFormParseTraverser bsonFormParseTraverser;
-	bsonFormParseTraverser.setPLogger( m_p_logger );
-
 	if( m_p_logger ){
 		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Let's try running it through "
-	 	<< "the BsonFormParseTraverser, Moe..." << endl; 	
+	 	<< "the m_bson_form_parse_traverser, Moe..." << endl; 	
 	}
 
-	JDA::Logger::DebugLevelType prevDebugLevel;
-	if( m_p_logger ){
-		prevDebugLevel = m_p_logger->getDebugLevel();
+	//JDA::Logger::DebugLevelType prevDebugLevel;
+	//if( m_p_logger ){
+		//prevDebugLevel = m_p_logger->getDebugLevel();
 		//m_p_logger->setDebugLevel( JDA::Logger::TRACE );
-		m_p_logger->setDebugLevel( JDA::Logger::DEBUG );
-	}
+		//m_p_logger->setDebugLevel( JDA::Logger::DEBUG );
+	//}
 
-	bsonFormParseTraverser.setPLogger( m_p_logger );
-	bsonFormParseTraverser.parse_it( p_bson_doc );
-
-	if( m_p_logger ){
-		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, after parse_it(), bsonFormParseTraverser =\n" 
-		<< bsonFormParseTraverser << "..." << endl;
-		//"\t" << "bsonFormParseTraverser.getCik() = " << bsonFormParseTraverser.getCik() << ",\n"
-		//"\t" << "getFilerCompanyDataCentralIndexKey() = \"" << getFilerCompanyDataCentralIndexKey() << "\"," 
-		//"\t" << "getFilerCompanyDataCompanyConformedName() = \"" << 
-	}
+	m_bson_form_parse_traverser.parse_it( p_bson_doc );
 
 	if( m_p_logger ){
-		m_p_logger->setDebugLevel( prevDebugLevel );
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, after parse_it(), m_bson_form_parse_traverser =\n" 
+		<< m_bson_form_parse_traverser << "..." << endl;
 	}
-	
-	if( false ){
-		string s_what = "";	
-		bson_iter_t iter;
-		bson_iter_t baz;
-	
-		const char* utf8;
-		uint32_t utf8_len;
-	
-		//const char* sz_subject_company_name;
-		//uint32_t len;
-	
-		s_what = "cursor.firstBatch.0.cik";
-		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Let's try to find i_cik in \"" << s_what << "\"..." << endl;
-		}
-	
-		if( bson_iter_init( &iter, p_bson_doc ) &&
-			bson_iter_find_descendant( &iter, s_what.c_str(), &baz ) )
-		{
-			if( BSON_ITER_HOLDS_INT32(&baz) ){
-				this->m_i_cik = bson_iter_int32( &baz );
-				if( m_p_logger ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got i_cik as int32: " << m_i_cik << "..." << endl;
-				}
-			}
-			else if( BSON_ITER_HOLDS_INT64(&baz) ){
-				this->m_i_cik = bson_iter_int64( &baz );
-				if( m_p_logger ){
-					(*m_p_logger)(JDA::Logger::WARN) << sWho << "(): " << "Got i_cik as int64: " << m_i_cik << "...possible loss of data may have occurred..." << endl;
-				}
-			}
-			else {
-				if( m_p_logger ){
-					(*m_p_logger)(JDA::Logger::WARN) << sWho << "(): " << "Found cik, but it's not an int32 or int64..." << endl;
-				}
-				m_b_success = false;	
-				return;
-			}
-		}
-		else {
-			if( m_p_logger ){
-				(*m_p_logger)(JDA::Logger::WARN) << sWho << "(): " << "Couldn't find the cik." << endl;
-			}
-			m_b_success = false;	
-			return;
-		}
-	
-		s_what = "cursor.firstBatch.0.filers.0.company_data.central_index_key";
-		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Next, let's see if \"" << s_what << "\" (string) matches m_i_cik (int)..." << endl;
-		}
-	
-		if( bson_iter_init( &iter, p_bson_doc ) &&
-			bson_iter_find_descendant( &iter, s_what.c_str(), &baz ) )
-		{
-			if( BSON_ITER_HOLDS_UTF8( &baz ) ){
-				utf8 = bson_iter_utf8( &baz, &utf8_len );
-	
-				if( m_p_logger ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got utf8_len = " << utf8_len << ", utf8 = \"" << utf8 << "\"..." << endl;
-				}
-	
-			}
-			else {
-				if( m_p_logger ){
-					(*m_p_logger)(JDA::Logger::WARN) << sWho << "(): " << "Couldn't find the central_index_key as UTF8..." << endl;
-				}
-			}
-		}
-	
-		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Next, let's try to find m_s_subject_company_name in cursor.firstBatch.0.filers.0.company_data..." << endl;
-		}
-	}/* if(false) */
 
+	//if( m_p_logger ){
+	//	m_p_logger->setDebugLevel( prevDebugLevel );
+	//}
+	
 }/* void Forms::DenormalizeFormClientCallback::documentRecieved( const bson_t *p_bson_doc ) */
 
 /** Used to process lines in an EDGAR index... */
@@ -1224,6 +1139,7 @@ int Forms::denormalizeForm( const string& s_accession_number ){
 
 	string s_collection_name = "forms";
 
+	oss_json_command.str(""); // clear it
 	oss_json_command
 	<< "{\n"
 	<< "  \"find\": \"" << s_collection_name << "\",\n"
@@ -1248,16 +1164,39 @@ int Forms::denormalizeForm( const string& s_accession_number ){
 			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i_ret_code = " << i_ret_code << endl;
 		}
 
-		int i_cik = denormalizeFormClientCallback.getCik();
+
+		oss_json_command.str(""); // clear it
+		oss_json_command
+		<< "{\n"
+		<< "  \"update\": \"" << s_collection_name << "\",\n"
+		<< "  \"updates\": [\n"
+		<< "	{\n"	
+		<< "		\"q\": { \"accession_number\": \"" << s_accession_number << "\" },\n"
+		<< "		\"u\": { \"$set\": {\n"
+		<< "			 \"dn_company_central_index_key\": \"" << denormalizeFormClientCallback.getCompanyCentralIndexKey() << "\",\n"
+		<< "			 \"dn_company_conformed_name\": \"" << denormalizeFormClientCallback.getCompanyConformedName() << "\",\n"
+		<< "			 \"dn_company_standard_industrial_classification\": \"" << denormalizeFormClientCallback.getCompanyStandardIndustrialClassification() << "\",\n"
+		<< "			 \"dn_company_state_of_incorporation\": \"" << denormalizeFormClientCallback.getCompanyStateOfIncorporation() << "\",\n"
+		<< "			 \"dn_company_business_address_street_1\": \"" << denormalizeFormClientCallback.getCompanyBusinessAddressStreet1() << "\",\n"
+		<< "			 \"dn_company_business_address_street_2\": \"" << denormalizeFormClientCallback.getCompanyBusinessAddressStreet2() << "\",\n"
+		<< "			 \"dn_company_business_address_city\": \"" << denormalizeFormClientCallback.getCompanyBusinessAddressCity() << "\",\n"
+		<< "			 \"dn_company_business_address_state\": \"" << denormalizeFormClientCallback.getCompanyBusinessAddressState() << "\",\n"
+		<< "			 \"dn_company_business_address_zip\": \"" << denormalizeFormClientCallback.getCompanyBusinessAddressZip() << "\",\n"
+		<< "			 \"dn_company_business_address_business_phone\": \"" << denormalizeFormClientCallback.getCompanyBusinessAddressBusinessPhone() << "\"\n"
+		<< "			}\n"	
+		<< "		}\n"	
+		<< "	}\n"
+		<< "  ]\n"
+		<< "}";
 
 		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, i_cik = \"" << i_cik << "\"..." << endl;
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoDbClient.command( \"" << this->getDbName() << "\", \"" << s_collection_name << "\", \"" << oss_json_command.str() << "\" )..." << endl;
 		}
 
-		string s_subject_company_name = denormalizeFormClientCallback.getSubjectCompanyName();
+		i_ret_code = mongoDbClient.command( this->getDbName(), s_collection_name, oss_json_command.str(), NULL );
 
 		if( m_p_logger ){
-			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, s_subject_company_name = \"" << s_subject_company_name << "\"..." << endl;
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i_ret_code = " << i_ret_code << endl;
 		}
 
 		return 1;

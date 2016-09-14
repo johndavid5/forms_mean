@@ -35,23 +35,62 @@ class Forms {
 
 			protected:
 				JDA::Logger* m_p_logger;
-				int m_i_cik;
-				string m_s_subject_company_name;
-				bool m_b_success;
+				//int m_i_cik;
+				//string m_s_subject_company_name;
+				// bool m_b_success;
+				JDA::BsonFormParseTraverser m_bson_form_parse_traverser;
 
 			public:
-				DenormalizeFormClientCallback( JDA::Logger* p_logger) : m_p_logger(p_logger), m_s_subject_company_name(""), m_i_cik(0) { }
 
-				string getSubjectCompanyName(){
-					return m_s_subject_company_name;
+				DenormalizeFormClientCallback( JDA::Logger* p_logger) : m_p_logger(p_logger) {
+					m_bson_form_parse_traverser.setPLogger( m_p_logger );
 				}
-
-				int getCik(){
-					return m_i_cik;
-				}
-
 
 				void documentRecieved( const bson_t *p_bson_doc );
+
+		int getCik(){
+			return m_bson_form_parse_traverser.getCik();
+		}
+
+		string getCompanyCentralIndexKey(){
+			return m_bson_form_parse_traverser.getCompanyCentralIndexKey();
+		}
+
+		string getCompanyConformedName(){
+			return m_bson_form_parse_traverser.getCompanyConformedName();
+		}
+
+		string getCompanyStandardIndustrialClassification(){
+			return m_bson_form_parse_traverser.getCompanyStandardIndustrialClassification();
+		}
+
+		string getCompanyStateOfIncorporation(){
+			return m_bson_form_parse_traverser.getCompanyStateOfIncorporation();
+		}
+
+		string getCompanyBusinessAddressStreet1(){
+			return m_bson_form_parse_traverser.getCompanyBusinessAddressStreet1();
+		}
+
+		string getCompanyBusinessAddressStreet2(){
+			return m_bson_form_parse_traverser.getCompanyBusinessAddressStreet2();
+		}
+
+		string getCompanyBusinessAddressCity(){
+			return m_bson_form_parse_traverser.getCompanyBusinessAddressCity();
+		}
+
+		string getCompanyBusinessAddressState(){
+			return m_bson_form_parse_traverser.getCompanyBusinessAddressState();
+		}
+
+		string getCompanyBusinessAddressZip(){
+			return m_bson_form_parse_traverser.getCompanyBusinessAddressZip();
+		}
+
+		string getCompanyBusinessAddressBusinessPhone(){
+			return m_bson_form_parse_traverser.getCompanyBusinessAddressBusinessPhone();
+		}
 
 		}; /* class NextFormClientCallback */
 

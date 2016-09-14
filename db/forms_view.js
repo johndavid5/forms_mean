@@ -58,7 +58,17 @@ var joe = { name: "Joe" };
 // "limit": 3 
 //});
 
-print( "=== forms attempts exists true : limit 100 ===");
+print( "=== forms attempts exists true : \"filter\": { \"accession_number\": \"0001127602-16-035587\" }..." );
+db.forms.runCommand(
+{
+ "find": "forms",
+ "filter": { "accession_number": "0001127602-16-035587" },
+ "sort": { "date_filed" : -1 },
+ //"batchSize": 5,
+ "limit": 5 
+});
+
+print( "=== forms attempts exists true : limit 5 ===");
 db.forms.runCommand(
 {
  "find": "forms",
@@ -66,7 +76,7 @@ db.forms.runCommand(
  //"projection": { "date_filed": 1, "accession_number": 1 },
  "sort": { "date_filed" : -1 },
  //"batchSize": 5,
- "limit": 100 
+ "limit": 5 
 });
 
 //db.forms.find( { form_processing_attempts: { "$exists" : true } } ).sort( { date_filed : -1 } ).limit( 20 ).pretty();

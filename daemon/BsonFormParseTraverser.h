@@ -160,6 +160,53 @@ class BsonFormParseTraverser : public BsonTraverser {
 			}/* switch( stateType ) */
 		}/* stateTypeToString() */
 
+		public:
+
+		int getCik(){
+			return this->_cik;
+		}
+
+		string getCompanyCentralIndexKey(){
+			return this->_company_company_data_central_index_key; 
+		}
+
+		string getCompanyConformedName(){
+			return this->_company_company_data_company_conformed_name;
+		}
+
+		string getCompanyStandardIndustrialClassification(){
+			return this->_company_company_data_standard_industrial_classification;
+		}
+
+		string getCompanyStateOfIncorporation(){
+			return this->_company_company_data_state_of_incorporation;
+		}
+
+		string getCompanyBusinessAddressStreet1(){
+			return this->_company_business_address_street_1;
+		}
+
+		string getCompanyBusinessAddressStreet2(){
+			return this->_company_business_address_street_2;
+		}
+
+		string getCompanyBusinessAddressCity(){
+			return this->_company_business_address_city;
+		}
+
+		string getCompanyBusinessAddressState(){
+			return this->_company_business_address_state;
+		}
+
+		string getCompanyBusinessAddressZip(){
+			return this->_company_business_address_zip;
+		}
+
+		string getCompanyBusinessAddressBusinessPhone(){
+			return this->_company_business_address_business_phone;
+		}
+
+		protected:
 
 		// The Central Index Key or CIK is a 10-digit number (think of it
 		// as a 32-bit integer right-padded with zero's...for example the CIK
@@ -201,21 +248,14 @@ class BsonFormParseTraverser : public BsonTraverser {
 		string _issuer_business_address_zip;
 		string _issuer_business_address_business_phone;
 
+	protected:
 		StateType _state;
 
 	public:
 		int parse_it( const bson_t* p_bson );
 
-		int getCik() const { return _cik; }
-		string getFilerCompanyDataCentralIndexKey() const { return _filer_company_data_central_index_key; }
-		string getFilerCompanyDataCompanyConformedName() const { return _filer_company_data_company_conformed_name; }
-
 		ostream& print(ostream& out) const {
-			out
-			//<< "\t" << "getCik() = " << this->getCik() << ",\n"
-			//<< "\t" << "getFilerCompanyDataCentralIndexKey() = \"" << this->getFilerCompanyDataCentralIndexKey() << "\",\n" 
-			//<< "\t" << "getFilerCompanyDataCompanyConformedName() = \"" << this->getFilerCompanyDataCompanyConformedName() << "\",\n"
-			<< "\t" << "_cik = " << _cik << ".\n"
+			out << "\t" << "_cik = " << _cik << ".\n"
 			<< "\n" 
 			<< "\t" << "_company_company_data_central_index_key = \"" << _company_company_data_central_index_key << "\",\n" 
 			<< "\t" << "_company_company_data_company_conformed_name = \"" << _company_company_data_company_conformed_name << "\",\n" 
