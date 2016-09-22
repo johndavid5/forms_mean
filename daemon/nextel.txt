@@ -1,3 +1,17 @@
+[ ]: Add denormalization right after processing each form...
+[ ]: Resume processing of items from 1Q 2015 index...
+---------------------
+[x] * daemon: denormalize dn_xxx fields at top level of "form" document...
+[ ] * daemon: extra credit: perhaps as we denormalize, we can also standardize the telephone number
+	  such that if it consists of 10 digits with no punctuation, we can insert dashes like this: ddd-ddd-dddd
+      For example, here are the phone's from 
+				"accession_number" : "0001127602-16-035587",
+				"dn_company_business_address_business_phone" : "5084782000",
+
+				"accession_number" : "9999999997-16-022382",
+				"dn_company_business_address_business_phone" : "626-793-7717"
+      wouldn't it be nice if they were standardized with dashes?  Maybe we can do this
+      standardization later after we view phone numbers in the GUI...
 * gui: figure out how to handle multiple entities:
       tree...?
       tree embedded in table cell?

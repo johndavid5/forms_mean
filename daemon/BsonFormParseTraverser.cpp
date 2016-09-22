@@ -34,6 +34,13 @@ namespace JDA {
 				else if( s_key.compare("issuer") == 0 ){
 					_state = STATE_IN_ISSUER;
 				}
+				else if( s_key.compare("filed_by") == 0 ){
+					// Just pretend we're in ISSUER even though we're in FILED_BY...
+					_state = STATE_IN_ISSUER;
+				}
+				else if( s_key.compare("reporting_owner") == 0 ){
+					_state = STATE_IN_REPORTING_OWNER;
+				}
 				break;
 
 
@@ -142,6 +149,73 @@ namespace JDA {
 				}
 				break;
 
+			////
+			
+			case STATE_IN_REPORTING_OWNER:
+				if( s_key.compare("owner_data") == 0 ){
+					_state = STATE_IN_REPORTING_OWNER_OWNER_DATA;
+				}
+				else if( s_key.compare("filing_values") == 0 ){
+					_state = STATE_IN_REPORTING_OWNER_FILING_VALUES;
+				}
+				else if( s_key.compare("business_address") == 0 ){
+					_state = STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS;
+				}
+				else if( s_key.compare("mail_address") == 0 ){
+					_state = STATE_IN_REPORTING_OWNER_MAIL_ADDRESS;
+				}
+				break;
+
+			case STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC:
+				if( s_key.compare("company_conformed_name") == 0 ){ 
+					_state = STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC_COMPANY_CONFORMED_NAME;
+				}
+				else if( s_key.compare("central_index_key") == 0 ){ 
+					_state = STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC_CENTRAL_INDEX_KEY;
+				}
+				break;
+
+			case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC:
+				if( s_key.compare("street_1") == 0 ){ 
+					_state = STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STREET_1;
+				}
+				else if( s_key.compare("street_2") == 0 ){ 
+					_state = STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STREET_2;
+				}
+				else if( s_key.compare("city") == 0 ){ 
+					_state = STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_CITY;
+				}
+				else if( s_key.compare("state") == 0 ){ 
+					_state = STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STATE;
+				}
+				else if( s_key.compare("zip") == 0 ){ 
+					_state = STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_ZIP;
+				}
+				else if( s_key.compare("business_phone") == 0 ){ 
+					_state = STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_BUSINESS_PHONE;
+				}
+				break;
+
+			case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC:
+				if( s_key.compare("street_1") == 0 ){ 
+					_state = STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STREET_1;
+				}
+				else if( s_key.compare("street_2") == 0 ){ 
+					_state = STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STREET_2;
+				}
+				else if( s_key.compare("city") == 0 ){ 
+					_state = STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_CITY;
+				}
+				else if( s_key.compare("state") == 0 ){ 
+					_state = STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STATE;
+				}
+				else if( s_key.compare("zip") == 0 ){ 
+					_state = STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_ZIP;
+				}
+				//else if( s_key.compare("business_phone") == 0 ){ 
+				//	_state = STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_BUSINESS_PHONE;
+				//}
+				break;
 
 		}/* switch(_state) */
 
@@ -201,6 +275,24 @@ namespace JDA {
 
 			case STATE_IN_ISSUER_MAIL_ADDRESS:
 				_state = STATE_IN_ISSUER_MAIL_ADDRESS_DOC;
+				break;
+
+			////
+
+			case STATE_IN_REPORTING_OWNER_OWNER_DATA:
+				_state = STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_FILING_VALUES:
+				_state = STATE_IN_REPORTING_OWNER_FILING_VALUES_DOC;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS:
+				_state = STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS:
+				_state = STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC;
 				break;
 
 		}/* switch(_state) */
@@ -331,6 +423,70 @@ namespace JDA {
 
 			case STATE_IN_ISSUER_MAIL_ADDRESS_DOC:
 				_state = STATE_IN_ISSUER;
+				break;
+
+
+			case STATE_IN_REPORTING_OWNER:
+				{
+					_state = STATE_WITHOUT;
+					// We've reached the end of an REPORTING_OWNER...check to see if its central_index_key matches the top level
+					// _cik...if so, copy its data into the "company" fields...
+					if( m_p_logger ){
+						(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: Looks like the end of an \"REPORTING_OWNER\", Moe...let's see if its central_index_key matches the top-level _cik..." << endl;
+					}
+					int i_reporting_owner_central_index_key = JDA::Utils::stringToInt( _reporting_owner_owner_data_central_index_key, -1 );	
+					if( m_p_logger ){
+						(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: i_reporting_owner_central_index_key = " << i_reporting_owner_central_index_key << "..." << endl;
+					}
+					if( i_reporting_owner_central_index_key == this->_cik ){
+						if( m_p_logger ){
+							(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: They're a match, Moe...copyin' over to dhe \"_company\" fields..." << endl;
+						}
+	
+						_company_company_data_central_index_key = _reporting_owner_owner_data_central_index_key; 
+						_company_company_data_company_conformed_name = _reporting_owner_owner_data_company_conformed_name; 
+						//_owner_owner_data_standard_industrial_classification =_reporting_owner_owner_data_standard_industrial_classification;
+						//_owner_owner_data_state_of_incorporation =_reporting_owner_owner_data_state_of_incorporation;
+						if( _reporting_owner_business_address_street_1.length() > 0 ){
+							_company_business_address_street_1 = _reporting_owner_business_address_street_1;
+							_company_business_address_street_2 = _reporting_owner_business_address_street_2;
+							_company_business_address_city = _reporting_owner_business_address_city;
+							_company_business_address_state = _reporting_owner_business_address_state;
+							_company_business_address_zip = _reporting_owner_business_address_zip;
+							_company_business_address_business_phone = _reporting_owner_business_address_business_phone;
+						}
+						else if( _reporting_owner_mail_address_street_1.length() > 0 ){
+							_company_business_address_street_1 = _reporting_owner_mail_address_street_1;
+							_company_business_address_street_2 = _reporting_owner_mail_address_street_2;
+							_company_business_address_city = _reporting_owner_mail_address_city;
+							_company_business_address_state = _reporting_owner_mail_address_state;
+							_company_business_address_zip = _reporting_owner_mail_address_zip;
+							//_company_business_address_business_phone = _reporting_owner_mail_address_business_phone;
+						}
+	
+					}
+					else {
+						if( m_p_logger ){
+							(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): SHEMP: Sorry, They ain't a match, Moe...not copyin' nuttin' to nuttin'..." << endl;
+						}
+					}
+				}
+				break;
+
+			case STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC:
+				_state = STATE_IN_REPORTING_OWNER;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_FILING_VALUES_DOC:
+				_state = STATE_IN_REPORTING_OWNER;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC:
+				_state = STATE_IN_REPORTING_OWNER;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC:
+				_state = STATE_IN_REPORTING_OWNER;
 				break;
 
 		}/* switch(_state) */
@@ -612,6 +768,152 @@ namespace JDA {
 
 				_state = STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC;
 				break;
+
+			////
+
+			case STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC_CENTRAL_INDEX_KEY:
+				_reporting_owner_owner_data_central_index_key = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _reporting_owner_owner_data_central_index_key = s_utf8 = \"" 
+					 << _reporting_owner_owner_data_central_index_key << "\"..." << endl;
+				}
+
+				_state = STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC_COMPANY_CONFORMED_NAME:
+				_reporting_owner_owner_data_company_conformed_name = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _reporting_owner_owner_data_company_conformed_name = s_utf8 = \"" 
+					 << _reporting_owner_owner_data_company_conformed_name << "\"..." << endl;
+				}
+
+				_state = STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STREET_1:
+				_reporting_owner_business_address_street_1 = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _reporting_owner_business_address_street_1 = s_utf8 = \"" 
+					 << _reporting_owner_business_address_street_1 << "\"..." << endl;
+				}
+
+				_state = STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STREET_2:
+				_reporting_owner_business_address_street_2 = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _reporting_owner_business_address_street_2 = s_utf8 = \"" 
+					 << _reporting_owner_business_address_street_2 << "\"..." << endl;
+				}
+
+				_state = STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_CITY:
+				_reporting_owner_business_address_city = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _reporting_owner_business_address_city = s_utf8 = \"" 
+					 << _reporting_owner_business_address_city << "\"..." << endl;
+				}
+
+				_state = STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STATE:
+				_reporting_owner_business_address_state = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _reporting_owner_business_address_state = s_utf8 = \"" 
+					 << _reporting_owner_business_address_state << "\"..." << endl;
+				}
+
+				_state = STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_ZIP:
+				_reporting_owner_business_address_zip = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _REPORTING_OWNER_business_address_zip = s_utf8 = \"" 
+					 << _reporting_owner_business_address_zip << "\"..." << endl;
+				}
+
+				_state = STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_BUSINESS_PHONE:
+				_reporting_owner_business_address_business_phone = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _reporting_owner_business_address_business_phone = s_utf8 = \"" 
+					 << _reporting_owner_business_address_business_phone << "\"..." << endl;
+				}
+
+				_state = STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC;
+				break;
+			////
+			case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STREET_1:
+				_reporting_owner_mail_address_street_1 = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _reporting_owner_mail_address_street_1 = s_utf8 = \"" 
+					 << _reporting_owner_mail_address_street_1 << "\"..." << endl;
+				}
+
+				_state = STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STREET_2:
+				_reporting_owner_mail_address_street_2 = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _reporting_owner_mail_address_street_2 = s_utf8 = \"" 
+					 << _reporting_owner_mail_address_street_2 << "\"..." << endl;
+				}
+
+				_state = STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_CITY:
+				_reporting_owner_mail_address_city = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _reporting_owner_mail_address_city = s_utf8 = \"" 
+					 << _reporting_owner_mail_address_city << "\"..." << endl;
+				}
+
+				_state = STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STATE:
+				_reporting_owner_mail_address_state = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _reporting_owner_mail_address_state = s_utf8 = \"" 
+					 << _reporting_owner_mail_address_state << "\"..." << endl;
+				}
+
+				_state = STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC;
+				break;
+
+			case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_ZIP:
+				_reporting_owner_mail_address_zip = s_utf8;
+
+				if( m_p_logger ){
+					(*m_p_logger)(JDA::Logger::DEBUG) << sWho << "(): Set _REPORTING_OWNER_mail_address_zip = s_utf8 = \"" 
+					 << _reporting_owner_mail_address_zip << "\"..." << endl;
+				}
+
+				_state = STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC;
+				break;
+
 
 		}/* switch( _state ) */
 

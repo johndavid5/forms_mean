@@ -6,8 +6,8 @@
 namespace JDA {
 
 /** Your mission, Jim, should you decide to accept it, is
-* to traverse the tree, find a filer or issuer whose
-* central_index_key matches the top-level _cik, and
+* to traverse the tree, find a <filer> or <issuer> or <filed_by>
+* whose central_index_key matches the top-level _cik, and
 * copy its information to the top level..."company"...
 */
 class BsonFormParseTraverser : public BsonTraverser {
@@ -67,7 +67,34 @@ class BsonFormParseTraverser : public BsonTraverser {
 								STATE_IN_ISSUER_BUSINESS_ADDRESS_DOC_BUSINESS_PHONE,
 
 						STATE_IN_ISSUER_MAIL_ADDRESS,
-							STATE_IN_ISSUER_MAIL_ADDRESS_DOC
+							STATE_IN_ISSUER_MAIL_ADDRESS_DOC,
+
+			STATE_IN_REPORTING_OWNER,
+					STATE_IN_REPORTING_OWNER_OWNER_DATA,
+						STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC,
+							STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC_COMPANY_CONFORMED_NAME,
+							STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC_CENTRAL_INDEX_KEY,
+
+					STATE_IN_REPORTING_OWNER_FILING_VALUES,
+						STATE_IN_REPORTING_OWNER_FILING_VALUES_DOC,
+
+					STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS,
+						STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC,
+							STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STREET_1,
+							STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STREET_2,
+							STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_CITY,
+							STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STATE,
+							STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_ZIP,
+							STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_BUSINESS_PHONE,
+
+					STATE_IN_REPORTING_OWNER_MAIL_ADDRESS,
+						STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC,
+							STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STREET_1,
+							STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STREET_2,
+							STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_CITY,
+							STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STATE,
+							STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_ZIP,
+							STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_MAIL_PHONE
 
 		}; /* enum StateType */
 
@@ -155,6 +182,52 @@ class BsonFormParseTraverser : public BsonTraverser {
 					return "STATE_IN_ISSUER_MAIL_ADDRESS";
 				case STATE_IN_ISSUER_MAIL_ADDRESS_DOC:
 					return "STATE_IN_ISSUER_MAIL_ADDRESS_DOC";
+				case STATE_IN_REPORTING_OWNER:
+					return "STATE_IN_REPORTING_OWNER";
+				case STATE_IN_REPORTING_OWNER_OWNER_DATA:
+					return "STATE_IN_REPORTING_OWNER_OWNER_DATA";
+				case STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC:
+					return "STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC";
+				case STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC_COMPANY_CONFORMED_NAME:
+					return "STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC_COMPANY_CONFORMED_NAME";
+				case STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC_CENTRAL_INDEX_KEY:
+					return "STATE_IN_REPORTING_OWNER_OWNER_DATA_DOC_CENTRAL_INDEX_KEY";
+				case STATE_IN_REPORTING_OWNER_FILING_VALUES:
+					return "STATE_IN_REPORTING_OWNER_FILING_VALUES";
+				case STATE_IN_REPORTING_OWNER_FILING_VALUES_DOC:
+					return "STATE_IN_REPORTING_OWNER_FILING_VALUES_DOC";
+				case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS:
+					return "STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS";
+				case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC:
+					return "STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC";
+				case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STREET_1:
+					return "STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STREET_1";
+				case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STREET_2:
+					return "STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STREET_2";
+				case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_CITY:
+					return "STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_CITY";
+				case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STATE:
+					return "STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_STATE";
+				case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_ZIP:
+					return "STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_ZIP";
+				case STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_BUSINESS_PHONE:
+					return "STATE_IN_REPORTING_OWNER_BUSINESS_ADDRESS_DOC_BUSINESS_PHONE";
+				case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS:
+					return "STATE_IN_REPORTING_OWNER_MAIL_ADDRESS";
+				case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC:
+					return "STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC";
+				case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STREET_1:
+					return "STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STREET_1";
+				case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STREET_2:
+					return "STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STREET_2";
+				case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_CITY:
+					return "STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_CITY";
+				case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STATE:
+					return "STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_STATE";
+				case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_ZIP:
+					return "STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_ZIP";
+				case STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_MAIL_PHONE:
+					return "STATE_IN_REPORTING_OWNER_MAIL_ADDRESS_DOC_MAIL_PHONE";
 				default:
 					return "???";
 			}/* switch( stateType ) */
@@ -248,6 +321,22 @@ class BsonFormParseTraverser : public BsonTraverser {
 		string _issuer_business_address_zip;
 		string _issuer_business_address_business_phone;
 
+		string _reporting_owner_owner_data_central_index_key;
+		string _reporting_owner_owner_data_company_conformed_name;
+		//string _reporting_owner_owner_data_standard_industrial_classification;
+		//string _reporting_owner_owner_data_state_of_incorporation;
+		string _reporting_owner_business_address_street_1;
+		string _reporting_owner_business_address_street_2;
+		string _reporting_owner_business_address_city;
+		string _reporting_owner_business_address_state;
+		string _reporting_owner_business_address_zip;
+		string _reporting_owner_business_address_business_phone;
+		string _reporting_owner_mail_address_street_1;
+		string _reporting_owner_mail_address_street_2;
+		string _reporting_owner_mail_address_city;
+		string _reporting_owner_mail_address_state;
+		string _reporting_owner_mail_address_zip;
+
 	protected:
 		StateType _state;
 
@@ -282,7 +371,6 @@ class BsonFormParseTraverser : public BsonTraverser {
 			<< "\t" << "_issuer_company_data_central_index_key = \"" << _issuer_company_data_central_index_key << "\",\n" 
 			<< "\t" << "_issuer_company_data_company_conformed_name = \"" << _issuer_company_data_company_conformed_name << "\",\n" 
 			<< "\t" << "_issuer_company_data_standard_industrial_classification = \"" << _issuer_company_data_standard_industrial_classification << "\",\n" 
-			<< "\t" << "_issuer_company_data_company_conformed_name = \"" << _issuer_company_data_company_conformed_name << "\",\n" 
 			<< "\t" << "_issuer_company_data_state_of_incorporation = \"" << _issuer_company_data_state_of_incorporation << "\",\n" 
 			<< "\t" << "_issuer_business_address_street_1 = \"" << _issuer_business_address_street_1 << "\",\n"
 			<< "\t" << "_issuer_business_address_street_2 = \"" << _issuer_business_address_street_2 << "\",\n"
@@ -290,6 +378,23 @@ class BsonFormParseTraverser : public BsonTraverser {
 			<< "\t" << "_issuer_business_address_state = \"" << _issuer_business_address_state << "\",\n"
 			<< "\t" << "_issuer_business_address_zip = \"" << _issuer_business_address_zip << "\",\n"
 			<< "\t" << "_issuer_business_address_business_phone = \"" << _issuer_business_address_business_phone << "\"."
+			<< "\n" 
+			<< "\t" << "_reporting_owner_owner_data_central_index_key = \"" << _reporting_owner_owner_data_central_index_key << "\",\n" 
+			<< "\t" << "_reporting_owner_owner_data_company_conformed_name = \"" << _reporting_owner_owner_data_company_conformed_name << "\",\n" 
+			//<< "\t" << "_reporting_owner_owner_data_standard_industrial_classification = \"" << _reporting_owner_owner_data_standard_industrial_classification << "\",\n" 
+			//<< "\t" << "_reporting_owner_owner_data_state_of_incorporation = \"" << _reporting_owner_owner_data_state_of_incorporation << "\",\n" 
+			<< "\t" << "_reporting_owner_business_address_street_1 = \"" << _reporting_owner_business_address_street_1 << "\",\n"
+			<< "\t" << "_reporting_owner_business_address_street_2 = \"" << _reporting_owner_business_address_street_2 << "\",\n"
+			<< "\t" << "_reporting_owner_business_address_city = \"" << _reporting_owner_business_address_city << "\",\n"
+			<< "\t" << "_reporting_owner_business_address_state = \"" << _reporting_owner_business_address_state << "\",\n"
+			<< "\t" << "_reporting_owner_business_address_zip = \"" << _reporting_owner_business_address_zip << "\",\n"
+			<< "\t" << "_reporting_owner_business_address_business_phone = \"" << _reporting_owner_business_address_business_phone << "\",\n"
+			<< "\t" << "_reporting_owner_mail_address_street_1 = \"" << _reporting_owner_mail_address_street_1 << "\",\n"
+			<< "\t" << "_reporting_owner_mail_address_street_2 = \"" << _reporting_owner_mail_address_street_2 << "\",\n"
+			<< "\t" << "_reporting_owner_mail_address_city = \"" << _reporting_owner_mail_address_city << "\",\n"
+			<< "\t" << "_reporting_owner_mail_address_state = \"" << _reporting_owner_mail_address_state << "\",\n"
+			<< "\t" << "_reporting_owner_mail_address_zip = \"" << _reporting_owner_mail_address_zip << "\"."
+			//<< "\t" << "_reporting_owner_mail_address_business_phone = \"" << _reporting_owner_mail_address_business_phone << "\"."
 			;
 			return out;
 		}

@@ -3,6 +3,7 @@ call git add add_em.bat
 call git add c.bat
 call git add clean.bat
 call git add d.bat
+call git add daemon.bat
 call git add v.bat
 call git add nextel.txt
 call git add status.bat

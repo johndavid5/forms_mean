@@ -500,9 +500,9 @@
 
 			if( p_callback != NULL ){
 				if( m_p_logger ){
-					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "cursor[" << row_number << "]: Callin' p_callback->documentRecieved( p_bson_doc )..." << endl;
+					(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "cursor[" << row_number << "]: Callin' p_callback->documentReceived( p_bson_doc )..." << endl;
 				}
-				p_callback->documentRecieved( p_bson_doc );
+				p_callback->documentReceived( p_bson_doc );
 			}
 
 		}/* while (mongoc_cursor_next (p_cursor, &p_bson_doc)) */

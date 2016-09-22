@@ -27,11 +27,12 @@ class OurParams {
 		string s_manual_form_process_url;
 		bool b_manual_load_next_edgar_form;
 		string s_manual_denormalize_form_accession_number;
+		bool b_manual_denormalize_all_forms;
 		string s_daily_index_backfill_days;
 		string s_load_daily_indexes;
 		string s_load_next_edgar_filing_header;
 
-		OurParams(): b_manual_load_next_edgar_form(false){}
+		OurParams(): b_manual_load_next_edgar_form(false), b_manual_denormalize_all_forms(false) {}
 
 };/* class OurParams */
 
@@ -40,8 +41,9 @@ ostream& operator<<(ostream& s, OurParams& ourParams){
 	s << "s_argv_zero = \"" << ourParams.s_argv_zero << "\"\n" 
 	<< "s_manual_index_process_url = \"" << ourParams.s_manual_index_process_url << "\"\n" 
 	<< "s_manual_form_process_url = \"" <<  ourParams.s_manual_form_process_url << "\"\n"
-	<< "b_manual_load_next_edgar_form = " << boolalpha << ourParams.b_manual_load_next_edgar_form << "\n"
+	<< "b_manual_load_next_edgar_form = " << std::boolalpha << ourParams.b_manual_load_next_edgar_form << "\n"
 	<< "s_manual_denormalize_form_accession_number = \"" << ourParams.s_manual_denormalize_form_accession_number << "\"\n"
+	<< "b_manual_denormalize_all_forms = \"" << std::boolalpha << ourParams.b_manual_denormalize_all_forms << "\"\n"
 	<< "s_daily_index_backfill_days = \"" <<  ourParams.s_daily_index_backfill_days << "\"\n"
 	<< "s_load_daily_indexes = \"" <<  ourParams.s_load_daily_indexes << "\"\n"
 	<< "s_load_next_edgar_filing_header = \"" <<  ourParams.s_load_next_edgar_filing_header << "\"";
@@ -84,7 +86,7 @@ void resetLogFilePath(
 // The name of the service for logging purposes...
 const char *SERVICE_NAME = "sec_forms_daemon";
 
-const char* S_VERSION = "0.01"; 
+const char* S_VERSION = "0.9.1"; 
 
 
 /********** GLOBAL VARIABLES - END ******************/
@@ -226,11 +228,37 @@ int ServiceThread(OurParams& our_params)
 
 		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "our_params.s_manual_denormalize_form_accession_number = \""
 			<< our_params.s_manual_denormalize_form_accession_number << "\":\n" 
-			<< "\t" << "Running forms.loadFromEdgarFormUrl( \"" << our_params.s_manual_denormalize_form_accession_number << "\" ), "
+			<< "\t" << "Running forms.denormalizeForm( \"" << our_params.s_manual_denormalize_form_accession_number << "\" ), "
 			<< "and exiting the daemon..." << endl;
 
 		try {
 			forms.denormalizeForm( our_params.s_manual_denormalize_form_accession_number );
+		}
+		catch(JDA::FtpClient::FtpException& e) {
+			(le_logger)(JDA::Logger::ERROR) << sWho << "(): Caught JDA::FtpClient::FtpException: \"" 
+				<< e.what() << "\"" << endl;
+		}
+		catch(std::exception& e ){
+			(le_logger)(JDA::Logger::ERROR) << sWho << "(): Caught std::exception: \"" 
+				<< e.what() << "\"" << endl;
+		}
+		catch(...){
+			(le_logger)(JDA::Logger::ERROR) << sWho << "(): Caught unknown exception." << endl;
+		}
+
+		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "Exiting daemon now..." << endl;
+
+		return 0;
+
+	}/* else if( our_params.s_manual_index_process_url.length() > 0 ) */
+	else if( our_params.b_manual_denormalize_all_forms ){
+
+		(le_logger)(JDA::Logger::INFO) << sWho << "(): " << "our_params.b_manual_denormalize_all_forms is TRUE...\n" 
+			<< "\t" << "Running forms.denormalizeAllForms(), "
+			<< "and exiting the daemon..." << endl;
+
+		try {
+			forms.denormalizeAllForms( );
 		}
 		catch(JDA::FtpClient::FtpException& e) {
 			(le_logger)(JDA::Logger::ERROR) << sWho << "(): Caught JDA::FtpClient::FtpException: \"" 
@@ -292,6 +320,9 @@ int main(int argc, char** argv)
 	cout << "ourParams.s_argv_zero = \"" << ourParams.s_argv_zero << "\"..." << endl;
 
 	for(int i=1 ; i < argc; i++ ){
+
+		cout << "argv[" << i << "] = \"" << argv[i] << "\"..." << endl;
+
 		if( strcmp( argv[i], "--manual-index-process-url" ) == 0 ){
 			if( i+1 < argc ){
 				cout << "Setting ourParams.s_manual_index_process_url equal to argv[++i]..." << endl;
@@ -307,12 +338,6 @@ int main(int argc, char** argv)
 		else if( strcmp( argv[i], "--manual-load-next-edgar-form" ) == 0 ){
 			cout << "Setting ourParams.b_manual_load_next_edgar_form equal to true..." << endl;
 			ourParams.b_manual_load_next_edgar_form = true;
-		}
-		else if( strcmp( argv[i], "--manual-denormalize-form-accession-number" ) == 0 ){
-			if( i+1 < argc ){
-				cout << "Setting ourParams.s_manual_denormalize_form_accession_number equal to argv[++i]..." << endl;
-				ourParams.s_manual_denormalize_form_accession_number = argv[++i];
-			}
 		}
 		else if( strcmp( argv[i], "--daily-index-backfill-days" ) == 0 ){
 			if( i+1 < argc ){
@@ -331,6 +356,16 @@ int main(int argc, char** argv)
 				cout << "Setting ourParams.s_load_next_edgar_filing_header equal to argv[++i]..." << endl;
 				ourParams.s_load_next_edgar_filing_header = argv[++i];
 			}
+		}
+		else if( strcmp( argv[i], "--manual-denormalize-form-accession-number" ) == 0 ){
+			if( i+1 < argc ){
+				cout << "Setting ourParams.s_manual_denormalize_form_accession_number equal to argv[++i]..." << endl;
+				ourParams.s_manual_denormalize_form_accession_number = argv[++i];
+			}
+		}
+		else if( strcmp( argv[i], "--manual-denormalize-all-forms" ) == 0 ){
+			cout << "Setting ourParams.b_manual_denormalize_all_forms equal to true..." << endl;
+			ourParams.b_manual_denormalize_all_forms = true;
 		}
 	}
 

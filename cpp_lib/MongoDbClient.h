@@ -56,7 +56,7 @@ class MongoDbClient {
 	/* If you'd like to observe bson documents as they are received... */
 	class IMongoDbClientCallback {
 		public:
-			virtual void documentRecieved( const bson_t *p_bson_doc ) = 0; 
+			virtual void documentReceived( const bson_t *p_bson_doc ) = 0; 
 	};
 
 	class Exception : std::exception {

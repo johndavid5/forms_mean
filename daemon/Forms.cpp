@@ -12,9 +12,9 @@
 
 namespace JDA { 
 
-void Forms::NextFormClientCallback::documentRecieved( const bson_t *p_bson_doc ){
+void Forms::NextFormClientCallback::documentReceived( const bson_t *p_bson_doc ){
 
-	const char* sWho = "NextFormClientCallback::documentRecieved";
+	const char* sWho = "NextFormClientCallback::documentReceived";
 
 	//JDA::MongoDbClient mongoDbClient;
 	//JDA::BsonTraverser bsonTraverser;
@@ -51,16 +51,134 @@ void Forms::NextFormClientCallback::documentRecieved( const bson_t *p_bson_doc )
 			}
 	}
 
-}/* void Forms::NextFormClientCallback::documentRecieved( const bson_t *p_bson_doc ) */
+}/* void Forms::NextFormClientCallback::documentReceived( const bson_t *p_bson_doc ) */
+
+
+void Forms::CountClientCallback::documentReceived( const bson_t *p_bson_doc ){
+
+	const char* sWho = "CountgClientCallback::documentReceived";
+
+	JDA::BsonPrettyPrintTraverser bsonPrettyPrintTraverser;
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got a bson document: \n" 
+		"bsonPrettyPrintTraverser.bson_as_pretty_json_string( p_bson_doc ) = \n" 
+		<< bsonPrettyPrintTraverser.bson_as_pretty_json_string( p_bson_doc ) << "\n" << "..." << endl;
+	}
+
+	bson_iter_t iter;
+	bson_iter_t baz;
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Let's try to find the count \"n\", Moe..." << endl;
+	}
+
+	// e.g., bson_doc = 
+	// {
+	//	"waitedMS" : 0,
+	//	"n" : 6808,
+	//	"ok" : 1,
+	//}
+
+	if( bson_iter_init( &iter, p_bson_doc ) &&
+		bson_iter_find_descendant( &iter, "n", &baz ) &&
+		BSON_ITER_HOLDS_INT32(&baz)){
+			m_i_count = bson_iter_int32(&baz);
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got the count as an INT32, Moe:\n" 
+					<< "\t" << "m_i_count = " << m_i_count << "..." << endl;
+			}
+		}
+	else {
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Couldn't find the count, Moe." << endl;
+			}
+	}
+
+}/* void Forms::CountClientCallback::documentReceived( const bson_t *p_bson_doc ) */
+
+
+void Forms::DenormalizeAllFormsClientCallback::documentReceived( const bson_t *p_bson_doc ){
+
+	const char* sWho = "DenormalizeAllFormsClientCallback::documentReceived";
+
+	JDA::BsonPrettyPrintTraverser bsonPrettyPrintTraverser;
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Got a bson document: \n" 
+		"bsonPrettyPrintTraverser.bson_as_pretty_json_string( p_bson_doc ) = \n" 
+		<< bsonPrettyPrintTraverser.bson_as_pretty_json_string( p_bson_doc ) << "\n" << "..." << endl;
+	}
+
+	bson_iter_t iter;
+	bson_iter_t baz;
+	ostringstream oss_path;
+	const char* accession_number;
+	uint32_t len;
+
+	// for example...
+	// {
+	// 
+	// 	"waitedMS" : 0,
+	// 	"cursor" :  {
+	// 
+	// 		"firstBatch" :  [
+	// 
+	// 			"0" :  {
+	// 
+	// 				"_id" : { $oid: "57b7a16a3a23bb255c01c7e6" },
+	// 				"date_filed" : "2016-01-04",
+	// 				"accession_number" : "0000025475-16-000114", },
+	//          }
+	//          ...
+	//       ]
+	//   }
+	// }
+
+	for( int i = 0; i < m_i_batch_size; i++ ){
+
+		oss_path.str(""); // clear it...
+		oss_path << "cursor.firstBatch." << i << ".accession_number";
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i = " << i << ": Moe, let's try to find the " 
+			<< " accession_number at \"" << oss_path.str() << "\" in our BSON doc..." << endl;
+		}
+
+		if( bson_iter_init( &iter, p_bson_doc ) &&
+			bson_iter_find_descendant( &iter, oss_path.str().c_str(), &baz ) &&
+			BSON_ITER_HOLDS_UTF8(&baz)){
+			accession_number = bson_iter_utf8(&baz, &len);
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i = " << i << ": Got the accession_number:\n" 
+					<< "\t" << "\"" << accession_number << "\", Moe, callin' m_p_forms->denormalizeForm( \"" << accession_number << "\" )..." << endl;
+			}
+
+			int i_return_code = m_p_forms->denormalizeForm( accession_number );
+
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i = " << i << ": Moe, from m_p_forms->denormalizeForm():\n" 
+				<< "i_return_code = " << i_return_code << "..." << endl; 
+			}
+		}
+		else {
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i = " << i << ": Sorry, Moe, couldn't find the accession_number..." << endl;
+			}
+		}
+
+	}/* for( int i = 0; i < m_i_batch_size; i++ ) */
+
+}/* void Forms::DenormalizeAllFormsClientCallback::documentReceived( const bson_t *p_bson_doc ) */
 
 /* Get information from filers[] -- probably filers[0] or maybe issuer where
 * filers[].central_index_key or issuer.central_index_key is the same
 * as cik near root of document....and fill into "dn_xxx" fields
 * near root of document.
 */
-void Forms::DenormalizeFormClientCallback::documentRecieved( const bson_t *p_bson_doc ){
+void Forms::DenormalizeFormClientCallback::documentReceived( const bson_t *p_bson_doc ){
 
-	const char* sWho = "DenormalizeFormClientCallback::documentRecieved";
+	const char* sWho = "DenormalizeFormClientCallback::documentReceived";
 
 	JDA::BsonPrettyPrintTraverser bsonPrettyPrintTraverser;
 
@@ -93,7 +211,7 @@ void Forms::DenormalizeFormClientCallback::documentRecieved( const bson_t *p_bso
 	//	m_p_logger->setDebugLevel( prevDebugLevel );
 	//}
 	
-}/* void Forms::DenormalizeFormClientCallback::documentRecieved( const bson_t *p_bson_doc ) */
+}/* void Forms::DenormalizeFormClientCallback::documentReceived( const bson_t *p_bson_doc ) */
 
 /** Used to process lines in an EDGAR index... */
 class MyFtpIndexClientCallback : public JDA::FtpClient::IFtpClientCallback 
@@ -1121,6 +1239,7 @@ int Forms::loadNextEdgarForm( ){
 		return i_ret_code;
 
 	}catch( JDA::MongoDbClient::Exception e ){
+
 		if( m_p_logger ){
 			(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Trouble with mongoDbClient.command: \"" << e.what() << "\", sorry, Moe..." << endl;
 		}
@@ -1130,6 +1249,118 @@ int Forms::loadNextEdgarForm( ){
 
 }/* Forms::loadNextEdgarForm() */
 
+/* limit = 0: no limit, skip = 0: don't skip any documents */
+int Forms::denormalizeAllForms( int i_max_batches ){  
+
+	const char* sWho = "Forms::denormalizeAllForms";
+
+	ostringstream oss_json_command;
+
+	string s_collection_name = "forms";
+
+	oss_json_command.str(""); // Clear it...
+	oss_json_command
+	<< "{\n"
+	<< "  \"count\": \"" << s_collection_name << "\",\n"
+	<< "  \"query\": { \"form_processing_attempts.success\" : { \"$eq\": true }, \"date_filed\": { \"$exists\": true }, \"jor_el\": { \"$exists\": false } }\n"
+	<< "}";
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoDbClient.command( \"" << this->getDbName() << "\", \"" << s_collection_name << "\", \"" << oss_json_command.str() << "\" )..." << endl;
+	}
+
+	int i_ret_code = 0;
+	int i_count = -1;
+
+	// NOTE: This call may toss a JDA::MongoDbClient::Exception
+	try {
+		JDA::Forms::CountClientCallback countClientCallback( m_p_logger );
+
+		i_ret_code = mongoDbClient.command( this->getDbName(), s_collection_name, oss_json_command.str(), &countClientCallback );
+
+		i_count = countClientCallback.getCount();
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i_ret_code = " << i_ret_code << endl;
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i_count = " << i_count << endl;
+		}
+
+	}catch( JDA::MongoDbClient::Exception e ){
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Trouble with mongoDbClient.command: \"" << e.what() << "\", sorry, Moe..." << endl;
+		}
+
+		return 0;
+	}
+
+	int i_limit = 10; // Size of each "batch"...
+	int i_num_batches = (i_count / i_limit) + 1;
+	int i_skip = 0;
+
+	JDA::Forms::DenormalizeAllFormsClientCallback denormalizeAllFormsClientCallback( m_p_logger, this, i_limit );
+
+	if( m_p_logger ){
+		(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: Moe, loopin' through 'em all with a batch size i_limit = " << i_limit << ", i_num_batches = " << i_num_batches << ", i_max_batches = " << i_max_batches << "..." << endl;
+	}
+	
+	for( int i_batch_num = 1; i_batch_num <= i_num_batches; i_batch_num++ ){
+
+		i_skip = (i_batch_num - 1) * 10;		
+
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "i_batch_num = " << i_batch_num << ", i_skip = " << i_skip << "..." << endl;
+		}
+
+		if( i_max_batches > 0 && i_batch_num > i_max_batches ){
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Moe, looks like i_batch_num = " << i_batch_num << " is greater than i_max_batches = " << i_max_batches << ", so exiting the loop..." << endl;
+			}
+			break;
+		}
+
+		oss_json_command.str(""); // Clear it...
+		oss_json_command
+		<< "{\n"
+		<< "  \"find\": \"" << s_collection_name << "\",\n"
+		<< "  \"filter\": { \"form_processing_attempts.success\" : { \"$eq\": true }, \"date_filed\": { \"$exists\": true }, \"jor_el\": { \"$exists\": false } },\n"
+		<< " \"projection\": { \"date_filed\": 1, \"accession_number\": 1 },\n"
+		//<< " \"sort\": { \"date_filed\" : -1 },\n" 
+		<< " \"sort\": { \"date_filed\" : 1, \"accession_number\": 1 },\n" 
+		<< " \"limit\": " << i_limit << ",\n" 
+		<< " \"skip\": " << i_skip << "\n" 
+		//<< " \"batchSize\": " << 1 << "\n" 
+		<< "}";
+	
+		if( m_p_logger ){
+			(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "Calling mongoDbClient.command( \"" << this->getDbName() << "\", \"" << s_collection_name << "\", \"" << oss_json_command.str() << "\" )..." << endl;
+		}
+	
+		i_ret_code = 0;
+	
+		// NOTE: This call may toss a JDA::MongoDbClient::Exception
+		try {
+	
+			i_ret_code = mongoDbClient.command( this->getDbName(), s_collection_name, oss_json_command.str(), &denormalizeAllFormsClientCallback );
+	
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::INFO) << sWho << "(): " << "SHEMP: i_ret_code = " << i_ret_code << endl;
+			}
+	
+		}catch( JDA::MongoDbClient::Exception e ){
+	
+			if( m_p_logger ){
+				(*m_p_logger)(JDA::Logger::ERROR) << sWho << "(): " << "SHEMP: Trouble with mongoDbClient.command: \"" << e.what() << "\", sorry, Moe...exitin' the loop..." << endl;
+			}
+	
+			return 0;
+		}
+
+	}/* for( int i_batch_num = 1; i_batch_num <= i_num_batches; i_batch_num++ ) */
+
+	return 1;
+
+}/* Forms::denormalizeAllForms() */
 
 int Forms::denormalizeForm( const string& s_accession_number ){  
 
@@ -1168,17 +1399,19 @@ int Forms::denormalizeForm( const string& s_accession_number ){
 		oss_json_command.str(""); // clear it
 		oss_json_command
 		<< "{\n"
-		<< "  \"update\": \"" << s_collection_name << "\",\n"
-		<< "  \"updates\": [\n"
+		<< " \"update\": \"" << s_collection_name << "\",\n"
+		<< " \"updates\":\n" 
+		<< " [\n"
 		<< "	{\n"	
 		<< "		\"q\": { \"accession_number\": \"" << s_accession_number << "\" },\n"
 		<< "		\"u\": { \"$set\": {\n"
+		<< "			 \"dn_denormalized\": true,\n"
 		<< "			 \"dn_company_central_index_key\": \"" << denormalizeFormClientCallback.getCompanyCentralIndexKey() << "\",\n"
-		<< "			 \"dn_company_conformed_name\": \"" << denormalizeFormClientCallback.getCompanyConformedName() << "\",\n"
+		<< "			 \"dn_company_conformed_name\": \"" << FormsUtils::double_quote_escape( denormalizeFormClientCallback.getCompanyConformedName() ) << "\",\n"
 		<< "			 \"dn_company_standard_industrial_classification\": \"" << denormalizeFormClientCallback.getCompanyStandardIndustrialClassification() << "\",\n"
 		<< "			 \"dn_company_state_of_incorporation\": \"" << denormalizeFormClientCallback.getCompanyStateOfIncorporation() << "\",\n"
-		<< "			 \"dn_company_business_address_street_1\": \"" << denormalizeFormClientCallback.getCompanyBusinessAddressStreet1() << "\",\n"
-		<< "			 \"dn_company_business_address_street_2\": \"" << denormalizeFormClientCallback.getCompanyBusinessAddressStreet2() << "\",\n"
+		<< "			 \"dn_company_business_address_street_1\": \"" << FormsUtils::double_quote_escape( denormalizeFormClientCallback.getCompanyBusinessAddressStreet1() ) << "\",\n"
+		<< "			 \"dn_company_business_address_street_2\": \"" << FormsUtils::double_quote_escape( denormalizeFormClientCallback.getCompanyBusinessAddressStreet2() ) << "\",\n"
 		<< "			 \"dn_company_business_address_city\": \"" << denormalizeFormClientCallback.getCompanyBusinessAddressCity() << "\",\n"
 		<< "			 \"dn_company_business_address_state\": \"" << denormalizeFormClientCallback.getCompanyBusinessAddressState() << "\",\n"
 		<< "			 \"dn_company_business_address_zip\": \"" << denormalizeFormClientCallback.getCompanyBusinessAddressZip() << "\",\n"

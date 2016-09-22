@@ -13,7 +13,9 @@ namespace JDA {
 class Forms {
 
 	protected:
-		class NextFormClientCallback : public MongoDbClient::IMongoDbClientCallback { 
+
+		class NextFormClientCallback : public MongoDbClient::IMongoDbClientCallback
+		{ 
 			protected:
 				JDA::Logger* m_p_logger;
 				string s_file_name;
@@ -25,13 +27,45 @@ class Forms {
 					return s_file_name;
 				}
 
-				void documentRecieved( const bson_t *p_bson_doc );
+				void documentReceived( const bson_t *p_bson_doc );
 
 
 		}; /* class NextFormClientCallback */
 
+		class CountClientCallback: public MongoDbClient::IMongoDbClientCallback
+		{ 
+			protected:
+				JDA::Logger* m_p_logger;
+				int m_i_count;
+
+			public:
+				CountClientCallback( JDA::Logger* p_logger ) : m_p_logger(p_logger), m_i_count(-1){ }
+
+				int getCount(){
+					return m_i_count;
+				}
+
+				void documentReceived( const bson_t *p_bson_doc );
+
+		}; /* class CountClientCallback */
+
+		class DenormalizeAllFormsClientCallback: public MongoDbClient::IMongoDbClientCallback
+		{ 
+			protected:
+				JDA::Logger* m_p_logger;
+				JDA::Forms* m_p_forms; // So you can call denormalizeForm( accession_number )... 
+				int m_i_batch_size;
+
+			public:
+				DenormalizeAllFormsClientCallback( JDA::Logger* p_logger, JDA::Forms* p_forms, int i_batch_size ) : m_p_logger(p_logger), m_p_forms(p_forms), m_i_batch_size(i_batch_size) { }
+
+				void documentReceived( const bson_t *p_bson_doc );
+
+		}; /* class DenormalizeAllFormsClientCallback */
+
 		/* Attempt to grab out the cik, subject_company_name, etc... */
-		class DenormalizeFormClientCallback : public MongoDbClient::IMongoDbClientCallback { 
+		class DenormalizeFormClientCallback : public MongoDbClient::IMongoDbClientCallback
+		{ 
 
 			protected:
 				JDA::Logger* m_p_logger;
@@ -46,53 +80,53 @@ class Forms {
 					m_bson_form_parse_traverser.setPLogger( m_p_logger );
 				}
 
-				void documentRecieved( const bson_t *p_bson_doc );
+				void documentReceived( const bson_t *p_bson_doc );
 
-		int getCik(){
-			return m_bson_form_parse_traverser.getCik();
-		}
+			int getCik(){
+				return m_bson_form_parse_traverser.getCik();
+			}
+	
+			string getCompanyCentralIndexKey(){
+				return m_bson_form_parse_traverser.getCompanyCentralIndexKey();
+			}
+	
+			string getCompanyConformedName(){
+				return m_bson_form_parse_traverser.getCompanyConformedName();
+			}
+	
+			string getCompanyStandardIndustrialClassification(){
+				return m_bson_form_parse_traverser.getCompanyStandardIndustrialClassification();
+			}
+	
+			string getCompanyStateOfIncorporation(){
+				return m_bson_form_parse_traverser.getCompanyStateOfIncorporation();
+			}
+	
+			string getCompanyBusinessAddressStreet1(){
+				return m_bson_form_parse_traverser.getCompanyBusinessAddressStreet1();
+			}
+	
+			string getCompanyBusinessAddressStreet2(){
+				return m_bson_form_parse_traverser.getCompanyBusinessAddressStreet2();
+			}
+	
+			string getCompanyBusinessAddressCity(){
+				return m_bson_form_parse_traverser.getCompanyBusinessAddressCity();
+			}
+	
+			string getCompanyBusinessAddressState(){
+				return m_bson_form_parse_traverser.getCompanyBusinessAddressState();
+			}
+	
+			string getCompanyBusinessAddressZip(){
+				return m_bson_form_parse_traverser.getCompanyBusinessAddressZip();
+			}
+	
+			string getCompanyBusinessAddressBusinessPhone(){
+				return m_bson_form_parse_traverser.getCompanyBusinessAddressBusinessPhone();
+			}
 
-		string getCompanyCentralIndexKey(){
-			return m_bson_form_parse_traverser.getCompanyCentralIndexKey();
-		}
-
-		string getCompanyConformedName(){
-			return m_bson_form_parse_traverser.getCompanyConformedName();
-		}
-
-		string getCompanyStandardIndustrialClassification(){
-			return m_bson_form_parse_traverser.getCompanyStandardIndustrialClassification();
-		}
-
-		string getCompanyStateOfIncorporation(){
-			return m_bson_form_parse_traverser.getCompanyStateOfIncorporation();
-		}
-
-		string getCompanyBusinessAddressStreet1(){
-			return m_bson_form_parse_traverser.getCompanyBusinessAddressStreet1();
-		}
-
-		string getCompanyBusinessAddressStreet2(){
-			return m_bson_form_parse_traverser.getCompanyBusinessAddressStreet2();
-		}
-
-		string getCompanyBusinessAddressCity(){
-			return m_bson_form_parse_traverser.getCompanyBusinessAddressCity();
-		}
-
-		string getCompanyBusinessAddressState(){
-			return m_bson_form_parse_traverser.getCompanyBusinessAddressState();
-		}
-
-		string getCompanyBusinessAddressZip(){
-			return m_bson_form_parse_traverser.getCompanyBusinessAddressZip();
-		}
-
-		string getCompanyBusinessAddressBusinessPhone(){
-			return m_bson_form_parse_traverser.getCompanyBusinessAddressBusinessPhone();
-		}
-
-		}; /* class NextFormClientCallback */
+		}; /* class DenormalizeFormClientCallback */
 
 		JDA::Logger* m_p_logger;
 
@@ -172,10 +206,16 @@ class Forms {
 		/**
 		* Looks in forms collection for a form that has only its bare-bones
 		* "index" information, determined at the moment by...
-		*     { form_processing_attempts: { "$exists" : false }
+		*      form_processing_attempts: { "$exists" : false }
 		* ...and, if found, calls loadFromEdgarFormUrl().
 		*/
 		int loadNextEdgarForm(); 
+
+		/* Calls denormalizeForm() on all forms in MongoDB.
+		* @arg i_max_batches -- optional -- set to 0 for batching
+		* through all of them.
+		*/
+		int denormalizeAllForms( int i_max_batches = 0 );
 
 		/* Perform denormalization of form doc on MongoDb... */
 		int denormalizeForm( const string& s_accession_number );  

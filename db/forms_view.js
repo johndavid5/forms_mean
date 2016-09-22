@@ -58,11 +58,11 @@ var joe = { name: "Joe" };
 // "limit": 3 
 //});
 
-print( "=== forms attempts exists true : \"filter\": { \"accession_number\": \"0001127602-16-035587\" }..." );
+print( "=== forms attempts exists true : \"filter\": { \"accession_number\": { $in : [ \"0001127602-16-035587\", \"9999999997-16-022382\" ] } }..." );
 db.forms.runCommand(
 {
  "find": "forms",
- "filter": { "accession_number": "0001127602-16-035587" },
+ "filter": { "accession_number": { $in : [ "0001127602-16-035587", "9999999997-16-022382" ] } },
  "sort": { "date_filed" : -1 },
  //"batchSize": 5,
  "limit": 5 
