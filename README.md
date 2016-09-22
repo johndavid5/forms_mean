@@ -5,3 +5,6 @@ First the C++ sec_forms_daemon downloads form header information from ftp://ftp.
 loads it into MongoDB via the curllib and mongoc and libbson libraries.
 
 Next we create a searchable user interface in C++ using the Qt cross-platform toolkit.
+This happens in the ./gui folder.
+
+Next -- or perhaps before the C++ GUI is completed -- we'll create a web interface to our form data.
