@@ -1,10 +1,11 @@
 # sec_forms
 Download, load into MongoDB, and display financial forms info from SEC's EDGAR repository.
 
-First the C++ sec_forms_daemon downloads form header information from ftp://ftp.sec.gov/edgar and
-loads it into MongoDB via the curllib and mongoc and libbson libraries.
+* ./daemon folder: The C++ sec_forms_daemon -- see the ./daemon folder -- downloads form header information
+  from ftp://ftp.sec.gov/edgar and loads it into MongoDB via the curllib and mongoc and libbson libraries.
 
-Next we create a searchable user interface in C++ using the Qt cross-platform toolkit.
-This happens in the ./gui folder.
+* ./mean folder: The MEAN stack (MongoDB, Express.js, Angular.js, Node.js) web interface 
+  to the sec_forms...search filters, sorting, paginating, CSV-download, all that good
+  stuff, plus a forms-details page for starters...
 
-Next -- or perhaps before the C++ GUI is completed -- we'll create a web interface to our form data.
+* ./gui folder: If time permits, a desktop GUI interface built in C++ using the Qt cross-platform toolkit. 
