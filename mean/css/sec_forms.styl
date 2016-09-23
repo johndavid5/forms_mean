@@ -1,0 +1,251 @@
+/* For layout debugging only... */
+/*
+div {
+	border: 1px solid purple;
+}
+ul {
+	border: 1px solid green;
+}
+li {
+	border: 1px solid red;
+}
+h1, h2, h3 {
+  color: purple;
+}
+*/
+
+/* When we get a chance, use stylus for your
+* own custom color names...
+*/
+
+/* http://stackoverflow.com/questions/11320615/disable-native-datepicker-in-google-chrome 
+* Actually, it looks like we're using input type = "text" and the angular-bootstrap date picker... 
+* chrome: hide the input type = "date" arrows
+*/
+/*
+input::-webkit-calendar-picker-indicator{
+    display: none;
+}
+*/
+
+/* To use for messages such as "No Associated (Filings|Entities|People|Companies) Found" */
+.none-found {
+	color: purple;
+	font-weight: lighter;
+}
+
+/* To get ui.bootstrap to play nice with angular... */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+/* A ui.bootstrap datepicker twerk... */
+.full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+}
+
+/* Another ui.bootstrap datepicker twerk... */
+.partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+}
+
+
+.pagination li.pending a {
+    /* background: #000; */
+    /* color: #fff; */
+	color: white;
+	background-color: LimeGreen;
+	border-color: LimeGreen;
+}
+
+.vf-left-progress {
+	/* color: rgb(51,122,183); *//* progress-blue */
+	/* background-color: rgb(51,122,183);*/ /* progress-blue */
+	color: LimeGreen;
+	background-color: LimeGreen;
+	padding: 0px;
+	width: 0%;
+	height: 100%;
+}
+
+.vf-right-progress {
+	color: rgb(230,230,230); /* progress-light-gray */
+	background-color: rgb(230,230,230); /* progress-light-gray */
+	padding: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+
+/* chrome: hide the input type = "date" prompt */
+/*
+input[type="date"]::-webkit-input-placeholder{ 
+    visibility: hidden !important;
+}
+*/
+
+
+/* This is so that the angular ng-cloak directive can hide stuff
+* until the data is available...
+*/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+/* START-animate-show-hide is used with ng-animate... */
+/*
+.animate-show-hide {
+  padding:10px;
+  border:1px solid black;
+  background:white;
+}
+*/
+
+.waldo-sm {
+	font-size: 80%;
+}
+
+
+.animate-show-hide {
+  -webkit-transition:all linear 0.25s;
+  transition:all linear 0.25s;
+}
+
+.animate-show-hide.ng-hide {
+  opacity:0;
+}
+/* END-animate-show-hide is used with ng-animate... */
+
+a.delete_button {
+	border-radius: 5px;
+	padding: 2px;
+}
+
+a.delete_button:hover {
+	background-color: silver;
+}
+
+p.json-display {
+	font-size: 125% !important;	
+	/* font-family: "comic sans ms" !important; */
+	font-family: "courier" !important;
+	color: black !important;
+	/* border: 2px solid purple; */
+}
+
+li.j_small {
+	width: 30px;
+	height: 30px;
+	font-size: 12pt;
+}
+
+td, th {
+	padding: 2px;
+}
+
+h1, h2, h3 {
+	text-align: center;
+}
+
+/* Use to greenie up sort-by link until sort has occurred... */
+a.pending {
+	color: #00FF00 !important;
+}
+
+/* Change the striping background-color for .table-striped 
+* http://stackoverflow.com/questions/20825211/bootstrap-table-striped-how-do-i-change-the-strip-background-colour
+*/
+
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+	background-color: #EAF2D3; /* muted green - w3schools-green-stripe */
+}
+
+/* BEGIN -- @import "dev/*" */
+@import "dev/*"
+/* END -- @import "dev/*" */
+
+/* background-color: #F1F1F1; *//* muted grey - w3school regular gray striping color */
+/* background-color: #97D700; */ /* light-green */
+/* background-color: #FFDBF4; */ /* pastel-violet */
+/* background-color: #DBFFFA; /* pastel-sky-blue */
+/* background-color: rgb(241,241,241); *//* w3school regular gray striping color */
+/* background-color: #eaf2d3; *//* w3schools-green-stripe */
+/* background-color: #FFDBF4; */ /* extremely light purple */
+
+
+/* Set hover-color for .table-hover 
+* http://stackoverflow.com/questions/15643037/how-do-i-change-the-hover-over-color-for-a-hover-over-table-in-bootstrap
+*/
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+	/* background-color: #DBFFFA; *//* pastel-sky-blue */ 
+	/* background-color: #FFDBF4; */ /* pastel-violet */
+	background-color: #DAC0DE; /* pastel-purple */
+}
+
+
+/* Make sure the <thead> for the stickyHeader plugin is not transparent... 
+* Also set the background-color for the <thead>...
+* http://stackoverflow.com/questions/21168521/scrollable-table-with-fixed-header-in-bootstrap
+*/
+table#stickyHeader thead, table#shtickyHeader thead {
+	border-top: none;
+	border-bottom: none;
+	/* background-color: rgb(8,115,57); *//* vintage green header */ 
+	/* background-color:#A742A7; *//* lydia-th-background-purple */
+	/* background-color: #DAC0DE; *//* pastel-purple */
+	background-color: #C1BCDD; /* pastel-blue-violet */
+	color: white;
+}
+
+table.waldo, th.waldo, td.waldo {
+   /* border: 1px solid rgb(16,132,66) !important; *//* vintage-green-border */
+   border: 1px solid #BF21BF !important; /* lydia-purple-border */
+} 
+
+th.waldo {
+	font-family: serif;
+	text-align: center !important;
+	color: white;
+}
+
+i.glyphicon-sort {
+	margin-left: 5px;
+}
+
+/* Modify the bootstrap "selected" navbar's background color
+* and foreground color.
+*/
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+	/* color: #fff; */
+	color: #000000; 
+	/* background-color: #080808; */
+	/*	background-color: #FFFFFF; */
+	background-color: #9D9D9D;
+}
+
+/* Stylus test... */
+/* pastel-purple =  #DAC0DE */
+
+/* font-size = 14px */
+
+/* body.lydia
+	font font-size Arial, sans-serif
+*/
+
+/*
+p.lydia {
+	color: pastel-purple;
+}
+*/
+
+
+/* Let off some stylus, Bennett! */
+/* Let off some CSS, Bennett! */
+/* Let off some steam, Bennett! */
+

@@ -1,0 +1,18 @@
+<button ng-show="ctrl.asc_desc == 'asc'"
+ type="button" class="btn btn-default"
+ title="{{'Sort by ' + ctrl.by_what + ' Ascending'}}"
+ aria-label="{{'Sort by ' + ctrl.by_what + ' Ascending'}}"
+>
+	<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+</button>
+<button ng-show="ctrl.asc_desc == 'desc'"
+ type="button" class="btn btn-default"
+ title="{{'Sort by ' + ctrl.by_what + ' Descending'}}"
+ aria-label="{{'Sort by ' + ctrl.by_what + ' Descending'}}"
+>
+	<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+</button>
+<pre>
+ctrl.by_what ="{{ctrl.by_what}}"<br />
+ctrl.asc_desc = "{{ctrl.asc_desc}}"
+</pre>

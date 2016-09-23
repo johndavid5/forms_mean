@@ -1,0 +1,12 @@
+*~
+*.out
+*.obj
+*.swp
+.*.swp
+node_modules/
+assets/bower
+assets/app.js
+assets/waldo.styl.css
+Thumbs.db
+versions/
+archive/

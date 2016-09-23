@@ -1,0 +1,21 @@
+<div ng-show="1==0">
+<p>bar-lev</p>
+</div>
+<table ng-cloak ng-show="ctrl.progress_bar_active"
+	style="position: relative; top: 27px; width: 75px; height: 20px; color: transparent; background-color: transparent;">
+	<tr style="">
+		<td class="vf-left-progress" ng-style="{width: ctrl.left_progress_percent}"></td>
+		<td class="vf-right-progress" ng-style="{width: ctrl.right_progress_percent}"></td>
+	</tr>
+</table>
+<div ng-show="1==0">
+<pre>ctrl.progress={{ctrl.progress}}</pre>
+<pre>ctrl.left_progress_percent={{ctrl.left_progress_percent}}</pre>
+<pre>ctrl.right_progress_percent={{ctrl.right_progress_percent}}</pre>
+</div>
+<div ng-cloak ng-show="1==0"><!-- progress bar testing panel -->
+	<a ng-click="start_progress_bar()">start</a>
+	<a ng-click="start_progress_bar(true)">start&nbsp;manual</a>
+	<a ng-click="advance_progress_bar()">advance</a> 
+	<a ng-click="stop_progress_bar()">stop</a>
+</div>

@@ -1,0 +1,11 @@
+/*
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+	background-color: #F1F1F1; 
+}
+*/
+/* muted grey - w3school regular gray striping color */
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+  background-color: #ffdbf4; /* pastel-violet */
+}

@@ -1,0 +1,500 @@
+<div class='container'>
+
+<h2>Form Details</h2>
+<h3 ng-cloak>{{form.accession_number}}</h3>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+
+		<form class="form-horizontal">
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Accession Number:</label>
+				<div ng-cloak class="col-sm-2">
+					<p class="form-control-static">{{form.accession_number}}</p>
+			    </div>
+
+			    <label class="col-sm-2 control-label">Form Type:</label>
+			    <div ng-cloak class="col-sm-2">
+					<p class="form-control-static" style="">{{form.form_type}}</p>
+			    </div>
+
+			    <label class="col-sm-2 control-label">Date Filed:</label>
+			    <div ng-cloak class="col-sm-2">
+					<p class="form-control-static">{{form.date_filed | date:'yyyy-MM-dd'}}</p>
+			    </div>
+			</div><!-- "form-group" -->
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label">
+					<a ng-href="{{edgarFileNameToEdgarSecFilingPageUrl(form.file_name)}}" title="View Filing at SEC" target="_blank">SEC Link</a>:
+				</label>
+				<div ng-cloak class="col-sm-2">
+					<a ng-href="{{edgarFileNameToEdgarSecFilingPageUrl(form.file_name)}}" title="View Filing at SEC" target="_blank"><img src="/images/www.sec.gov-favicon.gif" style="padding-left: 0px; position: relative; top: 5px;"></a>
+				</div>
+
+				<label class="col-sm-2 control-label">Company:</label>
+				<div ng-cloak class="col-sm-2">
+					<p class="form-control-static">{{form.dn_company_conformed_name}}</p>
+				</div>
+
+				<label class="col-sm-2 control-label">Company CIK:</label>
+				<div ng-cloak class="col-sm-2">
+					<p class="form-control-static">{{form.dn_company_central_index_key}}</p>
+				</div>
+			</div><!-- form-group -->
+
+		</form> <!-- class="form-horizontal" -->
+
+	</div> <!-- class="panel-body" -->
+</div> <!-- class="panel panel-default" -->
+
+<!-- filers -->
+<div class="row" ng-show="form.filers.length > 0">
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4" style="align: center;">
+		<h2 style="white-space: nowrap;">Filers<span ng-show="form.filers.length > 0"> ({{form.filers.length | number}})</h2>
+	</div>
+	<div class="col-sm-4" style=""></div>
+</div>
+
+
+<div class="panel panel-default" ng-show="form.filers.length > 0"><!-- filers -->
+	<div class="panel-body">
+
+		<form class="form-horizontal">
+
+			<div ng-cloak ng-repeat="filer in form.filers">
+
+				<div class="form-group" ng-cloak>
+					<label class="col-sm-2 control-label">Company Conformed Name:</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{filer.company_data.company_conformed_name}}</p>
+					</div>
+
+					<label class="col-sm-2 control-label">Central Index Key(CIK):</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="">{{filer.company_data.central_index_key}}</p>
+					</div>
+					<label class="col-sm-2 control-label">Standard Industrial Classification(SIC):</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{filer.company_data.standard_industrial_classification}}</p>
+					</div>
+				</div>
+
+				<div class="form-group" ng-cloak>
+					<label class="col-sm-2 control-label">IRS Number:</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{filer.company_data.irs_number}}</p>
+					</div>
+					<label class="col-sm-2 control-label">State of Incorporation:</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="">{{filer.company_data.state_of_incorporation}}</p>
+					</div>
+					<label class="col-sm-2 control-label">Fiscal Year End:</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{filer.company_data.fiscal_year_end}}</p>
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<div class="col-sm-4"></div>
+					<h3 class="col-sm-4" style="white-space: nowrap;">Business Address</h3>
+					<div class="col-sm-4"></div>
+				</div>
+
+
+				<div class="form-group" ng-cloak>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{filer.business_address.street_1}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{filer.business_address.street_2}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{filer.business_address.city}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{filer.business_address.state}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{filer.business_address.zip}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{filer.business_address.business_phone}}</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-4"></div>
+					<h3 class="col-sm-4" style="white-space: nowrap;">Mail Address</h3>
+					<div class="col-sm-4"></div>
+				</div>
+
+
+				<div class="form-group" ng-cloak>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{filer.mail_address.street_1}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{filer.mail_address.street_2}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{filer.mail_address.city}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{filer.mail_address.state}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{filer.mail_address.zip}}</p>
+					</div>
+				</div>
+
+			</div> <!-- ng-cloak ng-repeat="filer in form.filers -->
+
+		</form><!-- class="form-horizontal" -->
+
+	</div> <!-- class="panel-body" -->
+</div> <!-- class="panel panel-default" --><!-- filers -->	
+
+
+<!-- issuer -->
+<div class="row" ng-show="form.issuer.company_data.company_conformed_name.length > 0">
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4" style="align: center;">
+		<h2 style="white-space: nowrap;">Issuer</h2>
+	</div>
+	<div class="col-sm-4" style=""></div>
+</div>
+
+
+<div class="panel panel-default" ng-show="form.issuer.company_data.company_conformed_name.length > 0"><!-- issuer -->
+	<div class="panel-body">
+
+		<form class="form-horizontal">
+
+				<div class="form-group" ng-cloak>
+					<label class="col-sm-2 control-label">Company Conformed Name:</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.company_data.company_conformed_name}}</p>
+					</div>
+
+					<label class="col-sm-2 control-label">Central Index Key(CIK):</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="">{{form.issuer.company_data.central_index_key}}</p>
+					</div>
+					<label class="col-sm-2 control-label">Standard Industrial Classification(SIC):</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.company_data.standard_industrial_classification}}</p>
+					</div>
+				</div>
+
+				<div class="form-group" ng-cloak>
+					<label class="col-sm-2 control-label">IRS Number:</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.company_data.irs_number}}</p>
+					</div>
+					<label class="col-sm-2 control-label">State of Incorporation:</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="">{{form.issuer.company_data.state_of_incorporation}}</p>
+					</div>
+					<label class="col-sm-2 control-label">Fiscal Year End:</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.company_data.fiscal_year_end}}</p>
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<div class="col-sm-4"></div>
+					<h3 class="col-sm-4" style="white-space: nowrap;">Business Address</h3>
+					<div class="col-sm-4"></div>
+				</div>
+
+
+				<div class="form-group" ng-cloak>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{form.issuer.business_address.street_1}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{form.issuer.business_address.street_2}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.business_address.city}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.business_address.state}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.business_address.zip}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.business_address.business_phone}}</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-4"></div>
+					<h3 class="col-sm-4" style="white-space: nowrap;">Mail Address</h3>
+					<div class="col-sm-4"></div>
+				</div>
+
+
+				<div class="form-group" ng-cloak>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{form.issuer.mail_address.street_1}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{form.issuer.mail_address.street_2}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.mail_address.city}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.mail_address.state}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.mail_address.zip}}</p>
+					</div>
+				</div>
+
+		</form><!-- class="form-horizontal" -->
+
+	</div> <!-- class="panel-body" -->
+</div> <!-- class="panel panel-default" --><!-- issuer -->	
+
+<!-- reporting owner -->
+<div class="row" ng-show="form.reporting_owner.owner_data.company_conformed_name.length > 0">
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4" style="align: center;">
+		<h2 style="white-space: nowrap;">Reporting Owner</h2>
+	</div>
+	<div class="col-sm-4" style=""></div>
+</div>
+
+<div class="panel panel-default" ng-show="form.reporting_owner.owner_data.company_conformed_name.length > 0"><!-- reporting owner -->
+	<div class="panel-body">
+
+		<form class="form-horizontal">
+
+				<div class="form-group" ng-cloak>
+					<label class="col-sm-2 control-label">Company Conformed Name:</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.reporting_owner.owner_data.company_conformed_name}}</p>
+					</div>
+
+					<label class="col-sm-2 control-label">Central Index Key(CIK):</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="">{{form.reporting_owner.owner_data.central_index_key}}</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-4"></div>
+					<h3 class="col-sm-4" style="white-space: nowrap;">Business Address</h3>
+					<div class="col-sm-4"></div>
+				</div>
+
+
+				<div class="form-group" ng-cloak>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{form.issuer.business_address.street_1}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{form.issuer.business_address.street_2}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.business_address.city}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.business_address.state}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.business_address.zip}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.business_address.business_phone}}</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-4"></div>
+					<h3 class="col-sm-4" style="white-space: nowrap;">Mail Address</h3>
+					<div class="col-sm-4"></div>
+				</div>
+
+
+				<div class="form-group" ng-cloak>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{form.issuer.mail_address.street_1}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{form.issuer.mail_address.street_2}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.mail_address.city}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.mail_address.state}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.issuer.mail_address.zip}}</p>
+					</div>
+				</div>
+
+		</form><!-- class="form-horizontal" -->
+
+	</div> <!-- class="panel-body" -->
+</div> <!-- class="panel panel-default" --><!-- reporting owner -->	
+
+
+<!-- filed by -->
+<div class="row" ng-show="form.filed_by.company_data.company_conformed_name.length > 0">
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4" style="align: center;">
+		<h2 style="white-space: nowrap;">Filed By</h2>
+	</div>
+	<div class="col-sm-4" style=""></div>
+</div>
+
+<div class="panel panel-default" ng-show="form.filed_by.company_data.company_conformed_name.length > 0"><!-- filed-by -->
+	<div class="panel-body">
+
+		<form class="form-horizontal">
+
+				<div class="form-group" ng-cloak>
+					<label class="col-sm-2 control-label">Company Conformed Name:</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.filed_by.company_data.company_conformed_name}}</p>
+					</div>
+
+					<label class="col-sm-2 control-label">Central Index Key(CIK):</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="">{{form.filed_by.company_data.central_index_key}}</p>
+					</div>
+					<label class="col-sm-2 control-label">Standard Industrial Classification(SIC):</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.filed_by.company_data.standard_industrial_classification}}</p>
+					</div>
+				</div>
+
+				<div class="form-group" ng-cloak>
+					<label class="col-sm-2 control-label">IRS Number:</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.filed_by.company_data.irs_number}}</p>
+					</div>
+					<label class="col-sm-2 control-label">State of Incorporation:</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="">{{form.filed_by.company_data.state_of_incorporation}}</p>
+					</div>
+					<label class="col-sm-2 control-label">Fiscal Year End:</label>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.filed_by.company_data.fiscal_year_end}}</p>
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<div class="col-sm-4"></div>
+					<h3 class="col-sm-4" style="white-space: nowrap;">Business Address</h3>
+					<div class="col-sm-4"></div>
+				</div>
+
+
+				<div class="form-group" ng-cloak>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{form.filed_by.business_address.street_1}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{form.filed_by.business_address.street_2}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.filed_by.business_address.city}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.filed_by.business_address.state}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.filed_by.business_address.zip}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.filed_by.business_address.business_phone}}</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-4"></div>
+					<h3 class="col-sm-4" style="white-space: nowrap;">Mail Address</h3>
+					<div class="col-sm-4"></div>
+				</div>
+
+
+				<div class="form-group" ng-cloak>
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{form.filed_by.mail_address.street_1}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static" style="white-space: nowrap;">{{form.filed_by.mail_address.street_2}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.filed_by.mail_address.city}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.filed_by.mail_address.state}}</p>
+					</div>
+
+					<div ng-cloak class="col-sm-2">
+						<p class="form-control-static">{{form.filed_by.mail_address.zip}}</p>
+					</div>
+				</div>
+
+		</form><!-- class="form-horizontal" -->
+
+	</div> <!-- class="panel-body" -->
+</div> <!-- class="panel panel-default" --><!-- filed_by -->	
+
+	
+<div>
+	<pre ng-show="debug_html">mapee = {{mapee | json }}</pre> 
+	<pre ng-show="debug_html">form = {{form | json }}</pre> 
+</div>
+
+</div>
+
+<script src="/nav.js"></script>

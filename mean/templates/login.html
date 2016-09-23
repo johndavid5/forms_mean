@@ -1,0 +1,70 @@
+<div class="container">
+	<form ng-submit="login(username,password)" style="padding-top: 10px;">
+		<div class="form-group">
+			<label>Username</label>
+			<input class="form-control" type="text" ng-model="username" id="username">
+		</div>
+		<div class="form-group">
+			<label>Password</label>
+			<input class="form-control" type="password" ng-model="password" id="password">
+			<button type="button" class="btn btn-default" id="button-view-password" aria-label="View Password">
+			  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+			</button>
+
+		</div>
+		<input class="btn btn-success btn-lg btn-block" type="submit" value="Login">
+	</form>
+
+	<style>
+		th, td { 
+			border: 1px solid green;
+		}
+	</style>
+	<br />
+	<div ng-show="1==0">
+		<table style="border: 1px solid green;">
+			<tr>
+				<th>email</th>
+				<th>valid?</th>
+			</tr>
+			<tr ng-repeat="email in emails">
+				<th>{{email}}</th>
+				<th>{{isEmailValid(email)}}</th>
+			</tr>
+		</table>
+	</div>
+</div>
+<script>
+function adjustPaddingForNavbar(){
+	var sWho = "adjustPaddingForNavbar";
+	//alert(sWho + "()...");
+	//alert(sWho + "(): $('.navbar-fixed-top').height() = " + $('.navbar-fixed-top').height() );
+	//alert(sWho + "(): $('.navbar-header').height() = " + $('.navbar-header').height() );
+	//alert(sWho + "(): $('.navbar-collapse').height() = " + $('.navbar-collapse').height() );
+	var offset = $('.navbar-fixed-top').height();
+	//$('#stickyHeader').stickyTableHeaders({fixedOffset: offset});
+	$('body').css( 'padding-top', offset );
+}
+
+adjustPaddingForNavbar();
+
+// Also need to reset the stickyTableHeader offset if user collapses
+// or expands the responsive navbar. IMPORTANT: We use "shown" and
+// "hidden" rather than "show" and "hide" to re-do the offset
+// AFTER the navbar is resized...
+$('.navbar-collapse').on('shown.bs.collapse', adjustPaddingForNavbar );
+$('.navbar-collapse').on('hidden.bs.collapse', adjustPaddingForNavbar );
+
+function showPassword( bShow ){
+	if( bShow ){
+		$("#password").attr("type", "text");	
+	}
+	else{
+		$("#password").attr("type", "password");	
+	}
+}
+
+$('#button-view-password').on('mousedown', function(){ showPassword(true); } );
+$('#button-view-password').on('mouseup', function(){ showPassword(false); } );
+</script>
+

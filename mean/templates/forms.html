@@ -1,0 +1,381 @@
+<div class='container'>
+
+	<div class="row" ng-show="1==0">
+	  <div class="col-sm-4"></div>
+	  <h2 class="col-sm-4">Filings</h2>
+	  <div class="col-sm-4"></div>
+	</div class="row">
+
+
+	<form novalidate class="form-horizontal" >
+
+		<input type="hidden" name="format" value="csv">
+		<input type="hidden" name="orderBy" ng-bind="current_sort_by">
+		<input type="hidden" name="ascDesc" ng-bind="current_asc_desc">
+
+		<div class="form-group">
+
+			<div class="col-sm-2">
+				<label class="waldo-sm" style="text-align: right;" for="accession_number_filter">Accession&nbsp;Number:</label>
+				<span>
+					<input type="text" size="20" maxlength="20" class="form-control input-sm" id="accession_number_filter" name="accession_number_filter" ng-model="accession_number_filter" placeholder="">
+				</span>
+			</div>
+
+			<div class="col-sm-2">
+				<label class="waldo-sm"  style="text-align: right;" for="form_type">Form&nbsp;Types:<span ng-show="form_type_filter_count>0" style="margin-left: 4px; font-size: 85%; font-weight: normal; background-color: rgb(92,184,92);" class="badge">{{form_type_filter_count}}</span></label>
+					<div>
+						<vf-list-picker picker-title="'Choose Form Types'" un-selected-list="form_types_un_selected" selected-list="form_types_selected" form-field-model="form_type_filter" offset-x="'14px'" offset-y="'56px'" picker-width="'425px'" picker-height="'350px'" left-select-width="'7em'" right-select-width="'7em'" ng-show="form_type_picker_opened" is-open="form_type_picker_opened" debug-html="debug_html"></vf-list-picker>
+						<div class="input-group">
+							<input type="text" class="form-control input-sm" id="form_type_filter" name="form_type_filter" style="font-weight: bold;" ng-click="open_close_form_type_picker($event)" ng-model="form_type_filter"  ng-blur="close_form_type_picker($event)"> 
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default btn-sm" ng-click="open_close_form_type_picker($event)"><i class="glyphicon glyphicon-duplicate"></i></button>
+							</span>
+						</div>
+					</div>
+			</div>
+
+
+
+			<div class="col-sm-2">
+				<label class="waldo-sm" style="text-align: right;" for="date_filed_from_filter">Date&nbsp;Filed&nbsp;From:</label>
+				<p class="input-group" ng-show="foolishly_attempt_to_use_angular_date_picker">
+					<input type="text" class="form-control input-sm" datepicker-popup="{{date_format}}" ng-model="date_filed_from_filter_dt" is-open="date_filter_from_opened" datepicker-options="dateOptions" date-disabled="is_date_disabled(date, mode)" ng-required="false" close-text="Close" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="open_close_date_picker($event,'from')"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</p>
+				<p class="input-group">
+					<input type="text" class="form-control input-sm datepicker" name="date_filed_from_filter" id="date_filed_from_filter" ng-model="date_filed_from_filter"/>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" id="date_filed_from_filter_button"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</p>
+			</div>
+
+			<div class="col-sm-2">
+				<label class="waldo-sm"  style="text-align: right;" for="date_filed_to_filter">Date&nbsp;Filed&nbsp;To:</label>
+				<p class="input-group" ng-show="foolishly_attempt_to_use_angular_date_picker">
+					<input type="text" class="form-control input-sm" datepicker-popup="{{date_format}}" ng-model="date_filed_to_filter_dt" is-open="date_filter_to_opened" datepicker-options="dateOptions" date-disabled="is_date_disabled(date, mode)" ng-required="false" close-text="Close" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" ng-click="open_close_date_picker($event,'to')"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</p>
+				<p class="input-group">
+					<input type="text" class="form-control input-sm datepicker" name="date_filed_to_filter" id="date_filed_to_filter" ng-model="date_filed_to_filter"/>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default btn-sm" id="date_filed_to_filter_button"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</p>
+			</div>
+
+			<div class="col-sm-2">
+				<label class="waldo-sm" style="text-align: right;" for="filer_name_filter">Company Name:</label>
+				<span>
+					<input type="text" size="20" maxlength="20" class="form-control input-sm" id="filer_name_filter" name="filer_name_filter" ng-model="filer_name_filter" placeholder="">
+				</span>
+			</div>
+
+			<div class="col-sm-2">
+				<label class="waldo-sm" style="text-align: right;" for="filer_cik_filter">Company&nbsp;CIK:</label>
+				<span>
+					<input type="text" size="20" maxlength="20" class="form-control input-sm" id="filer_cik_filter" name="filer_cik_filter" ng-model="filer_cik_filter" placeholder="">
+				</span>
+			</div>
+
+		</div><!-- class="form-group" -->
+
+
+<div class="row">
+<table class="col-sm-12" ng-cloak ng-show="debug_html">
+  <tr>
+    <td>
+    	<pre>
+total_entries = "{{total_entries}}"
+
+entries_per_page = "{{entries_per_page}}"
+requested_entries_per_page = "{{requested_entries_per_page}}"
+
+current_page_num = "{{current_page_num}}"
+requested_page_num = "{{requested_page_num}}"
+pending_page_num = "{{pending_page_num}}"
+
+total_num_pages = "{{total_num_pages}}"
+
+date_format = "{{date_format}}"
+		</pre>
+	</td>
+    <td>
+		<p>
+pagination_pages_array = "{{ pagination_pages_array | json }}"
+		</p>
+	</td>
+    <td>
+    	<pre>
+accession_number_filter = "{{accession_number_filter}}"
+
+form_type_filter = "{{form_type_filter}}"
+form_type_filter_count = "{{form_type_filter_count}}"
+
+date_filed_from_filter = "{{date_filed_from_filter}}" 
+date_filed_to_filter = "{{date_filed_to_filter }}" 
+
+date_filed_from_filter_dt = "{{date_filed_from_filter_dt}}" 
+date_filed_to_filter_dt = "{{date_filed_to_filter_dt }}" 
+
+<!--
+typeof date_filed_from_filter_dt = "{{typeof date_filed_from_filter_dt}}" 
+typeof date_filed_to_filter_dt = "{{typeof date_filed_to_filter_dt}}" 
+
+date_filed_from_filter_dt.getTime() = "{{date_filed_from_filter_dt instanceof Date ? date_filed_from_filter_dt.getTime() | number : 'N/A'}}" 
+date_filed_to_filter_dt.getTime() = "{{date_filed_to_filter_dt instanceof Date ? date_filed_to_filter_dt.getTime() | number : 'N/A'}}" 
+-->
+
+date_filed_from_filter_dt.getTime() = "{{date_filed_from_filter_dt.getTime() | number}}" 
+date_filed_to_filter_dt.getTime() = "{{date_filed_to_filter_dt.getTime() | number}}" 
+date_filed_to_filter_dt.getTime() - date_filed_from_filter_dt.getTime() = "{{ (date_filed_to_filter_dt.getTime() - date_filed_from_filter_dt.getTime()) | number }}"
+
+
+filter_text = "{{filter_text}}"
+current_sort_by = "{{current_sort_by}}"
+current_asc_desc = "{{current_asc_desc}}"
+
+csv_url = "{{csv_url}}"
+csv_btn_img_src = "{{csv_btn_img_src}}"
+		</pre>
+	</td>
+  </tr>
+<!-- xxx = "{{xxx}}" -->
+</table>
+</div><!-- row -->
+
+	<!--
+	<div ng-cloak class="row" ng-show="filings && total_entries == 0">
+		<div class="col-md-12">
+			<h2>No Forms Found</h2>
+		</div>
+	</div>
+	-->
+	<!--
+	<div ng-cloak class="row" ng-show="!filings">
+		<div class="col-sm-12">
+			<h2>Search Filings</h2>
+		</div>
+	</div>
+	-->
+
+	<div ng-cloak class="row" ng-show="filings && total_entries >= 0">
+		<div class="col-sm-2"></div>
+		<h2 class="col-sm-7" ng-show="!filings">Search Filings</h2>
+		<h2 class="col-sm-7" ng-show="filings && total_entries >= 0">{{total_entries==0 ? 'No' : ( total_entries | number ) }} Form<span>{{total_entries == 1 ? '': 's'}} Found</span></h2> 
+
+			<div class="col-sm-1" style="vertical-align: bottom;">
+				<!--
+				<table>
+				<tr>
+				<td>
+				-->
+				<button type="submit" style="vertical-align: bottom; position: relative; top: 23px;"
+					title="Search" class="btn btn-default btn-sm" ng-click="search($event)">Search&nbsp;<span class="glyphicon glyphicon-search"></span>
+				<!--
+				</td>
+				<td style="width: 5px;">
+				</td>
+				<td>
+				<a ng-href="{{csv_url}}" ng-mouseenter="on_mouse_enter_csv_btn()" ng-mouseleave="on_mouse_leave_csv_btn()"
+					ng-click="refresh_csv_url()" title="Download CSV Report" target="_self">
+					<img style="vertical-align: bottom; position: relative; top: 23px;" ng-src="{{csv_btn_img_src}}" />
+				</a>
+				</td>
+				</tr>
+				</table>
+				-->
+			</div>
+
+			<div class="col-sm-1" style="vertical-align: middle;">
+				<table ng-cloak ng-show="progress_bar_active"
+					style="position: relative; top: 27px; width: 75px; height: 20px; color: transparent; background-color: transparent;">
+					<tr style="">
+						<td class="vf-left-progress" vf-progress-bar progress-bar-watch="progress" progress-bar-left-right="left"></td>
+						<td class="vf-right-progress" vf-progress-bar progress-bar-watch="progress" progress-bar-left-right="right"></td>
+					</tr>
+				</table>
+				<!--
+				<div ng-cloak ng-show="1==0">
+					<a ng-click="start_progress_bar()">start</a>
+					<a ng-click="start_progress_bar(true)">start&nbsp;manual</a>
+					<a ng-click="advance_progress_bar()">advance</a> 
+					<a ng-click="stop_progress_bar()">stop</a>
+				</div>
+				-->
+			</div>
+
+			<div class="col-sm-1" style="vertical-align: bottom;">
+				<a ng-href="{{csv_url}}" ng-mouseenter="on_mouse_enter_csv_btn()" ng-mouseleave="on_mouse_leave_csv_btn()"
+					ng-click="refresh_csv_url()" title="Download CSV Report" target="_self">
+					<img style="vertical-align: bottom; position: relative; top: 23px;" ng-src="{{csv_btn_img_src}}" />
+				</a>
+			</div>
+	</div>
+
+	</form>
+
+	<div class="row">
+		<div class="col-sm-2"></div>
+			<p class="col-sm-8" style="font-style: normal; font-weight: bold;" ng-cloak ng-show="filter_text_array.length > 0">
+			...with&nbsp;<span ng-repeat="filter_text_el in filter_text_array">{{$index > 0 ? ", " : ""}}<span style="white-space: nowrap;">{{filter_text_el}}</span></span>
+			</p>
+		<div class="col-sm-2"></div>
+	</div>
+
+	<form novalidate class="form-horizontal">
+
+		<div class="form-group">
+
+			<div class="col-sm-2">
+				<p style="text-align: center; white-space: nowrap; vertical-align: middle; color: rgb(51,122,183); font-weight: bold; position: relative; top: 15px;"
+					ng-show="total_num_pages != 0 && current_page_num != 0">
+				Page {{current_page_num | number}} of {{total_num_pages | number}}<br/>
+				({{entries_per_page | number}} Forms per Page)
+				</p>
+			</div>
+
+			<div class="col-sm-7">
+				<ul class="pagination" ng-cloak ng-show="total_num_pages != 0">
+			        <li ng-class="get_pagination_class_for('first')"><a ng-click="get_pagination_class_for('first') != 'disabled' ? go_to_page('first') : x = 0 " aria-label="First" title="First"><span aria-hidden="true">&lt;&lt;</span></a></li>
+			        <li ng-class="get_pagination_class_for('previous')"><a ng-click="get_pagination_class_for('previous') != 'disabled' ? go_to_page('previous') : x = 0 " aria-label="Previous" title="Previous"><span aria-hidden="true">&lt;</span></a></li>
+					<li ng-repeat="pagination_page in pagination_pages_array" ng-class="get_pagination_class_for(pagination_page)" ><a ng-click="go_to_page(pagination_page)">{{pagination_page}}</a></li>
+					<li ng-class="get_pagination_class_for('next')"><a ng-click="get_pagination_class_for('next') != 'disabled' ? go_to_page('next') : x = 0" aria-label="Next" title="Next"><span aria-hidden="true">&gt;</span></a></li>
+					<li ng-class="get_pagination_class_for('last')"><a ng-click="get_pagination_class_for('last') != 'disabled' ? go_to_page('last') : x = 0" aria-label="Last" title="Last"><span aria-hidden="true">&gt;&gt</span></a></li>
+				</ul>
+			</div>
+
+			<div class="col-sm-1" ng-show="total_num_pages != 0">
+				<label class="waldo-sm" style="white-space: nowrap;" for="go_to_page">Go To Page:</label>
+				<input type="text" id="go_to_page" class="page_number_spinner form-control input-sm" style="width: 4em;" size="5" ng-model="requested_page_num" ng-keypress="requested_page_num_press(requested_page_num, $event)">
+			</div>
+
+			<div class="col-sm-1" ng-show="total_num_pages != 0">
+				<label class="waldo-sm" style="white-space: nowrap;" for="filings_per_page">Forms Per Page:</label>
+				<input type="text" id="filings_per_page" class="entries_per_page_spinner form-control input-sm" style="width: 6em;" size="5" ng-model="requested_entries_per_page" ng-keypress="requested_entries_per_page_press(requested_entries_per_page, $event)">
+			</div>
+
+		</div><!-- class="form-group" -->
+
+	</form>
+
+
+
+	<!--<div class="row">-->
+
+		<!--<div class="table-responsive col-sm-12" style="x-overflow: auto" ng-show="filings.length > 0">-->
+
+		<!-- <div style="y-overflow: auto; x-overflow: auto;" ng-show="filings.length > 0"> -->
+
+			<table id="stickyHeader" class="table table-striped table-hover table-bordered" ng-show="filings.length > 0">
+				<thead>
+					<tr ng-cloak>
+						<th style="text-align: center;" ng-repeat = "column in columns" width="{{column.width}}">
+							<div>
+							<a ng-click = "sortBy(column.name)"
+								ng-mouseenter="on_mouse_enter(column.name)" ng-mouseleave="on_mouse_leave(column.name)"
+								title="{{'Sort by ' + column.heading + ' ' + (current_asc_desc=='desc' ? 'Ascending' : 'Descending' )}}"
+								aria-label="{{'Sort by ' + column.heading + ' ' + (current_asc_desc=='desc' ? 'Ascending' : 'Descending' )}}"
+								style="padding: 0px;"
+							>
+							{{column.heading}}<img ng-src="{{get_arrow_img_src(column.name)}}" style="width: 30px; height: 25px; margin-left: 5px;">
+							</a>
+							</div>
+						</th>
+						<!--<th></th>-->
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-cloak ng-repeat="filing in filings">
+						<!-- <td ng-repeat = "column in columns">{{filing[column.name]}}</td> -->
+						<td><a ng-href="/#/forms/{{filing.accession_number}}" title="View Filing Details">{{filing.accession_number}}</a><a ng-href="{{edgarFileNameToEdgarSecFilingPageUrl(filing.file_name)}}" title="View Filing at SEC" target="_blank"><img src="/images/www.sec.gov-favicon.gif" style="padding-left: 10px;"></a></td>
+						<td>{{filing.form_type}}</td>
+						<td>{{filing.date_filed | date:'yyyy-MM-dd'}}</td>
+						<td>{{filing.dn_company_conformed_name}}</td>
+						<td>{{filing.dn_company_central_index_key}}</td>
+					</tr>
+				</tbody>
+			</table>
+
+		<!-- </div> -->
+
+	<!--</div>--> <!-- class="row" -->
+
+
+
+  	<pre ng-cloak ng-show="debug_html">
+	filings = "{{filings | json }}"
+	<!-- <p ng-non-bindable>filings = {{filings}} </p> -->
+	</pre> 
+
+  </div><!-- class='container' -->
+
+
+  <script src="/nav.js"></script>
+
+  <script>
+	$( ".datepicker" ).datepicker();
+	$( ".datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" ); // ISO 8601 date format, e.g., "2014-04-28"
+
+	$( "#date_filed_from_filter_button" ).click( function($this){
+
+		//console.log( "click: $this = ", $this, "...");
+
+		if( $("#date_filed_from_filter").datepicker( "widget" ).is(":visible") ){
+			$("#date_filed_from_filter").datepicker("hide");
+		}
+		else {
+			$("#date_filed_from_filter").datepicker("show");
+		}
+
+	});
+
+	/*
+	$( "#date_filed_from_filter" ).blur( function($this){
+
+		//console.log( "blur: $this = ", $this, "...");
+
+		$("#date_filed_from_filter").datepicker("hide");
+
+	});
+	*/
+
+	$( "#date_filed_to_filter_button" ).click( function($this){
+
+		//console.log( "click: $this = ", $this, "...");
+
+		if( $("#date_filed_to_filter").datepicker( "widget" ).is(":visible") ){
+			$("#date_filed_to_filter").datepicker("hide");
+		}
+		else {
+			$("#date_filed_to_filter").datepicker("show");
+		}
+
+	});
+
+	/*
+	$( "#date_filed_to_filter" ).blur( function($this){
+
+		//console.log( "blur: $this = ", $this, "...");
+
+		$("#date_filed_to_filter").datepicker("hide");
+
+	});
+	*/
+
+	// datepicker seems to clear the "input" values...so re-set them here...
+	//$('#start_date').val("<?php echo $startDate; ?>");
+	//$('#end_date').val("<?php echo $endDate; ?>");
+
+	//var our_entries_per_page_spinner = $( ".entries_per_page_spinner" ).spinner({min: 5, max: 1000, step: 5});
+	//var NUM_PAGES = 100;
+
+	//var our_page_number_spinner = $( ".page_number_spinner" ).spinner({min: 1, max: NUM_PAGES});
+	//our_page_number_spinner.on( "spin", Utils.rollOverSpinner );
+
+  </script>

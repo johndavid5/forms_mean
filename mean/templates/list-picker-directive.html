@@ -1,0 +1,108 @@
+<!--
+<script type="text/ng-template" id="myListPickerDirective.html">
+-->
+<!--<div ng-style="border: 1px solid rgb(204,204,204); border-radius: 5px; position: absolute; left: {{listPickerCtrl.offsetX}}; top: {{listPickerCtrl.offsetY}}; z-index: 10; background-color: white; color: black; width: {{listPickerCtrl.pickerWidth}}; height: {{listPickerCtrl.pickerHeight}};">-->
+<div style="border: 1px solid rgb(204,204,204); border-radius: 5px; position: absolute; left: {{listPickerCtrl.offsetX}}; top: {{listPickerCtrl.offsetY}}; z-index: 10; background-color: white; color: black; width: {{listPickerCtrl.pickerWidth}}; height: {{listPickerCtrl.pickerHeight}};">
+
+	<form novalidate class="form-horizontal">
+
+	<pre ng-show="1==0">listPickerCtrl = {{listPickerCtrl | json}}</pre>
+
+	<div class="form-group">
+		<span class="col-sm-2"></span>
+		<label class="col-sm-8 control-label" style="white-space: nowrap; text-align: center;">{{listPickerCtrl.pickerTitle}}</label>
+		<span class="col-sm-2"></span>
+	</div>
+
+	<div class="form-group">
+		<span class="col-sm-1"></span>
+		<label class="col-sm-4 control-label" style="color: rgb(217,83,79); white-space: nowrap; text-align: center;">
+		Un-Selected
+		<span class="badge" style="background-color: rgb(217,83,79);">{{listPickerCtrl.unSelectedList.length}}</span>
+		</label>
+		<span class="col-sm-2"></span>
+		<label class="col-sm-4 control-label" style="color: rgb(92,184,92); white-space: nowrap; text-align: center;">
+		Selected
+		<span class="badge" style="background-color: rgb(92,184,92);">{{listPickerCtrl.selectedList.length}}</span>
+		</label>
+		<span class="col-sm-1"></span>
+	</div>
+
+	<div class="form-group">
+		<span class="col-sm-1"></span>
+		<div class="col-sm-4">
+			<!--<select class="form-control" id="forms_un_selected" ng-model="listPickerCtrl.unSelectedListSelections" multiple size="10" ng-style="width: {{listPickerCtrl.leftSelectWidth}};">-->
+			<select class="form-control" id="forms_un_selected" ng-model="listPickerCtrl.unSelectedListSelections" multiple size="10" style="width: {{listPickerCtrl.leftSelectWidth}};">
+					<option ng-repeat="unSelectedForm in listPickerCtrl.unSelectedList" ng-dblclick="listPickerCtrl.select()" ng-value="unSelectedForm">{{unSelectedForm}}</option>
+			</select>
+		</div>
+		<span class="col-sm-2" style="text-align: middle;">
+
+			<div style="height: 20px;"></div>
+
+			<button type="button" id="btn_select" class="btn btn-default btn-sm btn-success" title="Select"
+				ng-click="listPickerCtrl.select()" ng-disabled="!listPickerCtrl.unSelectedListSelections || listPickerCtrl.unSelectedListSelections.length == 0"
+				style="margin-left: 0; margin-right: 1px; width: 4em; text-align: center; font-weight: bold;">&gt;</button>
+
+			<div style="height: 10px;"></div>
+
+			<button type="button" id="btn_un_select" class="btn btn-default btn-sm btn-danger" title="Un-Select"
+					ng-click="listPickerCtrl.unSelect()" ng-disabled="!listPickerCtrl.selectedListSelections || listPickerCtrl.selectedListSelections.length == 0"
+					style="margin-left: 0; margin-right: 1px; width: 4em; text-align: center; font-weight: bold;">&lt;</button>
+
+			<div style="height: 20px;"></div>
+
+			<button type="button" id="btn_select_all" class="btn btn-default btn-sm btn-success" title="Select All"
+				ng-click="listPickerCtrl.selectAll()" ng-disabled="!listPickerCtrl.unSelectedList || listPickerCtrl.unSelectedList.length == 0"
+				style="margin-left: 0; margin-right: 1px; width: 4em; text-align: center; font-weight: bold;">&gt;&gt;</button>
+
+			<div style="height: 10px;"></div>
+
+			<button type="button" id="btn_un_select_all" class="btn btn-default btn-sm btn-danger" title="Un-Select All"
+					ng-click="listPickerCtrl.unSelectAll()" ng-disabled="!listPickerCtrl.selectedList || listPickerCtrl.selectedList.length == 0"
+					style="margin-left: 0; margin-right: 1px; width: 4em; text-align: center; font-weight: bold;">&lt;&lt;</button>
+
+			<div style="height: 20px;"></div>
+
+		</span>
+		<div class="col-sm-4">
+			<!--<select class="form-control" id="forms_selected" ng-model="listPickerCtrl.selectedListSelections" multiple size="10" ng-style="width: {{listPickerCtrl.rightSelectWidth}};">-->
+			<select class="form-control" id="forms_selected" ng-model="listPickerCtrl.selectedListSelections" multiple size="10" style="width: {{listPickerCtrl.rightSelectWidth}};">
+				<option ng-repeat="selectedForm in listPickerCtrl.selectedList" ng-value="selectedForm" ng-dblclick="listPickerCtrl.unSelect()">{{selectedForm}}</option>
+			</select>
+		</div>
+		<span class="col-sm-1"></span>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-4" style="text-align: center;">
+			<button type="button" class="btn btn-default btn-sm btn-danger" title="Clear"
+					ng-click="listPickerCtrl.unSelectAll()"
+					style="margin-left: 0; margin-right: 1px; width: 4em; text-align: center; font-weight: bold;">Clear</button>
+		</div>
+		<div class="col-sm-2">
+		</div>
+		<div class="col-sm-4" style="text-align: center;">
+			<button type="button" class="btn btn-default btn-sm btn-success" title="Close"
+					ng-click="listPickerCtrl.isOpen=false"
+					style="margin-left: 0; margin-right: 1px; width: 4em; text-align: center; font-weight: bold;">Close</button>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
+
+	</form>
+
+	<pre ng-show="listPickerCtrl.debugHtml">
+	listPickerCtrl.unSelectedListSelections.length = {{ listPickerCtrl.unSelectedListSelections.length}}
+	listPickerCtrl.unSelectedListSelections = {{ listPickerCtrl.unSelectedListSelections | json }}
+	listPickerCtrl.unSelectedList.length = {{ listPickerCtrl.unSelectedList.length }}
+	listPickerCtrl.unSelectedList = {{ listPickerCtrl.unSelectedList | json }}
+	listPickerCtrl.selectedList = {{ listPickerCtrl.selectedList | json }}
+	listPickerCtrl.selectedListSelections = {{ listPickerCtrl.selectedListSelections | json }}
+	</pre>
+</div>
+
+<!--
+</script>
+-->
