@@ -12,8 +12,11 @@ angular.module('waldoApp')
 	$scope.csv_url = $scope.BASE_CSV_URL;
 
 	$scope.refresh_csv_url = function(){
+
+		var sWho = "$scope.refresh_csv_url";
+
 		//$scope.csv_url = $scope.BASE_CSV_URL + "&entities_id_filter=" + $scope.entities_id_filter + "&accession_number_filter=" + $scope.accession_number_filter + "&form_type_filter=" + $scope.form_type_filter + "&date_filed_from_filter=" + $scope.date_filed_from_filter + "&date_filed_to_filter=" + $scope.date_filed_to_filter + "&orderBy=" + $scope.current_sort_by + "&ascDesc=" + $scope.current_asc_desc;
-		$scope.csv_url = $scope.BASE_CSV_URL
+		$scope.csv_url = $scope.BASE_CSV_URL 
 		+ "&accession_number_filter=" + $scope.accession_number_filter
 		+ "&form_type_filter=" + $scope.form_type_filter
 		+ "&date_filed_from_filter=" + $scope.date_filed_from_filter
@@ -22,6 +25,8 @@ angular.module('waldoApp')
 		+ "&filer_cik_filter=" + $scope.filer_cik_filter
 		+ "&orderBy=" + $scope.current_sort_by 
 		+ "&ascDesc=" + $scope.current_asc_desc;
+
+		console.log(sWho + "(): $scope.csv_url = \"" + $scope.csv_url + "\"...");	
 	}; /* $scope.refresh_csv_url() */
 
 	// Later use stylesheets for this mouseover...better yet, make a fake button that displays the basic gif...
@@ -99,6 +104,9 @@ angular.module('waldoApp')
 
 	$scope.form_type_filter = "";
 	$scope.form_type_filter_count = 0;
+
+	$scope.filer_name_filter = "";
+	$scope.filer_cik_filter = "";
 	
 
 	// Private variable for "Jane, stop this crazy thing...!"
