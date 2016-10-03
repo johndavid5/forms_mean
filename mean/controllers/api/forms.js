@@ -3,7 +3,7 @@ var deepcopy = require('deepcopy');
 var logger = require('../../logger');
 var sharedUtils = require('../../ng/shared-utils.svc.js');
 
-var Form = require('../../models/Form');
+var Form = require('../../models/form');
 var ourForm = new Form();
 
 var CsvInator = require('../../helpers/CsvInator');

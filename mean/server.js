@@ -45,7 +45,10 @@ app.use('/api/formTypes', require('./controllers/api/formTypes'));
 //app.use('/api/users', require('./controllers/api/users'));
 
 // And mount the static controller for static content...
+// In case we're coming in directly or via reverse proxy via /...
 app.use('/', require('./controllers/static'));
+// In case we're coming in via a reverse proxy via /sec_forms...
+app.use('/sec_forms', require('./controllers/static'));
 
 var port = Config.port;
 

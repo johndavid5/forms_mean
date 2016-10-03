@@ -8,8 +8,8 @@ angular.module('waldoApp')
 	$scope.edgarFileNameToEdgarSecFilingPageUrl = SharedUtilsSvc.edgarFileNameToEdgarSecFilingPageUrl;
 
 	//$scope.debug_html = false;
-	//$scope.debug_html = UtilsSvc.stringToBool( $routeParams.debug_html );
-	$scope.debug_html = true
+	$scope.debug_html = UtilsSvc.stringToBool( $routeParams.debug_html );
+	//$scope.debug_html = true
 
 	$scope.accession_number = $routeParams.accessionNumber;
 
