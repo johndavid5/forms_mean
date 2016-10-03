@@ -23,7 +23,7 @@
 			</div>
 
 			<div class="col-sm-2">
-				<label class="waldo-sm"  style="text-align: right;" for="form_type">Form&nbsp;Types:<span ng-show="form_type_filter_count>0" style="margin-left: 4px; font-size: 85%; font-weight: normal; background-color: rgb(92,184,92);" class="badge">{{form_type_filter_count}}</span></label>
+				<label class="waldo-sm"  style="text-align: right;" for="form_type">Form&nbsp;Types:<span ng-cloak ng-show="form_type_filter_count>0" style="margin-left: 4px; font-size: 85%; font-weight: normal; background-color: rgb(92,184,92);" class="badge">{{form_type_filter_count}}</span></label>
 					<div>
 						<vf-list-picker picker-title="'Choose Form Types'" un-selected-list="form_types_un_selected" selected-list="form_types_selected" form-field-model="form_type_filter" offset-x="'14px'" offset-y="'56px'" picker-width="'425px'" picker-height="'350px'" left-select-width="'7em'" right-select-width="'7em'" ng-show="form_type_picker_opened" is-open="form_type_picker_opened" debug-html="debug_html"></vf-list-picker>
 						<div class="input-group">
@@ -234,7 +234,7 @@ csv_btn_img_src = "{{csv_btn_img_src}}"
 
 			<div class="col-sm-2">
 				<p style="text-align: center; white-space: nowrap; vertical-align: middle; color: rgb(51,122,183); font-weight: bold; position: relative; top: 15px;"
-					ng-show="total_num_pages != 0 && current_page_num != 0">
+					ng-cloak ng-show="total_num_pages != 0 && current_page_num != 0">
 				Page {{current_page_num | number}} of {{total_num_pages | number}}<br/>
 				({{entries_per_page | number}} Forms per Page)
 				</p>

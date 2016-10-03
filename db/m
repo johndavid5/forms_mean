@@ -1,3 +1,4 @@
+#mongoit.sh forms_view.js 2>&1 | tee m.out
 set -x
-mongoit.sh forms_view.js 2>&1 | tee m.out
+./mongoit.sh tweakit.js 2>&1 | tee m.out
 set +x
