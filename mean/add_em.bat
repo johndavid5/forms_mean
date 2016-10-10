@@ -10,6 +10,7 @@ call git add templates/forms.html
 call git add test/FormDemo.js
 call git add protractor.conf.js
 
+
 call git add bower.json
 call git add package.json
 call git add server.js
@@ -21,6 +22,9 @@ call git add .jshintrc
 call git add add_em.bat
 call git add karma.conf.js
 call git add protractor.conf.js
+
+call git add karma-start-single-run.bat
+call git add karma-start.bat
 call git add run-blanket.bat
 call git add run-istanbul.bat
 call git add run-jshint.bat
@@ -28,6 +32,7 @@ call git add run-jshint.html
 call git add run-mocha.bat
 call git add run-protractor.bat
 call git add test/mocha.opts
+call git add test/ng/forms.svc.spec.js
 call git add test/server/controllers/api/forms-exists.spec.js
 call git add test/server/controllers/api/forms.spec.js
 call git add test/server/controllers/api/utils.spec.js

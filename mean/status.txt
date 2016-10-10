@@ -1,26 +1,16 @@
 # On branch master
-# Your branch is ahead of 'github/master' by 3 commits.
-#
 # Changes not staged for commit:
-#   (use "git add/rm <file>..." to update what will be committed)
+#   (use "git add <file>..." to update what will be committed)
 #   (use "git checkout -- <file>..." to discard changes in working directory)
 #
 #	modified:   bower.json
-#	modified:   package.json
-#	modified:   server.js
+#	modified:   karma.conf.js
 #	modified:   status.txt
-#	modified:   templates/forms.html
-#	modified:   test/e2e/doing_a_search.spec.js
-#	deleted:    test/e2e/protractor.conf.js
 #
 # Untracked files:
 #   (use "git add <file>..." to include in what will be committed)
 #
-#	.jshintignore
-#	.jshintrc
 #	add_em.1.bat
-#	add_em.bat
-#	controllers/index.js
 #	coverage.html
 #	coverage/
 #	description.1.txct
@@ -34,7 +24,8 @@
 #	install-mocha.bat
 #	install.bat
 #	joe.js
-#	karma.conf.js
+#	karma-start-single-run.bat
+#	karma-start.bat
 #	ls.txt
 #	max_chars.2747.txt
 #	max_chars.txt
@@ -44,15 +35,7 @@
 #	notes.txt
 #	package.win.json
 #	protractor.conf.2.js
-#	protractor.conf.js
-#	run-blanket.bat
-#	run-istanbul.bat
-#	run-jshint.bat
-#	run-jshint.html
-#	run-mocha.bat
-#	run-protractor.bat
 #	status.bat
 #	status.diana.txt
-#	test/mocha.opts
-#	test/server/
+#	test/ng/
 no changes added to commit (use "git add" and/or "git commit -a")
