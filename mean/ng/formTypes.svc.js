@@ -1,5 +1,5 @@
 angular.module('waldoApp')
-.service('FormTypesSvc', function($http, UtilsSvc){
+.service('FormTypesSvc', function($http, UtilsSvc, SharedUtilsSvc){
 
 	// Later try using the $resource service in ng-resource.js if you don't
 	// want to be macho-wacho and use the "raw" $http service...
@@ -8,7 +8,9 @@ angular.module('waldoApp')
 
 		console.log( sWho + "(): options = \"" + JSON.stringify( options ) + "\"...");
 
-		var url =  '/api/formTypes' + UtilsSvc.propertiesToQueryString(options);
+		//var url =  '/api/formTypes' + UtilsSvc.propertiesToQueryString(options);
+
+		var url =  SharedUtilsSvc.getUrlPrefix() + '/api/formTypes' + UtilsSvc.propertiesToQueryString(options);
 
 		console.log( sWho + "(): Returning $http.get( \"" + url + "\" )...");
 

@@ -293,7 +293,7 @@ csv_btn_img_src = "{{csv_btn_img_src}}"
 				<tbody>
 					<tr ng-cloak ng-repeat="filing in filings">
 						<!-- <td ng-repeat = "column in columns">{{filing[column.name]}}</td> -->
-						<td><a ng-href="/#/forms/{{filing.accession_number}}" title="View Filing Details">{{filing.accession_number}}</a><a ng-href="{{edgarFileNameToEdgarSecFilingPageUrl(filing.file_name)}}" title="View Filing at SEC" target="_blank"><img src="/images/www.sec.gov-favicon.gif" style="padding-left: 10px;"></a></td>
+						<td><a ng-href="/sec_forms/#/forms/{{filing.accession_number}}" title="View Form Details">{{filing.accession_number}}</a><a ng-href="{{edgarFileNameToEdgarSecFilingPageUrl(filing.file_name)}}" title="View Form at SEC" target="_blank"><img src="/sec_forms/images/www.sec.gov-favicon.gif" style="padding-left: 10px;"></a></td>
 						<td>{{filing.form_type}}</td>
 						<td>{{filing.date_filed | date:'yyyy-MM-dd'}}</td>
 						<td>{{filing.dn_company_conformed_name}}</td>
@@ -316,7 +316,7 @@ csv_btn_img_src = "{{csv_btn_img_src}}"
   </div><!-- class='container' -->
 
 
-  <script src="/nav.js"></script>
+  <script src="/sec_forms/nav.js"></script>
 
   <script>
 	$( ".datepicker" ).datepicker();

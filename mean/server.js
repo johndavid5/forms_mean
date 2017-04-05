@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var logger = require('./logger');
 var Config = require('./config'); // config parameters in config.js
 
+var sharedUtils = require('./ng/shared-utils.svc.js'); // stuff shared between Node Land and Angular Land...
+
 var app = express();
 
 var sWho = "server.js";
@@ -40,15 +42,29 @@ app.use(require('./no-cache'));
 
 // Mount the controllers, Escamillo...
 app.use('/api/forms', require('./controllers/api/forms'));
+// And mount for possible reverse-proxy prefix as well...
+if( sharedUtils.getUrlPrefix().length > 0 ){
+	app.use(sharedUtils.getUrlPrefix() + '/api/forms', require('./controllers/api/forms'));
+}
+
 app.use('/api/formTypes', require('./controllers/api/formTypes'));
+if( sharedUtils.getUrlPrefix().length > 0 ){
+	app.use(sharedUtils.getUrlPrefix() + '/api/formTypes', require('./controllers/api/formTypes'));
+}
+
 //app.use('/api/sessions', require('./controllers/api/sessions'));
 //app.use('/api/users', require('./controllers/api/users'));
 
 // And mount the static controller for static content...
 // In case we're coming in directly or via reverse proxy via /...
 app.use('/', require('./controllers/static'));
-// In case we're coming in via a reverse proxy via /sec_forms...
-app.use('/sec_forms', require('./controllers/static'));
+
+if( sharedUtils.getUrlPrefix().length > 0 ){
+	app.use(sharedUtils.getUrlPrefix() + "/", require('./controllers/static'));
+}
+// In case we're coming in for static content via a
+// reverse proxy via /sec_forms...
+// app.use('/sec_forms', require('./controllers/static'));
 
 var port = Config.port;
 

@@ -1,20 +1,20 @@
 angular.module('waldoApp')
-.service('ConfigSvc', function(UtilsSvc, $cookies){
+.service('ConfigSvc', function(UtilsSvc, SharedUtilsSvc, $cookies){
 	
 	this.MAX_ENTRIES_PER_PAGE = 1000;
 
-	this.MOUSE_OUT_CSV_BTN_IMG_SRC = "/images/csv.button.30x30.gif";
-	this.MOUSE_OVER_CSV_BTN_IMG_SRC = "/images/csv.button.gray.30x30.gif";
+	this.MOUSE_OUT_CSV_BTN_IMG_SRC = SharedUtilsSvc.getUrlPrefix() + "/images/csv.button.30x30.gif";
+	this.MOUSE_OVER_CSV_BTN_IMG_SRC = SharedUtilsSvc.getUrlPrefix() + "/images/csv.button.gray.30x30.gif";
 
-	this.CSV_IMG_SRC = "/images/csv.gif";
+	this.CSV_IMG_SRC = SharedUtilsSvc.getUrlPrefix() + "/images/csv.gif";
 
-	this.ARROW_UP_GRAY_BTN_IMG_SRC = "/images/arrow_up.40x34.gray.gif";
-	this.ARROW_UP_WHITE_BTN_IMG_SRC = "/images/arrow_up.40x34.white.gif";
+	this.ARROW_UP_GRAY_BTN_IMG_SRC = SharedUtilsSvc.getUrlPrefix() + "/images/arrow_up.40x34.gray.gif";
+	this.ARROW_UP_WHITE_BTN_IMG_SRC = SharedUtilsSvc.getUrlPrefix() + "/images/arrow_up.40x34.white.gif";
 
-	this.ARROW_DOWN_GRAY_BTN_IMG_SRC = "/images/arrow_down.40x34.gray.gif";
-	this.ARROW_DOWN_WHITE_BTN_IMG_SRC = "/images/arrow_down.40x34.white.gif";
+	this.ARROW_DOWN_GRAY_BTN_IMG_SRC = SharedUtilsSvc.getUrlPrefix() + "/images/arrow_down.40x34.gray.gif";
+	this.ARROW_DOWN_WHITE_BTN_IMG_SRC = SharedUtilsSvc.getUrlPrefix() + "/images/arrow_down.40x34.white.gif";
 
-	this.ARROW_TRANSPARENT_BTN_IMG_SRC = "/images/transparent.40x34.gif";
+	this.ARROW_TRANSPARENT_BTN_IMG_SRC = SharedUtilsSvc.getUrlPrefix() + "/images/transparent.40x34.gif";
 
 	// Automatically do a search when you go to a summary screen, before you hit the "Search" button...
 	this.AUTO_SEARCH = true;

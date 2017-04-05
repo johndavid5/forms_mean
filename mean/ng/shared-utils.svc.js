@@ -315,6 +315,14 @@ var SharedUtils = {
 	
 	}, /* edgarFileNameToEdgarSecFilingPageUrl() */
 
+	/* In case we're using nginx as a reverse proxy and
+	* prefixing everything with app name, for example,
+	* http://api/joe would become http://myapp/api/joe
+	*/
+	getUrlPrefix: function( ) {
+		return "/sec_forms";
+	},
+
 
 	debugPrint: function( s_msg ){
 		if( SharedUtils.debug ){
@@ -356,6 +364,7 @@ if( typeof window !== 'undefined' ){
 		this.getRangesForPage = SharedUtils.getRangesForPage;
 		this.ucFirstAllWords = SharedUtils.ucFirstAllWords;
 		this.edgarFileNameToEdgarSecFilingPageUrl = SharedUtils.edgarFileNameToEdgarSecFilingPageUrl;
+		this.getUrlPrefix = SharedUtils.getUrlPrefix;
 
 		/* Actually, you can do this in a for loop, Escamillo...
 		*  ...a crude member-by-member style of function inheritance, actually...

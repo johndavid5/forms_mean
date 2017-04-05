@@ -7,7 +7,8 @@ angular.module('waldoApp')
 
 	$scope.entities_id_filter = $routeParams.entities_id;
 
-	$scope.BASE_CSV_URL = "/api/forms?format=csv";
+	//$scope.BASE_CSV_URL = "/api/forms?format=csv";
+	$scope.BASE_CSV_URL = SharedUtilsSvc.getUrlPrefix() + "/api/forms?format=csv";
 
 	$scope.csv_url = $scope.BASE_CSV_URL;
 

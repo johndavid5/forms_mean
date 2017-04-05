@@ -1,23 +1,29 @@
 On branch master
 Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	modified:   layouts/app.html
+	modified:   server.js
+	modified:   status.txt
+	modified:   templates/forms.html
+
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git checkout -- <file>..." to discard changes in working directory)
 
-	modified:   controllers/api/forms.js
-	modified:   layouts/app.html
-	modified:   ng/forms-detail.ctrl.js
-	modified:   package.json
-	modified:   server.js
-	modified:   templates/forms.html
+	modified:   ng/config.svc.js
+	modified:   ng/formTypes.svc.js
+	modified:   ng/forms.ctrl.js
+	modified:   ng/forms.svc.js
+	modified:   ng/shared-utils.svc.js
+	modified:   ng/user.svc.js
+	modified:   status.txt
+	modified:   templates/forms-detail.html
 
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
 
-	gulpd.sh
 	install/
-	server.sh
-	status.sh
-	status.txt
+	todo.txt
 
-no changes added to commit (use "git add" and/or "git commit -a")

@@ -1,5 +1,5 @@
 angular.module('waldoApp')
-.service('UserSvc', function($http){
+.service('UserSvc', function($http, SharedUtilsSvc){
 
 	var svc = this;
 
@@ -11,7 +11,7 @@ angular.module('waldoApp')
 		// We'll include the "x-auth" header
 		// for everyone below when
 		// we set $http.default.headers()...
-		return $http.get('/api/users');
+		return $http.get(SharedUtilsSvc.getUrlPrefix() + '/api/users');
 	};
 
 	// Two Step Login Process:
@@ -22,7 +22,7 @@ angular.module('waldoApp')
 	//   logged-in user's information. 
 	//
 	svc.login = function(username, password){
-		return $http.post('/api/sessions', {
+		return $http.post(SharedUtilsSvc.getUrlPrefix() + '/api/sessions', {
 			username: username, password: password
 		}).then( function(val){
 			console.log("user.svc.js: Posted username = \"username\" with password to /api/sessions, got back val = " + JSON.stringify(val) + "...");

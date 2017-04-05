@@ -1,5 +1,5 @@
 angular.module('waldoApp')
-.service('FormsSvc', function($http, UtilsSvc){
+.service('FormsSvc', function($http, UtilsSvc, SharedUtilsSvc){
 
 	// Later try using the $resource service in ng-resource.js if you don't
 	// want to be macho-wacho and use the "raw" $http service...
@@ -17,7 +17,9 @@ angular.module('waldoApp')
 
 		console.log( sWho + "(): ourOptions = \"" + JSON.stringify( ourOptions ) + "\"...");
 
-		var url =  '/api/forms' + UtilsSvc.propertiesToQueryString(ourOptions);
+		//var url =  '/api/forms' + UtilsSvc.propertiesToQueryString(ourOptions);
+
+		var url =  SharedUtilsSvc.getUrlPrefix() + '/api/forms' + UtilsSvc.propertiesToQueryString(ourOptions);
 
 		console.log( sWho + "(): Returning $http.get( \"" + url + "\" )...");
 
@@ -39,7 +41,9 @@ angular.module('waldoApp')
 
 		console.log( sWho + "(): ourOptions = \"" + JSON.stringify( ourOptions ) + "\"...");
 
-		var url =  '/api/forms' + UtilsSvc.propertiesToQueryString(ourOptions);
+		//var url =  '/api/forms' + UtilsSvc.propertiesToQueryString(ourOptions);
+
+		var url =  SharedUtilsSvc.getUrlPrefix() + '/api/forms' + UtilsSvc.propertiesToQueryString(ourOptions);
 
 		console.log( sWho + "(): Returning $http.get( \"" + url + "\" )...");
 
@@ -59,7 +63,9 @@ angular.module('waldoApp')
 
 		console.log( sWho + "(): ourOptions = \"" + JSON.stringify( ourOptions ) + "\"...");
 
-		var url =  '/api/forms';
+		//var url =  '/api/forms';
+
+		var url =  SharedUtilsSvc.getUrlPrefix() + '/api/forms';
 
 		console.log( sWho + "(): Returning $http.post( url = \"" + url + "\", body = ", ourOptions, " )...");
 
@@ -75,7 +81,9 @@ angular.module('waldoApp')
 
 		console.log( sWho + "(): ourOptions = \"" + JSON.stringify( ourOptions ) + "\"...");
 
-		var url =  '/api/forms';
+		//var url =  '/api/forms';
+
+		var url =  SharedUtilsSvc.getUrlPrefix() + '/api/forms';
 
 		console.log( sWho + "(): Returning $http.post( url = \"" + url + "\", body = ", ourOptions, " )...");
 
