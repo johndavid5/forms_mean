@@ -382,7 +382,11 @@ function Form(){
 
 				console.log(sWho + "(): Calling collection.find(), query = ", query, "sort = ", sort, "skip=" + iSkip + ", limit=" + iLimit + "...");
 
-  				collection.find(query).sort(sort).skip(iSkip).limit(iLimit).toArray(function(err, items) {
+				var projection = {"_id": 1, "cik":1, "form_type": 1, "date_filed": 1, "file_name": 1, "accession_number" : 1,
+					"dn_company_central_index_key" : 1, "dn_company_conformed_name" : 1
+				};
+
+  				collection.find(query).project(projection).sort(sort).skip(iSkip).limit(iLimit).toArray(function(err, items) {
 
 					if( err ){
 						logger.error(sWho + "(): Trouble with count: \"" + err + "\"...");

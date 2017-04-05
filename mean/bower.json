@@ -1,5 +1,5 @@
 {
-  "name": "waldo",
+  "name": "sec_forms",
   "dependencies": {
     "angular": "~1.4.1",
     "angular-route": "~1.4.0",
@@ -13,6 +13,10 @@
     "angular-cookies": "~1.4.7"
   },
   "resolutions": {
-    "angular": "1.4.0"
+    "angular": "1.4.0",
+    "angular-bootstrap": "~2.1.4"
+  },
+  "devDependencies": {
+    "angular-bootstrap": "~2.1.4"
   }
 }
